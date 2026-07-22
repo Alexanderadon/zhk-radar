@@ -23,10 +23,10 @@ const ALMATY: [number, number] = [76.905, 43.238];
 
 export default function MapView({
   points, selectedId, onSelect, activeDistrict,
-  mode = 'complexes', aptMarket, aptRooms, showSold,
+  mode = 'complexes', aptMarket, aptRooms, showSold, aptPrice,
 }: {
   points: MapPoint[]; selectedId: number | null; onSelect: (id: number) => void; activeDistrict?: string | null;
-  mode?: 'complexes' | 'apartments'; aptMarket?: Set<string>; aptRooms?: Set<number>; showSold?: boolean;
+  mode?: 'complexes' | 'apartments'; aptMarket?: Set<string>; aptRooms?: Set<number>; showSold?: boolean; aptPrice?: { min: number; max: number } | null;
 }) {
   const container = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
@@ -136,6 +136,7 @@ export default function MapView({
     return all.filter((a) => {
       if (aptMarket && aptMarket.size && !aptMarket.has(a.market)) return false;
       if (aptRooms && aptRooms.size && !(a.rooms && aptRooms.has(Math.min(a.rooms, 4)))) return false;
+      if (aptPrice && !(a.price && a.price >= aptPrice.min && a.price < aptPrice.max)) return false;
       return true;
     });
   }
@@ -165,7 +166,7 @@ export default function MapView({
     }
   }
 
-  useEffect(() => { applyMode(); /* eslint-disable-next-line */ }, [mode, aptMarket, aptRooms, showSold]);
+  useEffect(() => { applyMode(); /* eslint-disable-next-line */ }, [mode, aptMarket, aptRooms, showSold, aptPrice]);
   useEffect(() => { const m = map.current; if (!m || !ready.current) return; const src = m.getSource('zhk') as maplibregl.GeoJSONSource | undefined; if (src) src.setData(toGeoJSON(points) as any); }, [points]);
   useEffect(() => { const m = map.current; if (!m || !ready.current) return; if (m.getLayer('district-fill')) m.setPaintProperty('district-fill', 'fill-opacity', ['case', ['==', ['get', 'name'], activeDistrict ?? '__none__'], 0.28, 0.1] as any); }, [activeDistrict]);
   useEffect(() => { const m = map.current; if (!m || !ready.current) return; m.setFilter('zhk-selected', ['==', ['get', 'id'], selectedId ?? -1]); if (selectedId != null) { const p = points.find((x) => x.id === selectedId); if (p) m.flyTo({ center: [p.lng, p.lat], zoom: Math.max(m.getZoom(), 13.5), speed: 0.8 }); } }, [selectedId, points]);

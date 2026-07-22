@@ -5,10 +5,11 @@
   padding: 12px 22px; border-bottom: 1px solid var(--border);
   background: var(--bg-elev); z-index: 5; flex-wrap: wrap;
 }
-.brand { display: flex; align-items: baseline; gap: 10px; }
-.logo { font-size: 19px; font-weight: 750; letter-spacing: -0.02em; }
+.brand { display: flex; align-items: center; gap: 11px; }
+.logoMark { width: 38px; height: 38px; border-radius: 11px; background: linear-gradient(140deg, #4a86f0, #1e56c8); display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 10px rgba(47,107,237,.32); flex-shrink: 0; }
+.logo { font-size: 18px; font-weight: 780; letter-spacing: -0.02em; line-height: 1.1; }
 .logo .radar { color: var(--accent); }
-.tagline { font-size: 13px; color: var(--text-dim); }
+.tagline { font-size: 12.5px; color: var(--text-dim); margin-top: 2px; }
 .headerSpacer { flex: 1; }
 .freshness { font-size: 12.5px; color: var(--text-faint); display: flex; align-items: center; gap: 7px; }
 .freshDot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); }

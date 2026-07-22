@@ -40,6 +40,12 @@ const STATUSES = [
   { key: 'construction', label: 'строится' },
   { key: 'project', label: 'проект' },
 ];
+const PRICES = [
+  { key: 'lt25', label: 'до 25 млн', min: 0, max: 25e6 },
+  { key: '25-50', label: '25–50 млн', min: 25e6, max: 50e6 },
+  { key: '50-100', label: '50–100 млн', min: 50e6, max: 100e6 },
+  { key: 'gt100', label: 'от 100 млн', min: 100e6, max: Infinity },
+];
 const DISTRICTS = [
   { name: 'Алмалинский', color: '#3498db' },
   { name: 'Ауэзовский', color: '#9b59b6' },
@@ -64,6 +70,8 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
   const [aptMarket, setAptMarket] = useState<Set<string>>(new Set());
   const [aptRooms, setAptRooms] = useState<Set<number>>(new Set());
   const [showSold, setShowSold] = useState(false);
+  const [priceRange, setPriceRange] = useState<string | null>(null);
+  const priceBucket = PRICES.find((p) => p.key === priceRange) || null;
   const [aptMeta, setAptMeta] = useState<{ updatedAt: string; total: number; primary: number; secondary: number; addedToday: number; soldToday: number; soldRecent: number } | null>(null);
   const toggleN = (set: Set<number>, v: number, upd: (s: Set<number>) => void) => { const n = new Set(set); n.has(v) ? n.delete(v) : n.add(v); upd(n); };
   useEffect(() => { if (mode === 'apartments' && !aptMeta) fetch('/listings-meta.json').then((r) => r.json()).then(setAptMeta).catch(() => {}); }, [mode, aptMeta]);
@@ -85,6 +93,7 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
       if (extra.has('parking') && !(z.parkingType === 'подземный' || z.parkingType === 'смешанный')) return false;
       if (extra.has('seismic') && !z.seismicResistance) return false;
       if (extra.has('real') && !z.real) return false;
+      if (priceBucket) { if (!z.priceMin || !(z.priceMin >= priceBucket.min && z.priceMin < priceBucket.max)) return false; }
       return true;
     });
     list = [...list].sort((a, b) => {
@@ -95,7 +104,7 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
       return 0;
     });
     return list;
-  }, [zhks, q, band, cls, status, district, extra, sort]);
+  }, [zhks, q, band, cls, status, district, extra, sort, priceBucket]);
 
   const points: MapPoint[] = useMemo(
     () => filtered.filter((z) => z.lat && z.lng).map((z) => ({
@@ -110,8 +119,17 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
     <div className={s.shell}>
       <header className={s.header}>
         <div className={s.brand}>
-          <div className={s.logo}>ЖК<span className={s.radar}>·Радар</span></div>
-          <div className={s.tagline}>Krisha показывает, что продаётся. Мы — стоит ли покупать.</div>
+          <div className={s.logoMark} aria-hidden>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z" fill="#fff" stroke="none" opacity="0.15" />
+              <path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z" />
+              <circle cx="12" cy="10" r="2.2" fill="#fff" stroke="none" />
+            </svg>
+          </div>
+          <div>
+            <div className={s.logo}>ЖК<span className={s.radar}>·Радар</span></div>
+            <div className={s.tagline}>Krisha показывает, что продаётся. Мы — стоит ли покупать.</div>
+          </div>
         </div>
         <div className={s.headerSpacer} />
         <Link href="/methodology" className={s.navlink}>Методология</Link>
@@ -128,6 +146,11 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
             <div className={s.modeToggle}>
               <button className={mode === 'complexes' ? s.modeActive : ''} onClick={() => setMode('complexes')}><Icon name="building" size={16} /> ЖК-комплексы</button>
               <button className={mode === 'apartments' ? s.modeActive : ''} onClick={() => setMode('apartments')}><Icon name="key" size={16} /> Квартиры</button>
+            </div>
+
+            <div className={s.filterGroup}>
+              <span className={s.fLabel}>Цена {mode === 'apartments' ? 'квартиры' : 'от'}</span>
+              {PRICES.map((p) => (<button key={p.key} className={`${s.pill} ${priceRange === p.key ? s.pillActive : ''}`} onClick={() => setPriceRange(priceRange === p.key ? null : p.key)}>{p.label}</button>))}
             </div>
 
             {mode === 'complexes' ? (
@@ -263,7 +286,7 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
               <div className={s.legendRow} style={{ marginTop: 4, borderTop: '1px solid var(--border-soft)', paddingTop: 8 }}><span className={s.legendDot} style={{ background: '#111827' }} /> ориентиры (ТРЦ, вокзалы)</div>
             </div>
           )}
-          <MapView points={points} selectedId={selected} onSelect={setSelected} activeDistrict={district} mode={mode} aptMarket={aptMarket} aptRooms={aptRooms} showSold={showSold} />
+          <MapView points={points} selectedId={selected} onSelect={setSelected} activeDistrict={district} mode={mode} aptMarket={aptMarket} aptRooms={aptRooms} showSold={showSold} aptPrice={priceBucket ? { min: priceBucket.min, max: priceBucket.max } : null} />
         </div>
       </div>
     </div>
