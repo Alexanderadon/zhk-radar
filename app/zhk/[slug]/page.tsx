@@ -3,10 +3,17 @@ import { notFound } from 'next/navigation';
 import { getAllZhk, getZhkBySlug } from '../../../lib/data';
 import { BAND_COLOR, BAND_LABEL, SCORE_NAME } from '../../../lib/score';
 import Gallery from '../../../components/Gallery';
+import Layouts from '../../../components/Layouts';
 import MiniMap from '../../../components/MiniMap';
 import s from './zhk.module.scss';
 
 export const dynamic = 'force-static';
+
+function marketArrow(v: string): string {
+  if (/дороже/i.test(v)) return '▲';
+  if (/дешевле/i.test(v)) return '▼';
+  return '≈';
+}
 
 export function generateStaticParams() {
   return getAllZhk().map((z) => ({ slug: z.slug.replace(/^\//, '') }));
@@ -20,6 +27,7 @@ export default async function ZhkPage({ params }: { params: Promise<{ slug: stri
   const { scoreResult: sr } = z;
   const color = BAND_COLOR[sr.band];
   const photos = z.photos && z.photos.length ? z.photos : z.image ? [z.image] : [];
+  const priceInd = sr.indicators.find((i) => i.key === 'price');
 
   const facts: [string, string | null, boolean][] = [
     ['Класс', z.classRu, false],
@@ -67,8 +75,19 @@ export default async function ZhkPage({ params }: { params: Promise<{ slug: stri
         </div>
 
         <aside className={s.buyPanel}>
-          <div className={s.price}>{z.priceSqm ? `${z.priceSqm.toLocaleString('ru-RU')} ₸/м²` : 'цена не указана'}</div>
-          {z.priceMin && <div className={s.priceSub}>от {(z.priceMin / 1_000_000).toLocaleString('ru-RU', { maximumFractionDigits: 1 })} млн ₸ за квартиру</div>}
+          {z.priceMin ? (
+            <>
+              <div className={s.priceTotal}>от {(z.priceMin / 1_000_000).toLocaleString('ru-RU', { maximumFractionDigits: 1 })} млн ₸</div>
+              {z.priceSqm && <div className={s.priceUnit}>{z.priceSqm.toLocaleString('ru-RU')} ₸/м² · за квартиру</div>}
+            </>
+          ) : (
+            <div className={s.priceTotal}>{z.priceSqm ? `${z.priceSqm.toLocaleString('ru-RU')} ₸/м²` : 'цена не указана'}</div>
+          )}
+          {priceInd && priceInd.score != null && (
+            <div className={s.marketBadge} style={{ color: BAND_COLOR[priceInd.band], background: `${BAND_COLOR[priceInd.band]}1a` }}>
+              {marketArrow(priceInd.value)} {priceInd.value.replace('медианы', `похожих ${z.classRu || ''}`.trim())}
+            </div>
+          )}
           <div className={s.priceWarn}>⚠ цена с витрины korter — маркетинг, не оценка</div>
           <div className={s.protect}>
             <div className={s.protectNum} style={{ color }}>{sr.score ?? '—'}</div>
@@ -131,10 +150,8 @@ export default async function ZhkPage({ params }: { params: Promise<{ slug: stri
       {z.layouts && z.layouts.length > 0 && (
         <section className={s.section}>
           <div className={s.sectionTitle}>Планировки</div>
-          <div className={s.sectionHint}>{z.layouts.length} вариантов квартир</div>
-          <div className={s.layoutGrid}>
-            {z.layouts.map((src) => <img key={src} className={s.layoutImg} src={src} alt="планировка" loading="lazy" />)}
-          </div>
+          <div className={s.sectionHint}>{z.layouts.length} вариантов квартир · нажмите, чтобы приблизить</div>
+          <Layouts layouts={z.layouts} />
         </section>
       )}
 

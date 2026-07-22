@@ -17,10 +17,11 @@
 .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
 .tag { font-size: 13px; padding: 5px 11px; border-radius: 8px; background: var(--panel-2); color: var(--text-dim); }
 
-.buyPanel { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; position: sticky; top: 68px; }
-.price { font-size: 27px; font-weight: 780; letter-spacing: -0.01em; }
-.priceSub { font-size: 13px; color: var(--text-dim); margin-top: 3px; }
-.priceWarn { font-size: 11.5px; color: var(--text-faint); margin-top: 8px; }
+.buyPanel { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; position: sticky; top: 68px; }
+.priceTotal { font-size: 32px; font-weight: 820; letter-spacing: -0.02em; line-height: 1.05; }
+.priceUnit { font-size: 14px; color: var(--text-dim); margin-top: 5px; font-weight: 600; }
+.marketBadge { display: inline-flex; align-items: center; gap: 6px; margin-top: 13px; padding: 6px 13px; border-radius: 100px; font-size: 13px; font-weight: 680; }
+.priceWarn { font-size: 11.5px; color: var(--text-faint); margin-top: 11px; }
 .protect { display: flex; align-items: center; gap: 12px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--border-soft); }
 .protectNum { font-size: 34px; font-weight: 800; line-height: 1; }
 .protectMeta { flex: 1; }
