@@ -45,29 +45,36 @@ export interface ZhkRaw {
 
 export type ParkingType = 'подземный' | 'наземный' | 'смешанный' | 'нет данных';
 
-export type FactorKey = 'guarantee' | 'track' | 'age' | 'stop' | 'courts' | 'reviews';
+export type Band = 'green' | 'amber' | 'red' | 'grey';
 
-export interface ScoreFactor {
-  key: FactorKey;
-  label: string;
-  weight: number;
-  /** 0..1, or null = нет данных (grey, excluded from the score). */
-  value: number | null;
+/** One named dimension, each on its own 0–100 scale (gradation matters). */
+export interface Indicator {
+  key: 'money' | 'reliability' | 'seismic' | 'price';
+  name: string;
+  /** 0..100, or null = нет данных (grey). */
+  score: number | null;
+  band: Band;
+  /** short human interpretation of the value, e.g. "10 баллов", "на 18% дороже медианы". */
+  value: string;
   detail: string;
+  weight: number;
+  sourceType: 'первоисточник' | 'витрина';
   source: string | null;
   sourceUrl?: string | null;
-  /** 'первоисточник' = official/govt registry; 'витрина' = marketing aggregator. */
-  sourceType?: 'первоисточник' | 'витрина';
-  /** true = this factor lowers the score (a risk flag). */
-  negative?: boolean;
 }
 
 export interface ScoreResult {
-  /** 0..100, or null when data completeness is too low to be meaningful. */
+  /** overall headline 0..100 (weighted mean of available indicators), or null. */
   score: number | null;
-  band: 'green' | 'amber' | 'red' | 'grey';
+  band: Band;
   completeness: number; // 0..1 — share of total weight that had data
-  factors: ScoreFactor[];
+  indicators: Indicator[];
+}
+
+export interface ScoreContext {
+  /** median price/m² by classRu across the catalog, for the price indicator. */
+  classMedian: Record<string, number>;
+  overallMedian: number;
 }
 
 export interface DeveloperStats {

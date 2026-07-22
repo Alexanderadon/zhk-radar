@@ -1,6 +1,6 @@
 import { readFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
-import type { Zhk, ZhkRaw, ParkingType, DeveloperStats, GuaranteeMatch } from './types';
+import type { Zhk, ZhkRaw, ParkingType, DeveloperStats, GuaranteeMatch, ScoreContext } from './types';
 import { scoreZhk } from './score';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
@@ -82,6 +82,27 @@ const normObj = (s: string) =>
 const normDev = (s: string) =>
   s.toLowerCase().replace(/[«»"'`.]/g, '').replace(/\b(тоо|ао|ип|оао|зао)\b/g, '').replace(/\s+/g, ' ').trim();
 
+function median(arr: number[]): number {
+  if (!arr.length) return 0;
+  const s = [...arr].sort((a, b) => a - b);
+  const m = Math.floor(s.length / 2);
+  return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
+}
+
+function computeContext(list: ZhkRaw[]): ScoreContext {
+  const byClass: Record<string, number[]> = {};
+  const all: number[] = [];
+  for (const z of list) {
+    if (!z.priceSqm) continue;
+    all.push(z.priceSqm);
+    const c = z.classRu || '—';
+    (byClass[c] ||= []).push(z.priceSqm);
+  }
+  const classMedian: Record<string, number> = {};
+  for (const c of Object.keys(byClass)) classMedian[c] = median(byClass[c]);
+  return { classMedian, overallMedian: median(all) };
+}
+
 let _cache: Zhk[] | null = null;
 
 export function getAllZhk(): Zhk[] {
@@ -89,6 +110,7 @@ export function getAllZhk(): Zhk[] {
   const raw = loadRaw();
   const guarantees = loadGuarantees();
   const stats = computeDeveloperStats(raw);
+  const ctx = computeContext(raw);
 
   _cache = raw.map((z) => {
     const developerStats = z.developer ? stats.get(z.developer.id) ?? null : null;
@@ -98,7 +120,7 @@ export function getAllZhk(): Zhk[] {
       guarantees[`obj:${normObj(z.name)}`] ??
       (z.developer ? guarantees[`dev:${normDev(z.developer.name)}`] : undefined) ??
       null;
-    const scoreResult = scoreZhk(z, developerStats, g);
+    const scoreResult = scoreZhk(z, developerStats, g, ctx);
     const constructionStatusRu = (z.constructionStatus && STATUS_RU[z.constructionStatus]) || z.constructionStatusRu;
     return { ...z, constructionStatusRu, parkingType: parkingType(z.parking), developerStats, guarantee: g, scoreResult };
   });

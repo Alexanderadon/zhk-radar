@@ -85,44 +85,46 @@ export default async function ZhkPage({ params }: { params: Promise<{ slug: stri
             </div>
             <div className={s.dialBand} style={{ color }}>{BAND_LABEL[sr.band]}</div>
             <div className={s.completeness}>
-              Данными закрыто {Math.round(sr.completeness * 100)}% веса методики.<br />Остальное — серые факторы ниже.
+Данными закрыто {Math.round(sr.completeness * 100)}% веса.<br />Серые индикаторы ниже — пока без данных.
             </div>
           </div>
 
           <div className={s.factors}>
-            {sr.factors.map((f) => (
-              <div key={f.key} className={s.factor}>
-                <div className={s.factorHead}>
-                  <span className={s.factorName}>{f.label}</span>
-                  <span className={s.factorWeight}>вес {f.weight}</span>
-                  {f.sourceType && (
+            {sr.indicators.map((ind) => {
+              const c = BAND_COLOR[ind.band];
+              return (
+                <div key={ind.key} className={s.factor}>
+                  <div className={s.factorHead}>
+                    <span className={s.factorName}>{ind.name}</span>
+                    <span className={s.factorWeight}>вес {ind.weight}</span>
                     <span
                       className={s.factorWeight}
                       style={{
-                        color: f.sourceType === 'первоисточник' ? 'var(--green)' : 'var(--amber)',
-                        background: f.sourceType === 'первоисточник' ? 'rgba(46,204,113,0.1)' : 'rgba(241,196,15,0.1)',
+                        color: ind.sourceType === 'первоисточник' ? 'var(--green)' : 'var(--amber)',
+                        background: ind.sourceType === 'первоисточник' ? 'rgba(46,204,113,0.1)' : 'rgba(241,196,15,0.1)',
                       }}
-                      title={f.sourceType === 'первоисточник' ? 'Государственный / официальный реестр' : 'Данные агрегатора-витрины (маркетинг застройщика)'}
+                      title={ind.sourceType === 'первоисточник' ? 'Государственный / официальный реестр' : 'Данные агрегатора-витрины (маркетинг застройщика)'}
                     >
-                      {f.sourceType}
+                      {ind.sourceType}
                     </span>
-                  )}
-                  <div className={s.factorSpacer} />
-                  <span className={s.factorVal} style={{ color: f.value == null ? 'var(--grey)' : f.negative ? 'var(--red)' : 'var(--text)' }}>
-                    {f.value == null ? 'нет данных' : `${Math.round(f.value * 100)}/100`}
-                  </span>
-                </div>
-                <div className={s.bar}>
-                  {f.value == null ? <div className={s.barGrey} /> : <div className={s.barFill} style={{ width: `${f.value * 100}%`, background: f.negative ? 'var(--red)' : color }} />}
-                </div>
-                <div className={s.factorDetail}>{f.detail}</div>
-                {f.source && (
-                  <div className={s.factorSource}>
-                    Источник: {f.sourceUrl ? <a href={f.sourceUrl} target="_blank" rel="noopener noreferrer">{f.source} ↗</a> : f.source}
+                    <div className={s.factorSpacer} />
+                    <span className={s.factorVal} style={{ color: c, fontVariantNumeric: 'tabular-nums' }}>
+                      {ind.score == null ? '—' : `${ind.score}`}<span style={{ color: 'var(--text-faint)', fontWeight: 500 }}>/100</span>
+                    </span>
                   </div>
-                )}
-              </div>
-            ))}
+                  <div className={s.bar}>
+                    {ind.score == null ? <div className={s.barGrey} /> : <div className={s.barFill} style={{ width: `${ind.score}%`, background: c }} />}
+                  </div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: c, marginBottom: 5 }}>{ind.value}</div>
+                  <div className={s.factorDetail}>{ind.detail}</div>
+                  {ind.source && (
+                    <div className={s.factorSource}>
+                      Источник: {ind.sourceUrl ? <a href={ind.sourceUrl} target="_blank" rel="noopener noreferrer">{ind.source} ↗</a> : ind.source}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

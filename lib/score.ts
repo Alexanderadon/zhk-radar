@@ -1,117 +1,106 @@
-import type { Zhk, ZhkRaw, DeveloperStats, GuaranteeMatch, ScoreFactor, ScoreResult } from './types';
+import type { ZhkRaw, DeveloperStats, GuaranteeMatch, Indicator, ScoreResult, ScoreContext, Band } from './types';
 
 /**
- * Transparent risk score. Weights come from PLAN.md §3 (post-Phase-0 re-tune).
- * Every factor is either a real 0..1 value from a cited source, or `null` = нет данных.
- * The score is the weighted average over factors THAT HAVE DATA, renormalized to 0..100.
- * We never invent a value: missing sources are grey, not zero.
+ * Four named indicators, each on its own 0–100 scale (gradation: worse ↔ better).
+ * The headline "Индекс защиты покупателя" is the weighted mean of the indicators that
+ * have data. Missing data → grey, never zero (we don't invent). Every indicator cites
+ * its source and is tagged первоисточник (govt registry) or витрина (aggregator).
  */
-export const WEIGHTS: Record<string, number> = {
-  guarantee: 29,
-  track: 23,
-  age: 15,
-  stop: 12,
-  courts: 11,
-  reviews: 10,
+export const INDICATOR_WEIGHTS: Record<Indicator['key'], number> = {
+  money: 35,
+  reliability: 30,
+  seismic: 20,
+  price: 15,
 };
 
-const clamp01 = (n: number) => Math.max(0, Math.min(1, n));
+const clamp = (n: number, lo = 0, hi = 100) => Math.max(lo, Math.min(hi, n));
+const bandOf = (score: number | null): Band =>
+  score == null ? 'grey' : score >= 70 ? 'green' : score >= 40 ? 'amber' : 'red';
 
-function guaranteeFactor(g: GuaranteeMatch | null): Pick<ScoreFactor, 'value' | 'detail' | 'source' | 'sourceUrl' | 'negative'> {
-  const source = 'Реестр КФГЖС (khc.kz)';
-  const sourceUrl = 'https://khc.kz/ru/equity/uslugi/357/3260/';
-  if (!g || !g.status) {
-    return { value: null, detail: 'Не найден в реестре гарантий долевого участия. Это слабый сигнал: гарантия КЖК — лишь 1 из 3 легальных путей привлечения средств, отсутствие ≠ риск.', source, sourceUrl };
-  }
-  if (g.status === 'guarantee-case') {
-    return { value: 0.08, detail: `«Гарантийный случай» в реестре КФГЖС${g.contract ? ` (договор ${g.contract})` : ''} — застройщик не исполнил обязательства, сработала гарантия. Сильный негативный сигнал.`, source, sourceUrl, negative: true };
-  }
-  if (g.status === 'completed') {
-    return { value: 0.85, detail: `Объект завершён под гарантией КФГЖС${g.object ? ` («${g.object}»)` : ''} — застройщик уже доводил стройку до сдачи по договору гарантии.`, source, sourceUrl };
-  }
-  return { value: 1, detail: `Действующий договор гарантии КФГЖС${g.contract ? ` (${g.contract})` : ''} — средства дольщиков под государственной гарантией.`, source, sourceUrl };
-}
-
-function trackFactor(s: DeveloperStats | null): Pick<ScoreFactor, 'value' | 'detail' | 'source' | 'sourceUrl' | 'negative'> {
-  const source = 'Портфель застройщика (korter.kz)';
-  if (!s || s.total === 0) {
-    return { value: null, detail: 'Нет данных о портфеле застройщика.', source };
-  }
-  const sizeBonus = Math.min(s.total, 8) / 8; // more projects = more track to judge
-  let value = 0.30 + 0.45 * s.deliveredRatio + 0.10 * sizeBonus;
-  let negative = false;
-  if (s.suspended > 0) { value -= 0.30 * (s.suspended / s.total); negative = true; }
-  value = clamp01(value);
-  const parts = [`${s.total} ЖК в портфеле`, `сдано ${s.ready}`, `строится ${s.construction}`];
-  if (s.suspended) parts.push(`приостановлено ${s.suspended}`);
-  return {
-    value,
-    detail: `${parts.join(', ')}. Доля сданных ${(s.deliveredRatio * 100).toFixed(0)}%.${s.suspended ? ' Есть приостановленные проекты — штраф к скору.' : ''}`,
-    source,
-    negative,
+function moneyIndicator(zhk: ZhkRaw, g: GuaranteeMatch | null): Indicator {
+  const base = {
+    key: 'money' as const, name: 'Защита денег дольщика', weight: INDICATOR_WEIGHTS.money,
+    sourceType: 'первоисточник' as const, source: 'Реестр КФГЖС (khc.kz)',
+    sourceUrl: 'https://khc.kz/ru/equity/uslugi/357/3260/',
   };
+  if (zhk.constructionStatus === 'suspended')
+    return { ...base, score: 5, band: 'red', value: 'стройка приостановлена', detail: 'Объект помечен как приостановленный — деньги под риском.' };
+  if (g?.status === 'guarantee-case')
+    return { ...base, score: 6, band: 'red', value: 'гарантийный случай', detail: `Сработала госгарантия КФГЖС${g.contract ? ` (${g.contract})` : ''}: застройщик не исполнил обязательства.` };
+  if (g?.status === 'active')
+    return { ...base, score: 100, band: 'green', value: 'действующая гарантия', detail: `Действующий договор гарантии КФГЖС${g.contract ? ` (${g.contract})` : ''} — деньги под госгарантией.` };
+  if (g?.status === 'completed')
+    return { ...base, score: 85, band: 'green', value: 'сдан под гарантией', detail: 'Застройщик уже доводил стройку до сдачи по договору госгарантии.' };
+  return { ...base, score: null, band: 'grey', value: 'нет данных', detail: 'Не найден в реестре гарантий КФГЖС. Слабый сигнал: гарантия — 1 из 3 легальных путей, отсутствие ≠ риск. Реестр не сцеплён с каталогом по имени (нужен homeportal.kz).' };
 }
 
-function stopFactor(zhk: ZhkRaw, g: GuaranteeMatch | null): Pick<ScoreFactor, 'value' | 'detail' | 'source' | 'sourceUrl' | 'negative'> {
-  const source = 'Статус стройки (korter) + гарант-случаи КФГЖС';
-  if (zhk.constructionStatus === 'suspended') {
-    return { value: 0.05, detail: 'Стройка помечена как приостановленная.', source, negative: true };
-  }
-  if (g?.status === 'guarantee-case') {
-    return { value: 0.05, detail: 'Сработал гарантийный случай КФГЖС — фактическая остановка исполнения.', source, negative: true };
-  }
-  // No authoritative named problem-list for Almaty (Phase 0). Absence of a flag is NOT proof of safety → grey.
-  return { value: null, detail: 'Официальных признаков остановки не зафиксировано. По правилу проекта отсутствие флага ≠ гарантия (нет единого поимённого реестра проблемных ЖК Алматы).', source };
+function reliabilityIndicator(s: DeveloperStats | null): Indicator {
+  const base = {
+    key: 'reliability' as const, name: 'Надёжность застройщика', weight: INDICATOR_WEIGHTS.reliability,
+    sourceType: 'витрина' as const, source: 'Портфель на korter.kz',
+  };
+  if (!s || s.total === 0) return { ...base, score: null, band: 'grey', value: 'нет данных', detail: 'Нет данных о портфеле застройщика.' };
+  const sizeBonus = Math.min(s.total, 8) / 8;
+  let score = 30 + 45 * s.deliveredRatio + 10 * sizeBonus;
+  if (s.suspended > 0) score -= 30 * (s.suspended / s.total);
+  score = Math.round(clamp(score));
+  const parts = [`${s.total} ЖК`, `сдано ${s.ready}`, `строится ${s.construction}`];
+  if (s.suspended) parts.push(`приостановлено ${s.suspended}`);
+  return { ...base, score, band: bandOf(score), value: `${Math.round(s.deliveredRatio * 100)}% сдано`, detail: `${parts.join(', ')}. Пока из каталога-витрины — заменяется на завершённый реестр КЖК (первоисточник) + суды по БИН.` };
 }
 
-const GREY = (label: string, note: string): Pick<ScoreFactor, 'value' | 'detail' | 'source'> => ({ value: null, detail: note, source: null });
+function seismicIndicator(zhk: ZhkRaw): Indicator {
+  const base = {
+    key: 'seismic' as const, name: 'Сейсмобезопасность', weight: INDICATOR_WEIGHTS.seismic,
+    sourceType: 'витрина' as const, source: 'Проектная декларация (через korter)',
+  };
+  const b = zhk.seismicResistance;
+  if (!b) return { ...base, score: null, band: 'grey', value: 'не раскрыта', detail: 'Застройщик не раскрыл проектную сейсмостойкость. Алматы — зона 9–10 баллов; отсутствие цифры — минус к прозрачности.' };
+  const map: Record<number, number> = { 10: 100, 9: 78, 8: 50, 7: 30 };
+  const score = map[b] ?? (b > 10 ? 100 : 15);
+  return { ...base, score, band: bandOf(score), value: `${b} баллов`, detail: `Проектная сейсмостойкость ${b} баллов. Для Алматы (зона 9–10) норма — 9–10; ${b >= 9 ? 'соответствует зоне' : 'ниже нормы зоны'}.` };
+}
 
-export function scoreZhk(zhk: ZhkRaw, stats: DeveloperStats | null, guarantee: GuaranteeMatch | null): ScoreResult {
-  const g = guaranteeFactor(guarantee);
-  const t = trackFactor(stats);
-  const st = stopFactor(zhk, guarantee);
+function priceIndicator(zhk: ZhkRaw, ctx: ScoreContext): Indicator {
+  const base = {
+    key: 'price' as const, name: 'Цена vs рынок', weight: INDICATOR_WEIGHTS.price,
+    sourceType: 'витрина' as const, source: 'Медиана каталога по классу (korter)',
+  };
+  const median = (zhk.classRu && ctx.classMedian[zhk.classRu]) || ctx.overallMedian;
+  if (!zhk.priceSqm || !median) return { ...base, score: null, band: 'grey', value: 'нет цены', detail: 'Цена не указана — сравнить с рынком нельзя.' };
+  const ratio = zhk.priceSqm / median;
+  const score = Math.round(clamp(60 - (ratio - 1) * 130));
+  const diff = Math.round((ratio - 1) * 100);
+  const label = diff > 3 ? `на ${diff}% дороже медианы` : diff < -3 ? `на ${-diff}% дешевле медианы` : 'на уровне медианы';
+  return { ...base, score, band: bandOf(score), value: label, detail: `${zhk.priceSqm.toLocaleString('ru-RU')} ₸/м² против медианы класса «${zhk.classRu || '—'}» ${Math.round(median).toLocaleString('ru-RU')} ₸/м². Сравнение внутри каталога — заменяется на медиану stat.gov (первоисточник).` };
+}
 
-  const factors: ScoreFactor[] = [
-    { key: 'guarantee', label: 'Гарантия долевого участия', weight: WEIGHTS.guarantee, sourceType: 'первоисточник', ...g },
-    { key: 'track', label: 'Трек застройщика', weight: WEIGHTS.track, sourceType: 'витрина', ...t },
-    { key: 'age', label: 'Возраст компании', weight: WEIGHTS.age, sourceType: 'первоисточник', ...GREY('Возраст компании', 'Нужен БИН застройщика (кодирует дату регистрации) — госисточник, не подключён в этой сборке.') },
-    { key: 'stop', label: 'Признаки остановки стройки', weight: WEIGHTS.stop, sourceType: 'первоисточник', ...st },
-    { key: 'courts', label: 'Судебные иски', weight: WEIGHTS.courts, sourceType: 'первоисточник', ...GREY('Суды', 'office.sud.kz за reCAPTCHA — требует ручной сессии с локальной машины (Фаза 1, спайк).') },
-    { key: 'reviews', label: 'Отзывы жильцов', weight: WEIGHTS.reviews, sourceType: 'витрина', ...GREY('Отзывы', 'Дайджест 2GIS подключается отдельным коллектором.') },
+export function scoreZhk(zhk: ZhkRaw, stats: DeveloperStats | null, guarantee: GuaranteeMatch | null, ctx: ScoreContext): ScoreResult {
+  const indicators: Indicator[] = [
+    moneyIndicator(zhk, guarantee),
+    reliabilityIndicator(stats),
+    seismicIndicator(zhk),
+    priceIndicator(zhk, ctx),
   ];
-
   let num = 0, den = 0;
-  for (const f of factors) {
-    if (f.value != null) { num += f.value * f.weight; den += f.weight; }
-  }
+  for (const ind of indicators) if (ind.score != null) { num += ind.score * ind.weight; den += ind.weight; }
   const completeness = den / 100;
-  let score: number | null = den > 0 ? Math.round((num / den) * 100) : null;
-  let band: ScoreResult['band'];
-  // If we know almost nothing, don't pretend we have a verdict.
+  let score: number | null = den > 0 ? Math.round(num / den) : null;
+  let band: Band;
   if (score == null || completeness < 0.15) { band = 'grey'; if (completeness < 0.15) score = null; }
-  else if (score >= 70) band = 'green';
-  else if (score >= 40) band = 'amber';
-  else band = 'red';
-
-  return { score, band, completeness, factors };
+  else band = bandOf(score);
+  return { score, band, completeness, indicators };
 }
 
-export const BAND_COLOR: Record<ScoreResult['band'], string> = {
-  green: '#2ecc71',
-  amber: '#f1c40f',
-  red: '#e74c3c',
-  grey: '#8a94a6',
+export const BAND_COLOR: Record<Band, string> = {
+  green: '#2ecc71', amber: '#f1c40f', red: '#e74c3c', grey: '#8a94a6',
 };
 
-// Metric renamed so its direction is obvious: higher = safer. Bands follow the same polarity.
-export const BAND_LABEL: Record<ScoreResult['band'], string> = {
-  green: 'Высокая защита',
-  amber: 'Средняя защита',
-  red: 'Низкая защита',
-  grey: 'Мало данных',
+// Higher = safer, so bands read as protection level.
+export const BAND_LABEL: Record<Band, string> = {
+  green: 'Высокая защита', amber: 'Средняя защита', red: 'Низкая защита', grey: 'Мало данных',
 };
 
-/** The metric's public name + one-sentence definition, shown everywhere it appears. */
 export const SCORE_NAME = 'Индекс защиты покупателя';
 export const SCORE_DEF =
-  '0–100 по открытым данным: выше — безопаснее купить. Складывается из защиты денег (гарантия КФГЖС), надёжности застройщика, сейсмики и др. — каждый фактор со ссылкой на источник.';
+  '0–100 по открытым данным: выше — безопаснее купить. Это средневзвешенное четырёх индикаторов ниже, у каждого своя шкала 0–100 (бывает хуже, бывает лучше) и ссылка на источник.';
