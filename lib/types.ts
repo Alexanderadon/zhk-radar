@@ -39,6 +39,9 @@ export interface ZhkRaw {
   apartments?: string | null;
   finishing?: string | null;
   completion?: string | null;
+  queues?: string[];
+  housesTotal?: number;
+  housesAvail?: number;
   seismicResistance?: number | null;
   photos?: string[];
   layouts?: string[];

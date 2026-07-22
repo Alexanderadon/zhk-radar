@@ -29,6 +29,7 @@ export default function Home() {
     developer: z.developer ? { name: z.developer.name, slug: z.developer.slug } : null,
     parkingType: z.parkingType,
     seismicResistance: z.seismicResistance ?? null,
+    finishing: z.finishing ?? null,
     image: z.image,
     band: z.scoreResult.band,
     score: z.scoreResult.score,

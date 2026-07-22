@@ -26,6 +26,7 @@ export interface HomeZhk {
   developer: { name: string; slug: string } | null;
   parkingType: string;
   seismicResistance: number | null;
+  finishing: string | null;
   image: string | null;
   band: 'green' | 'amber' | 'red' | 'grey';
   score: number | null;
@@ -39,6 +40,11 @@ const STATUSES = [
   { key: 'ready', label: 'сдан' },
   { key: 'construction', label: 'строится' },
   { key: 'project', label: 'проект' },
+];
+const FINISHINGS = [
+  { key: 'черновая', label: 'черновая', re: /чернов/i },
+  { key: 'предчистовая', label: 'предчистовая', re: /предчист/i },
+  { key: 'чистовая', label: 'чистовая', re: /(?<!пред)чистов/i },
 ];
 const PRICES = [
   { key: 'lt25', label: 'до 25 млн', min: 0, max: 25e6 },
@@ -72,6 +78,7 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
   const [showSold, setShowSold] = useState(false);
   const [priceRange, setPriceRange] = useState<string | null>(null);
   const priceBucket = PRICES.find((p) => p.key === priceRange) || null;
+  const [finishing, setFinishing] = useState<Set<string>>(new Set());
   const [aptMeta, setAptMeta] = useState<{ updatedAt: string; total: number; primary: number; secondary: number; addedToday: number; soldToday: number; soldRecent: number } | null>(null);
   const toggleN = (set: Set<number>, v: number, upd: (s: Set<number>) => void) => { const n = new Set(set); n.has(v) ? n.delete(v) : n.add(v); upd(n); };
   useEffect(() => { if (mode === 'apartments' && !aptMeta) fetch('/listings-meta.json').then((r) => r.json()).then(setAptMeta).catch(() => {}); }, [mode, aptMeta]);
@@ -94,6 +101,7 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
       if (extra.has('seismic') && !z.seismicResistance) return false;
       if (extra.has('real') && !z.real) return false;
       if (priceBucket) { if (!z.priceMin || !(z.priceMin >= priceBucket.min && z.priceMin < priceBucket.max)) return false; }
+      if (finishing.size && !(z.finishing && FINISHINGS.some((f) => finishing.has(f.key) && f.re.test(z.finishing!)))) return false;
       return true;
     });
     list = [...list].sort((a, b) => {
@@ -104,7 +112,7 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
       return 0;
     });
     return list;
-  }, [zhks, q, band, cls, status, district, extra, sort, priceBucket]);
+  }, [zhks, q, band, cls, status, district, extra, sort, priceBucket, finishing]);
 
   const points: MapPoint[] = useMemo(
     () => filtered.filter((z) => z.lat && z.lng).map((z) => ({
@@ -158,7 +166,7 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
               {DISTRICTS.map((d) => (
                 <button key={d.name} className={`${s.pill} ${district === d.name ? s.pillActive : ''}`} onClick={() => setDistrict(district === d.name ? null : d.name)}
                   style={district === d.name ? { background: d.color, borderColor: d.color, color: '#fff' } : { borderColor: d.color + '66' }}>
-                  <span style={{ color: district === d.name ? '#fff' : d.color }}>●</span> {d.name}
+                  {d.name}
                 </button>
               ))}
             </div>
@@ -174,14 +182,19 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
                 <div className={s.filterGroup}>
                   <span className={s.fLabel}>Защита покупателя</span>
                   {BANDS.map((b) => (
-                    <button key={b} className={`${s.pill} ${band.has(b) ? s.pillActive : ''}`} onClick={() => toggle(band, b, setBand)}>
-                      <span style={{ color: band.has(b) ? '#fff' : BAND_COLOR[b] }}>●</span> {BAND_LABEL[b]}
+                    <button key={b} className={`${s.pill} ${band.has(b) ? s.pillActive : ''}`} onClick={() => toggle(band, b, setBand)}
+                      style={band.has(b) ? undefined : { borderColor: BAND_COLOR[b] + '66' }}>
+                      {BAND_LABEL[b]}
                     </button>
                   ))}
                 </div>
                 <div className={s.filterGroup}>
                   <span className={s.fLabel}>Класс</span>
                   {CLASSES.map((c) => (<button key={c} className={`${s.pill} ${cls.has(c) ? s.pillActive : ''}`} onClick={() => toggle(cls, c, setCls)}>{c}</button>))}
+                </div>
+                <div className={s.filterGroup}>
+                  <span className={s.fLabel}>Отделка</span>
+                  {FINISHINGS.map((f) => (<button key={f.key} className={`${s.pill} ${finishing.has(f.key) ? s.pillActive : ''}`} onClick={() => toggle(finishing, f.key, setFinishing)}>{f.label}</button>))}
                 </div>
                 <div className={s.filterGroup}>
                   <span className={s.fLabel}>Статус · паркинг · сейсмо</span>
@@ -194,8 +207,8 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
               <>
                 <div className={s.filterGroup}>
                   <span className={s.fLabel}>Рынок</span>
-                  <button className={`${s.pill} ${aptMarket.has('primary') ? s.pillActive : ''}`} onClick={() => toggle(aptMarket, 'primary', setAptMarket)}><span style={{ color: aptMarket.has('primary') ? '#fff' : 'var(--green)' }}>●</span> первичка (новостройки)</button>
-                  <button className={`${s.pill} ${aptMarket.has('secondary') ? s.pillActive : ''}`} onClick={() => toggle(aptMarket, 'secondary', setAptMarket)}><span style={{ color: aptMarket.has('secondary') ? '#fff' : '#7b8aa0' }}>●</span> вторичка</button>
+                  <button className={`${s.pill} ${aptMarket.has('primary') ? s.pillActive : ''}`} onClick={() => toggle(aptMarket, 'primary', setAptMarket)} style={aptMarket.has('primary') ? undefined : { borderColor: '#16a34a66' }}>первичка (новостройки)</button>
+                  <button className={`${s.pill} ${aptMarket.has('secondary') ? s.pillActive : ''}`} onClick={() => toggle(aptMarket, 'secondary', setAptMarket)} style={aptMarket.has('secondary') ? undefined : { borderColor: '#6b8bb066' }}>вторичка</button>
                 </div>
                 <div className={s.filterGroup}>
                   <span className={s.fLabel}>Комнат</span>
@@ -203,7 +216,7 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
                 </div>
                 <div className={s.filterGroup}>
                   <span className={s.fLabel}>Статус продажи</span>
-                  <button className={`${s.pill} ${showSold ? s.pillActive : ''}`} onClick={() => setShowSold(!showSold)}><span style={{ color: showSold ? '#fff' : 'var(--red)' }}>●</span> недавно продано</button>
+                  <button className={`${s.pill} ${showSold ? s.pillActive : ''}`} onClick={() => setShowSold(!showSold)} style={showSold ? undefined : { borderColor: '#e0293f66' }}>недавно продано</button>
                 </div>
               </>
             )}
@@ -262,7 +275,7 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
                   </div>
                 )}
                 <b>Квартиры на карте — первичка и вторичка.</b><br />
-                Тёплые зоны = где больше предложений. Приблизь — появятся отдельные квартиры (зелёные — новостройки, синие — вторичка). Наведи: цена, комнаты, площадь. Клик → объявление на krisha. Чёрные метки — ориентиры (ТРЦ, вокзалы).
+                Синие кружки с числом = сколько предложений в этом месте. Нажми, чтобы приблизить — кластеры разбиваются на отдельные квартиры (зелёные — новостройки, синие — вторичка). Наведи: цена, комнаты, площадь. Клик по квартире → объявление на krisha. Чёрные метки — ориентиры (ТРЦ, вокзалы).
                 <div className={s.aptLegend}>
                   <span><span className={s.legendDot} style={{ background: '#2ecc71' }} /> первичка (новостройка)</span>
                   <span><span className={s.legendDot} style={{ background: '#7b8aa0' }} /> вторичка</span>
@@ -281,9 +294,9 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
             </div>
           ) : (
             <div className={s.legend}>
+              <div className={s.legendRow}><span className={s.legendDot} style={{ background: '#5f95e3' }} /> кластер — число предложений</div>
               <div className={s.legendRow}><span className={s.legendDot} style={{ background: '#16a34a' }} /> первичка (новостройка)</div>
               <div className={s.legendRow}><span className={s.legendDot} style={{ background: '#6b8bb0' }} /> вторичка</div>
-              <div className={s.legendRow}><span className={s.legendDot} style={{ background: 'linear-gradient(90deg,#60a5fa,#e0293f)' }} /> плотность предложений</div>
               <div className={s.legendRow} style={{ marginTop: 4, borderTop: '1px solid var(--border-soft)', paddingTop: 8 }}><span className={s.legendDot} style={{ background: '#111827' }} /> ориентиры (ТРЦ, вокзалы)</div>
             </div>
           )}

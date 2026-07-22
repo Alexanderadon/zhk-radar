@@ -81,7 +81,14 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#f1c40f"
+    "districtColor": "#f1c40f",
+    "queues": [
+      "ALA Town - 1",
+      "ALA Town - 2",
+      "ALA Town - 3"
+    ],
+    "housesTotal": 7,
+    "housesAvail": 7
   },
   {
     "id": 3286,
@@ -156,7 +163,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "housesTotal": 14,
+    "housesAvail": 14
   },
   {
     "id": 1496,
@@ -232,7 +241,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 3781,
@@ -285,7 +296,13 @@
       "https://storage.googleapis.com/bd-kz-01/buildings-v2/840x630/24702.jpg"
     ],
     "layouts": [],
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "housesTotal": 7,
+    "housesAvail": 7
   },
   {
     "id": 4222,
@@ -340,7 +357,15 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/208134.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/208142.jpg"
     ],
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "queues": [
+      "2 очередь",
+      "1 очередь",
+      "Luxe"
+    ],
+    "completion": "4 кв. 2026",
+    "housesTotal": 20,
+    "housesAvail": 20
   },
   {
     "id": 4003,
@@ -453,7 +478,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 2269,
@@ -509,7 +536,18 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/203596.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205576.jpg"
     ],
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "queues": [
+      "Пятно 4, 5, 6",
+      "2 очередь",
+      "3 очередь",
+      "4 очередь",
+      "1 очередь",
+      "5 очередь"
+    ],
+    "completion": "3 кв. 2026",
+    "housesTotal": 11,
+    "housesAvail": 11
   },
   {
     "id": 3662,
@@ -597,7 +635,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "housesTotal": 3,
+    "housesAvail": 3
   },
   {
     "id": 4179,
@@ -652,7 +692,13 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/203769.jpg"
     ],
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "queues": [
+      "ЖК Tamga Residence"
+    ],
+    "completion": "3 кв. 2026",
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 4172,
@@ -706,7 +752,13 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/203046.jpg"
     ],
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "queues": [
+      "ЖК Selin Residence"
+    ],
+    "completion": "4 кв. 2025",
+    "housesTotal": 2,
+    "housesAvail": 2
   },
   {
     "id": 4226,
@@ -762,7 +814,14 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207966.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207984.jpg"
     ],
-    "districtColor": "#f1c40f"
+    "districtColor": "#f1c40f",
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "completion": "4 кв. 2026",
+    "housesTotal": 26,
+    "housesAvail": 26
   },
   {
     "id": 4242,
@@ -819,7 +878,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207505.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207531.jpg"
     ],
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "queues": [
+      "1 очередь"
+    ],
+    "completion": "2 кв. 2026",
+    "housesTotal": 12,
+    "housesAvail": 12
   },
   {
     "id": 886,
@@ -927,7 +992,14 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "queues": [
+      "1 очередь",
+      "2 очередь",
+      "3 очередь"
+    ],
+    "housesTotal": 8,
+    "housesAvail": 8
   },
   {
     "id": 3809,
@@ -982,7 +1054,9 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/179674.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/179675.jpg"
     ],
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 1900,
@@ -1091,7 +1165,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#3498db"
+    "districtColor": "#3498db",
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 2890,
@@ -1169,7 +1245,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "housesTotal": 5,
+    "housesAvail": 5
   },
   {
     "id": 4108,
@@ -1225,7 +1303,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/193184.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/193198.jpg"
     ],
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "queues": [
+      "ЖК Бекхожина"
+    ],
+    "completion": "2 кв. 2026",
+    "housesTotal": 4,
+    "housesAvail": 4
   },
   {
     "id": 3070,
@@ -1332,7 +1416,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 2383,
@@ -1390,7 +1476,9 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/158966.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/134220.jpg"
     ],
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 1347,
@@ -1477,7 +1565,16 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "queues": [
+      "Пятна 1-4, 11",
+      "Пятно 13",
+      "Пятна 5, 15",
+      "Пятна 6, 7",
+      "Пятно 17"
+    ],
+    "housesTotal": 2,
+    "housesAvail": 2
   },
   {
     "id": 3151,
@@ -1579,7 +1676,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "housesTotal": 14,
+    "housesAvail": 14
   },
   {
     "id": 2277,
@@ -1640,7 +1739,10 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "completion": "3 кв. 2025",
+    "housesTotal": 6,
+    "housesAvail": 6
   },
   {
     "id": 935,
@@ -1747,7 +1849,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 537,
@@ -1855,7 +1959,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "housesTotal": 7,
+    "housesAvail": 7
   },
   {
     "id": 972,
@@ -1931,7 +2037,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "housesTotal": 2,
+    "housesAvail": 2
   },
   {
     "id": 2572,
@@ -1989,7 +2097,12 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/152777.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/152775.jpg"
     ],
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "queues": [
+      "Клубная резиденция Grande Vie"
+    ],
+    "housesTotal": 12,
+    "housesAvail": 12
   },
   {
     "id": 2770,
@@ -2097,7 +2210,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "housesTotal": 5,
+    "housesAvail": 5
   },
   {
     "id": 3112,
@@ -2153,7 +2268,12 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/180908.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/180913.jpg"
     ],
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "queues": [
+      "Клубный дом на Жамакаева"
+    ],
+    "housesTotal": 5,
+    "housesAvail": 5
   },
   {
     "id": 3128,
@@ -2212,7 +2332,9 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/123052.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/123061.jpg"
     ],
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "housesTotal": 6,
+    "housesAvail": 6
   },
   {
     "id": 2846,
@@ -2269,7 +2391,12 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/199900.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/199898.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/145169.jpg"
-    ]
+    ],
+    "queues": [
+      "Barn Ville"
+    ],
+    "housesTotal": 0,
+    "housesAvail": 0
   },
   {
     "id": 4343,
@@ -2323,7 +2450,13 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212011.jpg"
     ],
-    "districtColor": "#3498db"
+    "districtColor": "#3498db",
+    "queues": [
+      "1 очередь"
+    ],
+    "completion": "3 кв. 2026",
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 926,
@@ -2431,7 +2564,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "housesTotal": 3,
+    "housesAvail": 3
   },
   {
     "id": 2539,
@@ -2536,7 +2671,13 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "queues": [
+      "Esentai City Villas III (1-46)",
+      "Esentai City Villas IV"
+    ],
+    "housesTotal": 19,
+    "housesAvail": 0
   },
   {
     "id": 2245,
@@ -2619,7 +2760,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "housesTotal": 2,
+    "housesAvail": 2
   },
   {
     "id": 3945,
@@ -2675,7 +2818,14 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/203027.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/175402.jpg"
     ],
-    "districtColor": "#f1c40f"
+    "districtColor": "#f1c40f",
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "completion": "4 кв. 2025",
+    "housesTotal": 10,
+    "housesAvail": 10
   },
   {
     "id": 4030,
@@ -2738,7 +2888,14 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "completion": "1 кв. 2026",
+    "housesTotal": 2,
+    "housesAvail": 2
   },
   {
     "id": 2133,
@@ -2793,7 +2950,13 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/190646.jpg"
     ],
-    "districtColor": "#f1c40f"
+    "districtColor": "#f1c40f",
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "housesTotal": 7,
+    "housesAvail": 0
   },
   {
     "id": 2893,
@@ -2860,7 +3023,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#9b59b6"
+    "districtColor": "#9b59b6",
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 3223,
@@ -2926,7 +3091,12 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "queues": [
+      "ЖК Rams Garden"
+    ],
+    "housesTotal": 12,
+    "housesAvail": 12
   },
   {
     "id": 3719,
@@ -2983,7 +3153,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/176412.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/176401.jpg"
     ],
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "housesTotal": 4,
+    "housesAvail": 4
   },
   {
     "id": 1519,
@@ -3044,7 +3220,9 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/149110.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/149113.jpg"
     ],
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "housesTotal": 3,
+    "housesAvail": 3
   },
   {
     "id": 3230,
@@ -3101,7 +3279,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/180713.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/180700.jpg"
     ],
-    "districtColor": "#9b59b6"
+    "districtColor": "#9b59b6",
+    "queues": [
+      "ЖК Apple Residence"
+    ],
+    "completion": "4 кв. 2025",
+    "housesTotal": 4,
+    "housesAvail": 4
   },
   {
     "id": 1793,
@@ -3209,7 +3393,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 3664,
@@ -3267,7 +3453,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/175615.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/201217.jpg"
     ],
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "queues": [
+      "Клубный дом Verona"
+    ],
+    "completion": "2 кв. 2026",
+    "housesTotal": 8,
+    "housesAvail": 8
   },
   {
     "id": 3921,
@@ -3319,7 +3511,9 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/171748.jpg"
     ],
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "housesTotal": 2,
+    "housesAvail": 2
   },
   {
     "id": 518,
@@ -3373,7 +3567,16 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/88956.jpg"
-    ]
+    ],
+    "queues": [
+      "1 очередь",
+      "2 очередь",
+      "3 очередь",
+      "4 очередь",
+      "5 очередь"
+    ],
+    "housesTotal": 122,
+    "housesAvail": 0
   },
   {
     "id": 4114,
@@ -3430,7 +3633,14 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207079.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207081.jpg"
     ],
-    "districtColor": "#f1c40f"
+    "districtColor": "#f1c40f",
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "completion": "1 кв. 2027",
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 3972,
@@ -3492,7 +3702,14 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "completion": "3 кв. 2028",
+    "housesTotal": 8,
+    "housesAvail": 8
   },
   {
     "id": 4232,
@@ -3549,7 +3766,15 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207744.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207765.jpg"
     ],
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "queues": [
+      "Очередь А",
+      "Очередь В",
+      "Очередь C"
+    ],
+    "completion": "3 кв. 2026",
+    "housesTotal": 10,
+    "housesAvail": 10
   },
   {
     "id": 1709,
@@ -3658,7 +3883,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#3498db"
+    "districtColor": "#3498db",
+    "housesTotal": 4,
+    "housesAvail": 0
   },
   {
     "id": 4326,
@@ -3715,7 +3942,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/211921.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/211924.jpg"
     ],
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "queues": [
+      "1 очередь"
+    ],
+    "completion": "4 кв. 2026",
+    "housesTotal": 6,
+    "housesAvail": 0
   },
   {
     "id": 3211,
@@ -3771,7 +4004,17 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/211717.jpg"
     ],
-    "districtColor": "#f1c40f"
+    "districtColor": "#f1c40f",
+    "queues": [
+      "1 очередь",
+      "2 очередь",
+      "3 очередь",
+      "4 очередь",
+      "5 очередь"
+    ],
+    "completion": "3 кв. 2026",
+    "housesTotal": 30,
+    "housesAvail": 21
   },
   {
     "id": 4086,
@@ -3825,7 +4068,15 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/211227.jpg"
     ],
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "queues": [
+      "1 очередь",
+      "2 очередь",
+      "3 очередь"
+    ],
+    "completion": "1 кв. 2026",
+    "housesTotal": 8,
+    "housesAvail": 8
   },
   {
     "id": 2540,
@@ -3889,7 +4140,12 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "queues": [
+      "ЖК Belgravia"
+    ],
+    "housesTotal": 9,
+    "housesAvail": 9
   },
   {
     "id": 4214,
@@ -3948,7 +4204,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205532.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205509.jpg"
     ],
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "queues": [
+      "ЖК RIVIERA Plus"
+    ],
+    "completion": "4 кв. 2026",
+    "housesTotal": 8,
+    "housesAvail": 8
   },
   {
     "id": 2270,
@@ -4052,7 +4314,19 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#3498db"
+    "districtColor": "#3498db",
+    "queues": [
+      "Пятна 1, 2",
+      "Пятна 3, 4",
+      "Пятна 5, 6, 7",
+      "Пятна 8, 9, 10",
+      "Пятна 11, 12, 13",
+      "Пятна 14, 15, 16",
+      "Пятно 23"
+    ],
+    "completion": "3 кв. 2025",
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 2686,
@@ -4109,7 +4383,16 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/211440.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/175915.jpg"
     ],
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "queues": [
+      "1 очередь",
+      "2 очередь",
+      "3, 4 очередь",
+      "4 очередь"
+    ],
+    "completion": "2 кв. 2026",
+    "housesTotal": 18,
+    "housesAvail": 13
   },
   {
     "id": 4335,
@@ -4218,7 +4501,13 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#3498db"
+    "districtColor": "#3498db",
+    "queues": [
+      "Auezov City Pro"
+    ],
+    "completion": "1 кв. 2027",
+    "housesTotal": 6,
+    "housesAvail": 6
   },
   {
     "id": 4236,
@@ -4276,7 +4565,15 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207547.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207689.jpg"
     ],
-    "districtColor": "#e74c3c"
+    "districtColor": "#e74c3c",
+    "queues": [
+      "1 очередь",
+      "2 очередь",
+      "3 очередь"
+    ],
+    "completion": "3 кв. 2026",
+    "housesTotal": 9,
+    "housesAvail": 9
   },
   {
     "id": 3383,
@@ -4381,7 +4678,19 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#e67e22"
+    "districtColor": "#e67e22",
+    "queues": [
+      "Arena Park C",
+      "Arena Park Comfort 2",
+      "Arena Park Comfort 4",
+      "Arena Park E",
+      "Arena City Park A-B 1",
+      "Arena City Park A-B - 1",
+      "Arena City Park A-B 2"
+    ],
+    "completion": "4 кв. 2027",
+    "housesTotal": 6,
+    "housesAvail": 6
   },
   {
     "id": 4230,
@@ -4436,7 +4745,17 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/208613.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/208627.jpg"
     ],
-    "districtColor": "#f1c40f"
+    "districtColor": "#f1c40f",
+    "queues": [
+      "1 очередь",
+      "2 очередь",
+      "3 очередь",
+      "3 очередь BIG+Comfort",
+      "4 очередь"
+    ],
+    "completion": "1 кв. 2027",
+    "housesTotal": 25,
+    "housesAvail": 25
   },
   {
     "id": 4192,
@@ -4487,7 +4806,12 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/204648.jpg"
-    ]
+    ],
+    "queues": [
+      "1 очередь"
+    ],
+    "housesTotal": 39,
+    "housesAvail": 39
   },
   {
     "id": 1373,
@@ -4592,7 +4916,12 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "queues": [
+      "ЖК Silver Hills"
+    ],
+    "housesTotal": 12,
+    "housesAvail": 12
   },
   {
     "id": 2101,
@@ -4700,7 +5029,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#3498db"
+    "districtColor": "#3498db",
+    "housesTotal": 7,
+    "housesAvail": 7
   },
   {
     "id": 3806,
@@ -4758,7 +5089,15 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/213120.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/213124.jpg"
     ],
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "queues": [
+      "1 очередь",
+      "4 очередь",
+      "3 очередь",
+      "2 очередь"
+    ],
+    "housesTotal": 9,
+    "housesAvail": 9
   },
   {
     "id": 2647,
@@ -4821,7 +5160,14 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#e67e22"
+    "districtColor": "#e67e22",
+    "queues": [
+      "1 очередь",
+      "2 очередь",
+      "3 очередь"
+    ],
+    "housesTotal": 13,
+    "housesAvail": 13
   },
   {
     "id": 3793,
@@ -4905,7 +5251,15 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#e67e22"
+    "districtColor": "#e67e22",
+    "queues": [
+      "1 очередь",
+      "2 очередь",
+      "3 очередь"
+    ],
+    "completion": "2 кв. 2026",
+    "housesTotal": 21,
+    "housesAvail": 21
   },
   {
     "id": 2365,
@@ -4994,7 +5348,12 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "queues": [
+      "2 очередь"
+    ],
+    "housesTotal": 16,
+    "housesAvail": 16
   },
   {
     "id": 3659,
@@ -5102,7 +5461,12 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#f1c40f"
+    "districtColor": "#f1c40f",
+    "queues": [
+      "ЖК Kamenka Park"
+    ],
+    "housesTotal": 4,
+    "housesAvail": 4
   },
   {
     "id": 4231,
@@ -5159,7 +5523,15 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207885.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207881.jpg"
     ],
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "queues": [
+      "Очередь А",
+      "Очередь B",
+      "Очередь С"
+    ],
+    "completion": "3 кв. 2027",
+    "housesTotal": 21,
+    "housesAvail": 21
   },
   {
     "id": 4068,
@@ -5217,7 +5589,16 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/209397.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/210532.jpg"
     ],
-    "districtColor": "#e67e22"
+    "districtColor": "#e67e22",
+    "queues": [
+      "Arena City Life - A",
+      "Arena City Life - B",
+      "Arena City Life - B - BIG+ Comfort",
+      "Arena City Life - C"
+    ],
+    "completion": "2 кв. 2027",
+    "housesTotal": 11,
+    "housesAvail": 11
   },
   {
     "id": 3907,
@@ -5288,7 +5669,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#e74c3c"
+    "districtColor": "#e74c3c",
+    "housesTotal": 8,
+    "housesAvail": 8
   },
   {
     "id": 2844,
@@ -5348,7 +5731,13 @@
         "author": "didar -"
       }
     ],
-    "realPhotoSource": "2gis"
+    "realPhotoSource": "2gis",
+    "queues": [
+      "2 очередь",
+      "1 очередь"
+    ],
+    "housesTotal": 87,
+    "housesAvail": 87
   },
   {
     "id": 4024,
@@ -5403,7 +5792,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/206980.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/206991.jpg"
     ],
-    "districtColor": "#e67e22"
+    "districtColor": "#e67e22",
+    "queues": [
+      "1 очередь"
+    ],
+    "completion": "4 кв. 2026",
+    "housesTotal": 6,
+    "housesAvail": 6
   },
   {
     "id": 3786,
@@ -5464,7 +5859,9 @@
         "author": "Сергей Пасюков"
       }
     ],
-    "realPhotoSource": "2gis"
+    "realPhotoSource": "2gis",
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 3920,
@@ -5519,7 +5916,15 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207088.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212424.jpg"
     ],
-    "districtColor": "#f1c40f"
+    "districtColor": "#f1c40f",
+    "queues": [
+      "1 очередь",
+      "2 очередь",
+      "3 очередь"
+    ],
+    "completion": "1 кв. 2026",
+    "housesTotal": 2,
+    "housesAvail": 2
   },
   {
     "id": 4362,
@@ -5576,7 +5981,15 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212060.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212072.jpg"
     ],
-    "districtColor": "#e67e22"
+    "districtColor": "#e67e22",
+    "queues": [
+      "Arena City Balance - A",
+      "Arena City Balance - B",
+      "Arena City Balance - C"
+    ],
+    "completion": "3 кв. 2027",
+    "housesTotal": 29,
+    "housesAvail": 29
   },
   {
     "id": 4021,
@@ -5629,7 +6042,12 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/206914.jpg"
-    ]
+    ],
+    "queues": [
+      "1 очередь"
+    ],
+    "housesTotal": 36,
+    "housesAvail": 36
   },
   {
     "id": 4110,
@@ -5685,7 +6103,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/193852.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/193857.jpg"
     ],
-    "districtColor": "#e84393"
+    "districtColor": "#e84393",
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "housesTotal": 12,
+    "housesAvail": 12
   },
   {
     "id": 2840,
@@ -5739,7 +6163,12 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/119004.jpg"
     ],
-    "districtColor": "#f1c40f"
+    "districtColor": "#f1c40f",
+    "queues": [
+      "Таунхаусы Sunday Terrace"
+    ],
+    "housesTotal": 9,
+    "housesAvail": 9
   },
   {
     "id": 4051,
@@ -5796,7 +6225,19 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/202498.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/187023.jpg"
     ],
-    "districtColor": "#e67e22"
+    "districtColor": "#e67e22",
+    "queues": [
+      "Arena City. Sport А (стандарт)",
+      "Arena City. Sport В (комфорт)",
+      "Arena City. Sport C (комфорт)",
+      "Arena City. Sport D",
+      "Arena City. Sport E",
+      "Arena City. Sport F",
+      "Arena City Sport - G"
+    ],
+    "completion": "4 кв. 2026",
+    "housesTotal": 46,
+    "housesAvail": 46
   },
   {
     "id": 1739,
@@ -5904,7 +6345,14 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#e84393"
+    "districtColor": "#e84393",
+    "queues": [
+      "Parasat 2 (1 очередь)",
+      "Parasat 2 (2 очередь)",
+      "Parasat 2 (3 очередь)"
+    ],
+    "housesTotal": 7,
+    "housesAvail": 7
   },
   {
     "id": 4074,
@@ -5960,7 +6408,20 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/208359.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/208328.jpg"
     ],
-    "districtColor": "#e84393"
+    "districtColor": "#e84393",
+    "queues": [
+      "Очередь А",
+      "Очередь С",
+      "Очередь В",
+      "1 очередь",
+      "Очередь D",
+      "Очередь E",
+      "Очередь F",
+      "Очередь G"
+    ],
+    "completion": "4 кв. 2027",
+    "housesTotal": 39,
+    "housesAvail": 39
   },
   {
     "id": 2607,
@@ -6014,7 +6475,19 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/204652.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/204650.jpg"
     ],
-    "districtColor": "#e84393"
+    "districtColor": "#e84393",
+    "queues": [
+      "1 очередь",
+      "2 очередь",
+      "3 очередь",
+      "4 очередь",
+      "5 очередь",
+      "6 очередь",
+      "7 очередь"
+    ],
+    "completion": "4 кв. 2026",
+    "housesTotal": 8,
+    "housesAvail": 8
   },
   {
     "id": 328,
@@ -6072,7 +6545,9 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/107886.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/137736.jpg"
     ],
-    "districtColor": "#e67e22"
+    "districtColor": "#e67e22",
+    "housesTotal": 13,
+    "housesAvail": 13
   },
   {
     "id": 4042,
@@ -6143,7 +6618,14 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#e67e22"
+    "districtColor": "#e67e22",
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "completion": "1 кв. 2026",
+    "housesTotal": 9,
+    "housesAvail": 9
   },
   {
     "id": 4382,
@@ -6198,7 +6680,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212823.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212842.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212837.jpg"
-    ]
+    ],
+    "queues": [
+      "1 очередь"
+    ],
+    "completion": "1 кв. 2027",
+    "housesTotal": 2,
+    "housesAvail": 2
   },
   {
     "id": 4317,
@@ -6255,7 +6743,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212297.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212299.jpg"
     ],
-    "districtColor": "#e84393"
+    "districtColor": "#e84393",
+    "queues": [
+      "1 очередь"
+    ],
+    "completion": "4 кв. 2026",
+    "housesTotal": 5,
+    "housesAvail": 5
   },
   {
     "id": 3106,
@@ -6312,7 +6806,18 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/196686.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/196685.jpg"
     ],
-    "districtColor": "#e67e22"
+    "districtColor": "#e67e22",
+    "queues": [
+      "1 очередь",
+      "2 очередь",
+      "3 очередь",
+      "4 очередь",
+      "5 очередь",
+      "6 очередь"
+    ],
+    "completion": "1 кв. 2028",
+    "housesTotal": 2,
+    "housesAvail": 2
   },
   {
     "id": 3863,
@@ -6417,7 +6922,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "housesTotal": 4,
+    "housesAvail": 4
   },
   {
     "id": 4314,
@@ -6474,7 +6981,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207112.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207114.jpg"
     ],
-    "districtColor": "#e84393"
+    "districtColor": "#e84393",
+    "queues": [
+      "1 очередь"
+    ],
+    "completion": "3 кв. 2026",
+    "housesTotal": 4,
+    "housesAvail": 0
   },
   {
     "id": 3896,
@@ -6531,7 +7044,16 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207185.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/210232.jpg"
     ],
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "queues": [
+      "1 очередь",
+      "2 очередь",
+      "3 очередь",
+      "4 очередь"
+    ],
+    "completion": "3 кв. 2026",
+    "housesTotal": 12,
+    "housesAvail": 12
   },
   {
     "id": 3979,
@@ -6621,7 +7143,18 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#f1c40f"
+    "districtColor": "#f1c40f",
+    "queues": [
+      "2 очередь",
+      "4 очередь",
+      "3 очередь",
+      "1 очередь",
+      "5 очередь",
+      "6 очередь"
+    ],
+    "completion": "4 кв. 2026",
+    "housesTotal": 13,
+    "housesAvail": 13
   },
   {
     "id": 3817,
@@ -6678,7 +7211,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/163125.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/163123.jpg"
     ],
-    "districtColor": "#e67e22"
+    "districtColor": "#e67e22",
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "housesTotal": 8,
+    "housesAvail": 8
   },
   {
     "id": 4244,
@@ -6735,7 +7274,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205674.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205670.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212501.jpg"
-    ]
+    ],
+    "queues": [
+      "1 очередь"
+    ],
+    "completion": "4 кв. 2027",
+    "housesTotal": 7,
+    "housesAvail": 7
   },
   {
     "id": 3763,
@@ -6795,7 +7340,13 @@
         "author": "Di Girl"
       }
     ],
-    "realPhotoSource": "2gis"
+    "realPhotoSource": "2gis",
+    "queues": [
+      "1 очередь"
+    ],
+    "completion": "4 кв. 2025",
+    "housesTotal": 4,
+    "housesAvail": 4
   },
   {
     "id": 2379,
@@ -6901,7 +7452,10 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#e84393"
+    "districtColor": "#e84393",
+    "completion": "4 кв. 2025",
+    "housesTotal": 13,
+    "housesAvail": 13
   },
   {
     "id": 3253,
@@ -6969,7 +7523,12 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#3498db"
+    "districtColor": "#3498db",
+    "queues": [
+      "ЖК Millennium Park"
+    ],
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 2731,
@@ -7077,7 +7636,13 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#f1c40f"
+    "districtColor": "#f1c40f",
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "housesTotal": 5,
+    "housesAvail": 0
   },
   {
     "id": 4112,
@@ -7133,7 +7698,14 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/194154.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/194153.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/194152.jpg"
-    ]
+    ],
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "completion": "2 кв. 2026",
+    "housesTotal": 6,
+    "housesAvail": 3
   },
   {
     "id": 4218,
@@ -7190,7 +7762,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205534.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205535.jpg"
     ],
-    "districtColor": "#e84393"
+    "districtColor": "#e84393",
+    "queues": [
+      "1 очередь"
+    ],
+    "completion": "4 кв. 2027",
+    "housesTotal": 6,
+    "housesAvail": 6
   },
   {
     "id": 3744,
@@ -7294,7 +7872,13 @@
         "author": "Алмаатинка Коренная"
       }
     ],
-    "realPhotoSource": "2gis"
+    "realPhotoSource": "2gis",
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "housesTotal": 53,
+    "housesAvail": 0
   },
   {
     "id": 2772,
@@ -7349,7 +7933,14 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/192714.jpg"
     ],
-    "districtColor": "#e67e22"
+    "districtColor": "#e67e22",
+    "queues": [
+      "1 очередь",
+      "2 очередь",
+      "3 очередь"
+    ],
+    "housesTotal": 6,
+    "housesAvail": 0
   },
   {
     "id": 2740,
@@ -7413,7 +8004,16 @@
         "author": "Жадыра 🐱"
       }
     ],
-    "realPhotoSource": "2gis"
+    "realPhotoSource": "2gis",
+    "queues": [
+      "1-2 пятно",
+      "5-6 пятно",
+      "3-4 пятно",
+      "7-19 пятно"
+    ],
+    "completion": "1 кв. 2026",
+    "housesTotal": 16,
+    "housesAvail": 16
   },
   {
     "id": 3008,
@@ -7473,7 +8073,9 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/111212.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/154280.jpg"
     ],
-    "districtColor": "#f1c40f"
+    "districtColor": "#f1c40f",
+    "housesTotal": 4,
+    "housesAvail": 4
   },
   {
     "id": 4136,
@@ -7529,7 +8131,14 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/199323.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/199320.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/199318.jpg"
-    ]
+    ],
+    "queues": [
+      "1 очередь",
+      "2 очередь",
+      "3 очередь"
+    ],
+    "housesTotal": 6,
+    "housesAvail": 6
   },
   {
     "id": 3782,
@@ -7587,7 +8196,9 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/161877.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/161881.jpg"
     ],
-    "districtColor": "#e67e22"
+    "districtColor": "#e67e22",
+    "housesTotal": 15,
+    "housesAvail": 15
   },
   {
     "id": 4001,
@@ -7648,7 +8259,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#9b59b6"
+    "districtColor": "#9b59b6",
+    "housesTotal": 8,
+    "housesAvail": 8
   },
   {
     "id": 4162,
@@ -7701,7 +8314,14 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/203093.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/203095.jpg"
-    ]
+    ],
+    "queues": [
+      "ЖК Buta Mirai",
+      "2 очередь"
+    ],
+    "completion": "3 кв. 2026",
+    "housesTotal": 8,
+    "housesAvail": 8
   },
   {
     "id": 335,
@@ -7811,7 +8431,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#f1c40f"
+    "districtColor": "#f1c40f",
+    "housesTotal": 13,
+    "housesAvail": 13
   },
   {
     "id": 3730,
@@ -7867,7 +8489,9 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/163804.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/163814.jpg"
     ],
-    "districtColor": "#e67e22"
+    "districtColor": "#e67e22",
+    "housesTotal": 5,
+    "housesAvail": 5
   },
   {
     "id": 1744,
@@ -7975,7 +8599,13 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#e84393"
+    "districtColor": "#e84393",
+    "queues": [
+      "очереди A, B, C, D, E, F, G",
+      "очередь H"
+    ],
+    "housesTotal": 11,
+    "housesAvail": 11
   },
   {
     "id": 3813,
@@ -8028,7 +8658,13 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/163120.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/163122.jpg"
-    ]
+    ],
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "housesTotal": 26,
+    "housesAvail": 0
   },
   {
     "id": 3938,
@@ -8136,7 +8772,12 @@
         "author": "Томирис Қалел"
       }
     ],
-    "realPhotoSource": "2gis"
+    "realPhotoSource": "2gis",
+    "queues": [
+      "ЖК Samal"
+    ],
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 4032,
@@ -8245,7 +8886,15 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#e84393"
+    "districtColor": "#e84393",
+    "queues": [
+      "1 очередь",
+      "2 очередь",
+      "3 очередь"
+    ],
+    "completion": "4 кв. 2026",
+    "housesTotal": 21,
+    "housesAvail": 7
   },
   {
     "id": 4413,
@@ -8301,7 +8950,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/213108.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/213105.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/213104.jpg"
-    ]
+    ],
+    "queues": [
+      "1 очередь"
+    ],
+    "completion": "4 кв. 2026",
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 2493,
@@ -8409,7 +9064,17 @@
         "author": "Жансауле Абашовна"
       }
     ],
-    "realPhotoSource": "2gis"
+    "realPhotoSource": "2gis",
+    "queues": [
+      "1 очередь",
+      "2 очередь",
+      "3 очередь",
+      "4 очередь",
+      "Пятно 7"
+    ],
+    "completion": "4 кв. 2026",
+    "housesTotal": 0,
+    "housesAvail": 0
   },
   {
     "id": 3012,
@@ -8518,7 +9183,13 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#e67e22"
+    "districtColor": "#e67e22",
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "housesTotal": 7,
+    "housesAvail": 7
   },
   {
     "id": 1356,
@@ -8605,7 +9276,17 @@
         "author": "Павел Опанасенко"
       }
     ],
-    "realPhotoSource": "2gis"
+    "realPhotoSource": "2gis",
+    "queues": [
+      "1 очередь (1-2)",
+      "2 очередь (3-5)",
+      "3 очередь (8-9)",
+      "4 очередь (10-11)",
+      "5 очередь (6-7)",
+      "ЖК Аспан Сити 2.0"
+    ],
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 3323,
@@ -8699,7 +9380,13 @@
         "author": "Нұрсұлтан Смайлов"
       }
     ],
-    "realPhotoSource": "2gis"
+    "realPhotoSource": "2gis",
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "housesTotal": 2,
+    "housesAvail": 2
   },
   {
     "id": 4186,
@@ -8754,7 +9441,16 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/211088.jpg"
-    ]
+    ],
+    "queues": [
+      "1 очередь",
+      "2 очередь",
+      "3 очередь",
+      "4 очередь"
+    ],
+    "completion": "2 кв. 2026",
+    "housesTotal": 7,
+    "housesAvail": 7
   },
   {
     "id": 3634,
@@ -8861,7 +9557,14 @@
         "author": "Мариана Абдулинова"
       }
     ],
-    "realPhotoSource": "2gis"
+    "realPhotoSource": "2gis",
+    "queues": [
+      "1 очередь",
+      "2 очередь",
+      "3 очередь"
+    ],
+    "housesTotal": 16,
+    "housesAvail": 16
   },
   {
     "id": 2986,
@@ -8919,7 +9622,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/109167.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/109172.jpg"
     ],
-    "districtColor": "#e67e22"
+    "districtColor": "#e67e22",
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "housesTotal": 42,
+    "housesAvail": 42
   },
   {
     "id": 4272,
@@ -8974,7 +9683,12 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/209320.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/209318.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/209319.jpg"
-    ]
+    ],
+    "queues": [
+      "1 очередь"
+    ],
+    "housesTotal": 2,
+    "housesAvail": 2
   },
   {
     "id": 4345,
@@ -9029,7 +9743,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212732.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212734.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212733.jpg"
-    ]
+    ],
+    "queues": [
+      "1 очередь"
+    ],
+    "completion": "4 кв. 2026",
+    "housesTotal": 0,
+    "housesAvail": 0
   },
   {
     "id": 3937,
@@ -9092,7 +9812,9 @@
         "author": "Жанель Мухиткызы"
       }
     ],
-    "realPhotoSource": "2gis"
+    "realPhotoSource": "2gis",
+    "housesTotal": 2,
+    "housesAvail": 2
   },
   {
     "id": 4365,
@@ -9145,7 +9867,16 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/211133.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/211130.jpg"
-    ]
+    ],
+    "queues": [
+      "1 очередь",
+      "2 очередь",
+      "3 очередь",
+      "4 очередь"
+    ],
+    "completion": "3 кв. 2026",
+    "housesTotal": 3,
+    "housesAvail": 3
   },
   {
     "id": 3819,
@@ -9202,7 +9933,15 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/163268.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/163271.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/168680.jpg"
-    ]
+    ],
+    "queues": [
+      "Eltai",
+      "Блоки 4, 5",
+      "Блоки 6, 7"
+    ],
+    "completion": "2 кв. 2026",
+    "housesTotal": 11,
+    "housesAvail": 11
   },
   {
     "id": 2259,
@@ -9266,7 +10005,17 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#e74c3c"
+    "districtColor": "#e74c3c",
+    "queues": [
+      "1 очередь",
+      "2 очередь",
+      "3 очередь",
+      "4 очередь",
+      "5 очередь",
+      "6 очередь"
+    ],
+    "housesTotal": 9,
+    "housesAvail": 9
   },
   {
     "id": 3082,
@@ -9324,7 +10073,9 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/173561.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/173563.jpg"
     ],
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "housesTotal": 4,
+    "housesAvail": 4
   },
   {
     "id": 2351,
@@ -9401,7 +10152,13 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "housesTotal": 5,
+    "housesAvail": 5
   },
   {
     "id": 2802,
@@ -9458,7 +10215,9 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/109143.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/109146.jpg"
     ],
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "housesTotal": 2,
+    "housesAvail": 2
   },
   {
     "id": 506,
@@ -9552,7 +10311,15 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "queues": [
+      "2 очередь",
+      "1 очередь",
+      "3 очередь",
+      "4 очередь"
+    ],
+    "housesTotal": 13,
+    "housesAvail": 13
   },
   {
     "id": 448,
@@ -9606,7 +10373,16 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/187847.jpg"
-    ]
+    ],
+    "queues": [
+      "1 очередь",
+      "2 очередь",
+      "3 очередь",
+      "4 очередь",
+      "ЖК Южный"
+    ],
+    "housesTotal": 2,
+    "housesAvail": 2
   },
   {
     "id": 2042,
@@ -9716,7 +10492,15 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#f1c40f"
+    "districtColor": "#f1c40f",
+    "queues": [
+      "1.1 очередь",
+      "2 очередь (Green Center)",
+      "3 очередь",
+      "1.2 очередь"
+    ],
+    "housesTotal": 10,
+    "housesAvail": 10
   },
   {
     "id": 2817,
@@ -9821,7 +10605,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "housesTotal": 4,
+    "housesAvail": 4
   },
   {
     "id": 2294,
@@ -9875,7 +10661,9 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/89675.jpg"
     ],
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "housesTotal": 4,
+    "housesAvail": 4
   },
   {
     "id": 3284,
@@ -9985,7 +10773,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#f1c40f"
+    "districtColor": "#f1c40f",
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 2570,
@@ -10093,7 +10883,19 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#e67e22"
+    "districtColor": "#e67e22",
+    "queues": [
+      "1 очередь",
+      "2 очередь",
+      "3 очередь",
+      "4 очередь",
+      "5 очередь",
+      "6 очередь",
+      "7 очередь"
+    ],
+    "completion": "1 кв. 2026",
+    "housesTotal": 25,
+    "housesAvail": 25
   },
   {
     "id": 2557,
@@ -10149,7 +10951,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/183921.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/183922.jpg"
     ],
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "housesTotal": 11,
+    "housesAvail": 11
   },
   {
     "id": 2587,
@@ -10205,7 +11013,9 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/127217.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/127213.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/127214.jpg"
-    ]
+    ],
+    "housesTotal": 55,
+    "housesAvail": 55
   },
   {
     "id": 2626,
@@ -10262,7 +11072,9 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/180728.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/135819.jpg"
     ],
-    "districtColor": "#f1c40f"
+    "districtColor": "#f1c40f",
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 2648,
@@ -10370,7 +11182,13 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "housesTotal": 26,
+    "housesAvail": 26
   },
   {
     "id": 1344,
@@ -10452,7 +11270,12 @@
         "author": "балкадиша 💙"
       }
     ],
-    "realPhotoSource": "2gis"
+    "realPhotoSource": "2gis",
+    "queues": [
+      "Нурия 2.0"
+    ],
+    "housesTotal": 3,
+    "housesAvail": 3
   },
   {
     "id": 2678,
@@ -10507,7 +11330,9 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/118369.jpg"
     ],
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "housesTotal": 2,
+    "housesAvail": 2
   },
   {
     "id": 2837,
@@ -10565,7 +11390,9 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/104032.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/104030.jpg"
     ],
-    "districtColor": "#f1c40f"
+    "districtColor": "#f1c40f",
+    "housesTotal": 3,
+    "housesAvail": 3
   },
   {
     "id": 3118,
@@ -10636,7 +11463,12 @@
         "author": "Di Girl"
       }
     ],
-    "realPhotoSource": "2gis"
+    "realPhotoSource": "2gis",
+    "queues": [
+      "1 очередь"
+    ],
+    "housesTotal": 18,
+    "housesAvail": 18
   },
   {
     "id": 3132,
@@ -10744,7 +11576,13 @@
         "author": "Айгерим Бердимуратова"
       }
     ],
-    "realPhotoSource": "2gis"
+    "realPhotoSource": "2gis",
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "housesTotal": 6,
+    "housesAvail": 6
   },
   {
     "id": 3266,
@@ -10801,7 +11639,10 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/183349.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/163837.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/163831.jpg"
-    ]
+    ],
+    "completion": "3 кв. 2026",
+    "housesTotal": 2,
+    "housesAvail": 2
   },
   {
     "id": 3274,
@@ -10863,7 +11704,12 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#3498db"
+    "districtColor": "#3498db",
+    "queues": [
+      "1 очередь"
+    ],
+    "housesTotal": 3,
+    "housesAvail": 3
   },
   {
     "id": 3289,
@@ -10958,7 +11804,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "housesTotal": 3,
+    "housesAvail": 3
   },
   {
     "id": 3336,
@@ -11020,7 +11868,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#e67e22"
+    "districtColor": "#e67e22",
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 1754,
@@ -11125,7 +11975,13 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#3498db"
+    "districtColor": "#3498db",
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "housesTotal": 5,
+    "housesAvail": 5
   },
   {
     "id": 3400,
@@ -11180,7 +12036,9 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/140860.jpg"
     ],
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "housesTotal": 5,
+    "housesAvail": 5
   },
   {
     "id": 2791,
@@ -11287,7 +12145,10 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#3498db"
+    "districtColor": "#3498db",
+    "completion": "2 кв. 2021",
+    "housesTotal": 2,
+    "housesAvail": 2
   },
   {
     "id": 3422,
@@ -11339,7 +12200,9 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/163891.jpg"
-    ]
+    ],
+    "housesTotal": 13,
+    "housesAvail": 13
   },
   {
     "id": 3480,
@@ -11414,7 +12277,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 3540,
@@ -11474,7 +12339,12 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "queues": [
+      "Madeira Villas"
+    ],
+    "housesTotal": 4,
+    "housesAvail": 4
   },
   {
     "id": 3584,
@@ -11582,7 +12452,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#f1c40f"
+    "districtColor": "#f1c40f",
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 3616,
@@ -11660,7 +12532,9 @@
         "author": "Молдир Батырхановна"
       }
     ],
-    "realPhotoSource": "2gis"
+    "realPhotoSource": "2gis",
+    "housesTotal": 16,
+    "housesAvail": 16
   },
   {
     "id": 3651,
@@ -11753,7 +12627,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#f1c40f"
+    "districtColor": "#f1c40f",
+    "housesTotal": 3,
+    "housesAvail": 3
   },
   {
     "id": 3542,
@@ -11857,7 +12733,13 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#e84393"
+    "districtColor": "#e84393",
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "housesTotal": 13,
+    "housesAvail": 13
   },
   {
     "id": 3733,
@@ -11964,7 +12846,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#e74c3c"
+    "districtColor": "#e74c3c",
+    "housesTotal": 2,
+    "housesAvail": 2
   },
   {
     "id": 3790,
@@ -12021,7 +12905,14 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/201683.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/201686.jpg"
     ],
-    "districtColor": "#e84393"
+    "districtColor": "#e84393",
+    "queues": [
+      "2 очередь",
+      "1 очередь"
+    ],
+    "completion": "2 кв. 2026",
+    "housesTotal": 27,
+    "housesAvail": 25
   },
   {
     "id": 3778,
@@ -12076,7 +12967,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/171650.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/172530.jpg"
     ],
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "queues": [
+      "3 очередь"
+    ],
+    "completion": "4 кв. 2026",
+    "housesTotal": 10,
+    "housesAvail": 10
   },
   {
     "id": 3843,
@@ -12131,7 +13028,14 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205666.jpg"
     ],
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "completion": "3 кв. 2026",
+    "housesTotal": 4,
+    "housesAvail": 4
   },
   {
     "id": 3854,
@@ -12186,7 +13090,13 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/166136.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/166135.jpg"
-    ]
+    ],
+    "queues": [
+      "ЖК Алмаз"
+    ],
+    "completion": "3 кв. 2026",
+    "housesTotal": 3,
+    "housesAvail": 3
   },
   {
     "id": 3879,
@@ -12240,7 +13150,16 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/201788.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/201787.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/201793.jpg"
-    ]
+    ],
+    "queues": [
+      "1 очередь",
+      "2 очередь",
+      "3 очередь",
+      "4 очередь"
+    ],
+    "completion": "3 кв. 2026",
+    "housesTotal": 2,
+    "housesAvail": 2
   },
   {
     "id": 2972,
@@ -12296,7 +13215,16 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/169172.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/169196.jpg"
     ],
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "queues": [
+      "A club",
+      "B club",
+      "C club",
+      "D club"
+    ],
+    "completion": "3 кв. 2026",
+    "housesTotal": 17,
+    "housesAvail": 17
   },
   {
     "id": 3901,
@@ -12352,7 +13280,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/170525.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/170527.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/170529.jpg"
-    ]
+    ],
+    "queues": [
+      "ЖК Birlik"
+    ],
+    "completion": "2 кв. 2026",
+    "housesTotal": 3,
+    "housesAvail": 3
   },
   {
     "id": 3919,
@@ -12408,7 +13342,15 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/171250.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/171253.jpg"
     ],
-    "districtColor": "#e67e22"
+    "districtColor": "#e67e22",
+    "queues": [
+      "1 очередь",
+      "2 очередь",
+      "3 очередь"
+    ],
+    "completion": "1 кв. 2026",
+    "housesTotal": 9,
+    "housesAvail": 9
   },
   {
     "id": 3953,
@@ -12464,7 +13406,9 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/173970.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/173975.jpg"
     ],
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 3216,
@@ -12519,7 +13463,14 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/206709.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/206711.jpg"
-    ]
+    ],
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "completion": "3 кв. 2026",
+    "housesTotal": 39,
+    "housesAvail": 39
   },
   {
     "id": 3969,
@@ -12574,7 +13525,9 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/175643.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/175640.jpg"
     ],
-    "districtColor": "#3498db"
+    "districtColor": "#3498db",
+    "housesTotal": 4,
+    "housesAvail": 4
   },
   {
     "id": 3976,
@@ -12628,7 +13581,12 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/176010.jpg"
     ],
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "queues": [
+      "КГ Sunrise Village"
+    ],
+    "housesTotal": 6,
+    "housesAvail": 6
   },
   {
     "id": 4009,
@@ -12684,7 +13642,13 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/180512.jpg"
     ],
-    "districtColor": "#f1c40f"
+    "districtColor": "#f1c40f",
+    "queues": [
+      "ЖК Alatau Plus"
+    ],
+    "completion": "3 кв. 2026",
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 3476,
@@ -12741,7 +13705,14 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/143010.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/143016.jpg"
     ],
-    "districtColor": "#e67e22"
+    "districtColor": "#e67e22",
+    "queues": [
+      "1 очередь",
+      "2 очередь",
+      "3 очередь"
+    ],
+    "housesTotal": 6,
+    "housesAvail": 6
   },
   {
     "id": 4034,
@@ -12836,7 +13807,13 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#9b59b6"
+    "districtColor": "#9b59b6",
+    "queues": [
+      "1 очередь"
+    ],
+    "completion": "3 кв. 2026",
+    "housesTotal": 3,
+    "housesAvail": 3
   },
   {
     "id": 2043,
@@ -12942,7 +13919,9 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#9b59b6"
+    "districtColor": "#9b59b6",
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 3602,
@@ -13048,7 +14027,12 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "queues": [
+      "ЖК Alma Villa Deluxe"
+    ],
+    "housesTotal": 4,
+    "housesAvail": 4
   },
   {
     "id": 4011,
@@ -13104,7 +14088,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/181026.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/181051.jpg"
     ],
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "queues": [
+      "1 очередь"
+    ],
+    "completion": "4 кв. 2025",
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 4036,
@@ -13160,7 +14150,14 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/203016.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/203020.jpg"
     ],
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "completion": "3 кв. 2026",
+    "housesTotal": 6,
+    "housesAvail": 6
   },
   {
     "id": 4065,
@@ -13216,7 +14213,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/187701.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/187683.jpg"
     ],
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "queues": [
+      "ЖК Sky Park"
+    ],
+    "completion": "3 кв. 2026",
+    "housesTotal": 2,
+    "housesAvail": 2
   },
   {
     "id": 4076,
@@ -13273,7 +14276,9 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/189672.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/189675.jpg"
     ],
-    "districtColor": "#9b59b6"
+    "districtColor": "#9b59b6",
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 4081,
@@ -13341,7 +14346,12 @@
         "author": "Beka Ааааа"
       }
     ],
-    "realPhotoSource": "2gis"
+    "realPhotoSource": "2gis",
+    "queues": [
+      "ЖК Hi-tech House"
+    ],
+    "housesTotal": 2,
+    "housesAvail": 2
   },
   {
     "id": 4094,
@@ -13396,7 +14406,14 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/196304.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/196309.jpg"
-    ]
+    ],
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "completion": "2 кв. 2026",
+    "housesTotal": 18,
+    "housesAvail": 18
   },
   {
     "id": 4096,
@@ -13452,7 +14469,14 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/196037.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/196034.jpg"
     ],
-    "districtColor": "#e67e22"
+    "districtColor": "#e67e22",
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "completion": "1 кв. 2027",
+    "housesTotal": 9,
+    "housesAvail": 9
   },
   {
     "id": 3691,
@@ -13555,7 +14579,16 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#e84393"
+    "districtColor": "#e84393",
+    "queues": [
+      "1 очередь",
+      "2.1 очередь",
+      "2.2 очередь",
+      "3 очередь"
+    ],
+    "completion": "3 кв. 2026",
+    "housesTotal": 16,
+    "housesAvail": 0
   },
   {
     "id": 4118,
@@ -13610,7 +14643,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/196340.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/196337.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/196341.jpg"
-    ]
+    ],
+    "queues": [
+      "ЖК JANYM"
+    ],
+    "completion": "2 кв. 2026",
+    "housesTotal": 4,
+    "housesAvail": 4
   },
   {
     "id": 4124,
@@ -13664,7 +14703,13 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/198086.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/198084.jpg"
-    ]
+    ],
+    "queues": [
+      "ЖК Irgeli"
+    ],
+    "completion": "3 кв. 2026",
+    "housesTotal": 2,
+    "housesAvail": 2
   },
   {
     "id": 4133,
@@ -13709,7 +14754,9 @@
       "https://storage.googleapis.com/bd-kz-01/buildings-v2/840x630/15154.jpg"
     ],
     "layouts": [],
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "housesTotal": 0,
+    "housesAvail": 0
   },
   {
     "id": 4135,
@@ -13768,7 +14815,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205815.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205816.jpg"
     ],
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "queues": [
+      "ЖК Wisteria"
+    ],
+    "completion": "2 кв. 2026",
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 4171,
@@ -13826,7 +14879,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/202817.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/202816.jpg"
     ],
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "queues": [
+      "ЖК Hayat Arena"
+    ],
+    "completion": "3 кв. 2027",
+    "housesTotal": 3,
+    "housesAvail": 3
   },
   {
     "id": 4031,
@@ -13914,7 +14973,21 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#e84393"
+    "districtColor": "#e84393",
+    "queues": [
+      "Dream City. Family",
+      "Очередь G",
+      "Очередь C",
+      "Dream City Family - G BIG+ Comfort",
+      "Dream City Family - F",
+      "Очередь D",
+      "Dream City Family - E",
+      "Dream City Family - K",
+      "Dream City Family - L"
+    ],
+    "completion": "4 кв. 2026",
+    "housesTotal": 33,
+    "housesAvail": 33
   },
   {
     "id": 4209,
@@ -13969,7 +15042,16 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205368.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205363.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205361.jpg"
-    ]
+    ],
+    "queues": [
+      "1 очередь",
+      "3 очередь",
+      "4 очередь",
+      "5 очередь"
+    ],
+    "completion": "2 кв. 2026",
+    "housesTotal": 5,
+    "housesAvail": 5
   },
   {
     "id": 4245,
@@ -14017,7 +15099,13 @@
       "https://storage.googleapis.com/bd-kz-01/buildings-v2/840x630/46271.jpg"
     ],
     "layouts": [],
-    "districtColor": "#e67e22"
+    "districtColor": "#e67e22",
+    "queues": [
+      "1 очередь"
+    ],
+    "completion": "2 кв. 2026",
+    "housesTotal": 0,
+    "housesAvail": 0
   },
   {
     "id": 4246,
@@ -14081,7 +15169,13 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#9b59b6"
+    "districtColor": "#9b59b6",
+    "queues": [
+      "1 очередь"
+    ],
+    "completion": "2 кв. 2026",
+    "housesTotal": 9,
+    "housesAvail": 9
   },
   {
     "id": 4253,
@@ -14138,7 +15232,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207416.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207423.jpg"
     ],
-    "districtColor": "#9b59b6"
+    "districtColor": "#9b59b6",
+    "queues": [
+      "1 очередь"
+    ],
+    "completion": "3 кв. 2026",
+    "housesTotal": 2,
+    "housesAvail": 2
   },
   {
     "id": 4254,
@@ -14190,7 +15290,14 @@
       "https://storage.googleapis.com/bd-kz-01/buildings-v2/840x630/46402.jpg"
     ],
     "layouts": [],
-    "districtColor": "#9b59b6"
+    "districtColor": "#9b59b6",
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "completion": "2 кв. 2026",
+    "housesTotal": 14,
+    "housesAvail": 7
   },
   {
     "id": 4256,
@@ -14277,7 +15384,13 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#3498db"
+    "districtColor": "#3498db",
+    "queues": [
+      "1 очередь"
+    ],
+    "completion": "3 кв. 2026",
+    "housesTotal": 6,
+    "housesAvail": 6
   },
   {
     "id": 4259,
@@ -14334,7 +15447,12 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/208412.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/208413.jpg"
     ],
-    "districtColor": "#3498db"
+    "districtColor": "#3498db",
+    "queues": [
+      "1 очередь"
+    ],
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 4260,
@@ -14391,7 +15509,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205822.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205827.jpg"
     ],
-    "districtColor": "#f1c40f"
+    "districtColor": "#f1c40f",
+    "queues": [
+      "1 очередь"
+    ],
+    "completion": "3 кв. 2026",
+    "housesTotal": 22,
+    "housesAvail": 22
   },
   {
     "id": 4261,
@@ -14448,7 +15572,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205849.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205853.jpg"
     ],
-    "districtColor": "#9b59b6"
+    "districtColor": "#9b59b6",
+    "queues": [
+      "1 очередь"
+    ],
+    "completion": "1 кв. 2027",
+    "housesTotal": 8,
+    "housesAvail": 8
   },
   {
     "id": 4265,
@@ -14490,7 +15620,12 @@
       "https://storage.googleapis.com/bd-kz-01/buildings-v2/840x630/42660.jpg"
     ],
     "layouts": [],
-    "districtColor": "#f1c40f"
+    "districtColor": "#f1c40f",
+    "queues": [
+      "1 очередь"
+    ],
+    "housesTotal": 0,
+    "housesAvail": 0
   },
   {
     "id": 4282,
@@ -14547,7 +15682,14 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/208837.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/208836.jpg"
     ],
-    "districtColor": "#f1c40f"
+    "districtColor": "#f1c40f",
+    "queues": [
+      "Garden Line",
+      "River Line",
+      "Sun Line"
+    ],
+    "housesTotal": 15,
+    "housesAvail": 15
   },
   {
     "id": 4293,
@@ -14652,7 +15794,13 @@
         "author": "Дамира Дамира"
       }
     ],
-    "realPhotoSource": "2gis"
+    "realPhotoSource": "2gis",
+    "queues": [
+      "1 очередь"
+    ],
+    "completion": "2 кв. 2026",
+    "housesTotal": 2,
+    "housesAvail": 2
   },
   {
     "id": 4297,
@@ -14707,7 +15855,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/206582.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/206573.jpg"
     ],
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "queues": [
+      "1 очередь"
+    ],
+    "completion": "1 кв. 2027",
+    "housesTotal": 10,
+    "housesAvail": 10
   },
   {
     "id": 4312,
@@ -14763,7 +15917,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/206892.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/206889.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/206890.jpg"
-    ]
+    ],
+    "queues": [
+      "1 очередь"
+    ],
+    "completion": "2 кв. 2026",
+    "housesTotal": 3,
+    "housesAvail": 3
   },
   {
     "id": 4313,
@@ -14818,7 +15978,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/206894.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/206897.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/206898.jpg"
-    ]
+    ],
+    "queues": [
+      "1 очередь"
+    ],
+    "completion": "2 кв. 2026",
+    "housesTotal": 2,
+    "housesAvail": 2
   },
   {
     "id": 4316,
@@ -14909,7 +16075,13 @@
       }
     ],
     "realPhotoSource": "2gis",
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "queues": [
+      "1 очередь"
+    ],
+    "completion": "4 кв. 2026",
+    "housesTotal": 5,
+    "housesAvail": 5
   },
   {
     "id": 3801,
@@ -14967,7 +16139,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/201097.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/201096.jpg"
     ],
-    "districtColor": "#e67e22"
+    "districtColor": "#e67e22",
+    "queues": [
+      "ЖК Altyn Ai"
+    ],
+    "completion": "2 кв. 2026",
+    "housesTotal": 13,
+    "housesAvail": 13
   },
   {
     "id": 4321,
@@ -15022,7 +16200,12 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/209756.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/209757.jpg"
-    ]
+    ],
+    "queues": [
+      "1 очередь"
+    ],
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 4286,
@@ -15079,7 +16262,16 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/208934.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/208928.jpg"
     ],
-    "districtColor": "#1abc9c"
+    "districtColor": "#1abc9c",
+    "queues": [
+      "1 очередь",
+      "2 очередь",
+      "3 очередь",
+      "4 очередь"
+    ],
+    "completion": "4 кв. 2026",
+    "housesTotal": 6,
+    "housesAvail": 6
   },
   {
     "id": 3904,
@@ -15136,7 +16328,16 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/185439.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/185498.jpg"
     ],
-    "districtColor": "#e67e22"
+    "districtColor": "#e67e22",
+    "queues": [
+      "1 очередь",
+      "2 очередь",
+      "3 очередь",
+      "4 очередь"
+    ],
+    "completion": "1 кв. 2027",
+    "housesTotal": 17,
+    "housesAvail": 17
   },
   {
     "id": 4336,
@@ -15192,7 +16393,10 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/211616.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/211615.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/211617.jpg"
-    ]
+    ],
+    "completion": "4 кв. 2026",
+    "housesTotal": 1,
+    "housesAvail": 1
   },
   {
     "id": 4357,
@@ -15243,7 +16447,14 @@
       "https://storage.googleapis.com/bd-kz-01/buildings-v2/840x630/46449.jpg"
     ],
     "layouts": [],
-    "districtColor": "#3498db"
+    "districtColor": "#3498db",
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "completion": "3 кв. 2027",
+    "housesTotal": 10,
+    "housesAvail": 10
   },
   {
     "id": 4366,
@@ -15300,7 +16511,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/211149.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/211150.jpg"
     ],
-    "districtColor": "#9b59b6"
+    "districtColor": "#9b59b6",
+    "queues": [
+      "1 очередь"
+    ],
+    "completion": "3 кв. 2026",
+    "housesTotal": 2,
+    "housesAvail": 2
   },
   {
     "id": 4377,
@@ -15357,7 +16574,14 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/211419.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/211420.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/211422.jpg"
-    ]
+    ],
+    "queues": [
+      "1 очередь",
+      "2 очередь"
+    ],
+    "completion": "4 кв. 2027",
+    "housesTotal": 5,
+    "housesAvail": 5
   },
   {
     "id": 4095,
@@ -15409,7 +16633,13 @@
       "https://storage.googleapis.com/bd-kz-01/buildings-v2/840x630/48451.jpg"
     ],
     "layouts": [],
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "queues": [
+      "ЖК Everest Boulevard"
+    ],
+    "completion": "2 кв. 2026",
+    "housesTotal": 8,
+    "housesAvail": 8
   },
   {
     "id": 4402,
@@ -15467,7 +16697,13 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212851.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212852.jpg"
     ],
-    "districtColor": "#3498db"
+    "districtColor": "#3498db",
+    "queues": [
+      "1 очередь"
+    ],
+    "completion": "1 кв. 2028",
+    "housesTotal": 5,
+    "housesAvail": 0
   },
   {
     "id": 4406,
@@ -15518,7 +16754,13 @@
       "https://storage.googleapis.com/bd-kz-01/buildings-v2/840x630/48506.jpg"
     ],
     "layouts": [],
-    "districtColor": "#2ecc71"
+    "districtColor": "#2ecc71",
+    "queues": [
+      "1 очередь"
+    ],
+    "completion": "4 кв. 2027",
+    "housesTotal": 22,
+    "housesAvail": 22
   },
   {
     "id": 4418,
@@ -15570,6 +16812,12 @@
       "https://storage.googleapis.com/bd-kz-01/buildings-v2/840x630/46173.jpg"
     ],
     "layouts": [],
-    "districtColor": "#e74c3c"
+    "districtColor": "#e74c3c",
+    "queues": [
+      "1 очередь"
+    ],
+    "completion": "4 кв. 2027",
+    "housesTotal": 4,
+    "housesAvail": 4
   }
 ]

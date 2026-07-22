@@ -37,6 +37,7 @@ export default async function ZhkPage({ params }: { params: Promise<{ slug: stri
   const facts: [string, string | null, boolean][] = [
     ['Класс', z.classRu, false],
     ['Статус', z.constructionStatusRu, false],
+    ['Срок сдачи', z.completion || null, false],
     ['Этажность', z.floors || null, false],
     ['Паркинг', z.parkingType !== 'нет данных' ? z.parkingType : null, false],
     ['Квартир', z.apartments || null, false],
@@ -44,6 +45,8 @@ export default async function ZhkPage({ params }: { params: Promise<{ slug: stri
   ];
 
   const specs: [string, string | null][] = [
+    ['Очереди строительства', z.queues && z.queues.length ? z.queues.join(' · ') : null],
+    ['Подъездов в продаже', z.housesAvail ? `${z.housesAvail} из ${z.housesTotal}` : null],
     ['Технология', z.tech || null],
     ['Стены', z.walls || null],
     ['Высота потолков', z.ceilingHeight || null],
