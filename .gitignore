@@ -6,3 +6,6 @@ out
 .DS_Store
 data/*.pdf
 scripts/.cache
+
+data/listings.json
+public/listings.json

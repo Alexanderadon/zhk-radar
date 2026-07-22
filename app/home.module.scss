@@ -23,6 +23,14 @@
 }
 
 .filters { padding: 14px 16px; border-bottom: 1px solid var(--border-soft); }
+.modeToggle { display: flex; gap: 4px; padding: 4px; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 12px; }
+.modeToggle button { flex: 1; padding: 9px 8px; border: none; background: transparent; color: var(--text-dim); font-size: 13.5px; font-weight: 600; font-family: var(--font); border-radius: 7px; cursor: pointer; transition: background .13s, color .13s; }
+.modeToggle button:hover { color: var(--text); }
+.modeActive { background: var(--accent) !important; color: #061019 !important; }
+.aptHint { padding: 16px; font-size: 13.5px; color: var(--text-dim); line-height: 1.55; }
+.aptHint b { color: var(--text); }
+.aptLegend { display: flex; gap: 16px; margin-top: 12px; font-size: 13px; color: var(--text-dim); }
+.aptLegend span { display: inline-flex; align-items: center; gap: 6px; }
 .searchRow { position: relative; margin-bottom: 12px; }
 .search {
   width: 100%; padding: 10px 12px; border-radius: var(--radius-sm);
