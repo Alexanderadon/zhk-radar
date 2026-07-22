@@ -5,6 +5,7 @@ import { BAND_COLOR, BAND_LABEL, SCORE_NAME } from '../../../lib/score';
 import Gallery from '../../../components/Gallery';
 import Layouts from '../../../components/Layouts';
 import MiniMap from '../../../components/MiniMap';
+import Icon from '../../../components/Icon';
 import s from './zhk.module.scss';
 
 export const dynamic = 'force-static';
@@ -74,7 +75,7 @@ export default async function ZhkPage({ params }: { params: Promise<{ slug: stri
             {z.classRu && <span className={s.tag}>{z.classRu}</span>}
             {z.constructionStatusRu && <span className={s.tag}>{z.constructionStatusRu}</span>}
             {z.district && <span className={s.tag}>{z.district} р-н</span>}
-            {z.seismicResistance && <span className={s.tag}>⛰ {z.seismicResistance} баллов</span>}
+            {z.seismicResistance && <span className={s.tag}><Icon name="mountain" size={13} /> {z.seismicResistance} баллов</span>}
           </div>
         </div>
 
@@ -92,8 +93,8 @@ export default async function ZhkPage({ params }: { params: Promise<{ slug: stri
               {marketArrow(priceInd.value)} {priceInd.value.replace('медианы', `похожих ${z.classRu || ''}`.trim())}
             </div>
           )}
-          {z.deal && <div className={s.dealBadge}>🔥 выгодная цена — дешевле похожих ЖК</div>}
-          <div className={s.priceWarn}>⚠ цена с витрины korter — маркетинг, не оценка</div>
+          {z.deal && <div className={s.dealBadge}><Icon name="flame" size={15} /> выгодная цена — дешевле похожих ЖК</div>}
+          <div className={s.priceWarn}>цена с витрины korter — маркетинг, не оценка</div>
           <div className={s.protect}>
             <div className={s.protectNum} style={{ color }}>{sr.score ?? '—'}</div>
             <div className={s.protectMeta}>

@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import Icon from './Icon';
 import s from './Layouts.module.scss';
 
 export default function Layouts({ layouts }: { layouts: string[] }) {
@@ -39,15 +40,15 @@ export default function Layouts({ layouts }: { layouts: string[] }) {
         {layouts.map((src, i) => (
           <button key={src} className={s.cell} onClick={() => show(i)} aria-label="Открыть планировку">
             <img className={s.img} src={src} alt="планировка" loading="lazy" />
-            <span className={s.zoom}>⤢</span>
+            <span className={s.zoom}><Icon name="maximize" size={14} /></span>
           </button>
         ))}
       </div>
 
       {open != null && (
         <div className={s.lightbox} onClick={() => setOpen(null)} onMouseMove={onMove} onMouseUp={onUp} onMouseLeave={onUp}>
-          <button className={s.close} onClick={() => setOpen(null)}>✕</button>
-          {n > 1 && <button className={s.nav} style={{ left: 20 }} onClick={(e) => { e.stopPropagation(); step(-1); }}>‹</button>}
+          <button className={s.close} onClick={() => setOpen(null)}><Icon name="x" size={22} /></button>
+          {n > 1 && <button className={s.nav} style={{ left: 20 }} onClick={(e) => { e.stopPropagation(); step(-1); }}><Icon name="left" size={26} /></button>}
           <img
             className={s.lightImg}
             src={layouts[open]}
@@ -58,7 +59,7 @@ export default function Layouts({ layouts }: { layouts: string[] }) {
             onMouseDown={onDown}
             draggable={false}
           />
-          {n > 1 && <button className={s.nav} style={{ right: 20 }} onClick={(e) => { e.stopPropagation(); step(1); }}>›</button>}
+          {n > 1 && <button className={s.nav} style={{ right: 20 }} onClick={(e) => { e.stopPropagation(); step(1); }}><Icon name="right" size={26} /></button>}
           <div className={s.zoomBar} onClick={(e) => e.stopPropagation()}>
             <button onClick={() => zoom(0.8)}>−</button>
             <span>{Math.round(scale * 100)}%</span>

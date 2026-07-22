@@ -60,8 +60,8 @@ export default function MapView({
       m.addLayer({ id: 'clusters', type: 'circle', source: 'zhk', filter: ['has', 'point_count'], paint: { 'circle-color': ['step', ['get', 'point_count'], '#4a9eff', 30, '#3a86e0', 120, '#2b6cb0'], 'circle-opacity': 0.92, 'circle-radius': ['step', ['get', 'point_count'], 15, 15, 20, 50, 26, 150, 34], 'circle-stroke-width': 4, 'circle-stroke-color': 'rgba(74,158,255,0.25)' } });
       m.addLayer({ id: 'cluster-count', type: 'symbol', source: 'zhk', filter: ['has', 'point_count'], layout: { 'text-field': ['get', 'point_count_abbreviated'], 'text-size': 13, 'text-font': ['Noto Sans Regular'] }, paint: { 'text-color': '#ffffff' } });
       m.addLayer({ id: 'zhk-glow', type: 'circle', source: 'zhk', filter: notCluster, paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 10, 9, 15, 20], 'circle-color': ['get', 'color'], 'circle-opacity': 0.22, 'circle-blur': 0.6 } });
-      m.addLayer({ id: 'zhk-dot', type: 'circle', source: 'zhk', filter: notCluster, paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 10, 6, 15, 10], 'circle-color': ['get', 'color'], 'circle-stroke-width': ['case', ['get', 'deal'], 2.5, 1.5], 'circle-stroke-color': ['case', ['get', 'deal'], '#ffffff', '#20293a'] } });
-      m.addLayer({ id: 'zhk-selected', type: 'circle', source: 'zhk', filter: ['==', ['get', 'id'], -1], paint: { 'circle-radius': 12, 'circle-color': ['get', 'color'], 'circle-stroke-width': 3, 'circle-stroke-color': '#0b0f17' } });
+      m.addLayer({ id: 'zhk-dot', type: 'circle', source: 'zhk', filter: notCluster, paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 10, 6, 15, 10], 'circle-color': ['get', 'color'], 'circle-stroke-width': ['case', ['get', 'deal'], 3, 1.6], 'circle-stroke-color': ['case', ['get', 'deal'], '#16a34a', '#ffffff'] } });
+      m.addLayer({ id: 'zhk-selected', type: 'circle', source: 'zhk', filter: ['==', ['get', 'id'], -1], paint: { 'circle-radius': 12, 'circle-color': ['get', 'color'], 'circle-stroke-width': 3.5, 'circle-stroke-color': '#2f6bed' } });
 
       // ---- APARTMENTS (квартиры) ----
       m.addSource('apt', { type: 'geojson', data: emptyFC(), cluster: true, clusterMaxZoom: 14, clusterRadius: 48 });
@@ -153,11 +153,11 @@ function soldFC(sold: any[]) {
 function soldHtml(p: any) {
   const price = Number(p.price) ? `${(Number(p.price) / 1_000_000).toLocaleString('ru-RU', { maximumFractionDigits: 1 })} млн ₸` : '';
   const line = [Number(p.rooms) ? `${p.rooms}-комн.` : '', Number(p.square) ? `${p.square} м²` : ''].filter(Boolean).join(' · ');
-  return `<div style="width:230px;font-family:inherit;padding:10px 12px 11px">
-    <div style="display:inline-block;font-size:11px;font-weight:700;color:#fff;background:#e74c3c;padding:2px 8px;border-radius:5px;margin-bottom:6px">продано${p.soldDate ? ` · ${p.soldDate}` : ''}</div>
-    <div style="font-size:15px;font-weight:700;color:#e7edf5">${price}</div>
-    <div style="font-size:12.5px;color:#c7d0dd;margin:2px 0 3px">${line}</div>
-    <div style="font-size:12px;color:#8d97a8">${escapeHtml(p.addr || '')}</div>
+  return `<div style="width:230px;font-family:inherit;padding:11px 13px 12px">
+    <div style="display:inline-block;font-size:11px;font-weight:700;color:#fff;background:#e0293f;padding:2px 8px;border-radius:6px;margin-bottom:7px">продано${p.soldDate ? ` · ${p.soldDate}` : ''}</div>
+    <div style="font-size:16px;font-weight:750;color:#14181f;letter-spacing:-.01em">${price}</div>
+    <div style="font-size:12.5px;color:#5b6472;margin:2px 0 3px">${line}</div>
+    <div style="font-size:12px;color:#97a0ad">${escapeHtml(p.addr || '')}</div>
   </div>`;
 }
 function aptFC(apts: Apt[]) {
@@ -170,13 +170,13 @@ function toGeoJSON(points: MapPoint[]) {
 function aptHtml(p: any) {
   const price = Number(p.price) ? `${(Number(p.price) / 1_000_000).toLocaleString('ru-RU', { maximumFractionDigits: 1 })} млн ₸` : 'цена не указана';
   const line = [Number(p.rooms) ? `${p.rooms}-комн.` : '', Number(p.square) ? `${p.square} м²` : '', p.floor ? `${p.floor} эт.` : ''].filter(Boolean).join(' · ');
-  const mk = p.market === 'primary' ? '<span style="color:#2ecc71">новостройка</span>' : '<span style="color:#8d97a8">вторичка</span>';
-  const img = (p.photo && p.photo !== '') ? `<div style="height:110px;background:#1b2230 center/cover no-repeat url('${escapeAttr(p.photo)}')"></div>` : '';
-  return `<div style="width:240px;font-family:inherit">${img}<div style="padding:10px 12px 11px">
-    <div style="font-size:17px;font-weight:750;color:#e7edf5">${price}</div>
-    <div style="font-size:12.5px;color:#c7d0dd;margin:3px 0 4px">${line}</div>
-    <div style="font-size:12px;color:#8d97a8">${escapeHtml(p.addr || '')}</div>
-    <div style="font-size:11.5px;margin-top:6px">${mk} · <span style="color:#5c6576">клик → на krisha ↗</span></div>
+  const mk = p.market === 'primary' ? '<span style="color:#16a34a;font-weight:600">новостройка</span>' : '<span style="color:#6b7480;font-weight:600">вторичка</span>';
+  const img = (p.photo && p.photo !== '') ? `<div style="height:118px;background:#eef1f4 center/cover no-repeat url('${escapeAttr(p.photo)}')"></div>` : '';
+  return `<div style="width:242px;font-family:inherit">${img}<div style="padding:11px 13px 12px">
+    <div style="font-size:18px;font-weight:770;color:#14181f;letter-spacing:-.01em">${price}</div>
+    <div style="font-size:12.5px;color:#5b6472;margin:3px 0 4px">${line}</div>
+    <div style="font-size:12px;color:#97a0ad">${escapeHtml(p.addr || '')}</div>
+    <div style="font-size:11.5px;margin-top:7px">${mk} <span style="color:#b3bbc6">·</span> <span style="color:#2f6bed;font-weight:600">открыть на krisha ↗</span></div>
   </div></div>`;
 }
 function cardHtml(p: any) {
@@ -184,17 +184,17 @@ function cardHtml(p: any) {
   const priceSqm = Number(p.priceSqm) ? `${Math.round(Number(p.priceSqm) / 1000).toLocaleString('ru-RU')} тыс ₸/м²` : null;
   const scoreTxt = p.score === '' || p.score == null ? 'мало данных' : `${p.score}`;
   const bandColor = p.color, bandLabel = BAND_LABEL[p.band as keyof typeof BAND_LABEL] || '';
-  const chips = [p.classRu, p.statusRu, p.district ? p.district + ' р-н' : '', Number(p.seismic) ? `⛰ ${p.seismic}` : ''].filter(Boolean).map((c: string) => `<span style="font-size:11px;padding:2px 7px;border-radius:5px;background:#1b2230;color:#8d97a8">${escapeHtml(c)}</span>`).join('');
-  const img = (p.image && p.image !== '') ? `<div style="height:118px;background:#1b2230 center/cover no-repeat url('${escapeAttr(p.image)}')"></div>` : `<div style="height:44px"></div>`;
+  const chips = [p.classRu, p.statusRu, p.district ? p.district + ' р-н' : '', Number(p.seismic) ? `${p.seismic} балл` : ''].filter(Boolean).map((c: string) => `<span style="font-size:11px;padding:2px 8px;border-radius:6px;background:#f1f4f7;color:#5b6472">${escapeHtml(c)}</span>`).join('');
+  const img = (p.image && p.image !== '') ? `<div style="height:120px;background:#eef1f4 center/cover no-repeat url('${escapeAttr(p.image)}')"></div>` : `<div style="height:44px"></div>`;
   const flag = p.deal === true || p.deal === 'true';
-  return `<div style="width:260px;font-family:inherit">${img}<div style="padding:11px 13px 12px">
-    ${flag ? '<div style="display:inline-block;font-size:11px;font-weight:700;color:#061019;background:#2ecc71;padding:2px 8px;border-radius:5px;margin-bottom:6px">🔥 выгодно</div>' : ''}
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px"><div style="font-weight:650;font-size:14.5px;color:#e7edf5;line-height:1.25">${escapeHtml(p.name)}</div><div style="text-align:center;flex-shrink:0"><div style="font-size:20px;font-weight:780;line-height:1;color:${bandColor}">${scoreTxt}</div><div style="font-size:9px;text-transform:uppercase;letter-spacing:.04em;color:#5c6576;margin-top:1px">${p.score === '' ? '' : 'защита'}</div></div></div>
-    <div style="color:#8d97a8;font-size:12px;margin:3px 0 2px">${escapeHtml(p.developer || '')}</div>
-    <div style="color:${bandColor};font-size:12px;font-weight:600;margin-bottom:8px">${bandLabel}</div>
-    ${priceMin || priceSqm ? `<div style="display:flex;gap:9px;align-items:baseline;margin-bottom:8px">${priceMin ? `<span style="font-size:15px;font-weight:700;color:#e7edf5">${priceMin}</span>` : ''}${priceSqm ? `<span style="font-size:12px;color:#8d97a8">${priceSqm}</span>` : ''}</div>` : ''}
+  return `<div style="width:262px;font-family:inherit">${img}<div style="padding:11px 13px 12px">
+    ${flag ? '<div style="display:inline-block;font-size:11px;font-weight:700;color:#fff;background:#16a34a;padding:2px 9px;border-radius:6px;margin-bottom:7px">Выгодно</div>' : ''}
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px"><div style="font-weight:680;font-size:14.5px;color:#14181f;line-height:1.25">${escapeHtml(p.name)}</div><div style="text-align:center;flex-shrink:0"><div style="font-size:21px;font-weight:800;line-height:1;color:${bandColor}">${scoreTxt}</div><div style="font-size:9px;text-transform:uppercase;letter-spacing:.04em;color:#97a0ad;margin-top:1px">${p.score === '' ? '' : 'защита'}</div></div></div>
+    <div style="color:#5b6472;font-size:12px;margin:3px 0 3px">${escapeHtml(p.developer || '')}</div>
+    <div style="color:${bandColor};font-size:12px;font-weight:650;margin-bottom:9px">${bandLabel}</div>
+    ${priceMin || priceSqm ? `<div style="display:flex;gap:9px;align-items:baseline;margin-bottom:9px">${priceMin ? `<span style="font-size:16px;font-weight:770;color:#14181f;letter-spacing:-.01em">${priceMin}</span>` : ''}${priceSqm ? `<span style="font-size:12px;color:#97a0ad">${priceSqm}</span>` : ''}</div>` : ''}
     <div style="display:flex;flex-wrap:wrap;gap:5px">${chips}</div>
-    <div style="margin-top:9px;font-size:11px;color:#5c6576">клик → подробно →</div>
+    <div style="margin-top:9px;font-size:11px;color:#2f6bed;font-weight:600">Подробно →</div>
   </div></div>`;
 }
 function escapeHtml(s: string) { return String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c] as string)); }

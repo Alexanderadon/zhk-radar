@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import Icon from './Icon';
 import s from './Gallery.module.scss';
 
 export interface GalleryItem {
@@ -35,7 +36,7 @@ export default function Gallery({ items, name }: { items: GalleryItem[]; name: s
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [n]);
 
-  if (!n) return <div className={`${s.main} ${s.empty}`}>◫</div>;
+  if (!n) return <div className={`${s.main} ${s.empty}`}><Icon name="camera" size={44} stroke={1.5} /></div>;
 
   return (
     <>
@@ -43,18 +44,18 @@ export default function Gallery({ items, name }: { items: GalleryItem[]; name: s
         <div className={s.mainWrap}>
           <img className={s.main} src={cur.url} alt={name} onClick={() => setOpen(true)} />
           {cur.kind === 'real' ? (
-            <div className={`${s.badge} ${s.badgeReal}`}>● реальное фото{cur.author ? ` · ${cur.author}` : ''} · 2ГИС</div>
+            <div className={`${s.badge} ${s.badgeReal}`}><Icon name="camera" size={12} /> реальное фото{cur.author ? ` · ${cur.author}` : ''} · 2ГИС</div>
           ) : (
-            <div className={s.badge}>⚠ визуализация застройщика</div>
+            <div className={s.badge}>визуализация застройщика</div>
           )}
           {n > 1 && (
             <>
-              <button className={`${s.arrow} ${s.arrowL}`} aria-label="Предыдущее" onClick={() => go(-1)}>‹</button>
-              <button className={`${s.arrow} ${s.arrowR}`} aria-label="Следующее" onClick={() => go(1)}>›</button>
+              <button className={`${s.arrow} ${s.arrowL}`} aria-label="Предыдущее" onClick={() => go(-1)}><Icon name="left" size={24} /></button>
+              <button className={`${s.arrow} ${s.arrowR}`} aria-label="Следующее" onClick={() => go(1)}><Icon name="right" size={24} /></button>
               <div className={s.counter}>{active + 1} / {n}</div>
             </>
           )}
-          <div className={s.zoomHint} onClick={() => setOpen(true)}>увеличить ⤢</div>
+          <div className={s.zoomHint} onClick={() => setOpen(true)}><Icon name="maximize" size={13} /> увеличить</div>
         </div>
         {n > 1 && (
           <div className={s.thumbs} ref={thumbsRef}>
@@ -70,10 +71,10 @@ export default function Gallery({ items, name }: { items: GalleryItem[]; name: s
 
       {open && (
         <div className={s.lightbox} onClick={() => setOpen(false)}>
-          <button className={s.close} onClick={() => setOpen(false)}>✕</button>
-          {n > 1 && <button className={s.nav} style={{ left: 20 }} onClick={(e) => { e.stopPropagation(); go(-1); }}>‹</button>}
+          <button className={s.close} onClick={() => setOpen(false)}><Icon name="x" size={22} /></button>
+          {n > 1 && <button className={s.nav} style={{ left: 20 }} onClick={(e) => { e.stopPropagation(); go(-1); }}><Icon name="left" size={26} /></button>}
           <img className={s.lightImg} src={cur.url} alt={name} onClick={(e) => e.stopPropagation()} />
-          {n > 1 && <button className={s.nav} style={{ right: 20 }} onClick={(e) => { e.stopPropagation(); go(1); }}>›</button>}
+          {n > 1 && <button className={s.nav} style={{ right: 20 }} onClick={(e) => { e.stopPropagation(); go(1); }}><Icon name="right" size={26} /></button>}
           <div className={s.lightCount}>
             {cur.kind === 'real' ? `реальное фото${cur.author ? ` · © ${cur.author}` : ''} · 2ГИС` : 'визуализация застройщика · korter'} — {active + 1} / {n}
           </div>

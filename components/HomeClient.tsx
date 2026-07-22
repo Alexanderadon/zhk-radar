@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import s from '../app/home.module.scss';
 import { BAND_COLOR, BAND_LABEL } from '../lib/score';
+import Icon from './Icon';
 import type { MapPoint } from './MapView';
 
 const MapView = dynamic(() => import('./MapView'), { ssr: false });
@@ -121,11 +122,12 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
         <aside className={s.sidebar}>
           <div className={s.filters}>
             <div className={s.searchRow}>
+              <Icon name="search" size={17} className={s.searchIcon} />
               <input className={s.search} placeholder="Поиск ЖК, застройщика, района…" value={q} onChange={(e) => setQ(e.target.value)} />
             </div>
             <div className={s.modeToggle}>
-              <button className={mode === 'complexes' ? s.modeActive : ''} onClick={() => setMode('complexes')}>🏢 ЖК-комплексы</button>
-              <button className={mode === 'apartments' ? s.modeActive : ''} onClick={() => setMode('apartments')}>🚪 Квартиры</button>
+              <button className={mode === 'complexes' ? s.modeActive : ''} onClick={() => setMode('complexes')}><Icon name="building" size={16} /> ЖК-комплексы</button>
+              <button className={mode === 'apartments' ? s.modeActive : ''} onClick={() => setMode('apartments')}><Icon name="key" size={16} /> Квартиры</button>
             </div>
 
             {mode === 'complexes' ? (
@@ -134,22 +136,22 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
                   <span className={s.fLabel}>Район</span>
                   {DISTRICTS.map((d) => (
                     <button key={d.name} className={`${s.pill} ${district === d.name ? s.pillActive : ''}`} onClick={() => setDistrict(district === d.name ? null : d.name)}
-                      style={district === d.name ? { background: d.color, borderColor: d.color, color: '#0b0f17' } : { borderColor: d.color + '66' }}>
-                      <span style={{ color: district === d.name ? '#0b0f17' : d.color }}>●</span> {d.name}
+                      style={district === d.name ? { background: d.color, borderColor: d.color, color: '#fff' } : { borderColor: d.color + '66' }}>
+                      <span style={{ color: district === d.name ? '#fff' : d.color }}>●</span> {d.name}
                     </button>
                   ))}
                 </div>
                 <div className={s.filterGroup}>
                   <span className={s.fLabel}>Выгода и готовность</span>
-                  <button className={`${s.pill} ${extra.has('deal') ? s.pillActive : ''}`} onClick={() => toggle(extra, 'deal', setExtra)}>🔥 выгодные</button>
+                  <button className={`${s.pill} ${extra.has('deal') ? s.pillActive : ''}`} onClick={() => toggle(extra, 'deal', setExtra)}><Icon name="flame" size={14} /> выгодные</button>
                   <button className={`${s.pill} ${extra.has('newbuilt') ? s.pillActive : ''}`} onClick={() => toggle(extra, 'newbuilt', setExtra)}>сдан и в продаже</button>
-                  <button className={`${s.pill} ${extra.has('real') ? s.pillActive : ''}`} onClick={() => toggle(extra, 'real', setExtra)}>📷 реальные фото</button>
+                  <button className={`${s.pill} ${extra.has('real') ? s.pillActive : ''}`} onClick={() => toggle(extra, 'real', setExtra)}><Icon name="camera" size={14} /> реальные фото</button>
                 </div>
                 <div className={s.filterGroup}>
                   <span className={s.fLabel}>Защита покупателя</span>
                   {BANDS.map((b) => (
                     <button key={b} className={`${s.pill} ${band.has(b) ? s.pillActive : ''}`} onClick={() => toggle(band, b, setBand)}>
-                      <span style={{ color: band.has(b) ? '#061019' : BAND_COLOR[b] }}>●</span> {BAND_LABEL[b]}
+                      <span style={{ color: band.has(b) ? '#fff' : BAND_COLOR[b] }}>●</span> {BAND_LABEL[b]}
                     </button>
                   ))}
                 </div>
@@ -168,8 +170,8 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
               <>
                 <div className={s.filterGroup}>
                   <span className={s.fLabel}>Рынок</span>
-                  <button className={`${s.pill} ${aptMarket.has('primary') ? s.pillActive : ''}`} onClick={() => toggle(aptMarket, 'primary', setAptMarket)}><span style={{ color: aptMarket.has('primary') ? '#061019' : 'var(--green)' }}>●</span> первичка (новостройки)</button>
-                  <button className={`${s.pill} ${aptMarket.has('secondary') ? s.pillActive : ''}`} onClick={() => toggle(aptMarket, 'secondary', setAptMarket)}><span style={{ color: aptMarket.has('secondary') ? '#061019' : '#7b8aa0' }}>●</span> вторичка</button>
+                  <button className={`${s.pill} ${aptMarket.has('primary') ? s.pillActive : ''}`} onClick={() => toggle(aptMarket, 'primary', setAptMarket)}><span style={{ color: aptMarket.has('primary') ? '#fff' : 'var(--green)' }}>●</span> первичка (новостройки)</button>
+                  <button className={`${s.pill} ${aptMarket.has('secondary') ? s.pillActive : ''}`} onClick={() => toggle(aptMarket, 'secondary', setAptMarket)}><span style={{ color: aptMarket.has('secondary') ? '#fff' : '#7b8aa0' }}>●</span> вторичка</button>
                 </div>
                 <div className={s.filterGroup}>
                   <span className={s.fLabel}>Комнат</span>
@@ -177,7 +179,7 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
                 </div>
                 <div className={s.filterGroup}>
                   <span className={s.fLabel}>Статус продажи</span>
-                  <button className={`${s.pill} ${showSold ? s.pillActive : ''}`} onClick={() => setShowSold(!showSold)}><span style={{ color: showSold ? '#061019' : 'var(--red)' }}>●</span> недавно продано</button>
+                  <button className={`${s.pill} ${showSold ? s.pillActive : ''}`} onClick={() => setShowSold(!showSold)}><span style={{ color: showSold ? '#fff' : 'var(--red)' }}>●</span> недавно продано</button>
                 </div>
               </>
             )}
@@ -210,12 +212,12 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
                         </div>
                       </div>
                       <div className={s.cardChips}>
-                        {z.deal && <span className={s.miniChip} style={{ background: 'var(--green)', color: '#061019', fontWeight: 700 }}>🔥 выгодно</span>}
-                        {z.real && <span className={s.miniChip} style={{ color: 'var(--green)' }}>📷 реальные фото</span>}
+                        {z.deal && <span className={s.miniChip} style={{ background: 'var(--green)', color: '#fff', fontWeight: 650 }}><Icon name="flame" size={11} /> выгодно</span>}
+                        {z.real && <span className={s.miniChip} style={{ color: 'var(--green)', background: 'var(--green-soft)' }}><Icon name="camera" size={11} /> реальные фото</span>}
                         {z.classRu && <span className={s.miniChip}>{z.classRu}</span>}
                         {z.constructionStatusRu && <span className={s.miniChip}>{z.constructionStatusRu}</span>}
                         {z.priceMin ? <span className={s.miniChip}>от {(z.priceMin / 1_000_000).toLocaleString('ru-RU', { maximumFractionDigits: 1 })} млн ₸</span> : z.priceSqm ? <span className={s.miniChip}>{Math.round(z.priceSqm / 1000)} тыс ₸/м²</span> : null}
-                        {z.seismicResistance && <span className={s.miniChip}>⛰ {z.seismicResistance}</span>}
+                        {z.seismicResistance && <span className={s.miniChip}><Icon name="mountain" size={11} /> {z.seismicResistance}</span>}
                       </div>
                     </div>
                   </div>
@@ -251,7 +253,7 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
           {mode === 'complexes' ? (
             <div className={s.legend}>
               {BANDS.map((b) => (<div key={b} className={s.legendRow}><span className={s.legendDot} style={{ background: BAND_COLOR[b] }} /> {BAND_LABEL[b]}</div>))}
-              <div className={s.legendRow} style={{ marginTop: 4, borderTop: '1px solid var(--border-soft)', paddingTop: 6 }}><span className={s.legendDot} style={{ background: 'transparent', border: '2px solid #fff' }} /> 🔥 выгодная цена</div>
+              <div className={s.legendRow} style={{ marginTop: 4, borderTop: '1px solid var(--border-soft)', paddingTop: 8, color: 'var(--green)' }}><Icon name="flame" size={13} /> выгодная цена</div>
             </div>
           ) : (
             <div className={s.legend}>
