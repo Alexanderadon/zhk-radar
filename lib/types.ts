@@ -39,6 +39,8 @@ export interface ZhkRaw {
   finishing?: string | null;
   completion?: string | null;
   seismicResistance?: number | null;
+  photos?: string[];
+  layouts?: string[];
   source: string;
   scrapedAt: string;
 }

@@ -1,0 +1,12 @@
+import puppeteer from 'puppeteer-core';
+const CHROME = 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe';
+const OUT = process.argv[2], PATHQ = process.argv[3] || '/', FILE = process.argv[4] || 'one.png';
+const full = process.argv[5] === 'full';
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const browser = await puppeteer.launch({ executablePath: CHROME, headless: 'new', args: ['--no-sandbox', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--hide-scrollbars'], defaultViewport: { width: 1440, height: 1000 } });
+const page = await browser.newPage();
+await page.goto('http://localhost:3300' + encodeURI(PATHQ), { waitUntil: 'networkidle2', timeout: 120000 }).catch(() => {});
+await sleep(5500);
+await page.screenshot({ path: `${OUT}/${FILE}`, fullPage: full });
+console.log('✓', FILE);
+await browser.close();
