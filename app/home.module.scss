@@ -1,0 +1,84 @@
+.shell { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+
+.header {
+  display: flex; align-items: center; gap: 20px;
+  padding: 12px 22px; border-bottom: 1px solid var(--border);
+  background: var(--bg-elev); z-index: 5; flex-wrap: wrap;
+}
+.brand { display: flex; align-items: baseline; gap: 10px; }
+.logo { font-size: 19px; font-weight: 750; letter-spacing: -0.02em; }
+.logo .radar { color: var(--accent); }
+.tagline { font-size: 13px; color: var(--text-dim); }
+.headerSpacer { flex: 1; }
+.freshness { font-size: 12.5px; color: var(--text-faint); display: flex; align-items: center; gap: 7px; }
+.freshDot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); }
+.navlink { font-size: 14px; color: var(--text-dim); font-weight: 550; }
+.navlink:hover { color: var(--text); }
+
+.body { flex: 1; display: flex; min-height: 0; }
+
+.sidebar {
+  width: 410px; flex-shrink: 0; display: flex; flex-direction: column;
+  border-right: 1px solid var(--border); background: var(--bg); min-height: 0;
+}
+
+.filters { padding: 14px 16px; border-bottom: 1px solid var(--border-soft); }
+.searchRow { position: relative; margin-bottom: 12px; }
+.search {
+  width: 100%; padding: 10px 12px; border-radius: var(--radius-sm);
+  background: var(--panel); border: 1px solid var(--border); color: var(--text);
+  font-size: 14px; font-family: var(--font);
+}
+.search:focus { outline: none; border-color: var(--accent-dim); }
+.filterGroup { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.filterGroup:last-child { margin-bottom: 0; }
+.fLabel { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-faint); width: 100%; margin-bottom: 2px; }
+.pill {
+  padding: 5px 11px; border-radius: 100px; font-size: 12.5px; font-weight: 550;
+  background: var(--panel); border: 1px solid var(--border); color: var(--text-dim); cursor: pointer;
+  transition: all .13s;
+}
+.pill:hover { color: var(--text); border-color: #33405a; }
+.pillActive { background: var(--accent); border-color: var(--accent); color: #061019; }
+
+.resultBar { padding: 9px 16px; font-size: 13px; color: var(--text-dim); border-bottom: 1px solid var(--border-soft); display: flex; justify-content: space-between; align-items: center; }
+.sortSel { background: var(--panel); border: 1px solid var(--border); color: var(--text); border-radius: 7px; padding: 4px 8px; font-size: 12.5px; font-family: var(--font); }
+
+.list { overflow-y: auto; flex: 1; padding: 8px; }
+
+.card {
+  display: flex; gap: 12px; padding: 10px; border-radius: var(--radius-sm);
+  cursor: pointer; border: 1px solid transparent; transition: background .12s, border-color .12s;
+}
+.card:hover { background: var(--panel); }
+.cardActive { background: var(--panel); border-color: var(--accent-dim); }
+.thumb { width: 78px; height: 78px; border-radius: 8px; object-fit: cover; flex-shrink: 0; background: var(--panel-2); }
+.thumbEmpty { display: flex; align-items: center; justify-content: center; color: var(--text-faint); font-size: 22px; }
+.cardBody { flex: 1; min-width: 0; }
+.cardTop { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.cardName { font-size: 14.5px; font-weight: 620; line-height: 1.25; }
+.cardDev { font-size: 12.5px; color: var(--text-dim); margin: 2px 0 7px; }
+.scoreBadge { flex-shrink: 0; text-align: center; min-width: 42px; }
+.scoreNum { font-size: 20px; font-weight: 750; line-height: 1; }
+.scoreCap { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-faint); margin-top: 2px; }
+.cardChips { display: flex; flex-wrap: wrap; gap: 5px; }
+.miniChip { font-size: 11.5px; padding: 2px 8px; border-radius: 6px; background: var(--panel-2); color: var(--text-dim); }
+
+.mapWrap { flex: 1; position: relative; min-width: 0; }
+.legend {
+  position: absolute; left: 14px; top: 14px; z-index: 2;
+  background: rgba(16, 21, 31, 0.85); backdrop-filter: blur(8px);
+  border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 12px;
+  display: flex; flex-direction: column; gap: 6px; font-size: 12px;
+}
+.legendRow { display: flex; align-items: center; gap: 8px; color: var(--text-dim); }
+.legendDot { width: 10px; height: 10px; border-radius: 50%; }
+
+@media (max-width: 900px) {
+  .shell { height: auto; min-height: 100vh; overflow: visible; }
+  .body { flex-direction: column-reverse; }
+  .sidebar { width: 100%; border-right: none; border-top: 1px solid var(--border); }
+  .mapWrap { height: 56vh; min-height: 340px; }
+  .list { max-height: none; }
+  .tagline { display: none; }
+}

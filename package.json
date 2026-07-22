@@ -1,0 +1,31 @@
+{
+  "name": "zhk-radar",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ЖК-Радар — карта новостроек Алматы с прозрачным риск-скором застройщиков",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev -p 3300",
+    "build": "next build",
+    "start": "next start -p 3300",
+    "lint": "next lint",
+    "collect": "node scripts/collect-korter.mjs && node scripts/enrich-korter.mjs",
+    "collect:kzhk": "node scripts/collect-kzhk.mjs",
+    "collect:reviews": "node scripts/collect-reviews.mjs"
+  },
+  "dependencies": {
+    "maplibre-gl": "^4.7.1",
+    "next": "15.5.21",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "pdfjs-dist": "^4.10.38",
+    "puppeteer-core": "^25.3.0",
+    "sass": "^1.83.4",
+    "typescript": "^5.7.3"
+  }
+}

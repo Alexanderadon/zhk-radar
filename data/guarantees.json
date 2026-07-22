@@ -1,0 +1,2698 @@
+{
+  "obj:мжк jm c": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК JM C",
+    "developer": "КАСПИЙ Қ Ұ РЫЛЫС ТОО GARANT Султан",
+    "region": null,
+    "matchedBy": "object"
+  },
+  "dev:каспий қ ұ рылыс тоо garant султан": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК JM C",
+    "developer": "КАСПИЙ Қ Ұ РЫЛЫС ТОО GARANT Султан",
+    "region": null,
+    "matchedBy": "developer"
+  },
+  "obj:мжк алия, 2 очередь с": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК АЛИЯ, 2 ОЧЕРЕДЬ С",
+    "developer": "САРТАЙ ЭНЕРГО ТОО K",
+    "region": "Актобе",
+    "matchedBy": "object"
+  },
+  "dev:сартай энерго тоо k": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК АЛИЯ, 2 ОЧЕРЕДЬ С",
+    "developer": "САРТАЙ ЭНЕРГО ТОО K",
+    "region": "Актобе",
+    "matchedBy": "developer"
+  },
+  "obj:мжк sparkle diamond с": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК SPARKLE DIAMOND С",
+    "developer": "SPARKLE",
+    "region": "Усть",
+    "matchedBy": "object"
+  },
+  "dev:sparkle": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК SPARKLE DIAMOND С",
+    "developer": "SPARKLE",
+    "region": "Усть",
+    "matchedBy": "developer"
+  },
+  "obj:мжк asyl tas с": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК ASYL TAS С",
+    "developer": "CRYSTAL",
+    "region": "Шымкент",
+    "matchedBy": "object"
+  },
+  "dev:crystal": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК ASYL TAS С",
+    "developer": "CRYSTAL",
+    "region": "Шымкент",
+    "matchedBy": "developer"
+  },
+  "obj:мжк ба ғ ыстан , 5 очередь , позиция 2,4 м": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК БА Ғ ЫСТАН , 5 ОЧЕРЕДЬ , ПОЗИЦИЯ 2,4 М",
+    "developer": "NEW LINE 7",
+    "region": "ДПГ",
+    "matchedBy": "object"
+  },
+  "dev:new line 7": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК БА Ғ ЫСТАН , 5 ОЧЕРЕДЬ , ПОЗИЦИЯ 2,4 М",
+    "developer": "NEW LINE 7",
+    "region": "ДПГ",
+    "matchedBy": "developer"
+  },
+  "obj:жк мангилик парк м": {
+    "status": "active",
+    "contract": null,
+    "object": "ЖК МАНГИЛИК ПАРК М",
+    "developer": "Т Ұ РАН ҚҰ РЫЛЫС",
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "dev:т ұ ран құ рылыс": {
+    "status": "active",
+    "contract": null,
+    "object": "ЖК МАНГИЛИК ПАРК М",
+    "developer": "Т Ұ РАН ҚҰ РЫЛЫС",
+    "region": "Нур",
+    "matchedBy": "developer"
+  },
+  "obj:мжк pioneer city с": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК PIONEER CITY С",
+    "developer": "PIONER INVEST",
+    "region": "Шымкент",
+    "matchedBy": "object"
+  },
+  "dev:pioner invest": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК PIONEER CITY С",
+    "developer": "PIONER INVEST",
+    "region": "Шымкент",
+    "matchedBy": "developer"
+  },
+  "obj:мжк даулетті қ алашы қ , 3.1 очередь м": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК ДАУЛЕТТІ Қ АЛАШЫ Қ , 3.1 ОЧЕРЕДЬ М",
+    "developer": "DAULETTI 1",
+    "region": null,
+    "matchedBy": "object"
+  },
+  "dev:dauletti 1": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК ДАУЛЕТТІ Қ АЛАШЫ Қ , 3.1 ОЧЕРЕДЬ М",
+    "developer": "DAULETTI 1",
+    "region": null,
+    "matchedBy": "developer"
+  },
+  "obj:мжк bagyt м": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК BAGYT М",
+    "developer": "DAULETTI 1",
+    "region": null,
+    "matchedBy": "object"
+  },
+  "obj:мжк parasat ii, 3 очередь, 6 д": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК PARASAT II, 3 ОЧЕРЕДЬ, 6 Д",
+    "developer": "PARASAT CAPITAL",
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "dev:parasat capital": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК PARASAT II, 3 ОЧЕРЕДЬ, 6 Д",
+    "developer": "PARASAT CAPITAL",
+    "region": "Алматы",
+    "matchedBy": "developer"
+  },
+  "obj:мжк каспий, пятно 10 - 12 с": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК КАСПИЙ, ПЯТНО 10 - 12 С",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:жк дпг - 25 - 02 - к": {
+    "status": "active",
+    "contract": null,
+    "object": "ЖК ДПГ - 25 - 02 - К",
+    "developer": "SMR - EURASIA",
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "dev:smr - eurasia": {
+    "status": "active",
+    "contract": null,
+    "object": "ЖК ДПГ - 25 - 02 - К",
+    "developer": "SMR - EURASIA",
+    "region": "Алматы",
+    "matchedBy": "developer"
+  },
+  "obj:мжк атмосфера, iv очередь с": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК АТМОСФЕРА, IV ОЧЕРЕДЬ С",
+    "developer": "TITAN",
+    "region": null,
+    "matchedBy": "object"
+  },
+  "dev:titan": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК АТМОСФЕРА, IV ОЧЕРЕДЬ С",
+    "developer": "TITAN",
+    "region": null,
+    "matchedBy": "developer"
+  },
+  "obj:мжк otbasy, 3 очередь с": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК OTBASY, 3 ОЧЕРЕДЬ С",
+    "developer": "KANFAR BUILDING",
+    "region": "Шымкент",
+    "matchedBy": "object"
+  },
+  "dev:kanfar building": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК OTBASY, 3 ОЧЕРЕДЬ С",
+    "developer": "KANFAR BUILDING",
+    "region": "Шымкент",
+    "matchedBy": "developer"
+  },
+  "obj:мжк та ң шолпан м": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК ТА Ң ШОЛПАН М",
+    "developer": "SMART SOLUTIONS",
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "dev:smart solutions": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК ТА Ң ШОЛПАН М",
+    "developer": "SMART SOLUTIONS",
+    "region": "Нур",
+    "matchedBy": "developer"
+  },
+  "obj:мжк гранд виктория": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК ГРАНД ВИКТОРИЯ",
+    "developer": "БА Ғ ЫСТАН ТОО BESTSTROY участок",
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "dev:ба ғ ыстан тоо beststroy участок": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК ГРАНД ВИКТОРИЯ",
+    "developer": "БА Ғ ЫСТАН ТОО BESTSTROY участок",
+    "region": "Нур",
+    "matchedBy": "developer"
+  },
+  "obj:мжк fortis м": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК FORTIS М",
+    "developer": "BAZIS - A CORP.",
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "dev:bazis - a corp": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК FORTIS М",
+    "developer": "BAZIS - A CORP.",
+    "region": "Астана",
+    "matchedBy": "developer"
+  },
+  "obj:мжк береке, дом 21 с": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК БЕРЕКЕ, ДОМ 21 С",
+    "developer": "БК - СТРОЙ ТОО БК - БЕРЕКЕ",
+    "region": null,
+    "matchedBy": "object"
+  },
+  "dev:бк - строй тоо бк - береке": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК БЕРЕКЕ, ДОМ 21 С",
+    "developer": "БК - СТРОЙ ТОО БК - БЕРЕКЕ",
+    "region": null,
+    "matchedBy": "developer"
+  },
+  "obj:мжк altai city, 1 очередь с": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК ALTAI CITY, 1 ОЧЕРЕДЬ С",
+    "developer": "ELIF",
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "dev:elif": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК ALTAI CITY, 1 ОЧЕРЕДЬ С",
+    "developer": "ELIF",
+    "region": "Алматы",
+    "matchedBy": "developer"
+  },
+  "obj:мжк асар хаус 4, 4 очередь с": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК АСАР ХАУС 4, 4 ОЧЕРЕДЬ С",
+    "developer": "ASAR HOUSE",
+    "region": null,
+    "matchedBy": "object"
+  },
+  "dev:asar house": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК АСАР ХАУС 4, 4 ОЧЕРЕДЬ С",
+    "developer": "ASAR HOUSE",
+    "region": null,
+    "matchedBy": "developer"
+  },
+  "obj:мжк adamant plus, пятна 10, 11 м": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК ADAMANT PLUS, ПЯТНА 10, 11 М",
+    "developer": "BAZIS - A CORP. 16 21 628",
+    "region": null,
+    "matchedBy": "object"
+  },
+  "dev:bazis - a corp 16 21 628": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК ADAMANT PLUS, ПЯТНА 10, 11 М",
+    "developer": "BAZIS - A CORP. 16 21 628",
+    "region": null,
+    "matchedBy": "developer"
+  },
+  "obj:мжк saryn с": {
+    "status": "active",
+    "contract": "ДПГ-25-01-036/196",
+    "object": "МЖК SARYN С",
+    "developer": "SENSATA",
+    "region": null,
+    "matchedBy": "object"
+  },
+  "dev:sensata": {
+    "status": "active",
+    "contract": "ДПГ-25-01-036/196",
+    "object": "МЖК SARYN С",
+    "developer": "SENSATA",
+    "region": null,
+    "matchedBy": "developer"
+  },
+  "obj:мжк золотой квадрат с": {
+    "status": "active",
+    "contract": "ДПГ-25-16-078/194",
+    "object": "МЖК ЗОЛОТОЙ КВАДРАТ С",
+    "developer": "SA - 24",
+    "region": "Усть",
+    "matchedBy": "object"
+  },
+  "dev:sa - 24": {
+    "status": "active",
+    "contract": "ДПГ-25-16-078/194",
+    "object": "МЖК ЗОЛОТОЙ КВАДРАТ С",
+    "developer": "SA - 24",
+    "region": "Усть",
+    "matchedBy": "developer"
+  },
+  "obj:мжк pioneer city, 2 очередь д": {
+    "status": "active",
+    "contract": "ДПГ-24-17-073/178",
+    "object": "МЖК PIONEER CITY, 2 ОЧЕРЕДЬ Д",
+    "developer": "PIONEER INVEST",
+    "region": "Шымкент",
+    "matchedBy": "object"
+  },
+  "dev:pioneer invest": {
+    "status": "active",
+    "contract": "ДПГ-24-17-073/178",
+    "object": "МЖК PIONEER CITY, 2 ОЧЕРЕДЬ Д",
+    "developer": "PIONEER INVEST",
+    "region": "Шымкент",
+    "matchedBy": "developer"
+  },
+  "obj:мжк атмосфера, v очередь с": {
+    "status": "active",
+    "contract": "ДПГ-25-02-052/185",
+    "object": "МЖК АТМОСФЕРА, V ОЧЕРЕДЬ С",
+    "developer": "TITAN 2 4 20.08.2025",
+    "region": null,
+    "matchedBy": "object"
+  },
+  "dev:titan 2 4 20082025": {
+    "status": "active",
+    "contract": "ДПГ-25-02-052/185",
+    "object": "МЖК АТМОСФЕРА, V ОЧЕРЕДЬ С",
+    "developer": "TITAN 2 4 20.08.2025",
+    "region": null,
+    "matchedBy": "developer"
+  },
+  "obj:мжк shattyq city с": {
+    "status": "active",
+    "contract": "ДПГ-25-17-080/197",
+    "object": "МЖК SHATTYQ CITY С",
+    "developer": null,
+    "region": null,
+    "matchedBy": "object"
+  },
+  "obj:мжк cascade м": {
+    "status": "active",
+    "contract": "ДПГ-25-01-079/195",
+    "object": "МЖК CASCADE М",
+    "developer": "BSK STROY",
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "dev:bsk stroy": {
+    "status": "active",
+    "contract": "ДПГ-25-01-079/195",
+    "object": "МЖК CASCADE М",
+    "developer": "BSK STROY",
+    "region": "Астана",
+    "matchedBy": "developer"
+  },
+  "obj:мжк epic с": {
+    "status": "active",
+    "contract": "ДПГ-25-01-079/198",
+    "object": "МЖК EPIC С",
+    "developer": "BSK STROY",
+    "region": null,
+    "matchedBy": "object"
+  },
+  "obj:мжк asylym с": {
+    "status": "active",
+    "contract": "ДПГ-25-16-082/200",
+    "object": "МЖК ASYLYM С",
+    "developer": "EKM COMPANY",
+    "region": "Усть",
+    "matchedBy": "object"
+  },
+  "dev:ekm company": {
+    "status": "active",
+    "contract": "ДПГ-25-16-082/200",
+    "object": "МЖК ASYLYM С",
+    "developer": "EKM COMPANY",
+    "region": "Усть",
+    "matchedBy": "developer"
+  },
+  "obj:мжк land mark gold, 5 очередь, пятна 1,2 и 6": {
+    "status": "active",
+    "contract": "ДПГ-25-01-001/201",
+    "object": "МЖК LAND MARK GOLD, 5 ОЧЕРЕДЬ, ПЯТНА 1,2 И 6",
+    "developer": "BAZIS - A C",
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "dev:bazis - a c": {
+    "status": "active",
+    "contract": "ДПГ-25-01-001/201",
+    "object": "МЖК LAND MARK GOLD, 5 ОЧЕРЕДЬ, ПЯТНА 1,2 И 6",
+    "developer": "BAZIS - A C",
+    "region": "Астана",
+    "matchedBy": "developer"
+  },
+  "obj:мжк traibeka м": {
+    "status": "active",
+    "contract": "ДПГ-25-01-001/202",
+    "object": "МЖК TRAIBEKA М",
+    "developer": "BAZIS - A C",
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк energy, 1,2,3,4 очередь м": {
+    "status": "active",
+    "contract": "ДПГ-25-01-081/199",
+    "object": "МЖК ENERGY, 1,2,3,4 ОЧЕРЕДЬ М",
+    "developer": "САРЫАРКА паркингом",
+    "region": null,
+    "matchedBy": "object"
+  },
+  "dev:сарыарка паркингом": {
+    "status": "active",
+    "contract": "ДПГ-25-01-081/199",
+    "object": "МЖК ENERGY, 1,2,3,4 ОЧЕРЕДЬ М",
+    "developer": "САРЫАРКА паркингом",
+    "region": null,
+    "matchedBy": "developer"
+  },
+  "obj:мжк land mark gold, 5 очередь, пятна 3,4,5 ж": {
+    "status": "active",
+    "contract": "ДПГ-25-01-001/201",
+    "object": "МЖК LAND MARK GOLD, 5 ОЧЕРЕДЬ, ПЯТНА 3,4,5 Ж",
+    "developer": "DOSTYK",
+    "region": null,
+    "matchedBy": "object"
+  },
+  "dev:dostyk": {
+    "status": "active",
+    "contract": "ДПГ-25-01-001/201",
+    "object": "МЖК LAND MARK GOLD, 5 ОЧЕРЕДЬ, ПЯТНА 3,4,5 Ж",
+    "developer": "DOSTYK",
+    "region": null,
+    "matchedBy": "developer"
+  },
+  "obj:мжк аккент, 1 очередь, участок 90": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК АККЕНТ, 1 ОЧЕРЕДЬ, УЧАСТОК 90",
+    "developer": "AYT HOUSING",
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "dev:ayt housing": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК АККЕНТ, 1 ОЧЕРЕДЬ, УЧАСТОК 90",
+    "developer": "AYT HOUSING",
+    "region": "Алматы",
+    "matchedBy": "developer"
+  },
+  "obj:мжк жан ұ я с": {
+    "status": "active",
+    "contract": "ДПГ-25-17-046/204",
+    "object": "МЖК ЖАН Ұ Я С",
+    "developer": "TURKISTAN",
+    "region": null,
+    "matchedBy": "object"
+  },
+  "dev:turkistan": {
+    "status": "active",
+    "contract": "ДПГ-25-17-046/204",
+    "object": "МЖК ЖАН Ұ Я С",
+    "developer": "TURKISTAN",
+    "region": null,
+    "matchedBy": "developer"
+  },
+  "obj:мжк kokjiek ж": {
+    "status": "active",
+    "contract": "ДПГ-25-01-084/205",
+    "object": "МЖК KOKJIEK Ж",
+    "developer": "NURLY ZHOL 3 5",
+    "region": null,
+    "matchedBy": "object"
+  },
+  "dev:nurly zhol 3 5": {
+    "status": "active",
+    "contract": "ДПГ-25-01-084/205",
+    "object": "МЖК KOKJIEK Ж",
+    "developer": "NURLY ZHOL 3 5",
+    "region": null,
+    "matchedBy": "developer"
+  },
+  "obj:мжк titul town с": {
+    "status": "active",
+    "contract": "ДПГ-25-02-083/206",
+    "object": "МЖК TITUL TOWN С",
+    "developer": "SMR - EURASIA",
+    "region": null,
+    "matchedBy": "object"
+  },
+  "obj:мжк aisafa м": {
+    "status": "active",
+    "contract": "ДПГ-25-01-085/207",
+    "object": "МЖК AISAFA М",
+    "developer": "SENSATA HOLDING",
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "dev:sensata holding": {
+    "status": "active",
+    "contract": "ДПГ-25-01-085/207",
+    "object": "МЖК AISAFA М",
+    "developer": "SENSATA HOLDING",
+    "region": "Нур",
+    "matchedBy": "developer"
+  },
+  "obj:мжк orda с": {
+    "status": "active",
+    "contract": "ДПГ-25-03-086/208",
+    "object": "МЖК ORDA С",
+    "developer": "ORDA 38",
+    "region": "Кокшетау",
+    "matchedBy": "object"
+  },
+  "dev:orda 38": {
+    "status": "active",
+    "contract": "ДПГ-25-03-086/208",
+    "object": "МЖК ORDA С",
+    "developer": "ORDA 38",
+    "region": "Кокшетау",
+    "matchedBy": "developer"
+  },
+  "obj:мжк horizon м": {
+    "status": "active",
+    "contract": "ДПГ-25-01-001/188",
+    "object": "МЖК HORIZON М",
+    "developer": "BAZIS - A CORP.",
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк кенгир с": {
+    "status": "active",
+    "contract": "ДПГ-26-20-087/209",
+    "object": "МЖК КЕНГИР С",
+    "developer": "ЛЮКС ТОО NOVELLA",
+    "region": null,
+    "matchedBy": "object"
+  },
+  "dev:люкс тоо novella": {
+    "status": "active",
+    "contract": "ДПГ-26-20-087/209",
+    "object": "МЖК КЕНГИР С",
+    "developer": "ЛЮКС ТОО NOVELLA",
+    "region": null,
+    "matchedBy": "developer"
+  },
+  "obj:мжк grand monaco, пятно 5, блоки 13,14,15,17": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК GRAND MONACO, ПЯТНО 5, БЛОКИ 13,14,15,17",
+    "developer": "BAZIS - A CORP.",
+    "region": "ТОО",
+    "matchedBy": "object"
+  },
+  "obj:мжк клубный городок kainar village с": {
+    "status": "active",
+    "contract": "ДПГ-26-17-077/210",
+    "object": "МЖК КЛУБНЫЙ ГОРОДОК KAINAR VILLAGE С",
+    "developer": "KAINAR 4 2",
+    "region": "Шымкент",
+    "matchedBy": "object"
+  },
+  "dev:kainar 4 2": {
+    "status": "active",
+    "contract": "ДПГ-26-17-077/210",
+    "object": "МЖК КЛУБНЫЙ ГОРОДОК KAINAR VILLAGE С",
+    "developer": "KAINAR 4 2",
+    "region": "Шымкент",
+    "matchedBy": "developer"
+  },
+  "obj:мжк land mark gold, 6 очередь, пятна 1,2,3,4 паркинг ж": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК LAND MARK GOLD, 6 ОЧЕРЕДЬ, ПЯТНА 1,2,3,4 ПАРКИНГ Ж",
+    "developer": "DOSTYK 4 3 15.04.2026",
+    "region": "Сы",
+    "matchedBy": "object"
+  },
+  "dev:dostyk 4 3 15042026": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК LAND MARK GOLD, 6 ОЧЕРЕДЬ, ПЯТНА 1,2,3,4 ПАРКИНГ Ж",
+    "developer": "DOSTYK 4 3 15.04.2026",
+    "region": "Сы",
+    "matchedBy": "developer"
+  },
+  "obj:мжк grand monaco, пятно 3, блок 8 м": {
+    "status": "active",
+    "contract": null,
+    "object": "МЖК GRAND MONACO, ПЯТНО 3, БЛОК 8 М",
+    "developer": "BAZIS - A CORP.",
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк millennium park, блок 14 дпг - 17 - 01 - 001": {
+    "status": "completed",
+    "contract": "ДПГ-17-01-001",
+    "object": "МЖК MILLENNIUM PARK, БЛОК 14 ДПГ - 17 - 01 - 001",
+    "developer": "BAZIS - A 1",
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "dev:bazis - a 1": {
+    "status": "completed",
+    "contract": "ДПГ-17-01-001",
+    "object": "МЖК MILLENNIUM PARK, БЛОК 14 ДПГ - 17 - 01 - 001",
+    "developer": "BAZIS - A 1",
+    "region": "Нур",
+    "matchedBy": "developer"
+  },
+  "obj:мжк легенда, 1 очередь 35 371,3 20.12.2018 09.06.2017 дпг": {
+    "status": "completed",
+    "contract": "ДПГ-17-02-001/002",
+    "object": "МЖК ЛЕГЕНДА, 1 ОЧЕРЕДЬ 35 371,3 20.12.2018 09.06.2017 ДПГ",
+    "developer": "BAZIS - A 2",
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "dev:bazis - a 2": {
+    "status": "completed",
+    "contract": "ДПГ-17-02-001/002",
+    "object": "МЖК ЛЕГЕНДА, 1 ОЧЕРЕДЬ 35 371,3 20.12.2018 09.06.2017 ДПГ",
+    "developer": "BAZIS - A 2",
+    "region": "Алматы",
+    "matchedBy": "developer"
+  },
+  "obj:мжк алтын ұ я 13 084 27.08.2018 дпг - 17 - 01 - 002": {
+    "status": "completed",
+    "contract": "ДПГ-17-01-002/003",
+    "object": "МЖК АЛТЫН Ұ Я 13 084 27.08.2018 ДПГ - 17 - 01 - 002",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк легенда, 2 очередь, паркинг": {
+    "status": "completed",
+    "contract": "ДПГ-17-02-001/002",
+    "object": "МЖК ЛЕГЕНДА, 2 ОЧЕРЕДЬ, ПАРКИНГ",
+    "developer": "BAZIS - A 4 001",
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "dev:bazis - a 4 001": {
+    "status": "completed",
+    "contract": "ДПГ-17-02-001/002",
+    "object": "МЖК ЛЕГЕНДА, 2 ОЧЕРЕДЬ, ПАРКИНГ",
+    "developer": "BAZIS - A 4 001",
+    "region": "Алматы",
+    "matchedBy": "developer"
+  },
+  "obj:мжк на гагарина, 1 17.08.2017 дпг - 18 - 07 - 006": {
+    "status": "completed",
+    "contract": "ДПГ-18-07-006/007",
+    "object": "МЖК НА ГАГАРИНА, 1 17.08.2017 ДПГ - 18 - 07 - 006",
+    "developer": "Караванный",
+    "region": "Уральск",
+    "matchedBy": "object"
+  },
+  "dev:караванный": {
+    "status": "completed",
+    "contract": "ДПГ-18-07-006/007",
+    "object": "МЖК НА ГАГАРИНА, 1 17.08.2017 ДПГ - 18 - 07 - 006",
+    "developer": "Караванный",
+    "region": "Уральск",
+    "matchedBy": "developer"
+  },
+  "obj:мжк alma city, 1 очередь м": {
+    "status": "completed",
+    "contract": "ДПГ-18-02-005/006",
+    "object": "МЖК ALMA CITY, 1 ОЧЕРЕДЬ М",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк alma city, 2 очередь д": {
+    "status": "completed",
+    "contract": "ДПГ-18-02-005/006",
+    "object": "МЖК ALMA CITY, 2 ОЧЕРЕДЬ Д",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк легенда, 3 очередь 12 592,6 16.01.2018": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК ЛЕГЕНДА, 3 ОЧЕРЕДЬ 12 592,6 16.01.2018",
+    "developer": "BAZIS - A 8",
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "dev:bazis - a 8": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК ЛЕГЕНДА, 3 ОЧЕРЕДЬ 12 592,6 16.01.2018",
+    "developer": "BAZIS - A 8",
+    "region": "Алматы",
+    "matchedBy": "developer"
+  },
+  "obj:мжк sunrise м": {
+    "status": "completed",
+    "contract": "ДПГ-18-01-008/009",
+    "object": "МЖК SUNRISE М",
+    "developer": "Милан –",
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "dev:милан –": {
+    "status": "completed",
+    "contract": "ДПГ-18-01-008/009",
+    "object": "МЖК SUNRISE М",
+    "developer": "Милан –",
+    "region": "Нур",
+    "matchedBy": "developer"
+  },
+  "obj:мжк nova city, 15 очередь 28 555,6 дпг - 18 - 01 - 008": {
+    "status": "completed",
+    "contract": "ДПГ-18-01-008/011",
+    "object": "МЖК NOVA CITY, 15 ОЧЕРЕДЬ 28 555,6 ДПГ - 18 - 01 - 008",
+    "developer": "Милан –",
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк alma city - 2 с": {
+    "status": "completed",
+    "contract": "ДПГ-18-02-005/012",
+    "object": "МЖК ALMA CITY - 2 С",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк биік ша ң ыра қ м": {
+    "status": "completed",
+    "contract": "ДПГ-18-01-003/004",
+    "object": "МЖК БИІК ША Ң ЫРА Қ М",
+    "developer": "НАЕК встроенными помещениями и паркингом.",
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "dev:наек встроенными помещениями и паркингом": {
+    "status": "completed",
+    "contract": "ДПГ-18-01-003/004",
+    "object": "МЖК БИІК ША Ң ЫРА Қ М",
+    "developer": "НАЕК встроенными помещениями и паркингом.",
+    "region": "Нур",
+    "matchedBy": "developer"
+  },
+  "obj:мжк легенда, 5 очередь": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК ЛЕГЕНДА, 5 ОЧЕРЕДЬ",
+    "developer": "BAZIS - A 13",
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "dev:bazis - a 13": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК ЛЕГЕНДА, 5 ОЧЕРЕДЬ",
+    "developer": "BAZIS - A 13",
+    "region": "Алматы",
+    "matchedBy": "developer"
+  },
+  "obj:мжк бахыт, 1 - я очередь дпг - 18 - 13 - 004": {
+    "status": "completed",
+    "contract": "ДПГ-18-13-004/005",
+    "object": "МЖК БАХЫТ, 1 - Я ОЧЕРЕДЬ ДПГ - 18 - 13 - 004",
+    "developer": "О ң т ү стік -",
+    "region": "ТОО",
+    "matchedBy": "object"
+  },
+  "dev:о ң т ү стік -": {
+    "status": "completed",
+    "contract": "ДПГ-18-13-004/005",
+    "object": "МЖК БАХЫТ, 1 - Я ОЧЕРЕДЬ ДПГ - 18 - 13 - 004",
+    "developer": "О ң т ү стік -",
+    "region": "ТОО",
+    "matchedBy": "developer"
+  },
+  "obj:мжк sezim qala - 1 очередь м": {
+    "status": "completed",
+    "contract": "ДПГ-19-01-008/015",
+    "object": "МЖК SEZIM QALA - 1 ОЧЕРЕДЬ М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк легенда, 4 очередь д": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК ЛЕГЕНДА, 4 ОЧЕРЕДЬ Д",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк nova city, 19 очередь м": {
+    "status": "completed",
+    "contract": "ДПГ-19-01-001/014",
+    "object": "МЖК NOVA CITY, 19 ОЧЕРЕДЬ М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк alma city - 3, 1 - й пусковой комплекс с": {
+    "status": "completed",
+    "contract": "ДПГ-19-02-005/024",
+    "object": "МЖК ALMA CITY - 3, 1 - Й ПУСКОВОЙ КОМПЛЕКС С",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк triumph avenue 23 920,80 4,7,9 дпг - 18 - 01 - 009": {
+    "status": "completed",
+    "contract": "ДПГ-18-01-009/010",
+    "object": "МЖК TRIUMPH AVENUE 23 920,80 4,7,9 ДПГ - 18 - 01 - 009",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:жк amsterdam city м": {
+    "status": "completed",
+    "contract": "ДПГ-19-01-001/013",
+    "object": "ЖК AMSTERDAM CITY М",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк nova city, 16 очередь рп м": {
+    "status": "completed",
+    "contract": "ДПГ-19-01-008/016",
+    "object": "МЖК NOVA CITY, 16 ОЧЕРЕДЬ РП М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк парасат, 1 очередь с": {
+    "status": "completed",
+    "contract": "ДПГ-19-02-013/030",
+    "object": "МЖК ПАРАСАТ, 1 ОЧЕРЕДЬ С",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк премьера 8903,44 дпг - 19 - 13 - 004": {
+    "status": "completed",
+    "contract": "ДПГ-19-13-004/020",
+    "object": "МЖК ПРЕМЬЕРА 8903,44 ДПГ - 19 - 13 - 004",
+    "developer": null,
+    "region": "ТОО",
+    "matchedBy": "object"
+  },
+  "obj:мжк nova city, 22 очередь 8855,87 дпг - 19 - 02 - 008": {
+    "status": "completed",
+    "contract": "ДПГ-19-02-008/021",
+    "object": "МЖК NOVA CITY, 22 ОЧЕРЕДЬ 8855,87 ДПГ - 19 - 02 - 008",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:жк asqat, 1 очередь м": {
+    "status": "completed",
+    "contract": "ДПГ-19-01-010/018",
+    "object": "ЖК ASQAT, 1 ОЧЕРЕДЬ М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк asqat, 2 очередь м": {
+    "status": "completed",
+    "contract": "ДПГ-19-01-010/018",
+    "object": "МЖК ASQAT, 2 ОЧЕРЕДЬ М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк asqat, 3": {
+    "status": "completed",
+    "contract": "ДПГ-19-01-010/018",
+    "object": "МЖК ASQAT, 3",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк alma city - 3, 2 - й пусковой комплекс д": {
+    "status": "completed",
+    "contract": "ДПГ-19-02-005/024",
+    "object": "МЖК ALMA CITY - 3, 2 - Й ПУСКОВОЙ КОМПЛЕКС Д",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк argento пятно 4 а": {
+    "status": "completed",
+    "contract": "ДПГ-19-01-001/017",
+    "object": "МЖК ARGENTO ПЯТНО 4 А",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк amsterdam city. пятна 1,2,3 м": {
+    "status": "completed",
+    "contract": "ДПГ-19-01-001/013",
+    "object": "МЖК AMSTERDAM CITY. ПЯТНА 1,2,3 М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк в г. атырау 13.03.2020 дпг - 20 - 06 - 018": {
+    "status": "completed",
+    "contract": "ДПГ-20-06-018/040",
+    "object": "МЖК В Г. АТЫРАУ 13.03.2020 ДПГ - 20 - 06 - 018",
+    "developer": null,
+    "region": "Атырау",
+    "matchedBy": "object"
+  },
+  "obj:мжк бахыт, 2 - я очередь 27937,7 168": {
+    "status": "completed",
+    "contract": "ДПГ-18-13-004/005",
+    "object": "МЖК БАХЫТ, 2 - Я ОЧЕРЕДЬ 27937,7 168",
+    "developer": null,
+    "region": "ТОО",
+    "matchedBy": "object"
+  },
+  "obj:мжк soho, блок 1 секции 1,2,3 м": {
+    "status": "completed",
+    "contract": "ДПГ-20-01-001/032",
+    "object": "МЖК SOHO, БЛОК 1 СЕКЦИИ 1,2,3 М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк ак дидар - 2, пятна 9 - 13 16376,6 29": {
+    "status": "completed",
+    "contract": "ДПГ-19-01-001/022",
+    "object": "МЖК АК ДИДАР - 2, ПЯТНА 9 - 13 16376,6 29",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:жк land mark ж": {
+    "status": "completed",
+    "contract": "ДПГ-20-01-001/037",
+    "object": "ЖК LAND MARK Ж",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк standard city тоо о": {
+    "status": "completed",
+    "contract": "ДПГ-20-13-004/045",
+    "object": "МЖК STANDARD CITY ТОО О",
+    "developer": null,
+    "region": "Строительство",
+    "matchedBy": "object"
+  },
+  "obj:мжк аспан сити": {
+    "status": "completed",
+    "contract": "ДПГ-19-02-011/019",
+    "object": "МЖК АСПАН СИТИ",
+    "developer": null,
+    "region": null,
+    "matchedBy": "object"
+  },
+  "obj:мжк парасат, 2 очередь д": {
+    "status": "completed",
+    "contract": "ДПГ-19-02-013/030",
+    "object": "МЖК ПАРАСАТ, 2 ОЧЕРЕДЬ Д",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк sezim qala, 7 очередь д": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК SEZIM QALA, 7 ОЧЕРЕДЬ Д",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк nova city на туране, 1 очередь м": {
+    "status": "completed",
+    "contract": "ДПГ-20-01-008/034",
+    "object": "МЖК NOVA CITY НА ТУРАНЕ, 1 ОЧЕРЕДЬ М",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк бестерек м": {
+    "status": "completed",
+    "contract": "ДПГ-19-01-008/023",
+    "object": "МЖК БЕСТЕРЕК М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк sezim qala,4 очередь д": {
+    "status": "completed",
+    "contract": "ДПГ-19-01-008/015",
+    "object": "МЖК SEZIM QALA,4 ОЧЕРЕДЬ Д",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк гулдер с": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК ГУЛДЕР С",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк amsterdam city, 2 очередь. пятна 8,9,10 м": {
+    "status": "completed",
+    "contract": "ДПГ-19-01-001/013",
+    "object": "МЖК AMSTERDAM CITY, 2 ОЧЕРЕДЬ. ПЯТНА 8,9,10 М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк athletic дпг - 20 - 01 - 002": {
+    "status": "completed",
+    "contract": "ДПГ-20-01-002/049",
+    "object": "МЖК ATHLETIC ДПГ - 20 - 01 - 002",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк argento, пятно 3 а": {
+    "status": "completed",
+    "contract": "ДПГ-19-01-001/017",
+    "object": "МЖК ARGENTO, ПЯТНО 3 А",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк сердце столицы, 1 очередь м": {
+    "status": "completed",
+    "contract": "ДПГ-19-01-008/027",
+    "object": "МЖК СЕРДЦЕ СТОЛИЦЫ, 1 ОЧЕРЕДЬ М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк nova city на рыскулбекова м": {
+    "status": "completed",
+    "contract": "ДПГ-20-01-008/033",
+    "object": "МЖК NOVA CITY НА РЫСКУЛБЕКОВА М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк alma city - 3, 3 - й пусковой комплекс д": {
+    "status": "completed",
+    "contract": "ДПГ-19-02-005/024",
+    "object": "МЖК ALMA CITY - 3, 3 - Й ПУСКОВОЙ КОМПЛЕКС Д",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк теремки. 2 - й пусковой комплекс, пятна 16 - 27 с": {
+    "status": "completed",
+    "contract": "ДПГ-20-02-020/042",
+    "object": "МЖК ТЕРЕМКИ. 2 - Й ПУСКОВОЙ КОМПЛЕКС, ПЯТНА 16 - 27 С",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк soho, блок 2 секции 4,5,6 м": {
+    "status": "completed",
+    "contract": "ДПГ-20-01-001/032",
+    "object": "МЖК SOHO, БЛОК 2 СЕКЦИИ 4,5,6 М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк nova city на туране, 2 очередь м": {
+    "status": "completed",
+    "contract": "ДПГ-20-01-008/034",
+    "object": "МЖК NOVA CITY НА ТУРАНЕ, 2 ОЧЕРЕДЬ М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк ба ғ ыстан , позиция 1 и 3 м": {
+    "status": "completed",
+    "contract": "ДПГ-18-01-007/008",
+    "object": "МЖК БА Ғ ЫСТАН , ПОЗИЦИЯ 1 И 3 М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк ба ғ ыстан , позиция 7 д": {
+    "status": "completed",
+    "contract": "ДПГ-18-01-007/008",
+    "object": "МЖК БА Ғ ЫСТАН , ПОЗИЦИЯ 7 Д",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк ба ғ ыстан , позиция 11 д": {
+    "status": "completed",
+    "contract": "ДПГ-18-01-007/008",
+    "object": "МЖК БА Ғ ЫСТАН , ПОЗИЦИЯ 11 Д",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк абылайхан - 2 тоо к": {
+    "status": "completed",
+    "contract": "ДПГ-19-01-012/026",
+    "object": "МЖК АБЫЛАЙХАН - 2 ТОО К",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк алма тау, 1 очередь пятна 7 - 8 тоо рп с": {
+    "status": "completed",
+    "contract": "ДПГ-21-02-028/063",
+    "object": "МЖК АЛМА ТАУ, 1 ОЧЕРЕДЬ ПЯТНА 7 - 8 ТОО РП С",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк nova city на рыскулбекова, 2 очередь м": {
+    "status": "completed",
+    "contract": "ДПГ-20-01-008/033",
+    "object": "МЖК NOVA CITY НА РЫСКУЛБЕКОВА, 2 ОЧЕРЕДЬ М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк шахристан м": {
+    "status": "completed",
+    "contract": "ДПГ-20-01-024/052",
+    "object": "МЖК ШАХРИСТАН М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк асыл мура, квартал а 35661,7 дпг - 20 - 01 - 008": {
+    "status": "completed",
+    "contract": "ДПГ-20-01-008/031",
+    "object": "МЖК АСЫЛ МУРА, КВАРТАЛ А 35661,7 ДПГ - 20 - 01 - 008",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк сердце столицы, 2 очередь м": {
+    "status": "completed",
+    "contract": "ДПГ-19-01-008/027",
+    "object": "МЖК СЕРДЦЕ СТОЛИЦЫ, 2 ОЧЕРЕДЬ М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк sezim qala, 6 очередь д": {
+    "status": "completed",
+    "contract": "ДПГ-19-01-008/015",
+    "object": "МЖК SEZIM QALA, 6 ОЧЕРЕДЬ Д",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк millennium park, блок 24 а": {
+    "status": "completed",
+    "contract": "ДПГ-21-01-001/053",
+    "object": "МЖК MILLENNIUM PARK, БЛОК 24 А",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк сохо, блок 3, 4 д": {
+    "status": "completed",
+    "contract": "ДПГ-20-01-001/032",
+    "object": "МЖК СОХО, БЛОК 3, 4 Д",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк amsterdam city. 2 очередь. пятна 11,12,13,14 д": {
+    "status": "completed",
+    "contract": "ДПГ-19-01-001/013",
+    "object": "МЖК AMSTERDAM CITY. 2 ОЧЕРЕДЬ. ПЯТНА 11,12,13,14 Д",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк ак дидар - 2, пятна 14,15 д": {
+    "status": "completed",
+    "contract": "ДПГ-19-01-001/022",
+    "object": "МЖК АК ДИДАР - 2, ПЯТНА 14,15 Д",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк heaven с": {
+    "status": "completed",
+    "contract": "ДПГ-21-02-020/060",
+    "object": "МЖК HEAVEN С",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк терракота, 1 - й этап, блоки 2, 2": {
+    "status": "completed",
+    "contract": "ДПГ-20-02-020/043",
+    "object": "МЖК ТЕРРАКОТА, 1 - Й ЭТАП, БЛОКИ 2, 2",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк терракота, 2 этап, блоки 4 и 7 д": {
+    "status": "completed",
+    "contract": "ДПГ-20-02-020/043",
+    "object": "МЖК ТЕРРАКОТА, 2 ЭТАП, БЛОКИ 4 И 7 Д",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк сити плюс 55984,28 28": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК СИТИ ПЛЮС 55984,28 28",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк sezim qala, 8 очередь м": {
+    "status": "completed",
+    "contract": "ДПГ-19-01-008/015",
+    "object": "МЖК SEZIM QALA, 8 ОЧЕРЕДЬ М",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк олимпийский, 1 очередь м": {
+    "status": "completed",
+    "contract": "ДПГ-20-01-015/036",
+    "object": "МЖК ОЛИМПИЙСКИЙ, 1 ОЧЕРЕДЬ М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк argento пятно 1 - 2": {
+    "status": "completed",
+    "contract": "ДПГ-19-01-001/017",
+    "object": "МЖК ARGENTO ПЯТНО 1 - 2",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк esil tower, 1 очередь м": {
+    "status": "completed",
+    "contract": "ДПГ-21-01-026/059",
+    "object": "МЖК ESIL TOWER, 1 ОЧЕРЕДЬ М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк в г. атырау тоо d": {
+    "status": "completed",
+    "contract": "ДПГ-21-06-018/072",
+    "object": "МЖК В Г. АТЫРАУ ТОО D",
+    "developer": null,
+    "region": "Атырау",
+    "matchedBy": "object"
+  },
+  "obj:мжк discovery, пятно 3 м": {
+    "status": "completed",
+    "contract": "ДПГ-19-01-001/029",
+    "object": "МЖК DISCOVERY, ПЯТНО 3 М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк лесная поляна, 10 очередь, дом 40 дпг - 22 - 03 - 049": {
+    "status": "completed",
+    "contract": "ДПГ-22-03-049/109",
+    "object": "МЖК ЛЕСНАЯ ПОЛЯНА, 10 ОЧЕРЕДЬ, ДОМ 40 ДПГ - 22 - 03 - 049",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк gul ana с": {
+    "status": "completed",
+    "contract": "ДПГ-21-02-031/070",
+    "object": "МЖК GUL ANA С",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк асыл мура, блок f м": {
+    "status": "completed",
+    "contract": "ДПГ-21-01-025/057",
+    "object": "МЖК АСЫЛ МУРА, БЛОК F М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк aylet тоо ң": {
+    "status": "completed",
+    "contract": "ДПГ-21-01-009/066",
+    "object": "МЖК AYLET ТОО Ң",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк landmark д": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК LANDMARK Д",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк терракота, 3 этап, блоки 3, 6, 9, 11 и 12 д": {
+    "status": "completed",
+    "contract": "ДПГ-20-02-020/043",
+    "object": "МЖК ТЕРРАКОТА, 3 ЭТАП, БЛОКИ 3, 6, 9, 11 И 12 Д",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк гулдер 3 очередь, 2 пусковой с": {
+    "status": "completed",
+    "contract": "ДПГ-20-01-022/048",
+    "object": "МЖК ГУЛДЕР 3 ОЧЕРЕДЬ, 2 ПУСКОВОЙ С",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк гулдер 3 очередь, 1 д": {
+    "status": "completed",
+    "contract": "ДПГ-20-01-022/048",
+    "object": "МЖК ГУЛДЕР 3 ОЧЕРЕДЬ, 1 Д",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк теремки. 1 - й пусковой комплекс, пятна 2 - 15 д": {
+    "status": "completed",
+    "contract": "ДПГ-20-02-020/042",
+    "object": "МЖК ТЕРЕМКИ. 1 - Й ПУСКОВОЙ КОМПЛЕКС, ПЯТНА 2 - 15 Д",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк атмосфера м": {
+    "status": "completed",
+    "contract": "ДПГ-21-01-037/086",
+    "object": "МЖК АТМОСФЕРА М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк millennium park 23 блок а": {
+    "status": "completed",
+    "contract": "ДПГ-21-01-001/053",
+    "object": "МЖК MILLENNIUM PARK 23 БЛОК А",
+    "developer": null,
+    "region": "Доп",
+    "matchedBy": "object"
+  },
+  "obj:мжк балауса м": {
+    "status": "completed",
+    "contract": "ДПГ-21-01-036/082",
+    "object": "МЖК БАЛАУСА М",
+    "developer": null,
+    "region": "ДПГ",
+    "matchedBy": "object"
+  },
+  "obj:мжк nexpo city м": {
+    "status": "completed",
+    "contract": "ДПГ-21-01-025/056",
+    "object": "МЖК NEXPO CITY М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк alma city 4 - 1, блоки 9 - 35, 40 - 42. с": {
+    "status": "completed",
+    "contract": "ДПГ-21-02-020/085",
+    "object": "МЖК ALMA CITY 4 - 1, БЛОКИ 9 - 35, 40 - 42. С",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк alma city 4 - 1, блоки 1 - 8, 36 - 39, 43 - 46. с": {
+    "status": "completed",
+    "contract": "ДПГ-21-02-020/085",
+    "object": "МЖК ALMA CITY 4 - 1, БЛОКИ 1 - 8, 36 - 39, 43 - 46. С",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк акан серi": {
+    "status": "completed",
+    "contract": "ДПГ-21-01-001/058",
+    "object": "МЖК АКАН СЕРI",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк nc южный 1,2,4 1": {
+    "status": "completed",
+    "contract": "ДПГ-21-01-025/067",
+    "object": "МЖК NC ЮЖНЫЙ 1,2,4 1",
+    "developer": null,
+    "region": "ДПГ",
+    "matchedBy": "object"
+  },
+  "obj:мжк standart city 2 очередь с": {
+    "status": "completed",
+    "contract": "ДПГ-21-13-004/078",
+    "object": "МЖК STANDART CITY 2 ОЧЕРЕДЬ С",
+    "developer": null,
+    "region": "ТОО",
+    "matchedBy": "object"
+  },
+  "obj:мжк монако м": {
+    "status": "completed",
+    "contract": "ДПГ-21-01-001/054",
+    "object": "МЖК МОНАКО М",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк аман, пятна 1, 2, 3 м": {
+    "status": "completed",
+    "contract": "ДПГ-21-01-17638",
+    "object": "МЖК АМАН, ПЯТНА 1, 2, 3 М",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк angleterre м": {
+    "status": "completed",
+    "contract": "ДПГ-21-02-033/074",
+    "object": "МЖК ANGLETERRE М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк онер м": {
+    "status": "completed",
+    "contract": "ДПГ-21-02-022/050",
+    "object": "МЖК ОНЕР М",
+    "developer": null,
+    "region": "ДПГ",
+    "matchedBy": "object"
+  },
+  "obj:мжк auezov city, пятна 1, 2 с": {
+    "status": "completed",
+    "contract": "ДПГ-21-02-001/062",
+    "object": "МЖК AUEZOV CITY, ПЯТНА 1, 2 С",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк онер, 3 очередь м": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК ОНЕР, 3 ОЧЕРЕДЬ М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк парасат, 3 очередь с": {
+    "status": "completed",
+    "contract": "ДПГ-19-02-013/030",
+    "object": "МЖК ПАРАСАТ, 3 ОЧЕРЕДЬ С",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк теремки. 3 - й пусковой комплекс, пятна 1": {
+    "status": "completed",
+    "contract": "ДПГ-20-02-020/042",
+    "object": "МЖК ТЕРЕМКИ. 3 - Й ПУСКОВОЙ КОМПЛЕКС, ПЯТНА 1",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк alma city 5 - 2, блоки 128 - 155. с": {
+    "status": "completed",
+    "contract": "ДПГ-22-02-020/102",
+    "object": "МЖК ALMA CITY 5 - 2, БЛОКИ 128 - 155. С",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк view park family м": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК VIEW PARK FAMILY М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк soho, квартал 1в, очереди 1 и 2 , блоки 1 - 7, 8.1. м": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК SOHO, КВАРТАЛ 1В, ОЧЕРЕДИ 1 И 2 , БЛОКИ 1 - 7, 8.1. М",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк kulan м": {
+    "status": "completed",
+    "contract": "ДПГ-22-01-038/104",
+    "object": "МЖК KULAN М",
+    "developer": null,
+    "region": "ТОО",
+    "matchedBy": "object"
+  },
+  "obj:мжк озен м": {
+    "status": "completed",
+    "contract": "ДПГ-21-01-038/087",
+    "object": "МЖК ОЗЕН М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк юго - восток м": {
+    "status": "completed",
+    "contract": "ДПГ-21-01-023/051",
+    "object": "МЖК ЮГО - ВОСТОК М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк k7 family, 1 очередь с": {
+    "status": "completed",
+    "contract": "ДПГ-20-06-021/044",
+    "object": "МЖК K7 FAMILY, 1 ОЧЕРЕДЬ С",
+    "developer": null,
+    "region": "Актау",
+    "matchedBy": "object"
+  },
+  "obj:мжк шахар сити с": {
+    "status": "completed",
+    "contract": "ДПГ-21-02-011/071",
+    "object": "МЖК ШАХАР СИТИ С",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк социал м": {
+    "status": "completed",
+    "contract": "ДПГ-21-01-033/076",
+    "object": "МЖК СОЦИАЛ М",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк ак дидар м": {
+    "status": "completed",
+    "contract": "ДПГ-21-01-001/097",
+    "object": "МЖК АК ДИДАР М",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк discovery пятно 3": {
+    "status": "completed",
+    "contract": "ДПГ-19-01-001/029",
+    "object": "МЖК DISCOVERY ПЯТНО 3",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк асыл мура, очередь е м": {
+    "status": "completed",
+    "contract": "ДПГ-20-01-008/031",
+    "object": "МЖК АСЫЛ МУРА, ОЧЕРЕДЬ Е М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк gulder iv очередь, 1 пусковой комплекс с": {
+    "status": "completed",
+    "contract": "ДПГ-21-02-025/069",
+    "object": "МЖК GULDER IV ОЧЕРЕДЬ, 1 ПУСКОВОЙ КОМПЛЕКС С",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк в г. актау с": {
+    "status": "completed",
+    "contract": "ДПГ-21-12-030/065",
+    "object": "МЖК В Г. АКТАУ С",
+    "developer": null,
+    "region": "Актау",
+    "matchedBy": "object"
+  },
+  "obj:мжк асыл мура, квартал в м": {
+    "status": "completed",
+    "contract": "ДПГ-20-01-008/031",
+    "object": "МЖК АСЫЛ МУРА, КВАРТАЛ В М",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк asar house с": {
+    "status": "completed",
+    "contract": "ДПГ-22-13-046/118",
+    "object": "МЖК ASAR HOUSE С",
+    "developer": null,
+    "region": "ТОО",
+    "matchedBy": "object"
+  },
+  "obj:мжк landmark 2 - очередь, пятна 3 - 5 д": {
+    "status": "completed",
+    "contract": "ДПГ-20-01-001/037",
+    "object": "МЖК LANDMARK 2 - ОЧЕРЕДЬ, ПЯТНА 3 - 5 Д",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк хоккайдо, 1 очередь м": {
+    "status": "completed",
+    "contract": "ДПГ-21-01-034/077",
+    "object": "МЖК ХОККАЙДО, 1 ОЧЕРЕДЬ М",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк столичный - 2 м": {
+    "status": "completed",
+    "contract": "ДПГ-22-01-047/105",
+    "object": "МЖК СТОЛИЧНЫЙ - 2 М",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк арлан с": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК АРЛАН С",
+    "developer": null,
+    "region": null,
+    "matchedBy": "object"
+  },
+  "obj:мжк монако пятно 4 д": {
+    "status": "completed",
+    "contract": "ДПГ-21-01-001/054",
+    "object": "МЖК МОНАКО ПЯТНО 4 Д",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк batagay м": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК BATAGAY М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк престиж с": {
+    "status": "completed",
+    "contract": "ДПГ-22-13-046/103",
+    "object": "МЖК ПРЕСТИЖ С",
+    "developer": null,
+    "region": "ТОО",
+    "matchedBy": "object"
+  },
+  "obj:мжк адам арманы м": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК АДАМ АРМАНЫ М",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк auezov city, пятна 3, 4 д": {
+    "status": "completed",
+    "contract": "ДПГ-21-02-001/062",
+    "object": "МЖК AUEZOV CITY, ПЯТНА 3, 4 Д",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк angleterre, 2 очередь м": {
+    "status": "completed",
+    "contract": "ДПГ-21-02-033/074",
+    "object": "МЖК ANGLETERRE, 2 ОЧЕРЕДЬ М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк береке с": {
+    "status": "completed",
+    "contract": "ДПГ-22-10-048/107",
+    "object": "МЖК БЕРЕКЕ С",
+    "developer": null,
+    "region": null,
+    "matchedBy": "object"
+  },
+  "obj:мжк монако пятна 1, 2 м": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК МОНАКО ПЯТНА 1, 2 М",
+    "developer": null,
+    "region": "Доп",
+    "matchedBy": "object"
+  },
+  "obj:мжк sezim qala, 12 очередь м": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК SEZIM QALA, 12 ОЧЕРЕДЬ М",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк asyl mura, очередь d м": {
+    "status": "completed",
+    "contract": "ДПГ-20-01-008/031",
+    "object": "МЖК ASYL MURA, ОЧЕРЕДЬ D М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк arman tau comfort м": {
+    "status": "completed",
+    "contract": "ДПГ-21-01-029/064",
+    "object": "МЖК ARMAN TAU COMFORT М",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк prime park с": {
+    "status": "completed",
+    "contract": "ДПГ-21-13-004/068",
+    "object": "МЖК PRIME PARK С",
+    "developer": null,
+    "region": "ТОО",
+    "matchedBy": "object"
+  },
+  "obj:мжк австрийский квартал м": {
+    "status": "completed",
+    "contract": "ДПГ-21-01-001/058",
+    "object": "МЖК АВСТРИЙСКИЙ КВАРТАЛ М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк гульдер, 4 очередь, 2 пусковой комплекс с": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК ГУЛЬДЕР, 4 ОЧЕРЕДЬ, 2 ПУСКОВОЙ КОМПЛЕКС С",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк жер - ана с": {
+    "status": "completed",
+    "contract": "ДПГ-20-02-014/047",
+    "object": "МЖК ЖЕР - АНА С",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк k7 family, 2,3 очередь д": {
+    "status": "completed",
+    "contract": "ДПГ-20-06-021/044",
+    "object": "МЖК K7 FAMILY, 2,3 ОЧЕРЕДЬ Д",
+    "developer": null,
+    "region": "Атырау",
+    "matchedBy": "object"
+  },
+  "obj:мжк soho 2a д": {
+    "status": "completed",
+    "contract": "ДПГ-21-01-001/090",
+    "object": "МЖК SOHO 2A Д",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк laketown , 2 очередь с": {
+    "status": "completed",
+    "contract": "ДПГ-21-02-025/073",
+    "object": "МЖК LAKETOWN , 2 ОЧЕРЕДЬ С",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк auezov city, 3 очередь, пятна 5, 6, 7 д": {
+    "status": "completed",
+    "contract": "ДПГ-21-02-001/062",
+    "object": "МЖК AUEZOV CITY, 3 ОЧЕРЕДЬ, ПЯТНА 5, 6, 7 Д",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк аккент тоо a": {
+    "status": "completed",
+    "contract": "ДПГ-22-02-041/114",
+    "object": "МЖК АККЕНТ ТОО A",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк sun city м": {
+    "status": "completed",
+    "contract": "ДПГ-22-05-031/122",
+    "object": "МЖК SUN CITY М",
+    "developer": null,
+    "region": "Капшагай",
+    "matchedBy": "object"
+  },
+  "obj:мжк sun city, блок 1 д": {
+    "status": "completed",
+    "contract": "ДПГ-22-05-031/122",
+    "object": "МЖК SUN CITY, БЛОК 1 Д",
+    "developer": null,
+    "region": "Капшагай",
+    "matchedBy": "object"
+  },
+  "obj:мжк sun city, блок 3 д": {
+    "status": "completed",
+    "contract": "ДПГ-22-05-031/122",
+    "object": "МЖК SUN CITY, БЛОК 3 Д",
+    "developer": null,
+    "region": "Капшагай",
+    "matchedBy": "object"
+  },
+  "obj:мжк silver м": {
+    "status": "completed",
+    "contract": "ДПГ-21-01-035/079",
+    "object": "МЖК SILVER М",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк birlik с": {
+    "status": "completed",
+    "contract": "ДПГ-22-13-050/110",
+    "object": "МЖК BIRLIK С",
+    "developer": null,
+    "region": "ТОО",
+    "matchedBy": "object"
+  },
+  "obj:жк шахар сити, 2 очередь тоо e": {
+    "status": "completed",
+    "contract": null,
+    "object": "ЖК ШАХАР СИТИ, 2 ОЧЕРЕДЬ ТОО E",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк khanzada с": {
+    "status": "completed",
+    "contract": "ДПГ-22-13-046/111",
+    "object": "МЖК KHANZADA С",
+    "developer": null,
+    "region": "ТОО",
+    "matchedBy": "object"
+  },
+  "obj:мжк гранд виктория м": {
+    "status": "completed",
+    "contract": "ДПГ-22-01-114093",
+    "object": "МЖК ГРАНД ВИКТОРИЯ М",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк достар, пятно 13 м": {
+    "status": "completed",
+    "contract": "ДПГ-22-05-17698",
+    "object": "МЖК ДОСТАР, ПЯТНО 13 М",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк exclusive duet тоо e": {
+    "status": "completed",
+    "contract": "ДПГ-21-18802",
+    "object": "МЖК EXCLUSIVE DUET ТОО E",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк auezov city, пятна 8, 9, 10 д": {
+    "status": "completed",
+    "contract": "ДПГ-21-01-001/062",
+    "object": "МЖК AUEZOV CITY, ПЯТНА 8, 9, 10 Д",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк arlyn 3 - очередь с": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК ARLYN 3 - ОЧЕРЕДЬ С",
+    "developer": null,
+    "region": null,
+    "matchedBy": "object"
+  },
+  "obj:мжк престиж, 2 очередь с": {
+    "status": "completed",
+    "contract": "ДПГ-23-13-14689",
+    "object": "МЖК ПРЕСТИЖ, 2 ОЧЕРЕДЬ С",
+    "developer": null,
+    "region": "ТОО",
+    "matchedBy": "object"
+  },
+  "obj:мжк отырар с": {
+    "status": "completed",
+    "contract": "ДПГ-21-02-025/073",
+    "object": "МЖК ОТЫРАР С",
+    "developer": null,
+    "region": "ТОО",
+    "matchedBy": "object"
+  },
+  "obj:мжк modern city с": {
+    "status": "completed",
+    "contract": "ДПГ-22-13-004/106",
+    "object": "МЖК MODERN CITY С",
+    "developer": null,
+    "region": "ТОО",
+    "matchedBy": "object"
+  },
+  "obj:мжк landmark 4 очередь, пятна 1, 2, 3, 4 д": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК LANDMARK 4 ОЧЕРЕДЬ, ПЯТНА 1, 2, 3, 4 Д",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк arena city 1 м": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК ARENA CITY 1 М",
+    "developer": null,
+    "region": null,
+    "matchedBy": "object"
+  },
+  "obj:мжк mod, 1 - 3 очередь м": {
+    "status": "completed",
+    "contract": "ДПГ-23-01-008/145",
+    "object": "МЖК MOD, 1 - 3 ОЧЕРЕДЬ М",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк gul - ana 4 очередь, 11 пятно с": {
+    "status": "completed",
+    "contract": "ДПГ-23-02-7489",
+    "object": "МЖК GUL - ANA 4 ОЧЕРЕДЬ, 11 ПЯТНО С",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк достык с": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК ДОСТЫК С",
+    "developer": null,
+    "region": "Уральск",
+    "matchedBy": "object"
+  },
+  "obj:мжк семья, 1 - очередь 10": {
+    "status": "completed",
+    "contract": "ДПГ-22-10-056/121",
+    "object": "МЖК СЕМЬЯ, 1 - ОЧЕРЕДЬ 10",
+    "developer": null,
+    "region": null,
+    "matchedBy": "object"
+  },
+  "obj:мжк столичный - 2": {
+    "status": "completed",
+    "contract": "ДПГ-22-01-047/105",
+    "object": "МЖК СТОЛИЧНЫЙ - 2",
+    "developer": "Многоквартирный жилой комплекс",
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "dev:многоквартирный жилой комплекс": {
+    "status": "completed",
+    "contract": "ДПГ-22-01-047/105",
+    "object": "МЖК СТОЛИЧНЫЙ - 2",
+    "developer": "Многоквартирный жилой комплекс",
+    "region": "Астана",
+    "matchedBy": "developer"
+  },
+  "obj:мжк elоrda residence": {
+    "status": "completed",
+    "contract": "ДПГ-21-06-042/095",
+    "object": "МЖК ELОRDA RESIDENCE",
+    "developer": null,
+    "region": "Атырау",
+    "matchedBy": "object"
+  },
+  "obj:мжк аккент, 90": {
+    "status": "completed",
+    "contract": "ДПГ-22-02-041/114",
+    "object": "МЖК АККЕНТ, 90",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк монако пятно 5 м": {
+    "status": "completed",
+    "contract": "ДПГ-21-01-001/054",
+    "object": "МЖК МОНАКО ПЯТНО 5 М",
+    "developer": null,
+    "region": null,
+    "matchedBy": "object"
+  },
+  "obj:мжк аккент, блоки 1 - 13 тоо a": {
+    "status": "completed",
+    "contract": "ДПГ-21-02-041/094",
+    "object": "МЖК АККЕНТ, БЛОКИ 1 - 13 ТОО A",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк атамура ж": {
+    "status": "completed",
+    "contract": "ДПГ-22-01-024/116",
+    "object": "МЖК АТАМУРА Ж",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк altyn city 3 тоо e": {
+    "status": "completed",
+    "contract": "ДПГ-22-02-011/119",
+    "object": "МЖК ALTYN CITY 3 ТОО E",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк восточный квартал, блоки 8,10 м": {
+    "status": "completed",
+    "contract": "ДПГ-21-01-001/058",
+    "object": "МЖК ВОСТОЧНЫЙ КВАРТАЛ, БЛОКИ 8,10 М",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк mod, 1 - 1 очередь м": {
+    "status": "completed",
+    "contract": "ДПГ-23-01-008/145",
+    "object": "МЖК MOD, 1 - 1 ОЧЕРЕДЬ М",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк багыстан позиция": {
+    "status": "completed",
+    "contract": "ДПГ-22-01-053/125",
+    "object": "МЖК БАГЫСТАН ПОЗИЦИЯ",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк prestige city, 4 квартал с": {
+    "status": "completed",
+    "contract": "ДПГ-22-13-058/124",
+    "object": "МЖК PRESTIGE CITY, 4 КВАРТАЛ С",
+    "developer": null,
+    "region": "Шымкент",
+    "matchedBy": "object"
+  },
+  "obj:мжк asar house plus с": {
+    "status": "completed",
+    "contract": "ДПГ-23-17-046/156",
+    "object": "МЖК ASAR HOUSE PLUS С",
+    "developer": null,
+    "region": "ТОО",
+    "matchedBy": "object"
+  },
+  "obj:мжк кристалл с": {
+    "status": "completed",
+    "contract": "ДПГ-22-02-020/108",
+    "object": "МЖК КРИСТАЛЛ С",
+    "developer": null,
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк komfort life с": {
+    "status": "completed",
+    "contract": "ДПГ-23-04-063/144",
+    "object": "МЖК KOMFORT LIFE С",
+    "developer": null,
+    "region": "Актобе",
+    "matchedBy": "object"
+  },
+  "obj:мжк арлын, 4 очередь с": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК АРЛЫН, 4 ОЧЕРЕДЬ С",
+    "developer": null,
+    "region": "Алматинская",
+    "matchedBy": "object"
+  },
+  "obj:мжк mod, 1 - 2 очередь м": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК MOD, 1 - 2 ОЧЕРЕДЬ М",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк монако пятно 6 м": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК МОНАКО ПЯТНО 6 М",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк городской романс, блоки 9 c": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК ГОРОДСКОЙ РОМАНС, БЛОКИ 9 C",
+    "developer": null,
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк дом": {
+    "status": "completed",
+    "contract": "ДПГ-23-10-048/157",
+    "object": "МЖК ДОМ",
+    "developer": null,
+    "region": "ТОО",
+    "matchedBy": "object"
+  },
+  "obj:мжк aisar м": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК AISAR М",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк kerim тоо а": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК KERIM ТОО А",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк гранд виктория 2 м": {
+    "status": "completed",
+    "contract": "ДПГ-23-03-034/154",
+    "object": "МЖК ГРАНД ВИКТОРИЯ 2 М",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк лесная поляна, дом 48": {
+    "status": "completed",
+    "contract": "ДПГ-23-03-049/148",
+    "object": "МЖК ЛЕСНАЯ ПОЛЯНА, ДОМ 48",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк мегаполис м": {
+    "status": "completed",
+    "contract": "ДПГ-24-01-049/169",
+    "object": "МЖК МЕГАПОЛИС М",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк otbasy, 1 очередь с": {
+    "status": "completed",
+    "contract": "ДПГ-23-17-050/159",
+    "object": "МЖК OTBASY, 1 ОЧЕРЕДЬ С",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк столичный - 2, блок 4 тоо meridian м": {
+    "status": "completed",
+    "contract": "ДПГ-23-01-047/146",
+    "object": "МЖК СТОЛИЧНЫЙ - 2, БЛОК 4 ТОО MERIDIAN М",
+    "developer": "MERIDIAN",
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "dev:meridian": {
+    "status": "completed",
+    "contract": "ДПГ-23-01-047/146",
+    "object": "МЖК СТОЛИЧНЫЙ - 2, БЛОК 4 ТОО MERIDIAN М",
+    "developer": "MERIDIAN",
+    "region": "Астана",
+    "matchedBy": "developer"
+  },
+  "obj:мжк лесная поляна, дом 46 м": {
+    "status": "completed",
+    "contract": "ДПГ-23-03-049/148",
+    "object": "МЖК ЛЕСНАЯ ПОЛЯНА, ДОМ 46 М",
+    "developer": "Марапат",
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "dev:марапат": {
+    "status": "completed",
+    "contract": "ДПГ-23-03-049/148",
+    "object": "МЖК ЛЕСНАЯ ПОЛЯНА, ДОМ 46 М",
+    "developer": "Марапат",
+    "region": "Астана",
+    "matchedBy": "developer"
+  },
+  "obj:мжк престиж 3": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК ПРЕСТИЖ 3",
+    "developer": "Композит -",
+    "region": "Шымкент",
+    "matchedBy": "object"
+  },
+  "dev:композит -": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК ПРЕСТИЖ 3",
+    "developer": "Композит -",
+    "region": "Шымкент",
+    "matchedBy": "developer"
+  },
+  "obj:мжк burabay apartaments с": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК BURABAY APARTAMENTS С",
+    "developer": "Биік №ДПГ -",
+    "region": null,
+    "matchedBy": "object"
+  },
+  "dev:биік №дпг -": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК BURABAY APARTAMENTS С",
+    "developer": "Биік №ДПГ -",
+    "region": null,
+    "matchedBy": "developer"
+  },
+  "obj:мжк лесная поляна, дом 49": {
+    "status": "completed",
+    "contract": "ДПГ-23-03-049/148",
+    "object": "МЖК ЛЕСНАЯ ПОЛЯНА, ДОМ 49",
+    "developer": "Марапат",
+    "region": null,
+    "matchedBy": "object"
+  },
+  "obj:мжк жаным": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК ЖАНЫМ",
+    "developer": null,
+    "region": null,
+    "matchedBy": "object"
+  },
+  "obj:мжк v club": {
+    "status": "completed",
+    "contract": "ДПГ-23-16-068/155",
+    "object": "МЖК V CLUB",
+    "developer": null,
+    "region": "Усть",
+    "matchedBy": "object"
+  },
+  "obj:мжк modern city, 2 - очередь д": {
+    "status": "completed",
+    "contract": "ДПГ-22-13-004/106",
+    "object": "МЖК MODERN CITY, 2 - ОЧЕРЕДЬ Д",
+    "developer": "О ң т ү стік - \"MODERN CITY\" на земельном",
+    "region": "Шымкент",
+    "matchedBy": "object"
+  },
+  "dev:о ң т ү стік - modern city на земельном": {
+    "status": "completed",
+    "contract": "ДПГ-22-13-004/106",
+    "object": "МЖК MODERN CITY, 2 - ОЧЕРЕДЬ Д",
+    "developer": "О ң т ү стік - \"MODERN CITY\" на земельном",
+    "region": "Шымкент",
+    "matchedBy": "developer"
+  },
+  "obj:мжк landmark, 3 очередь, пятна 1,3 ж": {
+    "status": "completed",
+    "contract": "ДПГ-20-01-001/037",
+    "object": "МЖК LANDMARK, 3 ОЧЕРЕДЬ, ПЯТНА 1,3 Ж",
+    "developer": "BAZIS -",
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "dev:bazis -": {
+    "status": "completed",
+    "contract": "ДПГ-20-01-001/037",
+    "object": "МЖК LANDMARK, 3 ОЧЕРЕДЬ, ПЯТНА 1,3 Ж",
+    "developer": "BAZIS -",
+    "region": "Астана",
+    "matchedBy": "developer"
+  },
+  "obj:мжк яссауи м": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК ЯССАУИ М",
+    "developer": "Айзия KZ паркингом",
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "dev:айзия kz паркингом": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК ЯССАУИ М",
+    "developer": "Айзия KZ паркингом",
+    "region": "Астана",
+    "matchedBy": "developer"
+  },
+  "obj:мжк bilim дпг - 24 - 01 - м": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК BILIM ДПГ - 24 - 01 - М",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк asar house, 3 очередь": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК ASAR HOUSE, 3 ОЧЕРЕДЬ",
+    "developer": null,
+    "region": "ТОО",
+    "matchedBy": "object"
+  },
+  "obj:мжк центральный сквер, 4 тоо s": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК ЦЕНТРАЛЬНЫЙ СКВЕР, 4 ТОО S",
+    "developer": "SHEBERGOO",
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "dev:shebergoo": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК ЦЕНТРАЛЬНЫЙ СКВЕР, 4 ТОО S",
+    "developer": "SHEBERGOO",
+    "region": "Астана",
+    "matchedBy": "developer"
+  },
+  "obj:мжк new city м": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК NEW CITY М",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк noho тоо bazis - a м": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК NOHO ТОО BAZIS - A М",
+    "developer": "BAZIS - A",
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "dev:bazis - a": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК NOHO ТОО BAZIS - A М",
+    "developer": "BAZIS - A",
+    "region": "Астана",
+    "matchedBy": "developer"
+  },
+  "obj:мжк salzburg, блок 4 м": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК SALZBURG, БЛОК 4 М",
+    "developer": "BAZIS - A",
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк в мкр.береке 18 с": {
+    "status": "completed",
+    "contract": "ДПГ-24-10-048",
+    "object": "МЖК В МКР.БЕРЕКЕ 18 С",
+    "developer": "БК - СТРОЙ Костанай встроенными коммерчес",
+    "region": null,
+    "matchedBy": "object"
+  },
+  "dev:бк - строй костанай встроенными коммерчес": {
+    "status": "completed",
+    "contract": "ДПГ-24-10-048",
+    "object": "МЖК В МКР.БЕРЕКЕ 18 С",
+    "developer": "БК - СТРОЙ Костанай встроенными коммерчес",
+    "region": null,
+    "matchedBy": "developer"
+  },
+  "obj:мжк береке - 2, дом 17 тоо бк - с": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК БЕРЕКЕ - 2, ДОМ 17 ТОО БК - С",
+    "developer": "SHEBERGOO",
+    "region": "СТРОЙ",
+    "matchedBy": "object"
+  },
+  "obj:мжк salzburg, блок 3 м": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК SALZBURG, БЛОК 3 М",
+    "developer": "BAZIS - A",
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "obj:мжк прайм парк 2 - ой пусковой комплекс с": {
+    "status": "completed",
+    "contract": "ДПГ-24-17-072/175",
+    "object": "МЖК ПРАЙМ ПАРК 2 - ОЙ ПУСКОВОЙ КОМПЛЕКС С",
+    "developer": null,
+    "region": "Шымкент",
+    "matchedBy": "object"
+  },
+  "obj:мжк qasiet м": {
+    "status": "completed",
+    "contract": "ДПГ-24-01-036/172",
+    "object": "МЖК QASIET М",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк landmark, 3 очередь, пятно 2 ж": {
+    "status": "completed",
+    "contract": "ДПГ-20-01-001/037",
+    "object": "МЖК LANDMARK, 3 ОЧЕРЕДЬ, ПЯТНО 2 Ж",
+    "developer": "BAZIS - A C",
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк тулпар с": {
+    "status": "completed",
+    "contract": "ДПГ-24-17-072/180",
+    "object": "МЖК ТУЛПАР С",
+    "developer": null,
+    "region": "Шымкент",
+    "matchedBy": "object"
+  },
+  "obj:мжк cемья, 2 очередь с": {
+    "status": "completed",
+    "contract": "ДПГ-22-10-056/121",
+    "object": "МЖК CЕМЬЯ, 2 ОЧЕРЕДЬ С",
+    "developer": null,
+    "region": "ТОО",
+    "matchedBy": "object"
+  },
+  "obj:мжк adamant life , пятно 7 м": {
+    "status": "completed",
+    "contract": "ДПГ-23-01-001/134",
+    "object": "МЖК ADAMANT LIFE , ПЯТНО 7 М",
+    "developer": "BAZIS - A C",
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк атамура, 2 очередь д": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК АТАМУРА, 2 ОЧЕРЕДЬ Д",
+    "developer": "Жетісу Ж Қ",
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "dev:жетісу ж қ": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК АТАМУРА, 2 ОЧЕРЕДЬ Д",
+    "developer": "Жетісу Ж Қ",
+    "region": "Нур",
+    "matchedBy": "developer"
+  },
+  "obj:мжк otbasy 2 очередь": {
+    "status": "completed",
+    "contract": "ДПГ-23-17-050",
+    "object": "МЖК OTBASY 2 ОЧЕРЕДЬ",
+    "developer": null,
+    "region": "Шымкент",
+    "matchedBy": "object"
+  },
+  "obj:мжк даулетті қ алашы қ , 2": {
+    "status": "completed",
+    "contract": "ДПГ-24-01-044/166",
+    "object": "МЖК ДАУЛЕТТІ Қ АЛАШЫ Қ , 2",
+    "developer": "STROY OPT",
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "dev:stroy opt": {
+    "status": "completed",
+    "contract": "ДПГ-24-01-044/166",
+    "object": "МЖК ДАУЛЕТТІ Қ АЛАШЫ Қ , 2",
+    "developer": "STROY OPT",
+    "region": "Астана",
+    "matchedBy": "developer"
+  },
+  "obj:мжк salzburg, блок 1,2,5 м": {
+    "status": "completed",
+    "contract": "ДПГ-21-01-001/161",
+    "object": "МЖК SALZBURG, БЛОК 1,2,5 М",
+    "developer": "BAZIS - A C",
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк кеменгер м": {
+    "status": "completed",
+    "contract": "ДПГ-24-01-036/177",
+    "object": "МЖК КЕМЕНГЕР М",
+    "developer": null,
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "obj:мжк береке, дом 19 с": {
+    "status": "completed",
+    "contract": "ДПГ-24-10-048/179",
+    "object": "МЖК БЕРЕКЕ, ДОМ 19 С",
+    "developer": "БК - СТРОЙ ДПГ -",
+    "region": "Костанай",
+    "matchedBy": "object"
+  },
+  "dev:бк - строй дпг -": {
+    "status": "completed",
+    "contract": "ДПГ-24-10-048/179",
+    "object": "МЖК БЕРЕКЕ, ДОМ 19 С",
+    "developer": "БК - СТРОЙ ДПГ -",
+    "region": "Костанай",
+    "matchedBy": "developer"
+  },
+  "obj:мжк береке, дом 20 с": {
+    "status": "completed",
+    "contract": "ДПГ-25-10-048/182",
+    "object": "МЖК БЕРЕКЕ, ДОМ 20 С",
+    "developer": "БК - СТРОЙ Г. КОСТАНАЙ встроенными коммер",
+    "region": null,
+    "matchedBy": "object"
+  },
+  "dev:бк - строй г костанай встроенными коммер": {
+    "status": "completed",
+    "contract": "ДПГ-25-10-048/182",
+    "object": "МЖК БЕРЕКЕ, ДОМ 20 С",
+    "developer": "БК - СТРОЙ Г. КОСТАНАЙ встроенными коммер",
+    "region": null,
+    "matchedBy": "developer"
+  },
+  "obj:мжк zhas qanat с": {
+    "status": "completed",
+    "contract": "ДПГ-25-17-046/183",
+    "object": "МЖК ZHAS QANAT С",
+    "developer": "КОМПОЗИТ -",
+    "region": "Шымкент",
+    "matchedBy": "object"
+  },
+  "obj:мжк raaf с": {
+    "status": "completed",
+    "contract": "ДПГ-24-02-071/167",
+    "object": "МЖК RAAF С",
+    "developer": "EXCLUSIVE",
+    "region": null,
+    "matchedBy": "object"
+  },
+  "dev:exclusive": {
+    "status": "completed",
+    "contract": "ДПГ-24-02-071/167",
+    "object": "МЖК RAAF С",
+    "developer": "EXCLUSIVE",
+    "region": null,
+    "matchedBy": "developer"
+  },
+  "obj:мжк maxima city дпг - 24 - 02 - 031": {
+    "status": "completed",
+    "contract": "ДПГ-24-02-031/17",
+    "object": "МЖК MAXIMA CITY ДПГ - 24 - 02 - 031",
+    "developer": "BAZIS - A C",
+    "region": "Алматы",
+    "matchedBy": "object"
+  },
+  "obj:мжк level дпг - 24 - 01 - 001": {
+    "status": "completed",
+    "contract": "ДПГ-24-01-001/181",
+    "object": "МЖК LEVEL ДПГ - 24 - 01 - 001",
+    "developer": "BIRYUZA",
+    "region": "Астана",
+    "matchedBy": "object"
+  },
+  "dev:biryuza": {
+    "status": "completed",
+    "contract": "ДПГ-24-01-001/181",
+    "object": "МЖК LEVEL ДПГ - 24 - 01 - 001",
+    "developer": "BIRYUZA",
+    "region": "Астана",
+    "matchedBy": "developer"
+  },
+  "obj:мжк жаным 2 пусковой": {
+    "status": "completed",
+    "contract": "ДПГ-23-16-068/155",
+    "object": "МЖК ЖАНЫМ 2 ПУСКОВОЙ",
+    "developer": null,
+    "region": "Усть",
+    "matchedBy": "object"
+  },
+  "obj:мжк жаным 2 пусковой комплекс, 2 очередь, блок а д": {
+    "status": "completed",
+    "contract": "ДПГ-23-16-068/155",
+    "object": "МЖК ЖАНЫМ 2 ПУСКОВОЙ КОМПЛЕКС, 2 ОЧЕРЕДЬ, БЛОК А Д",
+    "developer": "BIRYUZA",
+    "region": "Усть",
+    "matchedBy": "object"
+  },
+  "obj:мжк английский квартал, г.атырау с": {
+    "status": "completed",
+    "contract": "ДПГ-24-06-070/164",
+    "object": "МЖК АНГЛИЙСКИЙ КВАРТАЛ, Г.АТЫРАУ С",
+    "developer": "I BIGMA KZ 13.10.2025 25 056",
+    "region": "Атырау",
+    "matchedBy": "object"
+  },
+  "dev:i bigma kz 13102025 25 056": {
+    "status": "completed",
+    "contract": "ДПГ-24-06-070/164",
+    "object": "МЖК АНГЛИЙСКИЙ КВАРТАЛ, Г.АТЫРАУ С",
+    "developer": "I BIGMA KZ 13.10.2025 25 056",
+    "region": "Атырау",
+    "matchedBy": "developer"
+  },
+  "obj:мжк monaco grand, пятно 4, блоки 9,10,11,12 м": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК MONACO GRAND, ПЯТНО 4, БЛОКИ 9,10,11,12 М",
+    "developer": "BAZIS - A 30.01.2026",
+    "region": "Нур",
+    "matchedBy": "object"
+  },
+  "dev:bazis - a 30012026": {
+    "status": "completed",
+    "contract": null,
+    "object": "МЖК MONACO GRAND, ПЯТНО 4, БЛОКИ 9,10,11,12 М",
+    "developer": "BAZIS - A 30.01.2026",
+    "region": "Нур",
+    "matchedBy": "developer"
+  }
+}
