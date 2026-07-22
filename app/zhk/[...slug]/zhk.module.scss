@@ -40,6 +40,8 @@
 .factVal.hl { color: var(--green); }
 .factLabel { font-size: 12px; color: var(--text-faint); margin-top: 5px; }
 
+.seismicNote { display: flex; align-items: center; gap: 8px; margin: -26px 0 40px; padding: 11px 14px; font-size: 13px; color: var(--text-dim); background: var(--amber-soft); border: 1px solid rgba(214,138,0,.2); border-radius: var(--radius-sm); line-height: 1.4; }
+.seismicNote b { color: var(--text); }
 .section { margin: 40px 0; }
 .sectionTitle { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
 .sectionHint { font-size: 13px; color: var(--text-faint); margin-bottom: 18px; }

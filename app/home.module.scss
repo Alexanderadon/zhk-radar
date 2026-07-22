@@ -87,10 +87,25 @@
 .legendDot { width: 10px; height: 10px; border-radius: 50%; }
 
 @media (max-width: 900px) {
-  .shell { height: auto; min-height: 100vh; overflow: visible; }
+  .shell { height: auto; min-height: 100dvh; overflow: visible; }
+  .header { padding: 10px 15px; gap: 10px; }
+  .tagline { display: none; }
   .body { flex-direction: column-reverse; }
   .sidebar { width: 100%; border-right: none; border-top: 1px solid var(--border); }
-  .mapWrap { height: 56vh; min-height: 340px; }
+  .mapWrap { height: 62vh; min-height: 380px; position: sticky; top: 0; z-index: 1; }
   .list { max-height: none; }
-  .tagline { display: none; }
+  .filters { padding: 12px 14px 6px; }
+  /* filter groups scroll horizontally instead of wrapping into many rows */
+  .filterGroup { flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden; padding-bottom: 6px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .filterGroup::-webkit-scrollbar { display: none; }
+  .fLabel { position: sticky; left: 0; }
+  .pill { flex: 0 0 auto; padding: 7px 13px; font-size: 13px; }
+  .modeToggle button { padding: 11px 8px; font-size: 14px; }
+  .search { padding: 12px 12px 12px 40px; font-size: 15px; }
+  .legend { padding: 8px 10px; font-size: 11px; gap: 5px; }
+  .card { padding: 11px 8px; }
+}
+@media (max-width: 560px) {
+  .thumb { width: 66px; height: 66px; }
+  .legend { max-width: 150px; }
 }

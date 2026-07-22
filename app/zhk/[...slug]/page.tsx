@@ -40,7 +40,7 @@ export default async function ZhkPage({ params }: { params: Promise<{ slug: stri
     ['Этажность', z.floors || null, false],
     ['Паркинг', z.parkingType !== 'нет данных' ? z.parkingType : null, false],
     ['Квартир', z.apartments || null, false],
-    ['Сейсмостойкость', z.seismicResistance ? `${z.seismicResistance} баллов` : null, true],
+    ['Выдерживает', z.seismicResistance ? `${z.seismicResistance} баллов` : 'не раскрыто', !!z.seismicResistance],
   ];
 
   const specs: [string, string | null][] = [
@@ -113,9 +113,12 @@ export default async function ZhkPage({ params }: { params: Promise<{ slug: stri
         {facts.filter(([, v]) => v).map(([label, value, hl]) => (
           <div className={s.fact} key={label}>
             <div className={`${s.factVal} ${hl ? s.hl : ''}`}>{value}</div>
-            <div className={s.factLabel}>{label}</div>
+            <div className={s.factLabel}>{label}{label === 'Выдерживает' ? ' землетрясение' : ''}</div>
           </div>
         ))}
+      </div>
+      <div className={s.seismicNote}>
+        <Icon name="mountain" size={14} /> Алматы — сейсмозона <b>9–10 баллов</b> (шкала MSK-64). Дом должен выдерживать землетрясение своей зоны; чем выше балл — тем безопаснее.
       </div>
 
       <section className={s.section}>
