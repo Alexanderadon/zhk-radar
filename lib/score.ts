@@ -87,7 +87,9 @@ export function scoreZhk(zhk: ZhkRaw, stats: DeveloperStats | null, guarantee: G
   const completeness = den / 100;
   let score: number | null = den > 0 ? Math.round(num / den) : null;
   let band: Band;
-  if (score == null || completeness < 0.15) { band = 'grey'; if (completeness < 0.15) score = null; }
+  // Need a real "protection" signal (money or reliability), not price alone, to show a verdict.
+  // Price(15) or seismic(20) alone → grey «мало данных». Reliability(30)/money(35) → shows.
+  if (score == null || completeness < 0.25) { band = 'grey'; if (completeness < 0.25) score = null; }
   else band = bandOf(score);
   return { score, band, completeness, indicators };
 }

@@ -14,6 +14,7 @@ export interface ZhkRaw {
   address: string | null;
   city: string;
   district: string | null;
+  districtColor?: string | null;
   lat: number | null;
   lng: number | null;
   priceSqm: number | null;
@@ -41,6 +42,9 @@ export interface ZhkRaw {
   seismicResistance?: number | null;
   photos?: string[];
   layouts?: string[];
+  /** real resident photos from 2GIS (hotlinked, attributed). */
+  realPhotos?: { url: string; author: string }[];
+  realPhotoSource?: string;
   source: string;
   scrapedAt: string;
 }
@@ -105,4 +109,6 @@ export interface Zhk extends ZhkRaw {
   developerStats: DeveloperStats | null;
   guarantee: GuaranteeMatch | null;
   scoreResult: ScoreResult;
+  /** good-value flag: cheaper than its class median AND not high-risk. */
+  deal: boolean;
 }

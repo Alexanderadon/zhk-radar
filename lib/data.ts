@@ -122,7 +122,9 @@ export function getAllZhk(): Zhk[] {
       null;
     const scoreResult = scoreZhk(z, developerStats, g, ctx);
     const constructionStatusRu = (z.constructionStatus && STATUS_RU[z.constructionStatus]) || z.constructionStatusRu;
-    return { ...z, constructionStatusRu, parkingType: parkingType(z.parking), developerStats, guarantee: g, scoreResult };
+    const priceInd = scoreResult.indicators.find((i) => i.key === 'price');
+    const deal = !!(priceInd && priceInd.score != null && priceInd.score >= 68 && scoreResult.band !== 'red');
+    return { ...z, constructionStatusRu, parkingType: parkingType(z.parking), developerStats, guarantee: g, scoreResult, deal };
   });
   return _cache;
 }

@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 
-const STYLE = 'https://tiles.openfreemap.org/styles/dark';
+const STYLE = 'https://tiles.openfreemap.org/styles/positron';
 
 export default function MiniMap({ lat, lng, color, name }: { lat: number; lng: number; color: string; name: string }) {
   const container = useRef<HTMLDivElement>(null);

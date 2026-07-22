@@ -49,7 +49,39 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/210244.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/b9cfbe54-010e-4e4e-852c-9eabec120701.jpg",
+        "author": "Жанна Сатыбалдиева"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/16fc7146-5d76-41dd-8218-34ee99abd684.jpg",
+        "author": "a1koo_a_ Adilbai_Aisha"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/2c5084e0-4f99-40b6-921e-2041dbd2a843.jpg",
+        "author": "a1koo_a_ Adilbai_Aisha"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/643ae092-4061-4492-b522-9b047640ef69.jpg",
+        "author": "a1koo_a_ Adilbai_Aisha"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/c681a237-1933-40e0-9611-86ae2ccf6651.jpg",
+        "author": "Жанна Сатыбалдиева"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/cdf32d43-0a09-4d21-8742-68676e7cceab.jpg",
+        "author": "Жанна Сатыбалдиева"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/3751da32-d7f1-4e37-8aa0-70ecfcfbd913.jpg",
+        "author": "RA consulting"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#f1c40f"
   },
   {
     "id": 3286,
@@ -104,7 +136,27 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/171055.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/171058.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/171071.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560095288538_6213.jpg",
+        "author": "Виталий Виноградов"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/images/geo/0/30258560095288541_06b3.jpg",
+        "author": "Виталий Виноградов"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/images/geo/0/30258560095288536_65cd.jpg",
+        "author": "Виталий Виноградов"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/9868e3e0-a415-4397-bf7b-1c94cdb281e8.jpg",
+        "author": "Complex Building Service"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#2ecc71"
   },
   {
     "id": 1496,
@@ -160,7 +212,27 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/134419.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/134418.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/134440.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560095288538_6213.jpg",
+        "author": "Виталий Виноградов"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/images/geo/0/30258560095288541_06b3.jpg",
+        "author": "Виталий Виноградов"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/images/geo/0/30258560095288536_65cd.jpg",
+        "author": "Виталий Виноградов"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/9868e3e0-a415-4397-bf7b-1c94cdb281e8.jpg",
+        "author": "Complex Building Service"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#2ecc71"
   },
   {
     "id": 3781,
@@ -212,7 +284,8 @@
       "https://storage.googleapis.com/bd-kz-01/buildings-v2/840x630/43077.jpg",
       "https://storage.googleapis.com/bd-kz-01/buildings-v2/840x630/24702.jpg"
     ],
-    "layouts": []
+    "layouts": [],
+    "districtColor": "#2ecc71"
   },
   {
     "id": 4222,
@@ -266,7 +339,8 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/208134.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/208142.jpg"
-    ]
+    ],
+    "districtColor": "#1abc9c"
   },
   {
     "id": 4003,
@@ -327,7 +401,59 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/176842.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/176856.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/176858.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i7.photo.2gis.com/images/geo/67/9429411750515787_80bf.jpg",
+        "author": "Aigerim Karimova"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/67/9429411752450806_183e.jpg",
+        "author": "Назым Сыздыкова"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/images/geo/0/30258560060548840_82fc.jpg",
+        "author": "Наталья Соколова"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/images/geo/67/9429411750515778_130d.jpg",
+        "author": "Aigerim Karimova"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560067127873_610c.jpg",
+        "author": "Aboka Aueskhan"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/images/geo/0/30258560051536713_e1fb.jpg",
+        "author": "Айгерим Uspeshnaya"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/26fbdf27-e7d2-4c40-9ef6-cdd0a3c3ef37.jpg",
+        "author": "Rami Maratkyzy"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/images/geo/67/9429411764334311_8956.jpg",
+        "author": "Sultan Bikenov"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/images/geo/67/9429411764492371_28b5.jpg",
+        "author": "Prosto Interesting"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/images/geo/67/9429411767597355_7e30.jpg",
+        "author": "Талга М*"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/0/30258560069288112_9c6c.jpg",
+        "author": "madi 631"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/images/geo/0/30258560060547952_e6e7.jpg",
+        "author": "Наталья Соколова"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#2ecc71"
   },
   {
     "id": 2269,
@@ -382,7 +508,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/131998.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/203596.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205576.jpg"
-    ]
+    ],
+    "districtColor": "#1abc9c"
   },
   {
     "id": 3662,
@@ -438,7 +565,39 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/180840.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/180838.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/4f7489d0-7945-4bbf-b748-fba33105f17a.jpg",
+        "author": "А А"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/b4b1b472-a02d-4ba0-b2eb-acbcd8118c76.jpg",
+        "author": "А А"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/6a28d8e8-23c0-481e-aa9b-069bb399e9dd.jpg",
+        "author": "А А"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/32c45dd8-de3a-4f02-882e-1f062e7251c3.jpg",
+        "author": "А А"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/63c7bbd4-ed4e-4cca-a5cd-74906dbc4094.jpg",
+        "author": "А А"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/6874f0a1-8913-4cc3-a7ba-98a5d3c9e928.jpg",
+        "author": "А А"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/aa6398b4-cc6b-44f8-a7c6-cb535b24e148.jpg",
+        "author": "А А"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#2ecc71"
   },
   {
     "id": 4179,
@@ -492,7 +651,8 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/203769.jpg"
-    ]
+    ],
+    "districtColor": "#2ecc71"
   },
   {
     "id": 4172,
@@ -545,7 +705,8 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/203046.jpg"
-    ]
+    ],
+    "districtColor": "#2ecc71"
   },
   {
     "id": 4226,
@@ -600,7 +761,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207959.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207966.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207984.jpg"
-    ]
+    ],
+    "districtColor": "#f1c40f"
   },
   {
     "id": 4242,
@@ -656,7 +818,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207500.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207505.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207531.jpg"
-    ]
+    ],
+    "districtColor": "#2ecc71"
   },
   {
     "id": 886,
@@ -712,7 +875,59 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/81700.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/81699.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/81706.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560063745133_39df.jpg",
+        "author": "Zhan1213 Tore"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/0/30258560063745134_e9d9.jpg",
+        "author": "Zhan1213 Tore"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/images/geo/0/30258560063153864_214c.jpg",
+        "author": "Zhan1213 Tore"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/images/geo/0/30258560167061311_152e.jpg",
+        "author": "xenia_realtor _almaty"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/images/geo/0/30258560117957252_7e68.jpg",
+        "author": "Makhambet Akzhol"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560167061415_f2b0.jpg",
+        "author": "xenia_realtor _almaty"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/images/geo/0/30258560063153797_14c8.jpg",
+        "author": "Zhan1213 Tore"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560167061288_337c.jpg",
+        "author": "xenia_realtor _almaty"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/0/30258560063153839_bbdd.jpg",
+        "author": "Zhan1213 Tore"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/images/geo/0/30258560167061392_8c13.jpg",
+        "author": "xenia_realtor _almaty"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/images/geo/0/30258560063669903_1f4b.jpg",
+        "author": "Zhan1213 Tore"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560061333451_ff9d.jpg",
+        "author": "Бану М"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#2ecc71"
   },
   {
     "id": 3809,
@@ -766,7 +981,8 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/179674.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/179675.jpg"
-    ]
+    ],
+    "districtColor": "#2ecc71"
   },
   {
     "id": 1900,
@@ -823,7 +1039,59 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/162275.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/162273.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/162270.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/e6bde899-bb8e-4f0a-a1f7-019609b73784.jpg",
+        "author": "Зайра Гайсина"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/1a192f53-38b7-44c3-9a4b-fa73602aad56.jpg",
+        "author": "Юрий Бучинский Алматы"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/afbe09a7-f301-4881-b69a-c1bf88be2fd1.jpg",
+        "author": "Зайра Гайсина"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/953840f7-6d7f-4fbc-a98f-cc9e6f11733d.jpg",
+        "author": "Gaukhar R"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/b92a26d5-5c43-446c-8f9f-cae2e75bd343.jpg",
+        "author": "Зайра Гайсина"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/1f19976f-64a8-4955-9569-02191ae053f8.jpg",
+        "author": "Gaukhar R"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/images/geo/0/30258560109602763_f1dc.jpg",
+        "author": "Юрий Бучинский Алматы"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/4c9fe5c7-0787-4ac9-b519-aae03700ef97.jpg",
+        "author": "Зайра Гайсина"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/images/geo/0/30258560077961343_80a8.jpg",
+        "author": "Tamirlan Kumekbaev"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/084047f9-6712-448f-9840-f2f58e05a46e.jpg",
+        "author": "Nurzhigit MK"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/8bd7bbb5-d2f3-4be2-b7cc-8691f25ff824.jpg",
+        "author": "Зайра Гайсина"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/images/geo/0/30258560072429176_245b.jpg",
+        "author": "Таскын Базарбай"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#3498db"
   },
   {
     "id": 2890,
@@ -881,7 +1149,27 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212364.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212368.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/176623.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/4afbc86d-d77a-4eab-a3df-2b556125ecb6.jpg",
+        "author": "Bubbles ."
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/15585012-f5d7-48c0-ab6d-2e914f2e4e8c.jpg",
+        "author": "Bubbles ."
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/ce0e04d3-efa0-4619-b1b0-7c73abffdd9f.jpg",
+        "author": "Bubbles ."
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/ac779428-f494-4218-8c45-4eab1d6f8ea1.jpg",
+        "author": "Bubbles ."
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#2ecc71"
   },
   {
     "id": 4108,
@@ -936,7 +1224,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/193182.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/193184.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/193198.jpg"
-    ]
+    ],
+    "districtColor": "#2ecc71"
   },
   {
     "id": 3070,
@@ -991,7 +1280,59 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/150947.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/0/30258560109926287_b059.jpg",
+        "author": "Constantine Black"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/07fa72fb-3e43-4054-a5ca-3253342bce61.jpg",
+        "author": "Amira A"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/images/geo/0/30258560080198490_3341.jpg",
+        "author": "Юрий Бучинский Алматы"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/2ceb4061-cac7-467a-8de0-ff0d2de05e03.jpg",
+        "author": "Сауле Садыкова"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560048225755_0faa.jpg",
+        "author": "Талга М*"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/7810c013-991f-47bf-a027-02c5d428143a.jpg",
+        "author": "Сауле Садыкова"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/a0c4c357-a38f-4b7f-ba27-fd0cc50e5bec.jpg",
+        "author": "Сауле Садыкова"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/ede967f8-a2d8-4164-b909-76d8daa7c4a3.jpg",
+        "author": "Amir Kim"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/9fb335cd-8052-425d-9f80-04e4c05fc5ad.jpg",
+        "author": "Amir Kim"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/2b556379-21c0-4726-b7c7-01abe3e927db.jpg",
+        "author": "Musa Y"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/images/geo/0/30258560109926288_e69d.jpg",
+        "author": "Constantine Black"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/images/geo/0/30258560152282165_15ed.jpg",
+        "author": "Denim Tornado"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#2ecc71"
   },
   {
     "id": 2383,
@@ -1048,7 +1389,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/76563.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/158966.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/134220.jpg"
-    ]
+    ],
+    "districtColor": "#1abc9c"
   },
   {
     "id": 1347,
@@ -1103,7 +1445,39 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/208994.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/161526.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/995fc5ec-6ea7-42f7-8363-2265ce67aaf0.jpg",
+        "author": "Тихон Шутов"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/7c9c4a15-41f8-4f0f-90ec-f2659508be2e.jpg",
+        "author": "is_sapient @"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/33365dbc-7641-4e62-b51b-6e0dfb7cfc8d.jpg",
+        "author": "Тихон Шутов"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/1bd6e93f-dab0-47a4-a34a-58e07b9e18f4.jpg",
+        "author": "Тихон Шутов"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/26786a13-d499-4844-885d-55bae1aec04d.jpg",
+        "author": "Тихон Шутов"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/images/geo/0/30258560171819641_00d2.jpg",
+        "author": "Юрий Бучинский Алматы"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/7ad0370f-5a87-4251-98f6-60fbd68f5fc3.jpg",
+        "author": "Тихон Шутов"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#1abc9c"
   },
   {
     "id": 3151,
@@ -1153,7 +1527,59 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/143216.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/e4ad6b92-610a-4a2c-8ae8-9f4433302aa8.jpg",
+        "author": "Anton"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/df7caa17-e522-46a5-bd43-273a4d9e5260.jpg",
+        "author": "Malika Kairanova"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/4cdd2301-8111-4abc-8dea-54a48eaaee22.jpg",
+        "author": "Актилек Абдихалык"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/52d17cee-c3a2-4e03-a6fd-ed4cb52e461e.jpg",
+        "author": "Актилек Абдихалык"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/1d2e1d08-abad-4554-9f85-11ada8bcaab6.jpg",
+        "author": "Malika Kairanova"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/0568912f-7e03-4865-b1ef-105e2dbe7387.jpg",
+        "author": "Актилек Абдихалык"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/f2d3c9d8-3567-4261-b8bc-ca9a525e53f1.jpg",
+        "author": "Malika Kairanova"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/d539aca1-9915-4eaa-93c2-2b12221cd6db.jpg",
+        "author": "Malika Kairanova"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/47faefcd-7fbd-401a-aef6-ceeca718e8fb.jpg",
+        "author": "Malika Kairanova"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/ee8b01e0-2141-441b-87b7-f5b3a65665d2.jpg",
+        "author": "Актилек Абдихалык"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/a028178c-bf34-4ae2-8d3f-c408179968b6.jpg",
+        "author": "Актилек Абдихалык"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/8f05ca55-2fec-4c75-b47e-43d0ba33fbf7.jpg",
+        "author": "Актилек Абдихалык"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#2ecc71"
   },
   {
     "id": 2277,
@@ -1206,7 +1632,15 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/149200.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/149183.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/1d749d0b-4b97-493c-96b2-0f5d810df52e.jpg",
+        "author": "амирхан"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#1abc9c"
   },
   {
     "id": 935,
@@ -1261,7 +1695,59 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/210453.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/ea6abb05-4459-46c6-a906-123a6ac970dc.jpg",
+        "author": "Артемида"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/ffd3c089-990e-4e9b-95cd-99277b40068e.jpg",
+        "author": "Сергей Шипулин"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/5bac9b18-ea8e-4536-84ef-a6bf19998336.jpg",
+        "author": "Сергей Шипулин"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/56d49995-090b-40ed-aa77-e0b9983ccf65.jpg",
+        "author": "Эльдар Кильдибаев"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/3355e8f6-fbdd-436f-beb0-9c73f67d5036.jpg",
+        "author": "Артемида"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/4c18afea-43c4-4593-a5df-d78e8b100e3a.jpg",
+        "author": "Сергей Шипулин"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/0474e626-9313-4601-a5e6-5fb28adf481a.jpg",
+        "author": "Артемида"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/193a1c83-f5e8-4962-b555-ac6d420fc977.jpg",
+        "author": "Артемида"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/d1b0a220-b3a6-4b89-9f4a-6b9e8fe58ade.jpg",
+        "author": "рус Кай"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/e2325bf4-871f-4636-82b3-4d7761591e33.jpg",
+        "author": "Mezimma Mezimma"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/images/geo/0/30258560098486242_7d23.jpg",
+        "author": "Талга М*"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/images/geo/0/30258560105006586_cb06.jpg",
+        "author": "NAZAR ZEY"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#1abc9c"
   },
   {
     "id": 537,
@@ -1317,7 +1803,59 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/185354.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/185355.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/01f90726-beb1-401b-a84f-f7a005d4a994.jpg",
+        "author": "Влад ."
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/bb1b6774-f70a-404f-bb2d-699ad14ad11b.jpg",
+        "author": "Anar Kulambayeva"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/c2ad3362-22a7-4080-863e-3f6460bab3a6.jpg",
+        "author": "Влад ."
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/3ee35c5a-a53f-4e4f-bfd9-e783f073915b.jpg",
+        "author": "Каан Акгюн"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/60bb3e07-fc2a-47f6-8227-d17be1255313.jpg",
+        "author": "Каан Акгюн"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/265dbc51-2bf2-4722-9988-fca8c76e2a96.jpg",
+        "author": "Каан Акгюн"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/60453f0d-3dc0-43c4-80af-423f237071e7.jpg",
+        "author": "Каан Акгюн"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/images/geo/0/30258560106159078_42d2.jpg",
+        "author": "Follow Truth"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/b9ad2d87-6b65-4f59-9316-d96dec41409e.jpg",
+        "author": "Anar Kulambayeva"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560055967682_d7e4.jpg",
+        "author": "Иван Иванов"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/c1e7596e-048e-4c0d-9954-20187858698c.jpg",
+        "author": "Anar Kulambayeva"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/68a8b046-2a6c-4536-a3a6-4b0fb4dfdb9c.jpg",
+        "author": "Anar Kulambayeva"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#2ecc71"
   },
   {
     "id": 972,
@@ -1373,7 +1911,27 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/111462.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/111460.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/111473.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/0f9f3825-11b0-4432-8eec-bba8f75a849b.jpg",
+        "author": "TheNukr ."
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/21565101-c083-4de5-9ffe-dafd38367641.jpg",
+        "author": "TheNukr ."
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/c3c91d32-d03a-4fa5-90b2-60e57250b0a9.jpg",
+        "author": "TheNukr ."
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/a504fde8-5671-4ec5-bbbf-f85793468091.jpg",
+        "author": "TheNukr ."
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#1abc9c"
   },
   {
     "id": 2572,
@@ -1430,7 +1988,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/152772.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/152777.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/152775.jpg"
-    ]
+    ],
+    "districtColor": "#1abc9c"
   },
   {
     "id": 2770,
@@ -1486,7 +2045,59 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/154270.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/99426.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/99428.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/5e33b358-31de-490d-96c0-207c952a70a4.jpg",
+        "author": "Алькуат Акылбек"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/86b124d7-a861-4345-b568-db4ccc03f9bf.jpg",
+        "author": "Алькуат Акылбек"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/2575c7cd-cbdc-46c6-8e79-50a299745354.jpg",
+        "author": "Алькуат Акылбек"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/73ea5260-bd2d-4351-a5d9-f7bdec94ca8e.jpg",
+        "author": "Алькуат Акылбек"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/49f299cc-acf9-4352-80be-e308781d6d66.jpg",
+        "author": "Алькуат Акылбек"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/d1846b91-b27a-42d8-bc46-54e8b0120b14.jpg",
+        "author": "Алькуат Акылбек"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/a6da13e0-5267-4c86-acbd-4edb8e88bbfa.jpg",
+        "author": "Алькуат Акылбек"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/6a2050ef-fe07-4ae9-83f6-d2601a66e72e.jpg",
+        "author": "Алькуат Акылбек"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/2de1c2f0-93fc-480d-afe9-25c66077a646.jpg",
+        "author": "Алькуат Акылбек"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/7a69307d-c5e5-4342-9124-2724be9d397a.jpg",
+        "author": "Алькуат Акылбек"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/85fb0b38-5d79-48c1-b882-7bb50a894004.jpg",
+        "author": "Алькуат Акылбек"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/5ebab159-7504-446c-a640-7e75cafcc334.jpg",
+        "author": "Алькуат Акылбек"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#2ecc71"
   },
   {
     "id": 3112,
@@ -1541,7 +2152,8 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/180908.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/180913.jpg"
-    ]
+    ],
+    "districtColor": "#2ecc71"
   },
   {
     "id": 3128,
@@ -1599,7 +2211,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/123046.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/123052.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/123061.jpg"
-    ]
+    ],
+    "districtColor": "#2ecc71"
   },
   {
     "id": 2846,
@@ -1709,7 +2322,8 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212011.jpg"
-    ]
+    ],
+    "districtColor": "#3498db"
   },
   {
     "id": 926,
@@ -1765,7 +2379,59 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/65046.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/65086.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560080073825_68ff.jpg",
+        "author": "Nurlan Amanturly"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/images/geo/0/30258560069710927_a52f.jpg",
+        "author": "Ice Kassymbekova"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/images/geo/0/30258560147331381_4845.jpg",
+        "author": "Nurlan Amanturly"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/images/geo/0/30258560147331490_4773.jpg",
+        "author": "Nurlan Amanturly"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/images/geo/0/30258560107975705_3895.jpg",
+        "author": "Улан Омирзахов"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/images/geo/0/30258560080073826_e7a0.jpg",
+        "author": "Nurlan Amanturly"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/f67bf722-5e48-41c9-86b2-c0a764201615.jpg",
+        "author": "xenia_realtor _almaty"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/images/geo/0/30258560107975702_5f7d.jpg",
+        "author": "Улан Омирзахов"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560069710931_23ff.jpg",
+        "author": "Ice Kassymbekova"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/images/geo/0/30258560167811443_5438.jpg",
+        "author": "Owner 911"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/images/geo/0/30258560088833606_fbd3.jpg",
+        "author": "Marat Aubakirov"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560080073827_9cc2.jpg",
+        "author": "Nurlan Amanturly"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#1abc9c"
   },
   {
     "id": 2539,
@@ -1818,7 +2484,59 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/116122.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560063745133_39df.jpg",
+        "author": "Zhan1213 Tore"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/0/30258560063745134_e9d9.jpg",
+        "author": "Zhan1213 Tore"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/images/geo/0/30258560063153864_214c.jpg",
+        "author": "Zhan1213 Tore"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/images/geo/0/30258560167061311_152e.jpg",
+        "author": "xenia_realtor _almaty"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/images/geo/0/30258560117957252_7e68.jpg",
+        "author": "Makhambet Akzhol"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560167061415_f2b0.jpg",
+        "author": "xenia_realtor _almaty"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/images/geo/0/30258560063153797_14c8.jpg",
+        "author": "Zhan1213 Tore"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560167061288_337c.jpg",
+        "author": "xenia_realtor _almaty"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/0/30258560063153839_bbdd.jpg",
+        "author": "Zhan1213 Tore"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/images/geo/0/30258560167061392_8c13.jpg",
+        "author": "xenia_realtor _almaty"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/images/geo/0/30258560063669903_1f4b.jpg",
+        "author": "Zhan1213 Tore"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560061333451_ff9d.jpg",
+        "author": "Бану М"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#2ecc71"
   },
   {
     "id": 2245,
@@ -1873,7 +2591,35 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/135431.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/135432.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/adc8769c-5717-4354-9d78-3ffbf2aafe51.jpg",
+        "author": "OJIEN b"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/a1ed72eb-3c63-4e4f-8524-fff6ff5bd2ee.jpg",
+        "author": "OJIEN b"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/8fb4c38d-7376-4e0e-b643-690309587815.jpg",
+        "author": "Тихон Шутов"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/cfce0ad6-7abd-46aa-891d-decda00458fc.jpg",
+        "author": "Тихон Шутов"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/d567a80b-2d39-4d07-8dbe-8275999f2062.jpg",
+        "author": "Тихон Шутов"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/cf89fe5b-43ff-4bcb-a1b9-3711ce3f88a1.jpg",
+        "author": "Тихон Шутов"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#1abc9c"
   },
   {
     "id": 3945,
@@ -1928,7 +2674,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207124.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/203027.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/175402.jpg"
-    ]
+    ],
+    "districtColor": "#f1c40f"
   },
   {
     "id": 4030,
@@ -1983,7 +2730,15 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/202426.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/189921.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/b5c056b5-65e3-4e33-9622-0efd82ca63ff.jpg",
+        "author": "Zzz k"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#1abc9c"
   },
   {
     "id": 2133,
@@ -2037,7 +2792,8 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/190646.jpg"
-    ]
+    ],
+    "districtColor": "#f1c40f"
   },
   {
     "id": 2893,
@@ -2092,7 +2848,19 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/206886.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/206884.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/206888.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i0.photo.2gis.com/images/geo/0/30258560123792747_1446.jpg",
+        "author": "Andrey Crowler"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/images/geo/0/30258560173216231_f373.jpg",
+        "author": "Begali Turabekov"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#9b59b6"
   },
   {
     "id": 3223,
@@ -2146,7 +2914,19 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/210324.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i8.photo.2gis.com/images/geo/67/9429411751707565_245d.jpg",
+        "author": "Botagoz Tokanova"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/images/geo/67/9429411751707549_7c72.jpg",
+        "author": "Botagoz Tokanova"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#2ecc71"
   },
   {
     "id": 3719,
@@ -2202,7 +2982,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/176413.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/176412.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/176401.jpg"
-    ]
+    ],
+    "districtColor": "#1abc9c"
   },
   {
     "id": 1519,
@@ -2262,7 +3043,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/149109.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/149110.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/149113.jpg"
-    ]
+    ],
+    "districtColor": "#1abc9c"
   },
   {
     "id": 3230,
@@ -2318,7 +3100,8 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/180713.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/180700.jpg"
-    ]
+    ],
+    "districtColor": "#9b59b6"
   },
   {
     "id": 1793,
@@ -2374,7 +3157,59 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/88359.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/88378.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/88375.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i6.photo.2gis.com/images/geo/0/30258560103281446_c5bb.jpg",
+        "author": "Юрий Бучинский Алматы"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/3b89b850-e954-4c60-9804-2424edbe9070.jpg",
+        "author": "Kazakhstan Kz"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/332604ae-fa67-45f0-9467-2f7640f4fc07.jpg",
+        "author": "Qazaqstan A"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/4a0004cc-d562-4d82-a080-ffbb984db4f6.jpg",
+        "author": "Kazakhstan Kz"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/360a6ce4-5518-42bd-9513-8b7f5a60d439.jpg",
+        "author": "Qazaqstan A"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/35aad955-32fe-47d7-970e-a766bd3e32ba.jpg",
+        "author": "D. К"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/9ab11f53-8f2e-48fb-b37a-96d8716ce278.jpg",
+        "author": "А А"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/b9109c58-5a21-486d-b6c0-67d1146fd8a6.jpg",
+        "author": "Qazaqstan A"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/055c178c-0630-487d-8a21-4bc0fea765c7.jpg",
+        "author": "Qazaqstan A"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/ca811ab7-a740-4eda-a772-f5c3f0b220c0.jpg",
+        "author": "Qazaqstan A"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/cd6c867e-9e95-476e-b102-2becde2839be.jpg",
+        "author": "Kazakhstan Kz"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/2707ad40-8cbc-4b9a-ab7c-25d47fa8bab4.jpg",
+        "author": "А А"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#1abc9c"
   },
   {
     "id": 3664,
@@ -2431,7 +3266,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/175616.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/175615.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/201217.jpg"
-    ]
+    ],
+    "districtColor": "#1abc9c"
   },
   {
     "id": 3921,
@@ -2482,7 +3318,8 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/171748.jpg"
-    ]
+    ],
+    "districtColor": "#1abc9c"
   },
   {
     "id": 518,
@@ -2592,7 +3429,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/198839.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207079.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207081.jpg"
-    ]
+    ],
+    "districtColor": "#f1c40f"
   },
   {
     "id": 3972,
@@ -2646,7 +3484,15 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/209561.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/176303.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/d36f5a73-d010-4333-a4d4-84a0e40b0524.jpg",
+        "author": "sanzhar mukanov"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#1abc9c"
   },
   {
     "id": 4232,
@@ -2702,7 +3548,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207764.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207744.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207765.jpg"
-    ]
+    ],
+    "districtColor": "#2ecc71"
   },
   {
     "id": 1709,
@@ -2759,7 +3606,59 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/186135.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/185340.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/186067.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/4597bc60-2444-4526-a7cf-2cf753ac7df1.jpg",
+        "author": "Айгерим"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/4851e523-fd64-4c3b-bec9-e89eb923e0d8.jpg",
+        "author": "Айгерим"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/b348513d-6106-4cd2-b1ae-031bbe64f781.jpg",
+        "author": "Айгерим"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/deef6666-14e1-48e7-bc02-c6a21721e1e2.jpg",
+        "author": "Жанна Лазарева"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560105851827_b2da.jpg",
+        "author": "Лидия Руденко"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/52aec7b1-027c-4c74-b4c4-2bb8300f5fd8.jpg",
+        "author": "Kausar"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/dedd0a39-bef4-4bb9-bcf2-ca27db1ee292.jpg",
+        "author": "Айгерим"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/6b3693c4-1fba-4155-bbf3-6c11fde78fa7.jpg",
+        "author": "Оксана П"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/9707a8f5-f414-42f9-861a-b17b6bb18917.jpg",
+        "author": "Нурислам Динмухамед"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/0/30258560174142191_5eec.jpg",
+        "author": "Влад ."
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/5b7449f6-e25f-4689-884a-5fd608e75311.jpg",
+        "author": "Айгерим"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/images/geo/0/30258560105851770_13eb.jpg",
+        "author": "Лидия Руденко"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#3498db"
   },
   {
     "id": 4326,
@@ -2815,7 +3714,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/211916.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/211921.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/211924.jpg"
-    ]
+    ],
+    "districtColor": "#2ecc71"
   },
   {
     "id": 3211,
@@ -2870,7 +3770,8 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/211717.jpg"
-    ]
+    ],
+    "districtColor": "#f1c40f"
   },
   {
     "id": 4086,
@@ -2878,7 +3779,7 @@
     "name": "ЖК Noble House",
     "address": "ул. Торангы, 55",
     "city": "Алматы",
-    "district": null,
+    "district": "Бостандыкский",
     "lat": 43.1836925,
     "lng": 76.92435191,
     "priceSqm": 790000,
@@ -2923,7 +3824,8 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/211227.jpg"
-    ]
+    ],
+    "districtColor": "#1abc9c"
   },
   {
     "id": 2540,
@@ -2979,7 +3881,15 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/175958.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/175963.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/176016.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/ba46b50a-9946-42ab-baa8-cc11c2fabbe8.jpg",
+        "author": "Темирхан Темирбек"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#1abc9c"
   },
   {
     "id": 4214,
@@ -3037,7 +3947,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205494.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205532.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205509.jpg"
-    ]
+    ],
+    "districtColor": "#1abc9c"
   },
   {
     "id": 2270,
@@ -3089,7 +4000,59 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/209043.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/58660600-4e15-419e-850c-970ade311d93.jpg",
+        "author": "Юрий"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/images/geo/0/30258560104869445_f116.jpg",
+        "author": "Юрий"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560104869607_e05c.jpg",
+        "author": "Юрий"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/0/30258560102687146_77f1.jpg",
+        "author": "Юрий"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/16384b22-70e8-4fc4-b9bf-0d30b194960c.jpg",
+        "author": "Юрий"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560100106782_4fda.jpg",
+        "author": "Местный Кот"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560102687126_b961.jpg",
+        "author": "Юрий"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560107160131_f5a9.jpg",
+        "author": "Юрий Бучинский Алматы"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/images/geo/0/30258560107160132_6c4e.jpg",
+        "author": "Юрий Бучинский Алматы"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/3535357a-1022-4732-9012-f3f2b90ba40c.jpg",
+        "author": "Юрий"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/2989f4c5-3025-46c0-9ce7-fa14a85faa7e.jpg",
+        "author": "Юрий"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/d7585eae-397b-4f63-8df3-1f9ad1d425a0.jpg",
+        "author": "Айжан Жаненова"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#3498db"
   },
   {
     "id": 2686,
@@ -3145,7 +4108,8 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/211440.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/175915.jpg"
-    ]
+    ],
+    "districtColor": "#1abc9c"
   },
   {
     "id": 4335,
@@ -3202,7 +4166,59 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/209029.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/209023.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/209026.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/58660600-4e15-419e-850c-970ade311d93.jpg",
+        "author": "Юрий"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/images/geo/0/30258560104869445_f116.jpg",
+        "author": "Юрий"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560104869607_e05c.jpg",
+        "author": "Юрий"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/0/30258560102687146_77f1.jpg",
+        "author": "Юрий"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/16384b22-70e8-4fc4-b9bf-0d30b194960c.jpg",
+        "author": "Юрий"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560100106782_4fda.jpg",
+        "author": "Местный Кот"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560102687126_b961.jpg",
+        "author": "Юрий"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560107160131_f5a9.jpg",
+        "author": "Юрий Бучинский Алматы"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/images/geo/0/30258560107160132_6c4e.jpg",
+        "author": "Юрий Бучинский Алматы"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/3535357a-1022-4732-9012-f3f2b90ba40c.jpg",
+        "author": "Юрий"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/2989f4c5-3025-46c0-9ce7-fa14a85faa7e.jpg",
+        "author": "Юрий"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/d7585eae-397b-4f63-8df3-1f9ad1d425a0.jpg",
+        "author": "Айжан Жаненова"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#3498db"
   },
   {
     "id": 4236,
@@ -3259,7 +4275,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207554.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207547.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207689.jpg"
-    ]
+    ],
+    "districtColor": "#e74c3c"
   },
   {
     "id": 3383,
@@ -3312,7 +4329,59 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/206134.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/e99d6c52-54e0-4b1b-a4b4-b137f54af1a2.jpg",
+        "author": "Dora Nayman"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/0/30258560093663836_f09a.jpg",
+        "author": "Кристина С"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/6a0d985a-a52f-46e5-9a94-9a9aa2abe841.jpg",
+        "author": "Каракоз Оспан"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/35891922-e0c9-4977-8f6c-7f4a66f52736.jpg",
+        "author": "amir ."
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/e264c4b1-243c-4a1d-b720-01dc15338f71.jpg",
+        "author": "Гульназ Тойбазарова"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/7dc9a34f-ee63-41fb-ab90-292b8dc4196a.jpg",
+        "author": "Bakdaulet Bitorsykov"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/7fc640cc-c94f-449a-bcf2-3b27cc25e212.jpg",
+        "author": "Мадина Туганбаева"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/bcd16633-b6d8-4a2b-b14a-ed5b3054c7b3.jpg",
+        "author": "Раушан Ким"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/ad0f9862-6817-400d-b5b3-a505d1608848.jpg",
+        "author": "Сымбат Альмухамбетова"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/f195c0f3-e40d-4169-b915-0396856ffcdd.jpg",
+        "author": ".."
+      },
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/0/30258560093663821_f9f9.jpg",
+        "author": "Кристина С"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/42937a75-89b3-45da-83d3-f4a1b0c7fb97.jpg",
+        "author": ".."
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#e67e22"
   },
   {
     "id": 4230,
@@ -3320,7 +4389,7 @@
     "name": "ЖК Dastur",
     "address": "ул. Белжайлау, 47",
     "city": "Алматы",
-    "district": "Алатауский",
+    "district": "Наурызбайский",
     "lat": 43.1998479,
     "lng": 76.79810854,
     "priceSqm": 705000,
@@ -3366,7 +4435,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/208621.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/208613.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/208627.jpg"
-    ]
+    ],
+    "districtColor": "#f1c40f"
   },
   {
     "id": 4192,
@@ -3474,7 +4544,55 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/196470.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/196483.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/196485.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/1bae722b-84d5-42ae-8364-336efde96914.jpg",
+        "author": "★ ~"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/28c1efa9-36bd-44cf-9610-3cda6ace95c8.jpg",
+        "author": "adeka ."
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/6a7785e6-f22f-4577-9987-5afca3c097dc.jpg",
+        "author": "Adam Sart"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/2c091721-3132-49a7-b4bd-755c60508ad0.jpg",
+        "author": "Adam Sart"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/283e63b9-0280-4baa-a699-df35ad897ee8.jpg",
+        "author": "Медина Дарханкызы"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/a5be0df0-135d-4a00-a084-dfb3ac8af768.jpg",
+        "author": "🥀 😈"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/3897a75b-1854-4297-981b-01e690e7f531.jpg",
+        "author": "🥀 😈"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/c150a404-9df9-40bb-a4ba-d972ff8abdce.jpg",
+        "author": "Натяжные потолки в Алматы"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/506745ee-dfb3-4662-8832-2041ef7c714a.jpg",
+        "author": "RA consulting"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/48d390d6-aedd-4998-9dc2-d40a9880ddb6.jpg",
+        "author": "Натяжные потолки в Алматы"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/430bfe1a-e6e4-4a96-a46b-d7fc92bd2bf3.jpg",
+        "author": "Натяжные потолки в Алматы"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#1abc9c"
   },
   {
     "id": 2101,
@@ -3530,7 +4648,59 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/161885.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/161882.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/161889.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i5.photo.2gis.com/images/geo/0/30258560171069959_8f2e.jpg",
+        "author": "Кристина Федорова"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/f85542af-c74f-4902-8549-3a203c2426fd.jpg",
+        "author": "Aten One"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/fa2209b4-4661-4a3d-ab47-e5d5e1b96a36.jpg",
+        "author": "Aliyah Bakheet"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/0b563088-c20e-420a-b842-e44ca8b2e34f.jpg",
+        "author": "Aliyah Bakheet"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/images/geo/0/30258560171069954_672a.jpg",
+        "author": "Кристина Федорова"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/08f77512-62bb-4e56-9b8c-3c919683c406.jpg",
+        "author": "Атабек Сейткамалов"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560070107922_e3de.jpg",
+        "author": "Ruslan Mambetbaev"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560089246495_8127.jpg",
+        "author": "Galina Grinberg"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/9e24f644-c06c-4b69-b16e-94784a11a641.jpg",
+        "author": "Адлан Газизов"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/0/30258560162398302_1d0c.jpg",
+        "author": "Руслан Руслан"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560055091843_73d2.jpg",
+        "author": "Дормидонт Стерлядиевский"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/images/geo/0/30258560055091801_181d.jpg",
+        "author": "Дормидонт Стерлядиевский"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#3498db"
   },
   {
     "id": 3806,
@@ -3587,7 +4757,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/213116.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/213120.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/213124.jpg"
-    ]
+    ],
+    "districtColor": "#2ecc71"
   },
   {
     "id": 2647,
@@ -3642,7 +4813,15 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/133290.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/cd52ba41-f2c5-48b9-b937-6b16a782c69d.jpg",
+        "author": "А User"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#e67e22"
   },
   {
     "id": 3793,
@@ -3698,7 +4877,35 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/186717.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/175945.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/84410c5f-ad1e-4e7d-a8e2-d6339cd62593.jpg",
+        "author": "Тихон Шутов"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/2b4c3db6-4ac9-4b76-9244-f3211809e81a.jpg",
+        "author": "Тихон Шутов"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/49dd131f-ab41-4435-8b59-b49b6a7cd845.jpg",
+        "author": "Тихон Шутов"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/e9d38abc-9d93-4f6a-a9ce-8a1e7297c888.jpg",
+        "author": "Тихон Шутов"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/f56d3e43-6118-4043-84cf-2852094b344e.jpg",
+        "author": "Kuatbek"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/b3582392-0012-4a22-aeba-343febc4e2f9.jpg",
+        "author": "Тихон Шутов"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#e67e22"
   },
   {
     "id": 2365,
@@ -3751,7 +4958,43 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/152666.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/26abb4cc-8723-4717-90c9-41915ca7e40b.jpg",
+        "author": "Amelia Koen"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/7f10b19b-0645-4a08-aa3e-1a30b6c095df.jpg",
+        "author": "Sabit Zh."
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/189ae5d5-b095-43a4-b6ee-4c3554b4afa0.jpg",
+        "author": "Sabit Zh."
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/40e4c3d6-da2f-4d9d-b265-4d21ad4668d6.jpg",
+        "author": "Sabit Zh."
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/64a05bb6-8a60-4929-87db-8a0bc654443b.jpg",
+        "author": "Лили Срымова"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/59b16496-a35d-4c87-a2af-664f14865efd.jpg",
+        "author": "Sabit Zh."
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/f2d19f49-013e-479f-8411-54f53061ebc8.jpg",
+        "author": "Sabit Zh."
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/c096df42-2afd-4f4c-9989-b641ea0d9800.jpg",
+        "author": "Азамат Ахмет"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#1abc9c"
   },
   {
     "id": 3659,
@@ -3807,7 +5050,59 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/153718.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/153736.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/c8f85ed1-1156-4b57-b588-eb25ea96c1ba.jpg",
+        "author": "🇰🇿 🇰🇿"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/24fb5d22-7236-47c2-bc1e-b4b4c3b3a974.jpg",
+        "author": "𝐄𝐋𝐀𝐌𝐀𝐍 "
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/7ae3aaac-1449-41a0-91ba-3fbf0583bdb9.jpg",
+        "author": "Ростислав Инжаков"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/92b3916e-ec87-4436-a2d1-2e3c3c04d393.jpg",
+        "author": "Real Estate Broker"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/028b22eb-30bc-4eb2-a85a-ab0923b15f28.jpg",
+        "author": "Ростислав Инжаков"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/7e46ba8e-283a-4975-a5a6-5b4ee12705ba.jpg",
+        "author": "Ростислав Инжаков"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/3c2be139-d288-4903-910f-3e8719e16a65.jpg",
+        "author": "Real Estate Broker"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/02383c1f-2778-4578-8059-2c8daf06d3f1.jpg",
+        "author": "Ростислав Инжаков"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/908062d7-e2a5-4fcf-bebc-f9d802dc43bc.jpg",
+        "author": "Ростислав Инжаков"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/bf39464b-0b89-4db6-b9eb-d7d4db118e55.jpg",
+        "author": "Ростислав Инжаков"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/b53d7fbb-9229-49bf-a679-9d9dcc852d78.jpg",
+        "author": "Real Estate Broker"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/fdc274bc-82e3-447f-a47f-b735a91f8bcf.jpg",
+        "author": "Ростислав Инжаков"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#f1c40f"
   },
   {
     "id": 4231,
@@ -3863,7 +5158,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/209859.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207885.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207881.jpg"
-    ]
+    ],
+    "districtColor": "#2ecc71"
   },
   {
     "id": 4068,
@@ -3920,7 +5216,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/209393.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/209397.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/210532.jpg"
-    ]
+    ],
+    "districtColor": "#e67e22"
   },
   {
     "id": 3907,
@@ -3975,7 +5272,23 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/171086.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/171089.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/171062.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/229f3862-77bf-4e3c-9455-6b35658142b4.jpg",
+        "author": "Kamil Gabitov"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/98359fb6-29ca-4f42-ac44-602da936b0ee.jpg",
+        "author": "Kamil Gabitov"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/72e3a536-27ca-464e-9b79-bbd7b1b9ca8c.jpg",
+        "author": "Kamil Gabitov"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#e74c3c"
   },
   {
     "id": 2844,
@@ -4028,7 +5341,14 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/104731.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/708dce00-c8db-4962-a153-6725b88a4d82.jpg",
+        "author": "didar -"
+      }
+    ],
+    "realPhotoSource": "2gis"
   },
   {
     "id": 4024,
@@ -4082,7 +5402,8 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/206980.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/206991.jpg"
-    ]
+    ],
+    "districtColor": "#e67e22"
   },
   {
     "id": 3786,
@@ -4136,7 +5457,14 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/161852.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/161853.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/1ee3a4ae-7c41-458a-ba43-959093de6699.jpg",
+        "author": "Сергей Пасюков"
+      }
+    ],
+    "realPhotoSource": "2gis"
   },
   {
     "id": 3920,
@@ -4190,7 +5518,8 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207088.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212424.jpg"
-    ]
+    ],
+    "districtColor": "#f1c40f"
   },
   {
     "id": 4362,
@@ -4246,7 +5575,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212042.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212060.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212072.jpg"
-    ]
+    ],
+    "districtColor": "#e67e22"
   },
   {
     "id": 4021,
@@ -4354,7 +5684,8 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/193852.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/193857.jpg"
-    ]
+    ],
+    "districtColor": "#e84393"
   },
   {
     "id": 2840,
@@ -4407,7 +5738,8 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/119004.jpg"
-    ]
+    ],
+    "districtColor": "#f1c40f"
   },
   {
     "id": 4051,
@@ -4463,7 +5795,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/194210.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/202498.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/187023.jpg"
-    ]
+    ],
+    "districtColor": "#e67e22"
   },
   {
     "id": 1739,
@@ -4519,7 +5852,59 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/162482.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/162431.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/162423.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i9.photo.2gis.com/images/geo/0/30258560162643858_d0ef.jpg",
+        "author": "Alen Bolekbay"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/images/geo/0/30258560162643857_8acf.jpg",
+        "author": "Alen Bolekbay"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/images/geo/0/30258560162643861_ef6e.jpg",
+        "author": "Alen Bolekbay"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/11a2bb07-235d-4cef-a359-9dfe227d5e36.jpg",
+        "author": "Alen Bolekbay"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/ce0eeb1d-b262-4612-a65c-6156e18f2387.jpg",
+        "author": "Alen Bolekbay"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/ef9e486f-0d75-4caa-a40b-5f2af1790cf0.jpg",
+        "author": "Alen Bolekbay"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/d5d0c205-8363-4b28-9b98-5567437ebc55.jpg",
+        "author": "Alen Bolekbay"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/images/geo/0/30258560128834233_301a.jpg",
+        "author": "Alen Bolekbay"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/b9834bea-ba9a-4780-be15-5ddb438f203f.jpg",
+        "author": "Yelzhas Bekbolatuly"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/images/geo/0/30258560165673653_4a8f.jpg",
+        "author": "Alen Bolekbay"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/2d3a6172-506a-47fd-9e8a-670f20d553ca.jpg",
+        "author": "Alen Bolekbay"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/32e5c503-3e9a-45ec-8d23-e4ae399e5a05.jpg",
+        "author": "Alen Bolekbay"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#e84393"
   },
   {
     "id": 4074,
@@ -4574,7 +5959,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/208392.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/208359.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/208328.jpg"
-    ]
+    ],
+    "districtColor": "#e84393"
   },
   {
     "id": 2607,
@@ -4627,7 +6013,8 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/204652.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/204650.jpg"
-    ]
+    ],
+    "districtColor": "#e84393"
   },
   {
     "id": 328,
@@ -4684,7 +6071,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/107882.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/107886.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/137736.jpg"
-    ]
+    ],
+    "districtColor": "#e67e22"
   },
   {
     "id": 4042,
@@ -4692,7 +6080,7 @@
     "name": "ЖК Buta Legend",
     "address": "ул. Рыскулова, 103/6",
     "city": "Алматы",
-    "district": null,
+    "district": "Алатауский",
     "lat": 43.26812377,
     "lng": 76.86859136,
     "priceSqm": 530000,
@@ -4739,7 +6127,23 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/209462.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/654197df-aae5-4394-b55c-1843e6d84a9c.jpg",
+        "author": ". Цукерберг"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/c413c41f-8f11-48f5-9a60-1d8f01364414.jpg",
+        "author": "Ak1Л 🔥"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/61a03b1f-f90d-4fab-bf95-68544e92d060.jpg",
+        "author": "Ak1Л 🔥"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#e67e22"
   },
   {
     "id": 4382,
@@ -4850,7 +6254,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212294.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212297.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212299.jpg"
-    ]
+    ],
+    "districtColor": "#e84393"
   },
   {
     "id": 3106,
@@ -4906,7 +6311,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/210198.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/196686.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/196685.jpg"
-    ]
+    ],
+    "districtColor": "#e67e22"
   },
   {
     "id": 3863,
@@ -4959,7 +6365,59 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/169833.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i6.photo.2gis.com/images/geo/0/30258560055377089_26de.jpg",
+        "author": "Stas Vass"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/images/geo/0/30258560055377100_1c20.jpg",
+        "author": "Stas Vass"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/7fcb1d6a-c259-496e-9c7c-c4797a4a4023.jpg",
+        "author": "Алмаатинка Коренная"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560055377009_9eb2.jpg",
+        "author": "Stas Vass"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/a19c9f35-496a-4250-8465-00304d47ac41.jpg",
+        "author": "Алмаатинка Коренная"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/02a6f50d-0229-43e9-b630-f4d88a652d78.jpg",
+        "author": "Алмаатинка Коренная"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/c0c26dd5-d0dc-4b08-9a4a-97d39f63ebaa.jpg",
+        "author": "Алмаатинка Коренная"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/images/geo/0/30258560055377005_0c59.jpg",
+        "author": "Stas Vass"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/b5436b55-95d0-4e6b-a0c3-4368e47535cd.jpg",
+        "author": "Алмаатинка Коренная"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560055376852_41d9.jpg",
+        "author": "Stas Vass"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560055376747_d159.jpg",
+        "author": "Stas Vass"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/3d338d97-8ce3-4cdb-84c0-e8946c6a9144.jpg",
+        "author": "Алмаатинка Коренная"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#2ecc71"
   },
   {
     "id": 4314,
@@ -5015,7 +6473,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207110.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207112.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207114.jpg"
-    ]
+    ],
+    "districtColor": "#e84393"
   },
   {
     "id": 3896,
@@ -5071,7 +6530,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207201.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207185.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/210232.jpg"
-    ]
+    ],
+    "districtColor": "#2ecc71"
   },
   {
     "id": 3979,
@@ -5125,7 +6585,43 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/209575.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/209105.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/209110.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/42c02411-1ccd-4623-af97-403c265dcacd.jpg",
+        "author": "Асем Касымбек"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/ad8bed40-01ed-481f-8e26-d43f51a9afd9.jpg",
+        "author": "Асем Касымбек"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/d5846b6c-b585-46ab-8a3d-fae0f6ca2d9a.jpg",
+        "author": "Асем Касымбек"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/2302270e-d6df-41ad-9987-2835f46ce935.jpg",
+        "author": "Асем Касымбек"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/f40afbd2-4786-40fa-9f3e-6069aa378138.jpg",
+        "author": "Gulbadat Taukebaeva"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/b3dd0cc5-148b-43c7-9ac6-78e3751fc01d.jpg",
+        "author": "Асем Касымбек"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/4f2c4414-cd4d-4651-8254-b3207a1779cc.jpg",
+        "author": "Асем Касымбек"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/8d5a8ed7-bcc9-4068-a515-a2c9dd5aedf4.jpg",
+        "author": "Kumarbek Aibek"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#f1c40f"
   },
   {
     "id": 3817,
@@ -5181,7 +6677,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/163129.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/163125.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/163123.jpg"
-    ]
+    ],
+    "districtColor": "#e67e22"
   },
   {
     "id": 4244,
@@ -5291,7 +6788,14 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/173581.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/df2715e3-abd1-4d53-a5a8-52a83133c8d5.jpg",
+        "author": "Di Girl"
+      }
+    ],
+    "realPhotoSource": "2gis"
   },
   {
     "id": 2379,
@@ -5345,7 +6849,59 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/188910.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/82095.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i0.photo.2gis.com/images/geo/0/30258560139706824_a943.jpg",
+        "author": "Райымбек Джумакулов"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/ccce9228-0b6f-4efd-b008-8d2588c9f097.jpg",
+        "author": "Райымбек Джумакулов"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/52136d78-3b79-4236-9796-c600de259dcb.jpg",
+        "author": "Райымбек Джумакулов"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560106923013_fe5d.jpg",
+        "author": "Евгений Пивень"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/images/geo/0/30258560106923190_2e85.jpg",
+        "author": "Евгений Пивень"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/5f7a6d43-003d-43f7-b69a-cbddadb55826.jpg",
+        "author": "Райымбек Джумакулов"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/images/geo/0/30258560106922911_0129.jpg",
+        "author": "Евгений Пивень"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/images/geo/0/30258560107431646_ad95.jpg",
+        "author": "Рамиль Абдуллаев"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560106923272_15b9.jpg",
+        "author": "Евгений Пивень"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/d729cf3c-ec8a-4f19-a76d-988d82afa79b.jpg",
+        "author": "Nūrasyl Aian"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/af352192-8d3e-47bd-b3a4-02ba7226cbea.jpg",
+        "author": "Райымбек Джумакулов"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/images/geo/0/30258560106923120_7f03.jpg",
+        "author": "Евгений Пивень"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#e84393"
   },
   {
     "id": 3253,
@@ -5401,7 +6957,19 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/132484.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/132486.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/132488.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/0/30258560107118960_95c2.jpg",
+        "author": "Arnagul Zhagiparova"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/f5d2f0f9-a078-4bee-8199-4552748c6e1f.jpg",
+        "author": "Б С"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#3498db"
   },
   {
     "id": 2731,
@@ -5457,7 +7025,59 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/176973.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/176974.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/6774f77b-4535-4863-bea3-3204af9b2775.jpg",
+        "author": "Exclusive Квартиры посуточно"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/920e3cf1-4bd6-4634-b17e-28bd719a7cc3.jpg",
+        "author": "Karina Zakharova"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/93d570a1-e8b5-475b-9baa-6ebef726285d.jpg",
+        "author": "Мозги Есть"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/1da94803-a293-4424-8b9b-99560354c562.jpg",
+        "author": "Kalmurzaeva A1aru🌊🌊🌊"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/1afb83a3-be95-4b50-8dd1-14c7ea9a697f.jpg",
+        "author": "Anelya Konyrbekova"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/0abf1a8a-9a41-42e4-83e0-5ba112d4ee0f.jpg",
+        "author": "Илья Зайченко"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/9315d30c-5b7b-4670-9f80-a2b56f9425be.jpg",
+        "author": "Anelya Konyrbekova"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/07ef9dc6-1bb4-4113-85f6-a1072e3285ca.jpg",
+        "author": "Еркебулан Сапарбай"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/62f07e6f-b755-48dc-975b-8c381c489ada.jpg",
+        "author": "Илья Зайченко"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/d862fd80-7e92-42d3-88e4-f7d437c7b1fa.jpg",
+        "author": "Илья Зайченко"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/fff46535-4af3-4380-a001-28d9db4290b4.jpg",
+        "author": "Anelya Konyrbekova"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/f01a3757-d4bb-4dab-bbcf-bbd9047ce7ea.jpg",
+        "author": "Exclusive Квартиры посуточно"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#f1c40f"
   },
   {
     "id": 4112,
@@ -5569,7 +7189,8 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205534.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205535.jpg"
-    ]
+    ],
+    "districtColor": "#e84393"
   },
   {
     "id": 3744,
@@ -5622,7 +7243,58 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/159544.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i6.photo.2gis.com/images/geo/0/30258560055377089_26de.jpg",
+        "author": "Stas Vass"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/images/geo/0/30258560055377100_1c20.jpg",
+        "author": "Stas Vass"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/7fcb1d6a-c259-496e-9c7c-c4797a4a4023.jpg",
+        "author": "Алмаатинка Коренная"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560055377009_9eb2.jpg",
+        "author": "Stas Vass"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/a19c9f35-496a-4250-8465-00304d47ac41.jpg",
+        "author": "Алмаатинка Коренная"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/02a6f50d-0229-43e9-b630-f4d88a652d78.jpg",
+        "author": "Алмаатинка Коренная"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/c0c26dd5-d0dc-4b08-9a4a-97d39f63ebaa.jpg",
+        "author": "Алмаатинка Коренная"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/images/geo/0/30258560055377005_0c59.jpg",
+        "author": "Stas Vass"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/b5436b55-95d0-4e6b-a0c3-4368e47535cd.jpg",
+        "author": "Алмаатинка Коренная"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560055376852_41d9.jpg",
+        "author": "Stas Vass"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560055376747_d159.jpg",
+        "author": "Stas Vass"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/3d338d97-8ce3-4cdb-84c0-e8946c6a9144.jpg",
+        "author": "Алмаатинка Коренная"
+      }
+    ],
+    "realPhotoSource": "2gis"
   },
   {
     "id": 2772,
@@ -5676,7 +7348,8 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/192714.jpg"
-    ]
+    ],
+    "districtColor": "#e67e22"
   },
   {
     "id": 2740,
@@ -5733,7 +7406,14 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212004.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212008.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212010.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/2a8c5eae-055b-4aee-acea-03042c82e463.jpg",
+        "author": "Жадыра 🐱"
+      }
+    ],
+    "realPhotoSource": "2gis"
   },
   {
     "id": 3008,
@@ -5792,7 +7472,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/154278.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/111212.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/154280.jpg"
-    ]
+    ],
+    "districtColor": "#f1c40f"
   },
   {
     "id": 4136,
@@ -5905,7 +7586,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/161878.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/161877.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/161881.jpg"
-    ]
+    ],
+    "districtColor": "#e67e22"
   },
   {
     "id": 4001,
@@ -5958,7 +7640,15 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/176819.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/16ec1f6a-f391-4d4a-9645-b340ef82ea2b.jpg",
+        "author": "Almaty Transfer"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#9b59b6"
   },
   {
     "id": 4162,
@@ -6069,7 +7759,59 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/97805.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/97785.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/97780.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/c893a6a2-ad6d-4156-98e6-cd8d405bd8ff.jpg",
+        "author": "almiraa maratova"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/images/geo/0/30258560174696753_9362.jpg",
+        "author": "@gulshat_galymzhan_brand Gulshat Galymzhan"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/3df24be4-c9d4-4a09-96c9-4b2f931e6dce.jpg",
+        "author": "E J"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/a83741ae-dfb6-4704-9f2c-0419af77ac49.jpg",
+        "author": "AGZAM Inayatulla"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/9cace75f-10bd-4977-8e6f-5b0b34abd57d.jpg",
+        "author": "Акылбек Касымов"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/images/geo/0/30258560106061165_b3fd.jpg",
+        "author": "Марина Каббо"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/b5c96ace-dae6-42ca-8af1-fde5cd069dcd.jpg",
+        "author": "ААА 🔐"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/f5bce016-b371-4f74-8724-c28ba9bf6a6f.jpg",
+        "author": "ААА 🔐"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/b8f8f2a6-9e1d-4a78-8456-8325e23770aa.jpg",
+        "author": "@gulshat_galymzhan_brand Gulshat Galymzhan"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/images/geo/0/30258560106061163_2332.jpg",
+        "author": "Марина Каббо"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/bd25dc2c-bb26-4fd7-9592-ca348e3397df.jpg",
+        "author": "nomad0888"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/images/geo/0/30258560106061161_3890.jpg",
+        "author": "Марина Каббо"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#f1c40f"
   },
   {
     "id": 3730,
@@ -6124,7 +7866,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/163796.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/163804.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/163814.jpg"
-    ]
+    ],
+    "districtColor": "#e67e22"
   },
   {
     "id": 1744,
@@ -6180,7 +7923,59 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/170652.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/170655.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/170659.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i2.photo.2gis.com/images/geo/0/30258560089382134_8878.jpg",
+        "author": "Евгения"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560092540208_fb15.jpg",
+        "author": "Saken Kulbaev"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560092540111_d3fb.jpg",
+        "author": "Saken Kulbaev"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/images/geo/0/30258560092540232_f671.jpg",
+        "author": "Saken Kulbaev"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/21675e65-1995-437d-ac6a-8c6638ec2b83.jpg",
+        "author": "Zinaida Aivazyan"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/images/geo/0/30258560069273099_6ecd.jpg",
+        "author": "Амирлан Кельбуганов"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/7d95a3b0-af6b-494e-abac-470dc919163d.jpg",
+        "author": "Д К"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/images/geo/0/30258560076844136_7aa0.jpg",
+        "author": "Городская легенда"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/images/geo/0/30258560075817247_1b63.jpg",
+        "author": "Городская легенда"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/images/geo/0/30258560092540145_353f.jpg",
+        "author": "Saken Kulbaev"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/09ba504b-5c19-464b-8009-2b9b04722f89.jpg",
+        "author": "Гоча Горчаков"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/images/geo/0/30258560110963220_3389.jpg",
+        "author": "kasyiq"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#e84393"
   },
   {
     "id": 3813,
@@ -6290,7 +8085,58 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/172449.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/172447.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/172266.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i7.photo.2gis.com/images/geo/0/30258560065449244_51db.jpg",
+        "author": "Dmirtiy Valov"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560104247234_91ca.jpg",
+        "author": "Aisha Kabi"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/67/9429411741458862_b81a.jpg",
+        "author": "Талга М*"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/82ea8ca6-17f2-4118-80dd-443f4095fc17.jpg",
+        "author": "Гирк G"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560098167318_6519.jpg",
+        "author": "Zheka Gibbons"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/images/geo/67/9429411733570236_94df.jpg",
+        "author": "Марина Нестерова"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/c5a86189-27c3-4ea3-bfa8-44dd3dcff2aa.jpg",
+        "author": "Томирис Қалел"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560048130912_63a5.jpg",
+        "author": "Vyacheslav Lyagalin"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/images/geo/0/30258560080094868_b191.jpg",
+        "author": "Despented Fix"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/67/9429411732343815_497c.jpg",
+        "author": "Bosya Syzdykova"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/images/geo/0/30258560051578679_dde2.jpg",
+        "author": "Нуржан Кыдырбаев"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/16186d54-8d53-4b8a-a63f-990c6dd059d7.jpg",
+        "author": "Томирис Қалел"
+      }
+    ],
+    "realPhotoSource": "2gis"
   },
   {
     "id": 4032,
@@ -6347,7 +8193,59 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/183285.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/183283.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/183286.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/969d193e-a3c3-48b3-b1f6-bbfc25f8132f.jpg",
+        "author": "Erdana Dauletbek"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/b2d18a77-0f99-4e62-8368-876d6322cc0f.jpg",
+        "author": "Амирлан Кельбуганов"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/425f90dc-235e-425d-b544-d78e0e697600.jpg",
+        "author": "Abd Abd"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/be3ce1cf-e6a6-4bd9-b40e-e909069d8482.jpg",
+        "author": "Abd Abd"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/7af91192-8e75-4ad5-9a35-9efc8126f0ad.jpg",
+        "author": "Abd Abd"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/fe014cc2-53f0-41c1-a466-34ae4f1837ab.jpg",
+        "author": "Амирлан Кельбуганов"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/8ffd06e6-ca65-4075-b9c5-e6c22d0ea1de.jpg",
+        "author": "Erdana Dauletbek"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/02226051-9702-43b0-9c7b-51a81a4299c0.jpg",
+        "author": "Abd Abd"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/2c2bbf57-56c8-409e-ad71-21974686ee96.jpg",
+        "author": "Анна Берестова"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/e65864de-ed4e-4a10-b8d7-f18a768a690a.jpg",
+        "author": "Анна Берестова"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/2d62ab29-6efb-4d7e-acef-a9da612eb6c3.jpg",
+        "author": "Karina S."
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/4298e293-38b7-4565-892f-bba07cf91152.jpg",
+        "author": "lambda y"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#e84393"
   },
   {
     "id": 4413,
@@ -6460,7 +8358,58 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212564.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212561.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/199838.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i0.photo.2gis.com/images/geo/0/30258560172194836_c72f.jpg",
+        "author": "Жансауле Абашовна"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/images/geo/0/30258560172213339_e537.jpg",
+        "author": "Жансауле Абашовна"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/images/geo/0/30258560172213347_e15e.jpg",
+        "author": "Жансауле Абашовна"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/images/geo/0/30258560172213344_f0c2.jpg",
+        "author": "Жансауле Абашовна"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/images/geo/0/30258560172213328_180b.jpg",
+        "author": "Жансауле Абашовна"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/images/geo/0/30258560172213335_3dd9.jpg",
+        "author": "Жансауле Абашовна"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/images/geo/0/30258560172199724_65be.jpg",
+        "author": "Жансауле Абашовна"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/images/geo/0/30258560172201944_f3e2.jpg",
+        "author": "Жансауле Абашовна"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/images/geo/0/30258560172194786_c345.jpg",
+        "author": "Жансауле Абашовна"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/0/30258560172199729_7718.jpg",
+        "author": "Жансауле Абашовна"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560172199735_85b7.jpg",
+        "author": "Жансауле Абашовна"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/images/geo/0/30258560172213327_8832.jpg",
+        "author": "Жансауле Абашовна"
+      }
+    ],
+    "realPhotoSource": "2gis"
   },
   {
     "id": 3012,
@@ -6517,7 +8466,59 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/110063.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/110064.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/110065.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/e4f2985e-a837-4d6c-84a5-9c6447b1d19c.jpg",
+        "author": "Гульшат"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/55c0267b-3e4c-4347-a068-688c8ee3be0e.jpg",
+        "author": "Гульшат"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/567407eb-124a-42c8-a77e-c144a5403ea0.jpg",
+        "author": "Гульшат"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/38f4934b-e94f-4699-8ce0-58c562905601.jpg",
+        "author": "Гульшат"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/020b0fe6-16a4-4416-82a6-6e5db19de883.jpg",
+        "author": "Гульшат"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/c8d7ce45-689c-4897-8da3-7c2112fc402f.jpg",
+        "author": "Гульшат"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/5278f5c9-ce41-4004-af86-76217eafe1f0.jpg",
+        "author": "Гульшат"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/b2a7ade8-1591-4375-9577-4a32d97e1591.jpg",
+        "author": "Гульшат"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/95d0ec07-2971-4a6c-be13-9de99e9ba484.jpg",
+        "author": "Гульшат"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/6329c9d9-1525-4f05-afcf-10ca1fd0ad89.jpg",
+        "author": "Гульшат"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/7df0a80a-76ca-4961-ad13-8de5cfd80296.jpg",
+        "author": "Abzal Mukash"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/d9ffdb61-df21-4745-bfb3-e8b5bbb4f7df.jpg",
+        "author": "Гульшат"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#e67e22"
   },
   {
     "id": 1356,
@@ -6573,7 +8574,38 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/136308.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/136304.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/136309.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/9f8d0d87-bce3-41ff-93b7-cbd638f6c82a.jpg",
+        "author": "Павел Опанасенко"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/9306a3a2-4f11-4a09-a87d-616fb417a5b2.jpg",
+        "author": "- sanëkaa"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/db667a09-82bc-4786-9031-5c81e7bc6ef1.jpg",
+        "author": "Павел Опанасенко"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/7d681acd-5585-4ed9-abca-3f9c8f7f79e8.jpg",
+        "author": "Павел Опанасенко"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/e67bc575-9879-4a82-8c49-7e31b857a05f.jpg",
+        "author": "Павел Опанасенко"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/e11b4952-6885-40dc-9542-4340a135d46c.jpg",
+        "author": "Городская легенда"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/08935be4-114f-416f-ab38-f77a0b5d71dc.jpg",
+        "author": "Павел Опанасенко"
+      }
+    ],
+    "realPhotoSource": "2gis"
   },
   {
     "id": 3323,
@@ -6628,7 +8660,46 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/136209.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/136207.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/bf45d9c1-ed9b-4432-82bf-e7d5a9bf3f03.jpg",
+        "author": "Ангелина Ковальчук"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/cf028d6e-31fd-4f1a-b917-55009a5dd2e8.jpg",
+        "author": "Saken Kulbaev"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/bb3f034b-d010-435e-802b-22a43b58e51c.jpg",
+        "author": "Нұрсұлтан Смайлов"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/984b3bcd-40ea-4a52-99fc-d4789350c815.jpg",
+        "author": "Karakat Berkenkyzy"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/19b57b9e-4bfb-41bb-ad6b-5cfd351621e1.jpg",
+        "author": "Нұрсұлтан Смайлов"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/9fdd73b6-8cdc-41a0-abcd-0cc5ab0f7116.jpg",
+        "author": "Азамат ML"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/b47b4be0-a7d3-4c55-a3e7-6751353e8b43.jpg",
+        "author": "Нұрсұлтан Смайлов"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/d6a98f0f-151a-4379-853e-6f34cf87cf77.jpg",
+        "author": "Айша Ганибай"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/89a9c740-9f1d-4899-bf34-7d15a190bc1e.jpg",
+        "author": "Нұрсұлтан Смайлов"
+      }
+    ],
+    "realPhotoSource": "2gis"
   },
   {
     "id": 4186,
@@ -6739,7 +8810,58 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/152881.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/152877.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/152876.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i7.photo.2gis.com/images/geo/0/30258560108944264_bfd0.jpg",
+        "author": "Касым-Жомарт Токаев"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/4640b1c1-ed75-4e66-8d79-4966f2412ea1.jpg",
+        "author": "Айгерим Кабимолдаева"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/54d4544f-dfc9-422d-9946-19f6d50443cf.jpg",
+        "author": "Айгерим Кабимолдаева"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/83fe5241-c812-48f8-9d8d-1ce9bc1463e0.jpg",
+        "author": "Еркегуль Бердімұратқызы"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/images/geo/0/30258560118383565_a184.jpg",
+        "author": "Нұрсұлтан Ерғалымұлы"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/64c03308-98fc-4003-8eef-a2b2c0f9e1bb.jpg",
+        "author": "Айгерим Кабимолдаева"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/20bb17d2-a509-4687-890b-7ecc62c490c2.jpg",
+        "author": "World maps"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/7cacf024-a44b-4e80-a574-94923db21272.jpg",
+        "author": "Мариана Абдулинова"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/images/geo/0/30258560118383566_7571.jpg",
+        "author": "Нұрсұлтан Ерғалымұлы"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/f0886dd8-6fbc-41bd-8fda-3222160ab36c.jpg",
+        "author": "Мариана Абдулинова"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/a2bb6805-7ad9-47b3-b33f-2b44984a5541.jpg",
+        "author": "Екатерина Пискунова"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/adbde6bf-d3c4-4fd0-8400-dfb6fa233fe0.jpg",
+        "author": "Мариана Абдулинова"
+      }
+    ],
+    "realPhotoSource": "2gis"
   },
   {
     "id": 2986,
@@ -6796,7 +8918,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/109165.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/109167.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/109172.jpg"
-    ]
+    ],
+    "districtColor": "#e67e22"
   },
   {
     "id": 4272,
@@ -6962,7 +9085,14 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/172475.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/172267.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/9b981997-4203-47f6-8d3e-e54e7f9a6a26.jpg",
+        "author": "Жанель Мухиткызы"
+      }
+    ],
+    "realPhotoSource": "2gis"
   },
   {
     "id": 4365,
@@ -7128,7 +9258,15 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/149379.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/166075.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/be1ea39c-920c-4d37-b50e-331df8614345.jpg",
+        "author": "Айлин Еркебуланкызы"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#e74c3c"
   },
   {
     "id": 3082,
@@ -7185,7 +9323,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/173564.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/173561.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/173563.jpg"
-    ]
+    ],
+    "districtColor": "#1abc9c"
   },
   {
     "id": 2351,
@@ -7242,7 +9381,27 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/153764.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/153684.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/153701.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/226cc78f-8556-4c88-bb00-87824c350952.jpg",
+        "author": "B S"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/0/30258560110358689_6b14.jpg",
+        "author": "Zhanagul 🦋"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/images/geo/0/30258560127533413_4b76.jpg",
+        "author": "Мара М"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560087096379_b7fc.jpg",
+        "author": "ygf gf"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#1abc9c"
   },
   {
     "id": 2802,
@@ -7298,7 +9457,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/109144.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/109143.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/109146.jpg"
-    ]
+    ],
+    "districtColor": "#1abc9c"
   },
   {
     "id": 506,
@@ -7356,7 +9516,43 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/153807.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/153824.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/153825.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/4b7b075c-34d3-43a0-9811-9088934afae3.jpg",
+        "author": "Emir User"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/0b21e8e3-b79b-4f7d-87e1-e55a5abeb8bd.jpg",
+        "author": "Complex Building Service"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/be4de1e9-ca46-4b04-8474-4c0e9b868892.jpg",
+        "author": "Натяжные потолки в Алматы"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/5c261443-1d90-4748-ab1a-692673de82e2.jpg",
+        "author": "Марат FJ cruise"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560111663835_3f37.jpg",
+        "author": "Талга М*"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/8f1cc523-ce18-41c5-ba61-3194916d205f.jpg",
+        "author": "Emir User"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/48686153-3eaa-4168-aa7a-5146f48912cd.jpg",
+        "author": "Марат FJ cruise"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/94017fc0-a2fe-4e96-a9f5-7c24ec364e7e.jpg",
+        "author": "Марат FJ cruise"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#2ecc71"
   },
   {
     "id": 448,
@@ -7468,7 +9664,59 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/97749.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/97745.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/97752.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i9.photo.2gis.com/images/geo/0/30258560123844165_3270.jpg",
+        "author": "Andrey Crowler"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/6cb13b39-1504-498d-b403-8e52d7c67ec8.jpg",
+        "author": "Nazyma K"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/3a4f388e-4175-4aff-aa94-610f205dcb68.jpg",
+        "author": "Aza A."
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/d66f649b-5f4f-4ec4-9940-a9348416c8a7.jpg",
+        "author": "Угрюмый Аббас"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/images/geo/0/30258560120933388_15b1.jpg",
+        "author": "Tair"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/images/geo/0/30258560120933386_2d20.jpg",
+        "author": "Tair"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/images/geo/0/30258560120933393_0b34.jpg",
+        "author": "Tair"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/images/geo/0/30258560120933384_7f01.jpg",
+        "author": "Tair"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/6b3eabe7-2592-4cad-8a2a-7300aa10c1bd.jpg",
+        "author": "Aza A."
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/1cb71332-0aab-4276-b555-e81f01cdb6f6.jpg",
+        "author": "Aza A."
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/f95b74c4-7639-43c0-80fa-03f286841cd1.jpg",
+        "author": "Aza A."
+      },
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/0/30258560120933391_11b9.jpg",
+        "author": "Tair"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#f1c40f"
   },
   {
     "id": 2817,
@@ -7525,7 +9773,55 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/109964.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/109960.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/109958.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/c3df643a-691c-4021-9919-74f15a980887.jpg",
+        "author": "Sss Nnn"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/8f1d058f-eaba-40cb-b763-7145d10710f9.jpg",
+        "author": "Sss Nnn"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/images/geo/0/30258560168702611_3bd1.jpg",
+        "author": "True From Almaty"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/9de043fe-9750-4bbe-b33d-1ff6a1659a10.jpg",
+        "author": "Альбина Нурланова"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/f2e9143b-0699-45c8-a833-888daf807463.jpg",
+        "author": "Альбина Нурланова"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/4de2d959-72f8-468f-bbe3-3bf6adb1f2f2.jpg",
+        "author": "Sss Nnn"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/a53c209c-2282-46d4-8a60-ee78dc42da55.jpg",
+        "author": "Sss Nnn"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/images/geo/0/30258560111334142_d47d.jpg",
+        "author": "Талга М*"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/e0b5030c-2f1f-4118-9d81-1ae6f5566893.jpg",
+        "author": "Sss Nnn"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/49c46654-ac28-486a-92a3-33ac2d46d640.jpg",
+        "author": "Sss Nnn"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/06f2d5c9-4e3b-49df-84d8-c752996472c9.jpg",
+        "author": "Sss Nnn"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#1abc9c"
   },
   {
     "id": 2294,
@@ -7578,7 +9874,8 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/89675.jpg"
-    ]
+    ],
+    "districtColor": "#1abc9c"
   },
   {
     "id": 3284,
@@ -7636,7 +9933,59 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/141036.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/138416.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/141032.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i0.photo.2gis.com/images/geo/0/30258560048928661_4571.jpg",
+        "author": "Талга М*"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/images/geo/0/30258560171577161_882b.jpg",
+        "author": "Анастасия Агафонова"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/5fde969b-0c21-4e16-8382-5b4dfa20633c.jpg",
+        "author": "Mobb Deep"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560171577157_5eb8.jpg",
+        "author": "Анастасия Агафонова"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/images/geo/0/30258560171577165_4732.jpg",
+        "author": "Анастасия Агафонова"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560171577154_1c6f.jpg",
+        "author": "Анастасия Агафонова"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/images/geo/0/30258560171577174_9c4a.jpg",
+        "author": "Анастасия Агафонова"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560171577168_580f.jpg",
+        "author": "Анастасия Агафонова"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/images/geo/67/9429411736271037_cca4.jpg",
+        "author": "yeeshmichael"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/images/geo/67/9429411736271035_515a.jpg",
+        "author": "yeeshmichael"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560171577203_d8ac.jpg",
+        "author": "Анастасия Агафонова"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560171577178_8ee5.jpg",
+        "author": "Анастасия Агафонова"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#f1c40f"
   },
   {
     "id": 2570,
@@ -7692,7 +10041,59 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/145283.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/145276.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/145280.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/183b1d43-96ff-4f99-a9bc-d72ce837a5f6.jpg",
+        "author": "Меруерт Каменова"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/65993aaa-ac6e-4f19-b39b-0b1e2ea03dfa.jpg",
+        "author": "Меруерт Каменова"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/f24e1759-3ca2-4060-b3db-3c36792cb9b4.jpg",
+        "author": "Меруерт Каменова"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/ddd62816-83a6-4a0d-9535-ae6dcf685964.jpg",
+        "author": "Меруерт Каменова"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/e3ff16a5-e8f8-4394-b456-c68842011d29.jpg",
+        "author": "Меруерт Каменова"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/63ad5e41-9ef2-477e-a2bd-b5eee21c9e31.jpg",
+        "author": "Меруерт Каменова"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/8eade155-eb99-40e8-b870-a1998be87a43.jpg",
+        "author": "cars adill"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/images/geo/0/30258560050218293_f855.jpg",
+        "author": "Талга М*"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/1c34f29e-7016-4582-a818-143a23502b77.jpg",
+        "author": "cars adill"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/1c03788a-52f6-4953-9475-8537927cead6.jpg",
+        "author": "knzrvg ."
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/fff47586-451e-4761-ba01-575fea0884b3.jpg",
+        "author": "Меруерт Каменова"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/images/geo/0/30258560060419920_e3ce.jpg",
+        "author": "Askhat Suiinkhan"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#e67e22"
   },
   {
     "id": 2557,
@@ -7747,7 +10148,8 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/183921.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/183922.jpg"
-    ]
+    ],
+    "districtColor": "#1abc9c"
   },
   {
     "id": 2587,
@@ -7859,7 +10261,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/135217.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/180728.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/135819.jpg"
-    ]
+    ],
+    "districtColor": "#f1c40f"
   },
   {
     "id": 2648,
@@ -7915,7 +10318,59 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/162282.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/92047.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/92046.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/8437a895-b1c9-4452-8b6e-218dcec6887f.jpg",
+        "author": ". ."
+      },
+      {
+        "url": "https://i2.photo.2gis.com/images/geo/0/30258560176345563_788f.jpg",
+        "author": "Rakhata Yergaliyeva"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/images/geo/0/30258560176345570_0b07.jpg",
+        "author": "Rakhata Yergaliyeva"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/d41cfbfe-9471-4897-b49d-515de07a03d6.jpg",
+        "author": "Alan Abdukarimov"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/94fdc354-506b-431e-8221-d9731a3e36f1.jpg",
+        "author": "А ."
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/1a5983f6-8db1-4fce-a619-f4e70f3672af.jpg",
+        "author": ". ."
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560167722183_a739.jpg",
+        "author": "Hass K."
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/f7fdcfd0-e11b-4c35-b9ea-1f23793224d3.jpg",
+        "author": "Акмарал Жанадилова"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/126fc123-f32d-4257-b58d-744e070fed4c.jpg",
+        "author": "𝐓𝐨𝐦𝐚𝐚 🫦"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/b1d758bd-1690-4f73-a7c4-5f9d1a8ac676.jpg",
+        "author": "Арын Жумахан"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/0/30258560176345564_e211.jpg",
+        "author": "Rakhata Yergaliyeva"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/b3299c6c-47c6-407b-89d4-f823d9ea293d.jpg",
+        "author": "Miras Khamit"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#2ecc71"
   },
   {
     "id": 1344,
@@ -7970,7 +10425,34 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/163843.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/98521.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/b2310c99-7d01-4f0c-ac08-d86ce29f5cda.jpg",
+        "author": "Robi"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/07ff1016-39cb-442c-9bc6-27f938134394.jpg",
+        "author": "Талга М*"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/75ffb9ae-3c7a-419b-b751-49a1cb11f9c6.jpg",
+        "author": "Талга М*"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/5db9a44c-78d5-402c-8386-696e174a712d.jpg",
+        "author": "Райана Жумагали"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/42a3846b-5650-4a21-811d-2d49095161d5.jpg",
+        "author": "𝓲𝓷𝔃𝓱𝓾𝓴𝓪 ~."
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/907d4b9c-a65d-4593-a975-15d824b5b69c.jpg",
+        "author": "балкадиша 💙"
+      }
+    ],
+    "realPhotoSource": "2gis"
   },
   {
     "id": 2678,
@@ -8024,7 +10506,8 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/118369.jpg"
-    ]
+    ],
+    "districtColor": "#1abc9c"
   },
   {
     "id": 2837,
@@ -8081,7 +10564,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/104031.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/104032.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/104030.jpg"
-    ]
+    ],
+    "districtColor": "#f1c40f"
   },
   {
     "id": 3118,
@@ -8137,7 +10621,22 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/175740.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/117308.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/117309.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/02e5ecf4-7dcf-4af6-bd2e-be862db77903.jpg",
+        "author": "Di Girl"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/ea92aad1-b0c8-4536-998a-fef1c14bf409.jpg",
+        "author": "Di Girl"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/8688fda6-4639-48f4-9924-e69607f26528.jpg",
+        "author": "Di Girl"
+      }
+    ],
+    "realPhotoSource": "2gis"
   },
   {
     "id": 3132,
@@ -8194,7 +10693,58 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/118024.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/153999.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/154001.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/875059f7-0f8b-47ff-b046-8d8ad09825da.jpg",
+        "author": "Болат Эвакуатор"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/562ebea3-2bc9-4246-a316-d49e37e6125f.jpg",
+        "author": "Балзат Балтабай"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/1e026456-1736-472b-a6f1-acb76b1db205.jpg",
+        "author": "Болат Эвакуатор"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/images/geo/0/30258560109414844_a353.jpg",
+        "author": "Айгерим Бердимуратова"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/images/geo/0/30258560170535146_0c94.jpg",
+        "author": "golden govno"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560170535115_8430.jpg",
+        "author": "golden govno"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560170535114_2b83.jpg",
+        "author": "golden govno"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560170535121_d695.jpg",
+        "author": "golden govno"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/images/geo/0/30258560167845842_78d6.jpg",
+        "author": "Болат Эвакуатор"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/images/geo/0/30258560170535123_86f7.jpg",
+        "author": "golden govno"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/0/30258560167845841_dfe7.jpg",
+        "author": "Болат Эвакуатор"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/images/geo/0/30258560109414823_cb74.jpg",
+        "author": "Айгерим Бердимуратова"
+      }
+    ],
+    "realPhotoSource": "2gis"
   },
   {
     "id": 3266,
@@ -8305,7 +10855,15 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/206699.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/be1ea39c-920c-4d37-b50e-331df8614345.jpg",
+        "author": "Айлин Еркебуланкызы"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#3498db"
   },
   {
     "id": 3289,
@@ -8360,7 +10918,47 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/201532.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/204621.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/99af6232-e098-48c6-9f5e-1cf25f69f837.jpg",
+        "author": "Алматинский Душнила"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/4427a6ab-4c36-4a66-aef0-d395c38507e9.jpg",
+        "author": "Алматинский Душнила"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/253385de-0882-4f58-ac95-55b62f8336f4.jpg",
+        "author": "Натяжные потолки в Алматы"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/1bb5e8cb-a591-4ba3-81f4-9d885c495daf.jpg",
+        "author": "Талга М*"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/d1262011-6eb7-4730-a805-7f8e283ee676.jpg",
+        "author": "Талга М*"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/a82b7d34-d872-4a57-b9f3-b6212dcf0d16.jpg",
+        "author": "Талга М*"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/3629c80f-88ae-4c5f-b7e0-01c894a8685f.jpg",
+        "author": "Талга М*"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/bb14f055-4dd5-40eb-b584-57e719d6ed84.jpg",
+        "author": "Рудольф Шнейзер"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/de567429-3f65-4956-8a9c-7954c1a97cf8.jpg",
+        "author": "AbdulAziz ."
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#1abc9c"
   },
   {
     "id": 3336,
@@ -8414,7 +11012,15 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/136299.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/9cc6fec0-04dc-4bfc-a090-6841da4cf56f.jpg",
+        "author": "Ibrahim Shen"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#e67e22"
   },
   {
     "id": 1754,
@@ -8467,7 +11073,59 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/148534.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/2e66ef1a-cd96-4d7b-8c65-56080c0c3e4a.jpg",
+        "author": "Talgat Salykov"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/images/geo/0/30258560075324619_3b0d.jpg",
+        "author": "Наташа Ершова"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/images/geo/0/30258560107514871_d37e.jpg",
+        "author": "Женя П."
+      },
+      {
+        "url": "https://i7.photo.2gis.com/images/geo/0/30258560113266151_b2c1.jpg",
+        "author": "Мирбол Ильясов"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/images/geo/0/30258560103250661_3779.jpg",
+        "author": "Темирлан Бораев"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/images/geo/0/30258560113266071_a1b0.jpg",
+        "author": "Мирбол Ильясов"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/images/geo/0/30258560113266069_41cc.jpg",
+        "author": "Мирбол Ильясов"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/0/30258560107514872_313d.jpg",
+        "author": "Женя П."
+      },
+      {
+        "url": "https://i2.photo.2gis.com/images/geo/0/30258560103250670_047b.jpg",
+        "author": "Темирлан Бораев"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/images/geo/0/30258560068646073_0d7f.jpg",
+        "author": "Жанара Каканова"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/images/geo/0/30258560068646072_b4e7.jpg",
+        "author": "Жанара Каканова"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/images/geo/0/30258560059155760_a63b.jpg",
+        "author": "Dulat Bolatuly"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#3498db"
   },
   {
     "id": 3400,
@@ -8521,7 +11179,8 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/140860.jpg"
-    ]
+    ],
+    "districtColor": "#2ecc71"
   },
   {
     "id": 2791,
@@ -8576,7 +11235,59 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/99769.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/99768.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/99770.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/58660600-4e15-419e-850c-970ade311d93.jpg",
+        "author": "Юрий"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/images/geo/0/30258560104869445_f116.jpg",
+        "author": "Юрий"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560104869607_e05c.jpg",
+        "author": "Юрий"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/0/30258560102687146_77f1.jpg",
+        "author": "Юрий"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/16384b22-70e8-4fc4-b9bf-0d30b194960c.jpg",
+        "author": "Юрий"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560100106782_4fda.jpg",
+        "author": "Местный Кот"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560102687126_b961.jpg",
+        "author": "Юрий"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560107160131_f5a9.jpg",
+        "author": "Юрий Бучинский Алматы"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/images/geo/0/30258560107160132_6c4e.jpg",
+        "author": "Юрий Бучинский Алматы"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/3535357a-1022-4732-9012-f3f2b90ba40c.jpg",
+        "author": "Юрий"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/2989f4c5-3025-46c0-9ce7-fa14a85faa7e.jpg",
+        "author": "Юрий"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/d7585eae-397b-4f63-8df3-1f9ad1d425a0.jpg",
+        "author": "Айжан Жаненова"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#3498db"
   },
   {
     "id": 3422,
@@ -8683,7 +11394,27 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/143779.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/143777.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/5fc4ce02-9c9c-40e2-88ed-2c4b80449258.jpg",
+        "author": "Карина Елибаева"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/81d2c4d5-97f6-4eb5-b807-f7db60e5d5ec.jpg",
+        "author": "Карина Елибаева"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/1868b39a-c507-4f3e-b599-9fef8e9c9883.jpg",
+        "author": "Карина Елибаева"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/2f4072be-deeb-4a52-ac5e-45f266c7d5dd.jpg",
+        "author": "Карина Елибаева"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#1abc9c"
   },
   {
     "id": 3540,
@@ -8735,7 +11466,15 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/151604.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/fe9dce03-48f3-4849-aa55-3f04d4079f0b.jpg",
+        "author": "KAE ."
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#1abc9c"
   },
   {
     "id": 3584,
@@ -8791,7 +11530,59 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/148259.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/148261.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/148266.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/f4820054-c9c1-45e8-b96b-9d9af07b7ae5.jpg",
+        "author": "Zhan1213 Tore"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/74e288c6-c525-4ae5-a4c5-118a502ad249.jpg",
+        "author": "Zhan1213 Tore"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/images/geo/0/30258560169688106_d6c4.jpg",
+        "author": "Zhan1213 Tore"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/images/geo/0/30258560173931589_fca5.jpg",
+        "author": "Zhan1213 Tore"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/40e6b7c9-d570-43bd-86c3-a08baf4df8a1.jpg",
+        "author": "Zhan1213 Tore"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/61f6e259-0ab7-4dd2-bbc9-19a696662294.jpg",
+        "author": "Zhan1213 Tore"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/4ec78f81-6a36-4864-88f5-d990443e989f.jpg",
+        "author": "Saul Goodman"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/images/geo/0/30258560169688115_de52.jpg",
+        "author": "Zhan1213 Tore"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/images/geo/0/30258560173419144_0c35.jpg",
+        "author": "Zhan1213 Tore"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/151526e8-1d2a-463f-b80e-6f5c80d8586b.jpg",
+        "author": "Zhan1213 Tore"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/images/geo/0/30258560173931590_dba8.jpg",
+        "author": "Zhan1213 Tore"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/88db8ba9-b6ab-49e9-86c1-67fb0a5d0ede.jpg",
+        "author": "Zhan1213 Tore"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#f1c40f"
   },
   {
     "id": 3616,
@@ -8846,7 +11637,30 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/165943.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/165947.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560108390444_f3de.jpg",
+        "author": "7 1"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560108390450_b31e.jpg",
+        "author": "7 1"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560108390430_256f.jpg",
+        "author": "7 1"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/images/geo/0/30258560108390468_b658.jpg",
+        "author": "7 1"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/3e2658f7-7980-4614-a6ab-c3e9a5fcbcd5.jpg",
+        "author": "Молдир Батырхановна"
+      }
+    ],
+    "realPhotoSource": "2gis"
   },
   {
     "id": 3651,
@@ -8903,7 +11717,43 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/161785.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/158461.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/161782.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i7.photo.2gis.com/images/geo/0/30258560102120987_0617.jpg",
+        "author": "Дидар Назарбаев"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/images/geo/0/30258560102121013_01be.jpg",
+        "author": "Дидар Назарбаев"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/0/30258560102121034_9eb8.jpg",
+        "author": "Дидар Назарбаев"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/images/geo/0/30258560102121004_5689.jpg",
+        "author": "Дидар Назарбаев"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/images/geo/0/30258560102120995_ea4a.jpg",
+        "author": "Дидар Назарбаев"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/images/geo/0/30258560102121047_98aa.jpg",
+        "author": "Дидар Назарбаев"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/images/geo/0/30258560102121027_a6d9.jpg",
+        "author": "Дидар Назарбаев"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/9e727538-49ed-4ea5-9d38-735752dfd689.jpg",
+        "author": "Ali Gani"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#f1c40f"
   },
   {
     "id": 3542,
@@ -8959,7 +11809,55 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/156851.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/156856.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/156863.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/b83ce96f-f34e-427e-8710-08e2c43ea40c.jpg",
+        "author": "Анель Нуракын"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/0906eb03-a1ea-44a7-9053-b66cf519d91e.jpg",
+        "author": "Assylzat Anuzova"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/2d7453c6-03b7-4f51-a280-f7d38c5b2601.jpg",
+        "author": "Олжас Кенесов"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/cc0203af-47f8-4294-9407-4afbb909296a.jpg",
+        "author": "Лиза Мона"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/19c33dc8-15fd-4cd0-8ef6-7a0470fe5cb9.jpg",
+        "author": "Олжас Кенесов"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/2b1a62cc-33d8-4dec-b740-6a001dbf31d0.jpg",
+        "author": "Лиза Мона"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/f04f4ff7-723a-4b69-8b8c-277cf6246e8c.jpg",
+        "author": "Лиза Мона"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/fc00e19b-f4ec-4845-a377-4a0ec1cde2bc.jpg",
+        "author": "Лиза Мона"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/e77901f7-aed3-4313-9252-c24456bb679d.jpg",
+        "author": "Лиза Мона"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/b8172c4e-d595-4972-9fa8-c092b77803e3.jpg",
+        "author": "Лиза Мона"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/94b63dc7-a5fd-4db1-8a72-de91b7c5bcde.jpg",
+        "author": "Лиза Мона"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#e84393"
   },
   {
     "id": 3733,
@@ -9014,7 +11912,59 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/158688.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/158689.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i8.photo.2gis.com/images/geo/0/30258560093381698_d0b2.jpg",
+        "author": "Павел Панкин"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560072069189_38cc.jpg",
+        "author": "Yasin Stump"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/images/geo/0/30258560072069299_a2b7.jpg",
+        "author": "Yasin Stump"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/0/30258560072069321_3599.jpg",
+        "author": "Yasin Stump"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/images/geo/0/30258560093381700_c1c0.jpg",
+        "author": "Павел Панкин"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560093381747_7688.jpg",
+        "author": "Павел Панкин"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560093381699_4ad8.jpg",
+        "author": "Павел Панкин"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560093381701_7f47.jpg",
+        "author": "Павел Панкин"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560072069085_d6f8.jpg",
+        "author": "Yasin Stump"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/images/geo/0/30258560049245294_280a.jpg",
+        "author": "Константин Сушков"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/images/geo/0/30258560057088193_374d.jpg",
+        "author": "Багдат Каленов"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560063263681_4846.jpg",
+        "author": "Бох"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#e74c3c"
   },
   {
     "id": 3790,
@@ -9070,7 +12020,8 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/201683.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/201686.jpg"
-    ]
+    ],
+    "districtColor": "#e84393"
   },
   {
     "id": 3778,
@@ -9124,7 +12075,8 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/171650.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/172530.jpg"
-    ]
+    ],
+    "districtColor": "#1abc9c"
   },
   {
     "id": 3843,
@@ -9178,7 +12130,8 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205666.jpg"
-    ]
+    ],
+    "districtColor": "#1abc9c"
   },
   {
     "id": 3854,
@@ -9342,7 +12295,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/169178.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/169172.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/169196.jpg"
-    ]
+    ],
+    "districtColor": "#1abc9c"
   },
   {
     "id": 3901,
@@ -9453,7 +12407,8 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/171250.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/171253.jpg"
-    ]
+    ],
+    "districtColor": "#e67e22"
   },
   {
     "id": 3953,
@@ -9508,7 +12463,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/173966.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/173970.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/173975.jpg"
-    ]
+    ],
+    "districtColor": "#2ecc71"
   },
   {
     "id": 3216,
@@ -9617,7 +12573,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/175641.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/175643.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/175640.jpg"
-    ]
+    ],
+    "districtColor": "#3498db"
   },
   {
     "id": 3976,
@@ -9670,7 +12627,8 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/176010.jpg"
-    ]
+    ],
+    "districtColor": "#1abc9c"
   },
   {
     "id": 4009,
@@ -9725,7 +12683,8 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/180512.jpg"
-    ]
+    ],
+    "districtColor": "#f1c40f"
   },
   {
     "id": 3476,
@@ -9781,7 +12740,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/143000.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/143010.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/143016.jpg"
-    ]
+    ],
+    "districtColor": "#e67e22"
   },
   {
     "id": 4034,
@@ -9836,7 +12796,47 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/183958.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/183957.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/183968.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/766d5162-1cc1-4345-aedf-08ea8d6baa49.jpg",
+        "author": "Талга М*"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/1070ee20-1f1f-4c24-adba-5765f910a473.jpg",
+        "author": "Талга М*"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/71ab0674-13f8-4ed3-b3e7-1a921689a41e.jpg",
+        "author": "Rinat Karimov"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/6dfffe83-82dc-40f8-9f85-73497daf20aa.jpg",
+        "author": "Мамед Алиев"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/40bc1bc4-34b6-4242-a94a-50f747f32420.jpg",
+        "author": "Пивозавр ."
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/247e6ff5-b42f-477a-ad7f-dcf1dd3e8544.jpg",
+        "author": "Мамед Алиев"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/dc3ad7e3-1084-47f8-bf8e-94b0c16a79c0.jpg",
+        "author": "Талга М*"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/075ef8e7-c719-4ff0-bb48-4ada4ced9591.jpg",
+        "author": "Талга М*"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/a4ce7725-6091-483f-925d-822849655637.jpg",
+        "author": "Мамед Алиев"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#9b59b6"
   },
   {
     "id": 2043,
@@ -9890,7 +12890,59 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/183944.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/0/30258560161108208_cfbb.jpg",
+        "author": "Сандугаш Искакова"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/images/geo/0/30258560174024532_384a.jpg",
+        "author": "Дамир С."
+      },
+      {
+        "url": "https://i9.photo.2gis.com/images/geo/0/30258560174024528_c94a.jpg",
+        "author": "Дамир С."
+      },
+      {
+        "url": "https://i2.photo.2gis.com/images/geo/0/30258560091525250_c8a4.jpg",
+        "author": "Баке Кана"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/images/geo/0/30258560171624011_434e.jpg",
+        "author": "Кристина Мельникова"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/24a21972-b39b-4257-a389-8c966d809305.jpg",
+        "author": "Complex Building Service"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/images/geo/0/30258560061120370_978d.jpg",
+        "author": "Талга М*"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560174024527_f307.jpg",
+        "author": "Дамир С."
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/f529c738-c18f-48d8-b5f7-d4382effab5d.jpg",
+        "author": "Талга М*"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/images/geo/0/30258560073789619_fe52.jpg",
+        "author": "Eldar Azhbenov"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560105541593_6caa.jpg",
+        "author": "Timoha Timoha"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/images/geo/0/30258560062755708_14d7.jpg",
+        "author": "Талга М*"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#9b59b6"
   },
   {
     "id": 3602,
@@ -9944,7 +12996,59 @@
     ],
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/154533.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i8.photo.2gis.com/images/geo/0/30258560172542483_d043.jpg",
+        "author": "Z Z"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/images/geo/0/30258560172542481_e926.jpg",
+        "author": "Z Z"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/82b3f4eb-2664-42fc-8a76-6ea2d459a449.jpg",
+        "author": "Ans"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/73fb50a7-5be8-42c1-98ea-f653940c7875.jpg",
+        "author": "Ans"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/8b0eb790-67ca-4c20-8373-a17a9df8bd20.jpg",
+        "author": "Ерасыл @e_nurmuhan_uly"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/9ceafb4b-08ae-44de-a7e9-ecdcd375f802.jpg",
+        "author": "Ans"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/images/geo/0/30258560172542480_122a.jpg",
+        "author": "Z Z"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/6247457e-d6ec-48a5-890d-15dd4353fc2f.jpg",
+        "author": "Ерасыл @e_nurmuhan_uly"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/721ebfe8-0cfb-44c5-b37b-d75334c216be.jpg",
+        "author": "Ala 05"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/bbeed22d-2e6c-4bea-a24f-ce32979abb7b.jpg",
+        "author": "Ala 05"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/78c7a64e-c5dc-4a83-8e96-2d15f1a4c379.jpg",
+        "author": "Ala 05"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/711ddeb3-be79-4edf-aee6-122a01b1424b.jpg",
+        "author": "Ala 05"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#1abc9c"
   },
   {
     "id": 4011,
@@ -9999,7 +13103,8 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/181026.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/181051.jpg"
-    ]
+    ],
+    "districtColor": "#1abc9c"
   },
   {
     "id": 4036,
@@ -10007,7 +13112,7 @@
     "name": "ЖК Hayat Regency",
     "address": "ул. Оспанова, 85/80",
     "city": "Алматы",
-    "district": null,
+    "district": "Медеуский",
     "lat": 43.20198309,
     "lng": 76.95912948,
     "priceSqm": 0,
@@ -10054,7 +13159,8 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/203016.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/203020.jpg"
-    ]
+    ],
+    "districtColor": "#2ecc71"
   },
   {
     "id": 4065,
@@ -10109,7 +13215,8 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/187701.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/187683.jpg"
-    ]
+    ],
+    "districtColor": "#2ecc71"
   },
   {
     "id": 4076,
@@ -10117,7 +13224,7 @@
     "name": "ЖК Exclusive Prime",
     "address": "ул. Чернова, 84/3",
     "city": "Алматы",
-    "district": null,
+    "district": "Ауэзовский",
     "lat": 43.21431744,
     "lng": 76.88446904,
     "priceSqm": null,
@@ -10165,7 +13272,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/189674.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/189672.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/189675.jpg"
-    ]
+    ],
+    "districtColor": "#9b59b6"
   },
   {
     "id": 4081,
@@ -10218,7 +13326,22 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/189757.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/189758.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560095471516_bd0d.jpg",
+        "author": "Павел Тубольцев"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/images/geo/67/9429411731979301_884f.jpg",
+        "author": "Almaz Zhakbaliyev"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/eaf67e2c-f62e-4091-94c3-40c629f679c7.jpg",
+        "author": "Beka Ааааа"
+      }
+    ],
+    "realPhotoSource": "2gis"
   },
   {
     "id": 4094,
@@ -10328,7 +13451,8 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/196037.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/196034.jpg"
-    ]
+    ],
+    "districtColor": "#e67e22"
   },
   {
     "id": 3691,
@@ -10383,7 +13507,55 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/174094.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/174071.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560170570083_8d74.jpg",
+        "author": "Венера Абылханова"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/6c694d8d-d1b2-4bf7-8197-ceb70c3ad349.jpg",
+        "author": "Nursultan Khuzhayev"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/51660a54-82f4-4594-b7a2-844db9fcb2d8.jpg",
+        "author": "Nursultan Khuzhayev"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/a5aa5d4b-fc4c-4d0e-8f8c-eb1278abeb1f.jpg",
+        "author": "Nursultan Khuzhayev"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/images/geo/0/30258560170570086_890f.jpg",
+        "author": "Венера Абылханова"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/66d87351-569b-43e0-aa4b-dca44bfd974c.jpg",
+        "author": "Амирхан Жумагалиев"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/6ddcf92f-4292-4a8d-87c5-043548582c45.jpg",
+        "author": "Амирхан Жумагалиев"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/94b88faf-6bcf-457b-80d1-8be55400a514.jpg",
+        "author": "Амирхан Жумагалиев"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/71a35482-f224-4ce9-ae16-b4a1b5312e0a.jpg",
+        "author": "Николай Владимирович"
+      },
+      {
+        "url": "https://i5.photo.2gis.com/photo-gallery/49f5a01f-ed90-4d7d-a4b3-a0b8643b8621.jpg",
+        "author": "Амирхан Жумагалиев"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560108202537_32d6.jpg",
+        "author": "Nursultan Khuzhayev"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#e84393"
   },
   {
     "id": 4118,
@@ -10500,7 +13672,7 @@
     "name": "КГ Дубровка",
     "address": "ул. Керей -Жанибек хандар, 232",
     "city": "Алматы",
-    "district": null,
+    "district": "Медеуский",
     "lat": 43.18956687,
     "lng": 76.99604348,
     "priceSqm": null,
@@ -10536,7 +13708,8 @@
       "https://storage.googleapis.com/bd-kz-01/buildings-v2/840x630/5032.jpg",
       "https://storage.googleapis.com/bd-kz-01/buildings-v2/840x630/15154.jpg"
     ],
-    "layouts": []
+    "layouts": [],
+    "districtColor": "#2ecc71"
   },
   {
     "id": 4135,
@@ -10594,7 +13767,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205813.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205815.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205816.jpg"
-    ]
+    ],
+    "districtColor": "#2ecc71"
   },
   {
     "id": 4171,
@@ -10651,7 +13825,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/203699.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/202817.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/202816.jpg"
-    ]
+    ],
+    "districtColor": "#2ecc71"
   },
   {
     "id": 4031,
@@ -10707,7 +13882,39 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/204801.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/191440.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/209333.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i1.photo.2gis.com/photo-gallery/fdb6f8fe-f2a0-4488-99ac-07ecb07a410d.jpg",
+        "author": "Павел Опанасенко"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/4a9e84d3-6878-4b61-baf5-1410ce41379a.jpg",
+        "author": "Павел Опанасенко"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/13a17232-a25a-4ef5-8784-69c23a74996b.jpg",
+        "author": "Павел Опанасенко"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/photo-gallery/5113e3f5-3a4b-47b5-a194-c9466e8d0a7f.jpg",
+        "author": "Павел Опанасенко"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/7f3c8949-3e22-4d0d-8115-1bae38c99d3b.jpg",
+        "author": "Павел Опанасенко"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/a4465cf3-bb47-4ec0-9d3f-499270344dfd.jpg",
+        "author": "Павел Опанасенко"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/photo-gallery/fc523cd6-a9f5-4841-8077-c43902c7ab25.jpg",
+        "author": "Павел Опанасенко"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#e84393"
   },
   {
     "id": 4209,
@@ -10809,7 +14016,8 @@
       "https://storage.googleapis.com/bd-kz-01/buildings-v2/840x630/46280.jpg",
       "https://storage.googleapis.com/bd-kz-01/buildings-v2/840x630/46271.jpg"
     ],
-    "layouts": []
+    "layouts": [],
+    "districtColor": "#e67e22"
   },
   {
     "id": 4246,
@@ -10865,7 +14073,15 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207441.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207443.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207464.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/c75d2ac2-9e7c-40d0-ae6b-95d082e1e288.jpg",
+        "author": "Boss M."
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#9b59b6"
   },
   {
     "id": 4253,
@@ -10921,7 +14137,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207409.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207416.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207423.jpg"
-    ]
+    ],
+    "districtColor": "#9b59b6"
   },
   {
     "id": 4254,
@@ -10972,7 +14189,8 @@
       "https://storage.googleapis.com/bd-kz-01/buildings-v2/840x630/46396.jpg",
       "https://storage.googleapis.com/bd-kz-01/buildings-v2/840x630/46402.jpg"
     ],
-    "layouts": []
+    "layouts": [],
+    "districtColor": "#9b59b6"
   },
   {
     "id": 4256,
@@ -11027,7 +14245,39 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207396.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207398.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/207383.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/3fd82df4-9325-465a-b8d7-60734722adf6.jpg",
+        "author": "Sayat Sansyzbayev"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/94f960b4-47b9-4206-9446-5c8164b332d6.jpg",
+        "author": "Sayat Sansyzbayev"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/de5a85c5-8bb8-4c4e-a55d-d6addb29b1a0.jpg",
+        "author": "Sayat Sansyzbayev"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/a0510c42-0d60-41f7-bf3c-3e67a74c593a.jpg",
+        "author": "Sayat Sansyzbayev"
+      },
+      {
+        "url": "https://i7.photo.2gis.com/photo-gallery/302e505b-2586-4994-8783-6abbd0be802a.jpg",
+        "author": "Sayat Sansyzbayev"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/b3a4f431-b74a-44d0-82b9-25c7d2f6da7d.jpg",
+        "author": "Sayat Sansyzbayev"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/photo-gallery/67a6186a-e56d-4dba-9d65-8c6324041333.jpg",
+        "author": "Sayat Sansyzbayev"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#3498db"
   },
   {
     "id": 4259,
@@ -11083,7 +14333,8 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/208412.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/208413.jpg"
-    ]
+    ],
+    "districtColor": "#3498db"
   },
   {
     "id": 4260,
@@ -11139,7 +14390,8 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205822.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205827.jpg"
-    ]
+    ],
+    "districtColor": "#f1c40f"
   },
   {
     "id": 4261,
@@ -11195,7 +14447,8 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205849.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/205853.jpg"
-    ]
+    ],
+    "districtColor": "#9b59b6"
   },
   {
     "id": 4265,
@@ -11236,7 +14489,8 @@
       "https://storage.googleapis.com/bd-kz-01/buildings-v2/840x630/44364.jpg",
       "https://storage.googleapis.com/bd-kz-01/buildings-v2/840x630/42660.jpg"
     ],
-    "layouts": []
+    "layouts": [],
+    "districtColor": "#f1c40f"
   },
   {
     "id": 4282,
@@ -11292,7 +14546,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/208838.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/208837.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/208836.jpg"
-    ]
+    ],
+    "districtColor": "#f1c40f"
   },
   {
     "id": 4293,
@@ -11346,7 +14601,58 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/206441.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/206440.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i5.photo.2gis.com/images/geo/0/30258560067490757_c1e4.jpg",
+        "author": "Nur К"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/photo-gallery/b2bcbac5-2349-4f9e-be01-a873f4e2de5d.jpg",
+        "author": "S.A Akilovna"
+      },
+      {
+        "url": "https://i0.photo.2gis.com/images/geo/0/30258560051639393_ca37.jpg",
+        "author": "Николай Матлаш. Веб-дизайн"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/images/geo/0/30258560070035459_e48c.jpg",
+        "author": "Elya N"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/images/geo/0/30258560075421136_29b7.jpg",
+        "author": "Elya N"
+      },
+      {
+        "url": "https://i9.photo.2gis.com/photo-gallery/aaeac773-93a2-49dc-8fac-127d47642e36.jpg",
+        "author": "Urban personality"
+      },
+      {
+        "url": "https://i8.photo.2gis.com/images/geo/0/30258560111443766_c2f7.jpg",
+        "author": "Elya N"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/0/30258560049785042_e24b.jpg",
+        "author": "Mira Aitzhanova"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/images/geo/67/9429411766972999_01fc.jpg",
+        "author": "Евгения Овчинникова"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/0/30258560165168998_b5cc.jpg",
+        "author": "Adina Maratova"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/photo-gallery/799c19ee-f73c-437f-8358-e8145255185a.jpg",
+        "author": "Дамира Дамира"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/87aa83c1-cd3f-4931-994f-763b1e8a3b66.jpg",
+        "author": "Дамира Дамира"
+      }
+    ],
+    "realPhotoSource": "2gis"
   },
   {
     "id": 4297,
@@ -11400,7 +14706,8 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/206582.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/206573.jpg"
-    ]
+    ],
+    "districtColor": "#1abc9c"
   },
   {
     "id": 4312,
@@ -11566,7 +14873,43 @@
     "layouts": [
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/206958.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/206959.jpg"
-    ]
+    ],
+    "realPhotos": [
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/0/30258560171428707_ff0c.jpg",
+        "author": "Инна Тихонова"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560050354273_6d63.jpg",
+        "author": "Фатих Сыздыкбаев"
+      },
+      {
+        "url": "https://i1.photo.2gis.com/images/geo/0/30258560099435548_3596.jpg",
+        "author": "Юрий Бучинский Алматы"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/0/30258560171428701_cb57.jpg",
+        "author": "Инна Тихонова"
+      },
+      {
+        "url": "https://i6.photo.2gis.com/images/geo/67/9429411764568817_86c5.jpg",
+        "author": "Step Clap"
+      },
+      {
+        "url": "https://i3.photo.2gis.com/images/geo/67/9429411753885225_26bb.jpg",
+        "author": "I I"
+      },
+      {
+        "url": "https://i4.photo.2gis.com/images/geo/0/30258560170429074_fd5f.jpg",
+        "author": "Ануар Оразов"
+      },
+      {
+        "url": "https://i2.photo.2gis.com/photo-gallery/2a9ede71-4ba4-46bb-be6c-d40518e4dfb5.jpg",
+        "author": "Сатям 🐺"
+      }
+    ],
+    "realPhotoSource": "2gis",
+    "districtColor": "#2ecc71"
   },
   {
     "id": 3801,
@@ -11623,7 +14966,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/201095.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/201097.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/201096.jpg"
-    ]
+    ],
+    "districtColor": "#e67e22"
   },
   {
     "id": 4321,
@@ -11734,7 +15078,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/208946.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/208934.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/208928.jpg"
-    ]
+    ],
+    "districtColor": "#1abc9c"
   },
   {
     "id": 3904,
@@ -11790,7 +15135,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/199882.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/185439.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/185498.jpg"
-    ]
+    ],
+    "districtColor": "#e67e22"
   },
   {
     "id": 4336,
@@ -11896,7 +15242,8 @@
       "https://storage.googleapis.com/bd-kz-01/buildings-v2/840x630/47755.jpg",
       "https://storage.googleapis.com/bd-kz-01/buildings-v2/840x630/46449.jpg"
     ],
-    "layouts": []
+    "layouts": [],
+    "districtColor": "#3498db"
   },
   {
     "id": 4366,
@@ -11952,7 +15299,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/211148.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/211149.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/211150.jpg"
-    ]
+    ],
+    "districtColor": "#9b59b6"
   },
   {
     "id": 4377,
@@ -12017,7 +15365,7 @@
     "name": "ЖК Everest Boulevard",
     "address": "ул. Хаби Халиуллина",
     "city": "Алматы",
-    "district": null,
+    "district": "Медеуский",
     "lat": 43.29035897,
     "lng": 77.00261534,
     "priceSqm": null,
@@ -12060,7 +15408,8 @@
       "https://storage.googleapis.com/bd-kz-01/buildings-v2/840x630/43740.jpg",
       "https://storage.googleapis.com/bd-kz-01/buildings-v2/840x630/48451.jpg"
     ],
-    "layouts": []
+    "layouts": [],
+    "districtColor": "#2ecc71"
   },
   {
     "id": 4402,
@@ -12068,7 +15417,7 @@
     "name": "ЖК Aqqu",
     "address": "ул. Тлендиева, 209",
     "city": "Алматы",
-    "district": null,
+    "district": "Алмалинский",
     "lat": 43.23971037,
     "lng": 76.87286077,
     "priceSqm": null,
@@ -12117,7 +15466,8 @@
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212850.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212851.jpg",
       "https://storage.googleapis.com/bd-kz-01/layouts-v2/340x340/212852.jpg"
-    ]
+    ],
+    "districtColor": "#3498db"
   },
   {
     "id": 4406,
@@ -12167,7 +15517,8 @@
       "https://storage.googleapis.com/bd-kz-01/buildings-v2/840x630/48514.jpg",
       "https://storage.googleapis.com/bd-kz-01/buildings-v2/840x630/48506.jpg"
     ],
-    "layouts": []
+    "layouts": [],
+    "districtColor": "#2ecc71"
   },
   {
     "id": 4418,
@@ -12218,6 +15569,7 @@
       "https://storage.googleapis.com/bd-kz-01/buildings-v2/840x630/32505.jpg",
       "https://storage.googleapis.com/bd-kz-01/buildings-v2/840x630/46173.jpg"
     ],
-    "layouts": []
+    "layouts": [],
+    "districtColor": "#e74c3c"
   }
 ]

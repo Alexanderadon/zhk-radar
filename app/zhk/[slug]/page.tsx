@@ -26,7 +26,11 @@ export default async function ZhkPage({ params }: { params: Promise<{ slug: stri
 
   const { scoreResult: sr } = z;
   const color = BAND_COLOR[sr.band];
-  const photos = z.photos && z.photos.length ? z.photos : z.image ? [z.image] : [];
+  const renderPhotos = z.photos && z.photos.length ? z.photos : z.image ? [z.image] : [];
+  const galleryItems = [
+    ...(z.realPhotos || []).map((p) => ({ url: p.url, kind: 'real' as const, author: p.author })),
+    ...renderPhotos.map((u) => ({ url: u, kind: 'render' as const })),
+  ];
   const priceInd = sr.indicators.find((i) => i.key === 'price');
 
   const facts: [string, string | null, boolean][] = [
@@ -56,7 +60,7 @@ export default async function ZhkPage({ params }: { params: Promise<{ slug: stri
       </div>
 
       <div className={s.gallery}>
-        <Gallery photos={photos} name={z.name} />
+        <Gallery items={galleryItems} name={z.name} />
       </div>
 
       <div className={s.headRow}>
@@ -88,6 +92,7 @@ export default async function ZhkPage({ params }: { params: Promise<{ slug: stri
               {marketArrow(priceInd.value)} {priceInd.value.replace('медианы', `похожих ${z.classRu || ''}`.trim())}
             </div>
           )}
+          {z.deal && <div className={s.dealBadge}>🔥 выгодная цена — дешевле похожих ЖК</div>}
           <div className={s.priceWarn}>⚠ цена с витрины korter — маркетинг, не оценка</div>
           <div className={s.protect}>
             <div className={s.protectNum} style={{ color }}>{sr.score ?? '—'}</div>
@@ -172,6 +177,14 @@ export default async function ZhkPage({ params }: { params: Promise<{ slug: stri
       {z.lat && z.lng && (
         <section className={s.section}>
           <div className={s.sectionTitle}>Где находится</div>
+          <div className={s.sectionHint}>
+            {[z.address, z.district ? `${z.district} район` : null].filter(Boolean).join(' · ') || 'Алматы'} · <span style={{ fontVariantNumeric: 'tabular-nums' }}>{z.lat.toFixed(5)}, {z.lng.toFixed(5)}</span>
+          </div>
+          <div className={s.geoLinks}>
+            <a href={`https://2gis.kz/almaty/geo/${z.lng},${z.lat}`} target="_blank" rel="noopener noreferrer">Открыть в 2ГИС ↗</a>
+            <a href={`https://yandex.kz/maps/162/almaty/?ll=${z.lng},${z.lat}&z=17&pt=${z.lng},${z.lat}`} target="_blank" rel="noopener noreferrer">Яндекс.Карты ↗</a>
+            <a href={`https://www.google.com/maps?q=${z.lat},${z.lng}`} target="_blank" rel="noopener noreferrer">Google Maps ↗</a>
+          </div>
           <div className={s.mapMini} style={{ marginTop: 12 }}>
             <MiniMap lat={z.lat} lng={z.lng} color={color} name={z.name} />
           </div>

@@ -12,8 +12,13 @@
 }
 .cell:hover .zoom { opacity: 1; }
 
-.lightbox { position: fixed; inset: 0; z-index: 100; background: rgba(6,9,14,.94); display: flex; align-items: center; justify-content: center; cursor: zoom-out; }
-.lightImg { max-width: 90vw; max-height: 88vh; object-fit: contain; background: #fff; border-radius: 8px; padding: 12px; cursor: default; }
+.lightbox { position: fixed; inset: 0; z-index: 100; background: rgba(6,9,14,.94); display: flex; align-items: center; justify-content: center; cursor: zoom-out; overflow: hidden; }
+.lightImg { max-width: 88vw; max-height: 86vh; object-fit: contain; background: #fff; border-radius: 8px; padding: 12px; transition: transform .05s linear; will-change: transform; user-select: none; }
+.zoomBar { position: absolute; bottom: 54px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 4px; background: rgba(22,28,40,.9); border: 1px solid var(--border); border-radius: 100px; padding: 5px 6px; }
+.zoomBar button { width: 34px; height: 30px; border: none; background: transparent; color: var(--text); font-size: 18px; cursor: pointer; border-radius: 8px; }
+.zoomBar button:hover { background: var(--panel-2); }
+.zoomBar span { min-width: 48px; text-align: center; font-size: 13px; color: var(--text-dim); }
+.resetBtn { width: auto !important; font-size: 12px !important; padding: 0 10px; color: var(--accent) !important; }
 .close { position: absolute; top: 18px; right: 22px; background: none; border: none; color: var(--text); font-size: 26px; cursor: pointer; opacity: .8; }
 .close:hover { opacity: 1; }
 .nav { position: absolute; top: 50%; transform: translateY(-50%); width: 52px; height: 52px; border-radius: 50%; background: rgba(22,28,40,.85); border: 1px solid var(--border); color: var(--text); font-size: 30px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
