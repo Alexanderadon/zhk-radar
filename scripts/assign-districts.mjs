@@ -39,3 +39,4 @@ async function tag(file) {
 
 await tag('data/zhk.json');
 await tag('data/zhk-krisha.json');
+await tag('data/listings.json');

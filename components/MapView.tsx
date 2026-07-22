@@ -15,7 +15,7 @@ export interface MapPoint {
 export interface Apt {
   id: number; lat: number; lng: number; price: number | null; rooms: number | null;
   square: number | null; floor: string | null; addr: string | null;
-  complexId: number | null; market: 'primary' | 'secondary'; photo: string | null;
+  complexId: number | null; market: 'primary' | 'secondary'; photo: string | null; district?: string | null;
 }
 
 const STYLE = 'https://tiles.openfreemap.org/styles/positron';
@@ -36,6 +36,7 @@ export default function MapView({
   const allApts = useRef<Apt[] | null>(null);
   const loadingApts = useRef(false);
   const allSold = useRef<any[] | null>(null);
+  const applyModeRef = useRef<() => void>(() => {});
 
   useEffect(() => {
     if (map.current || !container.current) return;
@@ -120,7 +121,7 @@ export default function MapView({
       m.on('mouseenter', 'sold-dot', hoverSold); m.on('mousemove', 'sold-dot', hoverSold);
       m.on('mouseleave', 'sold-dot', () => { m.getCanvas().style.cursor = ''; hover.remove(); });
 
-      applyMode();
+      applyModeRef.current();
     });
 
     return () => { m.remove(); map.current = null; ready.current = false; };
@@ -137,6 +138,7 @@ export default function MapView({
       if (aptMarket && aptMarket.size && !aptMarket.has(a.market)) return false;
       if (aptRooms && aptRooms.size && !(a.rooms && aptRooms.has(Math.min(a.rooms, 4)))) return false;
       if (aptPrice && !(a.price && a.price >= aptPrice.min && a.price < aptPrice.max)) return false;
+      if (activeDistrict && a.district !== activeDistrict) return false;
       return true;
     });
   }
@@ -166,7 +168,8 @@ export default function MapView({
     }
   }
 
-  useEffect(() => { applyMode(); /* eslint-disable-next-line */ }, [mode, aptMarket, aptRooms, showSold, aptPrice]);
+  applyModeRef.current = applyMode;
+  useEffect(() => { applyMode(); /* eslint-disable-next-line */ }, [mode, aptMarket, aptRooms, showSold, aptPrice, activeDistrict]);
   useEffect(() => { const m = map.current; if (!m || !ready.current) return; const src = m.getSource('zhk') as maplibregl.GeoJSONSource | undefined; if (src) src.setData(toGeoJSON(points) as any); }, [points]);
   useEffect(() => { const m = map.current; if (!m || !ready.current) return; if (m.getLayer('district-fill')) m.setPaintProperty('district-fill', 'fill-opacity', ['case', ['==', ['get', 'name'], activeDistrict ?? '__none__'], 0.28, 0.1] as any); }, [activeDistrict]);
   useEffect(() => { const m = map.current; if (!m || !ready.current) return; m.setFilter('zhk-selected', ['==', ['get', 'id'], selectedId ?? -1]); if (selectedId != null) { const p = points.find((x) => x.id === selectedId); if (p) m.flyTo({ center: [p.lng, p.lat], zoom: Math.max(m.getZoom(), 13.5), speed: 0.8 }); } }, [selectedId, points]);

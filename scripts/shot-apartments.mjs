@@ -12,7 +12,7 @@ const clicked = await page.evaluate(() => {
   if (b) { b.click(); return true; } return false;
 });
 console.log('clicked Квартиры:', clicked);
-await sleep(9000); // fetch 6MB listings + cluster + render
+await sleep(16000); // fetch 18MB listings + parse + heatmap render
 await page.screenshot({ path: `${OUT}/apartments.png` });
 console.log('✓ apartments.png');
 await browser.close();

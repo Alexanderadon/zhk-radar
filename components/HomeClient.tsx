@@ -153,17 +153,18 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
               {PRICES.map((p) => (<button key={p.key} className={`${s.pill} ${priceRange === p.key ? s.pillActive : ''}`} onClick={() => setPriceRange(priceRange === p.key ? null : p.key)}>{p.label}</button>))}
             </div>
 
+            <div className={s.filterGroup}>
+              <span className={s.fLabel}>Район</span>
+              {DISTRICTS.map((d) => (
+                <button key={d.name} className={`${s.pill} ${district === d.name ? s.pillActive : ''}`} onClick={() => setDistrict(district === d.name ? null : d.name)}
+                  style={district === d.name ? { background: d.color, borderColor: d.color, color: '#fff' } : { borderColor: d.color + '66' }}>
+                  <span style={{ color: district === d.name ? '#fff' : d.color }}>●</span> {d.name}
+                </button>
+              ))}
+            </div>
+
             {mode === 'complexes' ? (
               <>
-                <div className={s.filterGroup}>
-                  <span className={s.fLabel}>Район</span>
-                  {DISTRICTS.map((d) => (
-                    <button key={d.name} className={`${s.pill} ${district === d.name ? s.pillActive : ''}`} onClick={() => setDistrict(district === d.name ? null : d.name)}
-                      style={district === d.name ? { background: d.color, borderColor: d.color, color: '#fff' } : { borderColor: d.color + '66' }}>
-                      <span style={{ color: district === d.name ? '#fff' : d.color }}>●</span> {d.name}
-                    </button>
-                  ))}
-                </div>
                 <div className={s.filterGroup}>
                   <span className={s.fLabel}>Выгода и готовность</span>
                   <button className={`${s.pill} ${extra.has('deal') ? s.pillActive : ''}`} onClick={() => toggle(extra, 'deal', setExtra)}><Icon name="flame" size={14} /> выгодные</button>
