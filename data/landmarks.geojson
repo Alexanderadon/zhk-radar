@@ -6,13 +6,18 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
-     76.8923175,
-     43.2016499
+     76.892411,
+     43.202959
     ]
    },
    "properties": {
     "name": "MEGA Alma-Ata",
-    "kind": "mall"
+    "kind": "mall",
+    "rubric": "Торгово-развлекательные центры",
+    "rating": 4.9,
+    "reviews": 7115,
+    "address": "улица Розыбакиева, 247а",
+    "photo": "https://i1.photo.2gis.com/main/branch/67/9429940000788684/common"
    }
   },
   {
@@ -20,13 +25,18 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
-     76.9285985,
-     43.2640851
+     76.928944,
+     43.263998
     ]
    },
    "properties": {
     "name": "MEGA Park",
-    "kind": "mall"
+    "kind": "mall",
+    "rubric": "Торгово-развлекательные центры",
+    "rating": 4.9,
+    "reviews": 5441,
+    "address": "улица Макатаева, 127/1",
+    "photo": "https://i2.photo.2gis.com/main/branch/67/9429940001624593/common"
    }
   },
   {
@@ -34,13 +44,18 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
-     76.92822,
-     43.21732
+     76.928136,
+     43.218951
     ]
    },
    "properties": {
     "name": "Esentai Mall",
-    "kind": "mall"
+    "kind": "mall",
+    "rubric": "Торгово-развлекательные центры",
+    "rating": 4.8,
+    "reviews": 2429,
+    "address": "проспект Аль-Фараби, 77/8",
+    "photo": "https://i4.photo.2gis.com/main/branch/67/9429940000979694/common"
    }
   },
   {
@@ -48,13 +63,18 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
-     76.9567824,
-     43.2334082
+     76.957123,
+     43.233057
     ]
    },
    "properties": {
     "name": "Dostyk Plaza",
-    "kind": "mall"
+    "kind": "mall",
+    "rubric": "Торгово-развлекательные центры",
+    "rating": 4.9,
+    "reviews": 4468,
+    "address": "микрорайон Самал-2, 111",
+    "photo": "https://i3.photo.2gis.com/main/branch/67/9429940001617972/common"
    }
   },
   {
@@ -62,13 +82,18 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
-     76.9352565,
-     43.2337733
+     76.934512,
+     43.233461
     ]
    },
    "properties": {
     "name": "Forum",
-    "kind": "mall"
+    "kind": "mall",
+    "rubric": "Торгово-развлекательные центры",
+    "rating": 4.8,
+    "reviews": 5385,
+    "address": "проспект Сейфуллина, 617",
+    "photo": "https://i0.photo.2gis.com/main/branch/67/70000001034505578/common"
    }
   },
   {
@@ -76,13 +101,18 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
-     76.8585608,
-     43.2077686
+     76.857765,
+     43.207734
     ]
    },
    "properties": {
     "name": "Almaty Mall",
-    "kind": "mall"
+    "kind": "mall",
+    "rubric": "Торгово-развлекательные центры",
+    "rating": 4.7,
+    "reviews": 1523,
+    "address": "Ораза Жандосова улица, 83",
+    "photo": "https://i7.photo.2gis.com/main/branch/67/70000001023153619/common"
    }
   },
   {
@@ -90,13 +120,18 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
-     76.9551971,
-     43.2636756
+     77.023431,
+     43.315183
     ]
    },
    "properties": {
-    "name": "Зелёный базар",
-    "kind": "poi"
+    "name": "Aport",
+    "kind": "mall",
+    "rubric": "Торгово-развлекательные центры",
+    "rating": 4.7,
+    "reviews": 5554,
+    "address": "Кульджинский тракт, 106",
+    "photo": "https://i2.photo.2gis.com/main/branch/67/70000001079903375/common"
    }
   },
   {
@@ -104,13 +139,18 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
-     76.9755299,
-     43.2331024
+     76.877826,
+     43.232306
     ]
    },
    "properties": {
-    "name": "Кок-Тобе",
-    "kind": "poi"
+    "name": "ADK",
+    "kind": "mall",
+    "rubric": "Торгово-развлекательные центры",
+    "rating": 4.6,
+    "reviews": 2519,
+    "address": "улица Каныша Сатпаева, 90",
+    "photo": "https://i3.photo.2gis.com/main/branch/67/9429940000829743/common"
    }
   },
   {
@@ -118,13 +158,18 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
-     77.0594144,
-     43.1571772
+     76.853027,
+     43.238373
     ]
    },
    "properties": {
-    "name": "Медеу",
-    "kind": "poi"
+    "name": "Grand Park",
+    "kind": "mall",
+    "rubric": "Торгово-развлекательные центры",
+    "rating": 4.7,
+    "reviews": 3098,
+    "address": "Кабдолова улица, 1/4",
+    "photo": "https://i8.photo.2gis.com/main/branch/67/70000001021284448/common"
    }
   },
   {
@@ -132,13 +177,18 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
-     76.9454739,
-     43.2388845
+     76.900114,
+     43.264698
     ]
    },
    "properties": {
-    "name": "пл. Республики",
-    "kind": "poi"
+    "name": "MAXIMA",
+    "kind": "mall",
+    "rubric": "Торгово-развлекательные центры",
+    "rating": 4.7,
+    "reviews": 1390,
+    "address": "проспект Райымбека, 239г",
+    "photo": "https://i2.photo.2gis.com/main/branch/67/9429940000788623/common"
    }
   },
   {
@@ -146,13 +196,36 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
-     76.9692738,
-     43.2616454
+     76.886599,
+     43.189809
+    ]
+   },
+   "properties": {
+    "name": "Парк Первого Президента",
+    "kind": "park",
+    "rubric": "Парки",
+    "rating": 4.7,
+    "reviews": 2704,
+    "photo": "https://i1.photo.2gis.com/main/branch/67/70000001033029108/common"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.965762,
+     43.261343
     ]
    },
    "properties": {
     "name": "Центральный парк",
-    "kind": "poi"
+    "kind": "park",
+    "rubric": "Парки",
+    "rating": 4.8,
+    "reviews": 4589,
+    "address": "улица Гоголя, 1",
+    "photo": "https://i8.photo.2gis.com/main/branch/67/9429940000895897/common"
    }
   },
   {
@@ -160,13 +233,18 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
-     76.9390884,
-     43.2737601
+     76.952663,
+     43.259435
     ]
    },
    "properties": {
-    "name": "Вокзал Алматы-2",
-    "kind": "poi"
+    "name": "Парк 28 панфиловцев",
+    "kind": "park",
+    "rubric": "Парки",
+    "rating": 4.9,
+    "reviews": 3792,
+    "photo": "https://i9.photo.2gis.com/main/branch/67/70000001113485529/common",
+    "desc": "Парк расположен в Медеуском районе Алматы, на территории около 18 га. Официальное название парк носит с 5 мая 1942 года в память о Панфиловской дивизии и героях"
    }
   },
   {
@@ -174,13 +252,18 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
-     77.0425838,
-     43.3556863
+     76.913251,
+     43.226114
     ]
    },
    "properties": {
-    "name": "Аэропорт",
-    "kind": "poi"
+    "name": "Ботанический сад",
+    "kind": "park",
+    "rubric": "Ботанический сад",
+    "rating": 4.8,
+    "reviews": 4475,
+    "address": "улица Тимирязева, 36д к2",
+    "photo": "https://i2.photo.2gis.com/main/branch/67/70000001017515451/common"
    }
   },
   {
@@ -188,13 +271,227 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
-     76.8175483,
-     43.2637615
+     76.895604,
+     43.243667
+    ]
+   },
+   "properties": {
+    "name": "Парк Ганди",
+    "kind": "park",
+    "rubric": "Парки",
+    "rating": 4.8,
+    "reviews": 622,
+    "photo": "https://i4.photo.2gis.com/main/branch/67/70000001089141107/common"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.86423,
+     43.243888
+    ]
+   },
+   "properties": {
+    "name": "Озеро Сайран",
+    "kind": "water",
+    "rubric": null,
+    "rating": 4.3,
+    "reviews": 1221,
+    "photo": "https://i0.photo.2gis.com/main/geo/67/9430098914574390/view",
+    "desc": "Озеро Сайран было построено в 1971 году. Водохранилище было создано на месте бывшего карьера по добыче пескогравийных материалов при помощи плотины, расположенн"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     77.059004,
+     43.157544
+    ]
+   },
+   "properties": {
+    "name": "Медеу",
+    "kind": "water",
+    "rubric": "Каток",
+    "rating": 4.9,
+    "reviews": 3994,
+    "address": "Керей-Жанибек хандар улица, 465",
+    "photo": "https://i1.photo.2gis.com/main/branch/67/9429940000797844/common"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.955077,
+     43.263577
+    ]
+   },
+   "properties": {
+    "name": "Зелёный базар",
+    "kind": "poi",
+    "rubric": "Рынки",
+    "rating": 4.7,
+    "reviews": 2402,
+    "address": "проспект Жибек Жолы, 53",
+    "photo": "https://i1.photo.2gis.com/main/branch/67/9429940000795620/common"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.976481,
+     43.230913
+    ]
+   },
+   "properties": {
+    "name": "Кок-Тобе",
+    "kind": "poi",
+    "rubric": "Парки",
+    "rating": 4.8,
+    "reviews": 3638,
+    "photo": "https://i3.photo.2gis.com/main/branch/67/70000001017272265/common"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.945387,
+     43.237902
+    ]
+   },
+   "properties": {
+    "name": "пл. Республики",
+    "kind": "poi",
+    "rubric": null,
+    "rating": 4.7,
+    "reviews": 65,
+    "photo": "https://i4.photo.2gis.com/main/geo/67/9430098914574558/view",
+    "desc": "Площадь была открыта  в 1980 году, как главная площадь г.Алматы, служила местом проведения массовых демонстраций, торжеств, праздников, военных парадов, народны"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.909547,
+     43.223229
+    ]
+   },
+   "properties": {
+    "name": "Атакент",
+    "kind": "poi",
+    "rubric": "Бизнес-центры",
+    "rating": 4.8,
+    "reviews": 353,
+    "address": "улица Тимирязева, 42 пав16",
+    "photo": "https://i2.photo.2gis.com/main/branch/67/9429940000793155/common"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.817528,
+     43.263775
     ]
    },
    "properties": {
     "name": "Almaty Arena",
-    "kind": "poi"
+    "kind": "poi",
+    "rubric": "Аренда спортивных площадок",
+    "rating": 4.8,
+    "reviews": 1981,
+    "address": "микрорайон Нуркент, 7",
+    "photo": "https://i9.photo.2gis.com/main/branch/67/70000001025541171/common",
+    "desc": "Ледовый дворец ALMATY ARENA — самая большая крытая ледовая площадка в Центральной Азии. Спортивный комплекс включает ледовую арену, вместимостью 12 000 зрительс"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.990321,
+     43.287198
+    ]
+   },
+   "properties": {
+    "name": "Halyk Arena",
+    "kind": "poi",
+    "rubric": "Аренда концертных площадок",
+    "rating": 4.8,
+    "reviews": 811,
+    "address": "Кульджинский тракт, 2",
+    "photo": "https://i3.photo.2gis.com/main/branch/67/70000001025541249/common",
+    "desc": "Ледовый дворец «Халык Арена» — дворец спорта и культуры в Алма-Ате. Построен в 2016 году к Зимней Универсиаде 2017 года. Сооружение предназначено для проведения"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.939047,
+     43.273815
+    ]
+   },
+   "properties": {
+    "name": "Вокзал Алматы-2",
+    "kind": "transport",
+    "rubric": "Железнодорожные вокзалы",
+    "rating": 4.6,
+    "reviews": 1809,
+    "address": "проспект Абылай хана, 1",
+    "photo": "https://i4.photo.2gis.com/main/branch/67/9429940000843380/common"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.948989,
+     43.341148
+    ]
+   },
+   "properties": {
+    "name": "Вокзал Алматы-1",
+    "kind": "transport",
+    "rubric": "Железнодорожные вокзалы",
+    "rating": 4.6,
+    "reviews": 1841,
+    "address": "улица Станционная, 1",
+    "photo": "https://i3.photo.2gis.com/main/branch/67/9429940000792281/common"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     77.011309,
+     43.348096
+    ]
+   },
+   "properties": {
+    "name": "Аэропорт Алматы",
+    "kind": "transport",
+    "rubric": "Аэропорты",
+    "rating": 4.7,
+    "reviews": 8049,
+    "address": "улица Майлина, 2",
+    "photo": "https://i6.photo.2gis.com/main/branch/67/9429940000833020/common"
    }
   }
  ]

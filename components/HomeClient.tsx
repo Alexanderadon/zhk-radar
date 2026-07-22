@@ -5,6 +5,7 @@ import Link from 'next/link';
 import s from '../app/home.module.scss';
 import { BAND_COLOR, BAND_LABEL } from '../lib/score';
 import Icon from './Icon';
+import { useFavorites } from '../lib/useFavorites';
 import type { MapPoint } from './MapView';
 
 const MapView = dynamic(() => import('./MapView'), { ssr: false });
@@ -63,7 +64,7 @@ const DISTRICTS = [
   { name: 'Алатауский', color: '#e67e22' },
 ];
 
-export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; freshness: string }) {
+export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
   const [q, setQ] = useState('');
   const [band, setBand] = useState<Set<string>>(new Set());
   const [cls, setCls] = useState<Set<string>>(new Set());
@@ -79,6 +80,9 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
   const [priceRange, setPriceRange] = useState<string | null>(null);
   const priceBucket = PRICES.find((p) => p.key === priceRange) || null;
   const [finishing, setFinishing] = useState<Set<string>>(new Set());
+  const [favOnly, setFavOnly] = useState(false);
+  const fav = useFavorites();
+  const favSet = useMemo(() => new Set(fav.ids), [fav.ids]);
   const [aptMeta, setAptMeta] = useState<{ updatedAt: string; total: number; primary: number; secondary: number; addedToday: number; soldToday: number; soldRecent: number } | null>(null);
   const toggleN = (set: Set<number>, v: number, upd: (s: Set<number>) => void) => { const n = new Set(set); n.has(v) ? n.delete(v) : n.add(v); upd(n); };
   useEffect(() => { if (mode === 'apartments' && !aptMeta) fetch('/listings-meta.json').then((r) => r.json()).then(setAptMeta).catch(() => {}); }, [mode, aptMeta]);
@@ -90,6 +94,7 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
   const filtered = useMemo(() => {
     const query = q.trim().toLowerCase();
     let list = zhks.filter((z) => {
+      if (favOnly && !favSet.has(z.id)) return false;
       if (query && !(z.name.toLowerCase().includes(query) || z.developer?.name.toLowerCase().includes(query) || z.district?.toLowerCase().includes(query))) return false;
       if (band.size && !band.has(z.band)) return false;
       if (cls.size && !(z.classRu && cls.has(z.classRu))) return false;
@@ -112,7 +117,7 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
       return 0;
     });
     return list;
-  }, [zhks, q, band, cls, status, district, extra, sort, priceBucket, finishing]);
+  }, [zhks, q, band, cls, status, district, extra, sort, priceBucket, finishing, favOnly, favSet]);
 
   const points: MapPoint[] = useMemo(
     () => filtered.filter((z) => z.lat && z.lng).map((z) => ({
@@ -141,7 +146,9 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
         </div>
         <div className={s.headerSpacer} />
         <Link href="/methodology" className={s.navlink}>Методология</Link>
-        <div className={s.freshness}><span className={s.freshDot} /> данные от {freshness}</div>
+        <button type="button" className={`${s.favBtn} ${favOnly ? s.favBtnActive : ''}`} onClick={() => { setFavOnly((v) => !v); setMode('complexes'); }} title="Понравившиеся ЖК — ваша подборка">
+          <Icon name="heart" size={15} fill={favOnly ? '#fff' : 'none'} /> Избранное{fav.count ? <span className={s.favBadge}>{fav.count}</span> : null}
+        </button>
       </header>
 
       <div className={s.body}>
@@ -152,8 +159,8 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
               <input className={s.search} placeholder="Поиск ЖК, застройщика, района…" value={q} onChange={(e) => setQ(e.target.value)} />
             </div>
             <div className={s.modeToggle}>
-              <button className={mode === 'complexes' ? s.modeActive : ''} onClick={() => setMode('complexes')}><Icon name="building" size={16} /> ЖК-комплексы</button>
-              <button className={mode === 'apartments' ? s.modeActive : ''} onClick={() => setMode('apartments')}><Icon name="key" size={16} /> Квартиры</button>
+              <button className={mode === 'complexes' && !favOnly ? s.modeActive : ''} onClick={() => { setMode('complexes'); setFavOnly(false); }}><Icon name="building" size={16} /> ЖК-комплексы</button>
+              <button className={mode === 'apartments' ? s.modeActive : ''} onClick={() => { setMode('apartments'); setFavOnly(false); }}><Icon name="key" size={16} /> Квартиры</button>
             </div>
 
             <div className={s.filterGroup}>
@@ -224,6 +231,12 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
 
           {mode === 'complexes' ? (
             <>
+              {favOnly && (
+                <div className={s.favBanner}>
+                  <span><Icon name="heart" size={14} fill="currentColor" /> Понравившиеся — {fav.count}</span>
+                  {fav.count > 0 && <button type="button" onClick={fav.clear}><Icon name="trash" size={13} /> очистить</button>}
+                </div>
+              )}
               <div className={s.resultBar}>
                 <span>{filtered.length} ЖК{district ? ` · ${district}` : ''}</span>
                 <select className={s.sortSel} value={sort} onChange={(e) => setSort(e.target.value)}>
@@ -236,6 +249,9 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
               <div className={s.list}>
                 {filtered.map((z) => (
                   <div key={z.id} className={`${s.card} ${selected === z.id ? s.cardActive : ''}`} onClick={() => setSelected(z.id)}>
+                    <button type="button" className={`${s.cardFav} ${fav.has(z.id) ? s.cardFavOn : ''}`} title={fav.has(z.id) ? 'Убрать из избранного' : 'Сохранить в избранное'} onClick={(e) => { e.stopPropagation(); fav.toggle(z.id); }}>
+                      <Icon name="heart" size={15} fill={fav.has(z.id) ? 'currentColor' : 'none'} />
+                    </button>
                     {z.image ? <img className={s.thumb} src={z.image} alt="" loading="lazy" /> : <div className={`${s.thumb} ${s.thumbEmpty}`}>◫</div>}
                     <div className={s.cardBody}>
                       <div className={s.cardTop}>
@@ -259,29 +275,31 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
                     </div>
                   </div>
                 ))}
-                {filtered.length === 0 && <div style={{ padding: 24, color: 'var(--text-dim)', textAlign: 'center' }}>Ничего не найдено под фильтры.</div>}
+                {filtered.length === 0 && (
+                  favOnly
+                    ? <div className={s.favEmpty}><Icon name="heart" size={26} /><div>Пока пусто</div><span>Нажмите ♥ на карточке ЖК или на карте — он появится здесь. Подборка хранится в этом браузере.</span></div>
+                    : <div style={{ padding: 24, color: 'var(--text-dim)', textAlign: 'center' }}>Ничего не найдено под фильтры.</div>
+                )}
               </div>
             </>
           ) : (
-            <div className={s.list}>
-              <div className={s.aptHint}>
-                {aptMeta && (
-                  <div className={s.aptMeta}>
-                    <div><b>{aptMeta.total.toLocaleString('ru-RU')}</b> квартир · обновлено {new Date(aptMeta.updatedAt).toLocaleDateString('ru-RU')}</div>
-                    <div style={{ marginTop: 4 }}>
-                      <span style={{ color: 'var(--green)' }}>+{aptMeta.addedToday} новых</span> · <span style={{ color: 'var(--red)' }}>−{aptMeta.soldToday} продано</span> за день
-                    </div>
-                    <div style={{ fontSize: 11.5, color: 'var(--text-faint)', marginTop: 2 }}>обновляется автоматически каждый день</div>
+            <div className={s.aptPanel}>
+              {aptMeta && (
+                <div className={s.aptStat}>
+                  <div className={s.aptStatTotal}><b>{aptMeta.total.toLocaleString('ru-RU')}</b> квартир на карте</div>
+                  <div className={s.aptStatDeltas}>
+                    <span className={s.up}>+{aptMeta.addedToday} за день</span>
+                    <span className={s.down}>−{aptMeta.soldToday} продано</span>
                   </div>
-                )}
-                <b>Квартиры на карте — первичка и вторичка.</b><br />
-                Синие кружки с числом = сколько предложений в этом месте. Нажми, чтобы приблизить — кластеры разбиваются на отдельные квартиры (зелёные — новостройки, синие — вторичка). Наведи: цена, комнаты, площадь. Клик по квартире → объявление на krisha. Чёрные метки — ориентиры (ТРЦ, вокзалы).
-                <div className={s.aptLegend}>
-                  <span><span className={s.legendDot} style={{ background: '#2ecc71' }} /> первичка (новостройка)</span>
-                  <span><span className={s.legendDot} style={{ background: '#7b8aa0' }} /> вторичка</span>
+                  <div className={s.aptStatFoot}><Icon name="refresh" size={11} /> обновляется автоматически · {new Date(aptMeta.updatedAt).toLocaleDateString('ru-RU')}</div>
                 </div>
-                <div style={{ marginTop: 12, fontSize: 12, color: 'var(--text-faint)' }}>Данные объявлений — krisha.kz. Риск-скор считается только для ЖК-комплексов (вкладка слева).</div>
-              </div>
+              )}
+              <ul className={s.aptSteps}>
+                <li><span className={s.stepDot} style={{ background: '#5f95e3' }} /> Кружок с числом — сколько квартир рядом. Нажмите, чтобы приблизить.</li>
+                <li><span className={s.stepDot} style={{ background: '#16a34a' }} /> Зелёные — новостройки, серо-синие — вторичка. Наведите: цена, комнаты, площадь.</li>
+                <li><span className={s.stepDot} style={{ background: '#111827' }} /> Чёрные метки — ориентиры (ТРЦ, парки, вокзалы) с фото и рейтингом.</li>
+              </ul>
+              <div className={s.aptSrc}>Объявления — krisha.kz. Риск-скор считается только для ЖК-комплексов.</div>
             </div>
           )}
         </aside>
@@ -300,7 +318,7 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
               <div className={s.legendRow} style={{ marginTop: 4, borderTop: '1px solid var(--border-soft)', paddingTop: 8 }}><span className={s.legendDot} style={{ background: '#111827' }} /> ориентиры (ТРЦ, вокзалы)</div>
             </div>
           )}
-          <MapView points={points} selectedId={selected} onSelect={setSelected} activeDistrict={district} mode={mode} aptMarket={aptMarket} aptRooms={aptRooms} showSold={showSold} aptPrice={priceBucket ? { min: priceBucket.min, max: priceBucket.max } : null} />
+          <MapView points={points} selectedId={selected} onSelect={setSelected} activeDistrict={district} mode={mode} aptMarket={aptMarket} aptRooms={aptRooms} showSold={showSold} aptPrice={priceBucket ? { min: priceBucket.min, max: priceBucket.max } : null} favSet={favSet} onToggleFav={fav.toggle} />
         </div>
       </div>
     </div>

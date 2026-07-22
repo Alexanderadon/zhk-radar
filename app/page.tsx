@@ -1,17 +1,10 @@
 import HomeClient, { type HomeZhk } from '../components/HomeClient';
-import { getAllZhk, getStats } from '../lib/data';
+import { getAllZhk } from '../lib/data';
 
 export const dynamic = 'force-static';
 
-function formatDate(iso: string | null): string {
-  if (!iso) return '—';
-  const d = new Date(iso);
-  return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
-}
-
 export default function Home() {
   const all = getAllZhk();
-  const stats = getStats();
   const zhks: HomeZhk[] = all.map((z) => ({
     id: z.id,
     slug: z.slug,
@@ -36,5 +29,5 @@ export default function Home() {
     deal: z.deal,
     real: !!(z.realPhotos && z.realPhotos.length),
   }));
-  return <HomeClient zhks={zhks} freshness={formatDate(stats.scrapedAt)} />;
+  return <HomeClient zhks={zhks} />;
 }
