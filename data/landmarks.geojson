@@ -1,0 +1,201 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.8923175,
+     43.2016499
+    ]
+   },
+   "properties": {
+    "name": "MEGA Alma-Ata",
+    "kind": "mall"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.9285985,
+     43.2640851
+    ]
+   },
+   "properties": {
+    "name": "MEGA Park",
+    "kind": "mall"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.92822,
+     43.21732
+    ]
+   },
+   "properties": {
+    "name": "Esentai Mall",
+    "kind": "mall"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.9567824,
+     43.2334082
+    ]
+   },
+   "properties": {
+    "name": "Dostyk Plaza",
+    "kind": "mall"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.9352565,
+     43.2337733
+    ]
+   },
+   "properties": {
+    "name": "Forum",
+    "kind": "mall"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.8585608,
+     43.2077686
+    ]
+   },
+   "properties": {
+    "name": "Almaty Mall",
+    "kind": "mall"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.9551971,
+     43.2636756
+    ]
+   },
+   "properties": {
+    "name": "Зелёный базар",
+    "kind": "poi"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.9755299,
+     43.2331024
+    ]
+   },
+   "properties": {
+    "name": "Кок-Тобе",
+    "kind": "poi"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     77.0594144,
+     43.1571772
+    ]
+   },
+   "properties": {
+    "name": "Медеу",
+    "kind": "poi"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.9454739,
+     43.2388845
+    ]
+   },
+   "properties": {
+    "name": "пл. Республики",
+    "kind": "poi"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.9692738,
+     43.2616454
+    ]
+   },
+   "properties": {
+    "name": "Центральный парк",
+    "kind": "poi"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.9390884,
+     43.2737601
+    ]
+   },
+   "properties": {
+    "name": "Вокзал Алматы-2",
+    "kind": "poi"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     77.0425838,
+     43.3556863
+    ]
+   },
+   "properties": {
+    "name": "Аэропорт",
+    "kind": "poi"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.8175483,
+     43.2637615
+    ]
+   },
+   "properties": {
+    "name": "Almaty Arena",
+    "kind": "poi"
+   }
+  }
+ ]
+}

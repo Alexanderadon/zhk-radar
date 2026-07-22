@@ -238,7 +238,7 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
                   </div>
                 )}
                 <b>Квартиры на карте — первичка и вторичка.</b><br />
-                Синие пузыри = сколько квартир в районе. Приблизь — разделятся на отдельные. Наведи на квартиру: цена, комнаты, площадь, адрес. Клик → объявление на krisha.
+                Тёплые зоны = где больше предложений. Приблизь — появятся отдельные квартиры (зелёные — новостройки, синие — вторичка). Наведи: цена, комнаты, площадь. Клик → объявление на krisha. Чёрные метки — ориентиры (ТРЦ, вокзалы).
                 <div className={s.aptLegend}>
                   <span><span className={s.legendDot} style={{ background: '#2ecc71' }} /> первичка (новостройка)</span>
                   <span><span className={s.legendDot} style={{ background: '#7b8aa0' }} /> вторичка</span>
@@ -257,9 +257,10 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
             </div>
           ) : (
             <div className={s.legend}>
-              <div className={s.legendRow}><span className={s.legendDot} style={{ background: '#2ecc71' }} /> первичка</div>
-              <div className={s.legendRow}><span className={s.legendDot} style={{ background: '#7b8aa0' }} /> вторичка</div>
-              <div className={s.legendRow}><span className={s.legendDot} style={{ background: '#5a4fd0' }} /> пузырь = кол-во квартир</div>
+              <div className={s.legendRow}><span className={s.legendDot} style={{ background: '#16a34a' }} /> первичка (новостройка)</div>
+              <div className={s.legendRow}><span className={s.legendDot} style={{ background: '#6b8bb0' }} /> вторичка</div>
+              <div className={s.legendRow}><span className={s.legendDot} style={{ background: 'linear-gradient(90deg,#60a5fa,#e0293f)' }} /> плотность предложений</div>
+              <div className={s.legendRow} style={{ marginTop: 4, borderTop: '1px solid var(--border-soft)', paddingTop: 8 }}><span className={s.legendDot} style={{ background: '#111827' }} /> ориентиры (ТРЦ, вокзалы)</div>
             </div>
           )}
           <MapView points={points} selectedId={selected} onSelect={setSelected} activeDistrict={district} mode={mode} aptMarket={aptMarket} aptRooms={aptRooms} showSold={showSold} />

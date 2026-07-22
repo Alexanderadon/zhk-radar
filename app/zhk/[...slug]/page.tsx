@@ -17,12 +17,12 @@ function marketArrow(v: string): string {
 }
 
 export function generateStaticParams() {
-  return getAllZhk().map((z) => ({ slug: z.slug.replace(/^\//, '') }));
+  return getAllZhk().map((z) => ({ slug: z.slug.replace(/^\//, '').split('/') }));
 }
 
-export default async function ZhkPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function ZhkPage({ params }: { params: Promise<{ slug: string[] }> }) {
   const { slug } = await params;
-  const z = getZhkBySlug(slug);
+  const z = getZhkBySlug(Array.isArray(slug) ? slug.join('/') : slug);
   if (!z) notFound();
 
   const { scoreResult: sr } = z;
@@ -68,7 +68,11 @@ export default async function ZhkPage({ params }: { params: Promise<{ slug: stri
         <div className={s.titleBlock}>
           <h1 className={s.title}>{z.name}</h1>
           <div className={s.dev}>
-            Застройщик: {z.developer ? <Link href={`/developer/${z.developer.slug.replace(/^\//, '')}`}>{z.developer.name}</Link> : '—'}
+            Застройщик: {(() => {
+              if (!z.developer) return '—';
+              const ds = z.developer.slug.replace(/^\//, '');
+              return ds && !ds.includes('/') ? <Link href={`/developer/${ds}`}>{z.developer.name}</Link> : <span style={{ color: 'var(--text)' }}>{z.developer.name}</span>;
+            })()}
           </div>
           {z.address && <div className={s.addr}>{z.address}</div>}
           <div className={s.chips}>
@@ -182,9 +186,9 @@ export default async function ZhkPage({ params }: { params: Promise<{ slug: stri
             {[z.address, z.district ? `${z.district} район` : null].filter(Boolean).join(' · ') || 'Алматы'} · <span style={{ fontVariantNumeric: 'tabular-nums' }}>{z.lat.toFixed(5)}, {z.lng.toFixed(5)}</span>
           </div>
           <div className={s.geoLinks}>
-            <a href={`https://2gis.kz/almaty/geo/${z.lng},${z.lat}`} target="_blank" rel="noopener noreferrer">Открыть в 2ГИС ↗</a>
-            <a href={`https://yandex.kz/maps/162/almaty/?ll=${z.lng},${z.lat}&z=17&pt=${z.lng},${z.lat}`} target="_blank" rel="noopener noreferrer">Яндекс.Карты ↗</a>
-            <a href={`https://www.google.com/maps?q=${z.lat},${z.lng}`} target="_blank" rel="noopener noreferrer">Google Maps ↗</a>
+            <a href={`https://2gis.kz/almaty?m=${z.lng}%2C${z.lat}%2F17`} target="_blank" rel="noopener noreferrer">Открыть в 2ГИС ↗</a>
+            <a href={`https://yandex.ru/maps/?pt=${z.lng},${z.lat}&z=17&l=map`} target="_blank" rel="noopener noreferrer">Яндекс.Карты ↗</a>
+            <a href={`https://www.google.com/maps/search/?api=1&query=${z.lat},${z.lng}`} target="_blank" rel="noopener noreferrer">Google Maps ↗</a>
           </div>
           <div className={s.mapMini} style={{ marginTop: 12 }}>
             <MiniMap lat={z.lat} lng={z.lng} color={color} name={z.name} />

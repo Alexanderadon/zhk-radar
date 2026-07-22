@@ -12,7 +12,7 @@ export function generateStaticParams() {
   for (const z of getAllZhk()) {
     if (!z.developer) continue;
     const slug = z.developer.slug.replace(/^\//, '');
-    if (slug && !seen.has(slug)) { seen.add(slug); params.push({ slug }); }
+    if (slug && !slug.includes('/') && !seen.has(slug)) { seen.add(slug); params.push({ slug }); }
   }
   return params;
 }

@@ -54,6 +54,14 @@ export default function MapView({
         m.addLayer({ id: 'district-label', type: 'symbol', source: 'districts', layout: { 'text-field': ['get', 'name'], 'text-size': 15, 'text-font': ['Noto Sans Regular'], 'text-allow-overlap': true, 'text-ignore-placement': true }, paint: { 'text-color': ['get', 'color'], 'text-halo-color': '#ffffff', 'text-halo-width': 2, 'text-opacity': 0.95 } });
       } catch {}
 
+      // ---- LANDMARKS (ориентиры: ТРЦ, вокзалы, площади) ----
+      try {
+        const lm = await (await fetch('/landmarks.geojson')).json();
+        m.addSource('landmarks', { type: 'geojson', data: lm });
+        m.addLayer({ id: 'landmark-dot', type: 'circle', source: 'landmarks', paint: { 'circle-radius': ['match', ['get', 'kind'], 'mall', 6, 4.5], 'circle-color': ['match', ['get', 'kind'], 'mall', '#111827', '#374151'], 'circle-stroke-width': 2.5, 'circle-stroke-color': '#ffffff' } });
+        m.addLayer({ id: 'landmark-label', type: 'symbol', source: 'landmarks', minzoom: 10.5, layout: { 'text-field': ['get', 'name'], 'text-size': 11.5, 'text-font': ['Noto Sans Regular'], 'text-offset': [0, 1.05], 'text-anchor': 'top', 'text-optional': true }, paint: { 'text-color': '#111827', 'text-halo-color': '#ffffff', 'text-halo-width': 2 } });
+      } catch {}
+
       // ---- COMPLEXES (ЖК) ----
       m.addSource('zhk', { type: 'geojson', data: toGeoJSON(points), cluster: true, clusterMaxZoom: 13, clusterRadius: 52 });
       const notCluster = ['!', ['has', 'point_count']] as any;
@@ -63,11 +71,30 @@ export default function MapView({
       m.addLayer({ id: 'zhk-dot', type: 'circle', source: 'zhk', filter: notCluster, paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 10, 6, 15, 10], 'circle-color': ['get', 'color'], 'circle-stroke-width': ['case', ['get', 'deal'], 3, 1.6], 'circle-stroke-color': ['case', ['get', 'deal'], '#16a34a', '#ffffff'] } });
       m.addLayer({ id: 'zhk-selected', type: 'circle', source: 'zhk', filter: ['==', ['get', 'id'], -1], paint: { 'circle-radius': 12, 'circle-color': ['get', 'color'], 'circle-stroke-width': 3.5, 'circle-stroke-color': '#2f6bed' } });
 
-      // ---- APARTMENTS (квартиры) ----
-      m.addSource('apt', { type: 'geojson', data: emptyFC(), cluster: true, clusterMaxZoom: 14, clusterRadius: 48 });
-      m.addLayer({ id: 'apt-clusters', type: 'circle', source: 'apt', filter: ['has', 'point_count'], layout: { visibility: 'none' }, paint: { 'circle-color': ['step', ['get', 'point_count'], '#7b6cf0', 50, '#5a4fd0', 300, '#3f36a8'], 'circle-opacity': 0.92, 'circle-radius': ['step', ['get', 'point_count'], 15, 30, 20, 200, 27, 1000, 35], 'circle-stroke-width': 4, 'circle-stroke-color': 'rgba(123,108,240,0.25)' } });
-      m.addLayer({ id: 'apt-count', type: 'symbol', source: 'apt', filter: ['has', 'point_count'], layout: { visibility: 'none', 'text-field': ['get', 'point_count_abbreviated'], 'text-size': 13, 'text-font': ['Noto Sans Regular'] }, paint: { 'text-color': '#ffffff' } });
-      m.addLayer({ id: 'apt-dot', type: 'circle', source: 'apt', filter: notCluster, layout: { visibility: 'none' }, paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 12, 4, 16, 8], 'circle-color': ['match', ['get', 'market'], 'primary', '#2ecc71', '#7b8aa0'], 'circle-stroke-width': 1.2, 'circle-stroke-color': '#ffffff' } });
+      // ---- APARTMENTS (квартиры) — heatmap на обзоре, точки на приближении ----
+      m.addSource('apt', { type: 'geojson', data: emptyFC() });
+      m.addLayer({
+        id: 'apt-heat', type: 'heatmap', source: 'apt', layout: { visibility: 'none' },
+        paint: {
+          'heatmap-weight': 0.25,
+          'heatmap-intensity': ['interpolate', ['linear'], ['zoom'], 9, 0.18, 14, 0.6],
+          'heatmap-radius': ['interpolate', ['linear'], ['zoom'], 9, 8, 12, 14, 14, 20],
+          'heatmap-color': ['interpolate', ['linear'], ['heatmap-density'],
+            0, 'rgba(59,130,246,0)', 0.15, 'rgba(59,130,246,0.35)', 0.35, 'rgba(34,197,94,0.5)',
+            0.55, 'rgba(234,179,8,0.6)', 0.75, 'rgba(249,115,22,0.72)', 1, 'rgba(224,41,63,0.82)'],
+          'heatmap-opacity': ['interpolate', ['linear'], ['zoom'], 13, 0.72, 14.5, 0],
+        },
+      });
+      m.addLayer({
+        id: 'apt-dot', type: 'circle', source: 'apt', layout: { visibility: 'none' },
+        paint: {
+          'circle-radius': ['interpolate', ['linear'], ['zoom'], 13, 3, 17, 8],
+          'circle-color': ['match', ['get', 'market'], 'primary', '#16a34a', '#6b8bb0'],
+          'circle-opacity': ['interpolate', ['linear'], ['zoom'], 13, 0.15, 14.5, 0.95],
+          'circle-stroke-width': ['interpolate', ['linear'], ['zoom'], 13, 0, 15, 1.3],
+          'circle-stroke-color': '#ffffff',
+        },
+      });
       // ---- SOLD (недавно продано) ----
       m.addSource('sold', { type: 'geojson', data: emptyFC() });
       m.addLayer({ id: 'sold-dot', type: 'circle', source: 'sold', layout: { visibility: 'none' }, paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 11, 4, 16, 9], 'circle-color': '#e74c3c', 'circle-opacity': 0.85, 'circle-stroke-width': 1.4, 'circle-stroke-color': '#ffffff' } });
@@ -75,8 +102,8 @@ export default function MapView({
 
       // complex handlers
       m.on('click', 'clusters', (e) => { const f = m.queryRenderedFeatures(e.point, { layers: ['clusters'] })[0]; if (!f) return; (m.getSource('zhk') as any).getClusterExpansionZoom((f.properties as any).cluster_id).then((z: number) => m.easeTo({ center: (f.geometry as any).coordinates, zoom: Math.min(z + 0.5, 16) })).catch(() => {}); });
-      m.on('click', 'apt-clusters', (e) => { const f = m.queryRenderedFeatures(e.point, { layers: ['apt-clusters'] })[0]; if (!f) return; (m.getSource('apt') as any).getClusterExpansionZoom((f.properties as any).cluster_id).then((z: number) => m.easeTo({ center: (f.geometry as any).coordinates, zoom: Math.min(z + 0.5, 17) })).catch(() => {}); });
-      for (const cl of ['clusters', 'apt-clusters']) { m.on('mouseenter', cl, () => (m.getCanvas().style.cursor = 'pointer')); m.on('mouseleave', cl, () => (m.getCanvas().style.cursor = '')); }
+      m.on('mouseenter', 'clusters', () => (m.getCanvas().style.cursor = 'pointer'));
+      m.on('mouseleave', 'clusters', () => (m.getCanvas().style.cursor = ''));
 
       let hovered: any = null;
       const hoverZhk = (e: maplibregl.MapLayerMouseEvent) => { const f = e.features?.[0]; if (!f) return; const p = f.properties as any; if (('z' + p.id) === hovered) { hover.setLngLat((f.geometry as any).coordinates); return; } hovered = 'z' + p.id; m.getCanvas().style.cursor = 'pointer'; hover.setLngLat((f.geometry as any).coordinates).setHTML(cardHtml(p)).addTo(m); };
@@ -102,7 +129,7 @@ export default function MapView({
 
   function setVis(m: maplibregl.Map, layers: string[], v: 'visible' | 'none') { for (const l of layers) if (m.getLayer(l)) m.setLayoutProperty(l, 'visibility', v); }
   const COMPLEX_LAYERS = ['clusters', 'cluster-count', 'zhk-glow', 'zhk-dot', 'zhk-selected'];
-  const APT_LAYERS = ['apt-clusters', 'apt-count', 'apt-dot'];
+  const APT_LAYERS = ['apt-heat', 'apt-dot'];
 
   function filteredApts(): Apt[] {
     const all = allApts.current || [];

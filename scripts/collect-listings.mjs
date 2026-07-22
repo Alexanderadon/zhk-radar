@@ -6,8 +6,9 @@ import { existsSync } from 'node:fs';
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/122.0 Safari/537.36';
 const H = { 'User-Agent': UA, 'Accept-Language': 'ru', 'X-Requested-With': 'XMLHttpRequest', 'Referer': 'https://krisha.kz/map/prodazha/kvartiry/almaty/' };
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-const CAP = 30, MAXDEPTH = 7; // упёрся в CAP полных страниц → дробим; глубина рекурсии
+const CAP = 45, MAXDEPTH = 8; // упёрся в CAP полных страниц → дробим; глубина рекурсии
 const floorOf = (t) => { const m = (t || '').match(/(\d+)\/(\d+)\s*этаж/); return m ? `${m[1]}/${m[2]}` : null; };
+const thumb = (p) => { const s = p && p[0] && p[0].src; return s ? s.replace(/-full\.(jpg|jpeg|webp)/i, '-400x300.$1') : null; };
 
 const byId = new Map();
 let reqs = 0, cells = 0;
@@ -22,7 +23,7 @@ async function page(n, w, s, e, p) {
 function absorb(adv) {
   for (const a of adv) {
     if (!a.map || !a.map.lat || byId.has(a.id)) continue;
-    byId.set(a.id, { id: a.id, lat: +a.map.lat.toFixed(6), lng: +a.map.lon.toFixed(6), price: a.price || null, rooms: a.rooms || null, square: a.square || null, floor: floorOf(a.title), addr: a.addressTitle || null, complexId: a.complexId || null, market: a.complexId ? 'primary' : 'secondary' });
+    byId.set(a.id, { id: a.id, lat: +a.map.lat.toFixed(6), lng: +a.map.lon.toFixed(6), price: a.price || null, rooms: a.rooms || null, square: a.square || null, floor: floorOf(a.title), addr: a.addressTitle || null, complexId: a.complexId || null, market: a.complexId ? 'primary' : 'secondary', photo: thumb(a.photos) });
   }
 }
 
