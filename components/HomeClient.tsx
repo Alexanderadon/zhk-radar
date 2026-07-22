@@ -1,5 +1,5 @@
 'use client';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import s from '../app/home.module.scss';
@@ -62,7 +62,10 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
   const [mode, setMode] = useState<'complexes' | 'apartments'>('complexes');
   const [aptMarket, setAptMarket] = useState<Set<string>>(new Set());
   const [aptRooms, setAptRooms] = useState<Set<number>>(new Set());
+  const [showSold, setShowSold] = useState(false);
+  const [aptMeta, setAptMeta] = useState<{ updatedAt: string; total: number; primary: number; secondary: number; addedToday: number; soldToday: number; soldRecent: number } | null>(null);
   const toggleN = (set: Set<number>, v: number, upd: (s: Set<number>) => void) => { const n = new Set(set); n.has(v) ? n.delete(v) : n.add(v); upd(n); };
+  useEffect(() => { if (mode === 'apartments' && !aptMeta) fetch('/listings-meta.json').then((r) => r.json()).then(setAptMeta).catch(() => {}); }, [mode, aptMeta]);
 
   const toggle = (set: Set<string>, v: string, upd: (s: Set<string>) => void) => {
     const n = new Set(set); n.has(v) ? n.delete(v) : n.add(v); upd(n);
@@ -172,6 +175,10 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
                   <span className={s.fLabel}>Комнат</span>
                   {[1, 2, 3, 4].map((r) => (<button key={r} className={`${s.pill} ${aptRooms.has(r) ? s.pillActive : ''}`} onClick={() => toggleN(aptRooms, r, setAptRooms)}>{r}{r === 4 ? '+' : ''}</button>))}
                 </div>
+                <div className={s.filterGroup}>
+                  <span className={s.fLabel}>Статус продажи</span>
+                  <button className={`${s.pill} ${showSold ? s.pillActive : ''}`} onClick={() => setShowSold(!showSold)}><span style={{ color: showSold ? '#061019' : 'var(--red)' }}>●</span> недавно продано</button>
+                </div>
               </>
             )}
           </div>
@@ -219,6 +226,15 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
           ) : (
             <div className={s.list}>
               <div className={s.aptHint}>
+                {aptMeta && (
+                  <div className={s.aptMeta}>
+                    <div><b>{aptMeta.total.toLocaleString('ru-RU')}</b> квартир · обновлено {new Date(aptMeta.updatedAt).toLocaleDateString('ru-RU')}</div>
+                    <div style={{ marginTop: 4 }}>
+                      <span style={{ color: 'var(--green)' }}>+{aptMeta.addedToday} новых</span> · <span style={{ color: 'var(--red)' }}>−{aptMeta.soldToday} продано</span> за день
+                    </div>
+                    <div style={{ fontSize: 11.5, color: 'var(--text-faint)', marginTop: 2 }}>обновляется автоматически каждый день</div>
+                  </div>
+                )}
                 <b>Квартиры на карте — первичка и вторичка.</b><br />
                 Синие пузыри = сколько квартир в районе. Приблизь — разделятся на отдельные. Наведи на квартиру: цена, комнаты, площадь, адрес. Клик → объявление на krisha.
                 <div className={s.aptLegend}>
@@ -244,7 +260,7 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
               <div className={s.legendRow}><span className={s.legendDot} style={{ background: '#5a4fd0' }} /> пузырь = кол-во квартир</div>
             </div>
           )}
-          <MapView points={points} selectedId={selected} onSelect={setSelected} activeDistrict={district} mode={mode} aptMarket={aptMarket} aptRooms={aptRooms} />
+          <MapView points={points} selectedId={selected} onSelect={setSelected} activeDistrict={district} mode={mode} aptMarket={aptMarket} aptRooms={aptRooms} showSold={showSold} />
         </div>
       </div>
     </div>

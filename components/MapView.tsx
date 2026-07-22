@@ -23,10 +23,10 @@ const ALMATY: [number, number] = [76.905, 43.238];
 
 export default function MapView({
   points, selectedId, onSelect, activeDistrict,
-  mode = 'complexes', aptMarket, aptRooms,
+  mode = 'complexes', aptMarket, aptRooms, showSold,
 }: {
   points: MapPoint[]; selectedId: number | null; onSelect: (id: number) => void; activeDistrict?: string | null;
-  mode?: 'complexes' | 'apartments'; aptMarket?: Set<string>; aptRooms?: Set<number>;
+  mode?: 'complexes' | 'apartments'; aptMarket?: Set<string>; aptRooms?: Set<number>; showSold?: boolean;
 }) {
   const container = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
@@ -35,6 +35,7 @@ export default function MapView({
   onSelectRef.current = onSelect;
   const allApts = useRef<Apt[] | null>(null);
   const loadingApts = useRef(false);
+  const allSold = useRef<any[] | null>(null);
 
   useEffect(() => {
     if (map.current || !container.current) return;
@@ -67,6 +68,9 @@ export default function MapView({
       m.addLayer({ id: 'apt-clusters', type: 'circle', source: 'apt', filter: ['has', 'point_count'], layout: { visibility: 'none' }, paint: { 'circle-color': ['step', ['get', 'point_count'], '#7b6cf0', 50, '#5a4fd0', 300, '#3f36a8'], 'circle-opacity': 0.92, 'circle-radius': ['step', ['get', 'point_count'], 15, 30, 20, 200, 27, 1000, 35], 'circle-stroke-width': 4, 'circle-stroke-color': 'rgba(123,108,240,0.25)' } });
       m.addLayer({ id: 'apt-count', type: 'symbol', source: 'apt', filter: ['has', 'point_count'], layout: { visibility: 'none', 'text-field': ['get', 'point_count_abbreviated'], 'text-size': 13, 'text-font': ['Noto Sans Regular'] }, paint: { 'text-color': '#ffffff' } });
       m.addLayer({ id: 'apt-dot', type: 'circle', source: 'apt', filter: notCluster, layout: { visibility: 'none' }, paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 12, 4, 16, 8], 'circle-color': ['match', ['get', 'market'], 'primary', '#2ecc71', '#7b8aa0'], 'circle-stroke-width': 1.2, 'circle-stroke-color': '#ffffff' } });
+      // ---- SOLD (недавно продано) ----
+      m.addSource('sold', { type: 'geojson', data: emptyFC() });
+      m.addLayer({ id: 'sold-dot', type: 'circle', source: 'sold', layout: { visibility: 'none' }, paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 11, 4, 16, 9], 'circle-color': '#e74c3c', 'circle-opacity': 0.85, 'circle-stroke-width': 1.4, 'circle-stroke-color': '#ffffff' } });
       ready.current = true;
 
       // complex handlers
@@ -84,6 +88,10 @@ export default function MapView({
       m.on('mouseenter', 'apt-dot', hoverApt); m.on('mousemove', 'apt-dot', hoverApt);
       m.on('mouseleave', 'apt-dot', () => { hovered = null; m.getCanvas().style.cursor = ''; hover.remove(); });
       m.on('click', 'apt-dot', (e) => { const f = e.features?.[0]; if (!f) return; window.open(`https://krisha.kz/a/show/${(f.properties as any).id}`, '_blank'); });
+
+      const hoverSold = (e: maplibregl.MapLayerMouseEvent) => { const f = e.features?.[0]; if (!f) return; const p = f.properties as any; m.getCanvas().style.cursor = 'pointer'; hover.setLngLat((f.geometry as any).coordinates).setHTML(soldHtml(p)).addTo(m); };
+      m.on('mouseenter', 'sold-dot', hoverSold); m.on('mousemove', 'sold-dot', hoverSold);
+      m.on('mouseleave', 'sold-dot', () => { m.getCanvas().style.cursor = ''; hover.remove(); });
 
       applyMode();
     });
@@ -117,13 +125,20 @@ export default function MapView({
       const src = m.getSource('apt') as maplibregl.GeoJSONSource | undefined;
       if (src) src.setData(aptFC(filteredApts()) as any);
       setVis(m, APT_LAYERS, 'visible');
+      // sold layer
+      if (showSold) {
+        if (!allSold.current) { try { allSold.current = await (await fetch('/listings-sold.json')).json(); } catch { allSold.current = []; } }
+        const ss = m.getSource('sold') as maplibregl.GeoJSONSource | undefined;
+        if (ss) ss.setData(soldFC(allSold.current || []) as any);
+        setVis(m, ['sold-dot'], 'visible');
+      } else setVis(m, ['sold-dot'], 'none');
     } else {
-      setVis(m, APT_LAYERS, 'none');
+      setVis(m, [...APT_LAYERS, 'sold-dot'], 'none');
       setVis(m, COMPLEX_LAYERS, 'visible');
     }
   }
 
-  useEffect(() => { applyMode(); /* eslint-disable-next-line */ }, [mode, aptMarket, aptRooms]);
+  useEffect(() => { applyMode(); /* eslint-disable-next-line */ }, [mode, aptMarket, aptRooms, showSold]);
   useEffect(() => { const m = map.current; if (!m || !ready.current) return; const src = m.getSource('zhk') as maplibregl.GeoJSONSource | undefined; if (src) src.setData(toGeoJSON(points) as any); }, [points]);
   useEffect(() => { const m = map.current; if (!m || !ready.current) return; if (m.getLayer('district-fill')) m.setPaintProperty('district-fill', 'fill-opacity', ['case', ['==', ['get', 'name'], activeDistrict ?? '__none__'], 0.28, 0.1] as any); }, [activeDistrict]);
   useEffect(() => { const m = map.current; if (!m || !ready.current) return; m.setFilter('zhk-selected', ['==', ['get', 'id'], selectedId ?? -1]); if (selectedId != null) { const p = points.find((x) => x.id === selectedId); if (p) m.flyTo({ center: [p.lng, p.lat], zoom: Math.max(m.getZoom(), 13.5), speed: 0.8 }); } }, [selectedId, points]);
@@ -132,6 +147,19 @@ export default function MapView({
 }
 
 function emptyFC() { return { type: 'FeatureCollection', features: [] }; }
+function soldFC(sold: any[]) {
+  return { type: 'FeatureCollection', features: sold.filter((a) => a.lat && a.lng).map((a) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [a.lng, a.lat] }, properties: { id: a.id, price: a.price ?? 0, rooms: a.rooms ?? 0, square: a.square ?? 0, addr: a.addr ?? '', soldDate: a.soldDate ?? '', market: a.market ?? '' } })) };
+}
+function soldHtml(p: any) {
+  const price = Number(p.price) ? `${(Number(p.price) / 1_000_000).toLocaleString('ru-RU', { maximumFractionDigits: 1 })} млн ₸` : '';
+  const line = [Number(p.rooms) ? `${p.rooms}-комн.` : '', Number(p.square) ? `${p.square} м²` : ''].filter(Boolean).join(' · ');
+  return `<div style="width:230px;font-family:inherit;padding:10px 12px 11px">
+    <div style="display:inline-block;font-size:11px;font-weight:700;color:#fff;background:#e74c3c;padding:2px 8px;border-radius:5px;margin-bottom:6px">продано${p.soldDate ? ` · ${p.soldDate}` : ''}</div>
+    <div style="font-size:15px;font-weight:700;color:#e7edf5">${price}</div>
+    <div style="font-size:12.5px;color:#c7d0dd;margin:2px 0 3px">${line}</div>
+    <div style="font-size:12px;color:#8d97a8">${escapeHtml(p.addr || '')}</div>
+  </div>`;
+}
 function aptFC(apts: Apt[]) {
   return { type: 'FeatureCollection', features: apts.filter((a) => a.lat && a.lng).map((a) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [a.lng, a.lat] }, properties: { id: a.id, price: a.price ?? 0, rooms: a.rooms ?? 0, square: a.square ?? 0, floor: a.floor ?? '', addr: a.addr ?? '', market: a.market, photo: a.photo ?? '' } })) };
 }
