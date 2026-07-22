@@ -20,6 +20,7 @@ export default function Home() {
     lat: z.lat,
     lng: z.lng,
     priceSqm: z.priceSqm,
+    priceMin: z.priceMin,
     classRu: z.classRu,
     constructionStatusRu: z.constructionStatusRu,
     developer: z.developer ? { name: z.developer.name, slug: z.developer.slug } : null,

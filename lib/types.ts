@@ -56,6 +56,8 @@ export interface ScoreFactor {
   detail: string;
   source: string | null;
   sourceUrl?: string | null;
+  /** 'первоисточник' = official/govt registry; 'витрина' = marketing aggregator. */
+  sourceType?: 'первоисточник' | 'витрина';
   /** true = this factor lowers the score (a risk flag). */
   negative?: boolean;
 }

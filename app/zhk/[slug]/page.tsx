@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getAllZhk, getZhkBySlug } from '../../../lib/data';
-import { BAND_COLOR, BAND_LABEL } from '../../../lib/score';
+import { BAND_COLOR, BAND_LABEL, SCORE_NAME, SCORE_DEF } from '../../../lib/score';
 import MiniMap from '../../../components/MiniMap';
 import s from './zhk.module.scss';
 
@@ -60,12 +60,16 @@ export default async function ZhkPage({ params }: { params: Promise<{ slug: stri
           <div className={s.priceBox}>
             <div className={s.priceMain}>{price}</div>
             {z.priceMin && <div className={s.priceSub}>от {z.priceMin.toLocaleString('ru-RU')} ₸ за квартиру</div>}
+            <div className={s.priceSub} style={{ marginTop: 8, color: 'var(--amber)', fontSize: 12 }}>
+              ⚠ витрина korter — маркетинг застройщика, не оценка
+            </div>
           </div>
         </div>
       </div>
 
       <section className={s.section}>
-        <div className={s.sectionTitle}>Риск-балл застройщика — из чего сложился</div>
+        <div className={s.sectionTitle}>{SCORE_NAME} — из чего сложился</div>
+        <p style={{ margin: '-6px 0 18px', color: 'var(--text-dim)', fontSize: 14, lineHeight: 1.55, maxWidth: 680 }}>{SCORE_DEF}</p>
         <div className={s.scoreWrap}>
           <div className={s.scoreDial}>
             <div className={s.dial}>
@@ -91,6 +95,18 @@ export default async function ZhkPage({ params }: { params: Promise<{ slug: stri
                 <div className={s.factorHead}>
                   <span className={s.factorName}>{f.label}</span>
                   <span className={s.factorWeight}>вес {f.weight}</span>
+                  {f.sourceType && (
+                    <span
+                      className={s.factorWeight}
+                      style={{
+                        color: f.sourceType === 'первоисточник' ? 'var(--green)' : 'var(--amber)',
+                        background: f.sourceType === 'первоисточник' ? 'rgba(46,204,113,0.1)' : 'rgba(241,196,15,0.1)',
+                      }}
+                      title={f.sourceType === 'первоисточник' ? 'Государственный / официальный реестр' : 'Данные агрегатора-витрины (маркетинг застройщика)'}
+                    >
+                      {f.sourceType}
+                    </span>
+                  )}
                   <div className={s.factorSpacer} />
                   <span className={s.factorVal} style={{ color: f.value == null ? 'var(--grey)' : f.negative ? 'var(--red)' : 'var(--text)' }}>
                     {f.value == null ? 'нет данных' : `${Math.round(f.value * 100)}/100`}

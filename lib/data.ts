@@ -5,11 +5,31 @@ import { scoreZhk } from './score';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 
+const nameKey = (s: string) =>
+  s.toLowerCase()
+    .replace(/[«»"'`]/g, '')
+    .replace(/\b(жк|мжк|кг|таунхаусы|жилой комплекс|клубный дом|residence|резиденс)\b/g, '')
+    .replace(/[^a-zа-яё0-9]/gi, '')
+    .trim();
+
+function readJSON(file: string): ZhkRaw[] {
+  const p = path.join(DATA_DIR, file);
+  if (!existsSync(p)) return [];
+  try { return JSON.parse(readFileSync(p, 'utf-8')); } catch { return []; }
+}
+
 function loadRaw(): ZhkRaw[] {
-  const primary = path.join(DATA_DIR, 'zhk.json');
-  const fallback = path.join(DATA_DIR, 'zhk-raw.json');
-  const file = existsSync(primary) ? primary : fallback;
-  return JSON.parse(readFileSync(file, 'utf-8'));
+  // korter is primary (richer: images, parking, seismic, class); krisha adds coverage.
+  const korter = existsSync(path.join(DATA_DIR, 'zhk.json')) ? readJSON('zhk.json') : readJSON('zhk-raw.json');
+  const krisha = readJSON('zhk-krisha.json');
+  const byName = new Map<string, ZhkRaw>();
+  for (const z of korter) if (z.name) byName.set(nameKey(z.name), z);
+  for (const z of krisha) {
+    if (!z.name || !z.lat || !z.lng) continue;
+    const k = nameKey(z.name);
+    if (!byName.has(k)) byName.set(k, z); // only add ЖК korter doesn't already have
+  }
+  return [...byName.values()];
 }
 
 function loadGuarantees(): Record<string, GuaranteeMatch> {

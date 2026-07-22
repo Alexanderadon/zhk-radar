@@ -72,12 +72,12 @@ export function scoreZhk(zhk: ZhkRaw, stats: DeveloperStats | null, guarantee: G
   const st = stopFactor(zhk, guarantee);
 
   const factors: ScoreFactor[] = [
-    { key: 'guarantee', label: 'Гарантия долевого участия', weight: WEIGHTS.guarantee, ...g },
-    { key: 'track', label: 'Трек застройщика', weight: WEIGHTS.track, ...t },
-    { key: 'age', label: 'Возраст компании', weight: WEIGHTS.age, ...GREY('Возраст компании', 'Нужен БИН застройщика (кодирует дату регистрации) — источник не подключён в этой сборке.') },
-    { key: 'stop', label: 'Признаки остановки стройки', weight: WEIGHTS.stop, ...st },
-    { key: 'courts', label: 'Судебные иски', weight: WEIGHTS.courts, ...GREY('Суды', 'office.sud.kz за reCAPTCHA — требует ручной сессии с локальной машины (Фаза 1, спайк).') },
-    { key: 'reviews', label: 'Отзывы жильцов', weight: WEIGHTS.reviews, ...GREY('Отзывы', 'Дайджест 2GIS подключается отдельным коллектором.') },
+    { key: 'guarantee', label: 'Гарантия долевого участия', weight: WEIGHTS.guarantee, sourceType: 'первоисточник', ...g },
+    { key: 'track', label: 'Трек застройщика', weight: WEIGHTS.track, sourceType: 'витрина', ...t },
+    { key: 'age', label: 'Возраст компании', weight: WEIGHTS.age, sourceType: 'первоисточник', ...GREY('Возраст компании', 'Нужен БИН застройщика (кодирует дату регистрации) — госисточник, не подключён в этой сборке.') },
+    { key: 'stop', label: 'Признаки остановки стройки', weight: WEIGHTS.stop, sourceType: 'первоисточник', ...st },
+    { key: 'courts', label: 'Судебные иски', weight: WEIGHTS.courts, sourceType: 'первоисточник', ...GREY('Суды', 'office.sud.kz за reCAPTCHA — требует ручной сессии с локальной машины (Фаза 1, спайк).') },
+    { key: 'reviews', label: 'Отзывы жильцов', weight: WEIGHTS.reviews, sourceType: 'витрина', ...GREY('Отзывы', 'Дайджест 2GIS подключается отдельным коллектором.') },
   ];
 
   let num = 0, den = 0;
@@ -103,9 +103,15 @@ export const BAND_COLOR: Record<ScoreResult['band'], string> = {
   grey: '#8a94a6',
 };
 
+// Metric renamed so its direction is obvious: higher = safer. Bands follow the same polarity.
 export const BAND_LABEL: Record<ScoreResult['band'], string> = {
-  green: 'Низкий риск',
-  amber: 'Средний риск',
-  red: 'Высокий риск',
+  green: 'Высокая защита',
+  amber: 'Средняя защита',
+  red: 'Низкая защита',
   grey: 'Мало данных',
 };
+
+/** The metric's public name + one-sentence definition, shown everywhere it appears. */
+export const SCORE_NAME = 'Индекс защиты покупателя';
+export const SCORE_DEF =
+  '0–100 по открытым данным: выше — безопаснее купить. Складывается из защиты денег (гарантия КФГЖС), надёжности застройщика, сейсмики и др. — каждый фактор со ссылкой на источник.';

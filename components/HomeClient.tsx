@@ -16,6 +16,7 @@ export interface HomeZhk {
   lat: number | null;
   lng: number | null;
   priceSqm: number | null;
+  priceMin: number | null;
   classRu: string | null;
   constructionStatusRu: string | null;
   developer: { name: string; slug: string } | null;
@@ -74,7 +75,11 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
   }, [zhks, q, band, cls, status, parking, sort]);
 
   const points: MapPoint[] = useMemo(
-    () => filtered.filter((z) => z.lat && z.lng).map((z) => ({ id: z.id, slug: z.slug, name: z.name, lat: z.lat!, lng: z.lng!, band: z.band, score: z.score, priceSqm: z.priceSqm, developer: z.developer?.name ?? null })),
+    () => filtered.filter((z) => z.lat && z.lng).map((z) => ({
+      id: z.id, slug: z.slug, name: z.name, lat: z.lat!, lng: z.lng!, band: z.band, score: z.score,
+      priceSqm: z.priceSqm, priceMin: z.priceMin, developer: z.developer?.name ?? null,
+      classRu: z.classRu, statusRu: z.constructionStatusRu, district: z.district, seismic: z.seismicResistance, image: z.image,
+    })),
     [filtered]
   );
 
@@ -97,7 +102,7 @@ export default function HomeClient({ zhks, freshness }: { zhks: HomeZhk[]; fresh
               <input className={s.search} placeholder="Поиск ЖК, застройщика, района…" value={q} onChange={(e) => setQ(e.target.value)} />
             </div>
             <div className={s.filterGroup}>
-              <span className={s.fLabel}>Риск</span>
+              <span className={s.fLabel}>Защита покупателя</span>
               {BANDS.map((b) => (
                 <button key={b} className={`${s.pill} ${band.has(b) ? s.pillActive : ''}`} onClick={() => toggle(band, b, setBand)}>
                   <span style={{ color: band.has(b) ? '#061019' : BAND_COLOR[b] }}>●</span> {BAND_LABEL[b]}

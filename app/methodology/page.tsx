@@ -6,12 +6,12 @@ import s from './method.module.scss';
 export const dynamic = 'force-static';
 
 const ROWS = [
-  { key: 'guarantee', label: 'Гарантия долевого участия', src: 'Реестр КФГЖС (khc.kz)', desc: 'Есть ли у ЖК действующий договор гарантии долевого строительства. «Гарантийный случай» — сильный негатив (застройщик не исполнил обязательства).' },
-  { key: 'track', label: 'Трек застройщика', src: 'Портфель на korter.kz + завершённый реестр КЖК', desc: 'Сколько ЖК застройщик уже сдал против строящихся и приостановленных. Доля сданных = ключевой сигнал надёжности.' },
-  { key: 'age', label: 'Возраст компании', src: 'БИН (кодирует дату регистрации)', desc: 'Молодое ТОО, зарегистрированное под один проект — выше риск, чем компания с историей. Считается из БИН застройщика.' },
-  { key: 'stop', label: 'Признаки остановки стройки', src: 'Гарант-случаи КФГЖС + мониторинг новостей + акиматы', desc: 'Официально зафиксированные остановки. Каждый флаг обязан ссылаться на официальный акт — иначе не публикуется.' },
-  { key: 'courts', label: 'Судебные иски', src: 'Банк судебных актов (office.sud.kz)', desc: 'Иски к ТОО застройщика: банкротство, споры с дольщиками. Показываем контекст дела, а не голый счётчик.' },
-  { key: 'reviews', label: 'Отзывы жильцов', src: '2GIS (дайджест)', desc: 'Сентимент отзывов как мягкий модификатор. Не ядро оценки — люди чаще пишут в гневе, чем в благодарности.' },
+  { key: 'guarantee', label: 'Гарантия долевого участия', src: 'Реестр КФГЖС (khc.kz)', type: 'первоисточник', desc: 'Есть ли у ЖК действующий договор гарантии долевого строительства. «Гарантийный случай» — сильный негатив (застройщик не исполнил обязательства).' },
+  { key: 'track', label: 'Трек застройщика', src: 'Портфель на korter.kz (витрина)', type: 'витрина', desc: 'Сколько ЖК застройщик уже сдал против строящихся и приостановленных. Доля сданных = сигнал надёжности. Пока из каталога-витрины — заменяется на завершённый реестр КЖК (первоисточник).' },
+  { key: 'age', label: 'Возраст компании', src: 'БИН (кодирует дату регистрации)', type: 'первоисточник', desc: 'Молодое ТОО, зарегистрированное под один проект — выше риск, чем компания с историей. Считается из БИН застройщика.' },
+  { key: 'stop', label: 'Признаки остановки стройки', src: 'Гарант-случаи КФГЖС + акиматы', type: 'первоисточник', desc: 'Официально зафиксированные остановки. Каждый флаг обязан ссылаться на официальный акт — иначе не публикуется.' },
+  { key: 'courts', label: 'Судебные иски', src: 'Банк судебных актов (office.sud.kz)', type: 'первоисточник', desc: 'Иски к ТОО застройщика: банкротство, споры с дольщиками. Показываем контекст дела, а не голый счётчик.' },
+  { key: 'reviews', label: 'Отзывы жильцов', src: '2GIS (дайджест)', type: 'витрина', desc: 'Сентимент отзывов как мягкий модификатор. Не ядро оценки — люди чаще пишут в гневе, чем в благодарности.' },
 ];
 
 export default function Methodology() {
@@ -20,10 +20,13 @@ export default function Methodology() {
     <div className={s.page}>
       <div className={s.topbar}><Link href="/" className={s.back}>← карта</Link></div>
 
-      <h1 className={s.h1}>Как считается риск-балл</h1>
+      <h1 className={s.h1}>Как считается «Индекс защиты покупателя»</h1>
       <p className={s.lead}>
-        ЖК-Радар не выносит вердиктов «застройщик мошенник». Он собирает открытые проверяемые сигналы, взвешивает их по фиксированной формуле и показывает балл 0–100 — <b>с разбором каждого фактора и ссылкой на первоисточник</b>. Вы всегда видите, из чего сложилась оценка.
+        ЖК-Радар не выносит вердиктов «застройщик мошенник». Он собирает открытые проверяемые сигналы, взвешивает их по фиксированной формуле и показывает балл 0–100, где <b>выше — безопаснее купить</b> — с разбором каждого фактора и ссылкой на первоисточник. Вы всегда видите, из чего сложилась оценка.
       </p>
+      <div className={s.callout} style={{ marginTop: 18 }}>
+        <b>Что это за число.</b> «Индекс защиты покупателя» отвечает на один вопрос: <b>насколько безопасно здесь покупать</b> — защищены ли деньги (госгарантия КФГЖС), надёжен ли застройщик, безопасен ли объект. 100 = максимум защиты, 0 = максимум риска. Каждый фактор помечен: <span style={{ color: 'var(--green)' }}>первоисточник</span> (госреестр) или <span style={{ color: 'var(--amber)' }}>витрина</span> (данные агрегатора-каталога).
+      </div>
 
       <h2 className={s.h2}>Шесть факторов и их вес</h2>
       <p className={`${s.p} ${s.dim}`}>Веса подобраны по доступности и надёжности источников (после разведки источников, Фаза 0). Сумма = 100.</p>
@@ -34,7 +37,10 @@ export default function Methodology() {
             <tr key={r.key}>
               <td className={s.w}>{WEIGHTS[r.key]}</td>
               <td><b>{r.label}</b><br /><span style={{ color: 'var(--text-dim)', fontSize: 13 }}>{r.desc}</span></td>
-              <td style={{ color: 'var(--text-dim)', fontSize: 13 }}>{r.src}</td>
+              <td style={{ color: 'var(--text-dim)', fontSize: 13 }}>
+                <span style={{ display: 'inline-block', fontSize: 11, fontWeight: 600, padding: '1px 7px', borderRadius: 5, marginBottom: 5, color: r.type === 'первоисточник' ? 'var(--green)' : 'var(--amber)', background: r.type === 'первоисточник' ? 'rgba(46,204,113,0.1)' : 'rgba(241,196,15,0.1)' }}>{r.type}</span>
+                <br />{r.src}
+              </td>
             </tr>
           ))}
         </tbody>
@@ -46,9 +52,9 @@ export default function Methodology() {
 
       <h2 className={s.h2}>Цветовые зоны</h2>
       <div className={s.bands}>
-        <div className={s.bandCard}><div className={s.bandName} style={{ color: 'var(--green)' }}>Низкий риск</div><div className={s.bandRange}>70–100 баллов</div></div>
-        <div className={s.bandCard}><div className={s.bandName} style={{ color: 'var(--amber)' }}>Средний риск</div><div className={s.bandRange}>40–69 баллов</div></div>
-        <div className={s.bandCard}><div className={s.bandName} style={{ color: 'var(--red)' }}>Высокий риск</div><div className={s.bandRange}>0–39 баллов</div></div>
+        <div className={s.bandCard}><div className={s.bandName} style={{ color: 'var(--green)' }}>Высокая защита</div><div className={s.bandRange}>70–100 баллов</div></div>
+        <div className={s.bandCard}><div className={s.bandName} style={{ color: 'var(--amber)' }}>Средняя защита</div><div className={s.bandRange}>40–69 баллов</div></div>
+        <div className={s.bandCard}><div className={s.bandName} style={{ color: 'var(--red)' }}>Низкая защита</div><div className={s.bandRange}>0–39 баллов</div></div>
         <div className={s.bandCard}><div className={s.bandName} style={{ color: 'var(--grey)' }}>Мало данных</div><div className={s.bandRange}>полнота &lt; 15%</div></div>
       </div>
 
