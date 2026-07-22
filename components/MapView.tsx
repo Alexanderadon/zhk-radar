@@ -62,22 +62,47 @@ export default function MapView({
           id: 'district-fill', type: 'fill', source: 'districts',
           paint: { 'fill-color': ['get', 'color'], 'fill-opacity': ['case', ['==', ['get', 'name'], activeDistrict ?? '__none__'], 0.28, 0.1] },
         } as any);
-        m.addLayer({ id: 'district-line', type: 'line', source: 'districts', paint: { 'line-color': ['get', 'color'], 'line-width': 1.4, 'line-opacity': 0.55 } });
+        m.addLayer({ id: 'district-line', type: 'line', source: 'districts', paint: { 'line-color': ['get', 'color'], 'line-width': 2, 'line-opacity': 0.7 } });
         m.addLayer({
           id: 'district-label', type: 'symbol', source: 'districts',
-          layout: { 'text-field': ['get', 'name'], 'text-size': 13, 'text-font': ['Noto Sans Regular'] },
-          paint: { 'text-color': ['get', 'color'], 'text-halo-color': '#ffffff', 'text-halo-width': 1.4, 'text-opacity': 0.9 },
+          layout: { 'text-field': ['get', 'name'], 'text-size': 15, 'text-font': ['Noto Sans Regular'], 'text-allow-overlap': true, 'text-ignore-placement': true, 'symbol-placement': 'point' },
+          paint: { 'text-color': ['get', 'color'], 'text-halo-color': '#ffffff', 'text-halo-width': 2, 'text-opacity': 0.95 },
         });
       } catch {}
 
-      m.addSource('zhk', { type: 'geojson', data: toGeoJSON(points) });
-      m.addLayer({ id: 'zhk-glow', type: 'circle', source: 'zhk', paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 10, 9, 15, 20], 'circle-color': ['get', 'color'], 'circle-opacity': 0.22, 'circle-blur': 0.6 } });
+      m.addSource('zhk', { type: 'geojson', data: toGeoJSON(points), cluster: true, clusterMaxZoom: 13, clusterRadius: 52 });
+      const notCluster = ['!', ['has', 'point_count']] as any;
+      // cluster bubbles (krisha-style, with count)
       m.addLayer({
-        id: 'zhk-dot', type: 'circle', source: 'zhk',
-        paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 10, 6, 15, 10], 'circle-color': ['get', 'color'], 'circle-stroke-width': ['case', ['get', 'deal'], 2.5, 1.5], 'circle-stroke-color': ['case', ['get', 'deal'], '#ffffff', '#20293a'] },
+        id: 'clusters', type: 'circle', source: 'zhk', filter: ['has', 'point_count'],
+        paint: {
+          'circle-color': ['step', ['get', 'point_count'], '#4a9eff', 30, '#3a86e0', 120, '#2b6cb0'],
+          'circle-opacity': 0.92,
+          'circle-radius': ['step', ['get', 'point_count'], 15, 15, 20, 50, 26, 150, 34],
+          'circle-stroke-width': 4, 'circle-stroke-color': 'rgba(74,158,255,0.25)',
+        },
       });
+      m.addLayer({
+        id: 'cluster-count', type: 'symbol', source: 'zhk', filter: ['has', 'point_count'],
+        layout: { 'text-field': ['get', 'point_count_abbreviated'], 'text-size': 13, 'text-font': ['Noto Sans Regular'] },
+        paint: { 'text-color': '#ffffff' },
+      });
+      // individual pins (declustered)
+      m.addLayer({ id: 'zhk-glow', type: 'circle', source: 'zhk', filter: notCluster, paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 10, 9, 15, 20], 'circle-color': ['get', 'color'], 'circle-opacity': 0.22, 'circle-blur': 0.6 } });
+      m.addLayer({ id: 'zhk-dot', type: 'circle', source: 'zhk', filter: notCluster, paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 10, 6, 15, 10], 'circle-color': ['get', 'color'], 'circle-stroke-width': ['case', ['get', 'deal'], 2.5, 1.5], 'circle-stroke-color': ['case', ['get', 'deal'], '#ffffff', '#20293a'] } });
       m.addLayer({ id: 'zhk-selected', type: 'circle', source: 'zhk', filter: ['==', ['get', 'id'], -1], paint: { 'circle-radius': 12, 'circle-color': ['get', 'color'], 'circle-stroke-width': 3, 'circle-stroke-color': '#0b0f17' } });
       ready.current = true;
+
+      // click a cluster → zoom in to split it
+      m.on('click', 'clusters', (e) => {
+        const f = m.queryRenderedFeatures(e.point, { layers: ['clusters'] })[0]; if (!f) return;
+        const cid = (f.properties as any).cluster_id;
+        (m.getSource('zhk') as any).getClusterExpansionZoom(cid).then((z: number) => {
+          m.easeTo({ center: (f.geometry as any).coordinates, zoom: Math.min(z + 0.5, 16) });
+        }).catch(() => {});
+      });
+      m.on('mouseenter', 'clusters', () => (m.getCanvas().style.cursor = 'pointer'));
+      m.on('mouseleave', 'clusters', () => (m.getCanvas().style.cursor = ''));
 
       let hovered: number | null = null;
       const showHover = (e: maplibregl.MapLayerMouseEvent) => {
