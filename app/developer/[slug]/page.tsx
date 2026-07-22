@@ -39,7 +39,7 @@ export default async function DeveloperPage({ params }: { params: Promise<{ slug
       </div>
 
       <div className={s.statgrid}>
-        <div className={s.stat}><div className={s.statNum} style={{ color: avg != null ? BAND_COLOR[band(avg)] : 'var(--grey)' }}>{avg ?? '—'}</div><div className={s.statLabel}>средний риск-балл</div></div>
+        <div className={s.stat}><div className={s.statNum} style={{ color: avg != null ? BAND_COLOR[band(avg)] : 'var(--grey)' }}>{avg ?? '—'}</div><div className={s.statLabel}>средний индекс защиты</div></div>
         <div className={s.stat}><div className={s.statNum} style={{ color: 'var(--green)' }}>{stats.ready}</div><div className={s.statLabel}>сдано</div></div>
         <div className={s.stat}><div className={s.statNum} style={{ color: 'var(--amber)' }}>{stats.construction}</div><div className={s.statLabel}>строится</div></div>
         <div className={s.stat}><div className={s.statNum}>{stats.project}</div><div className={s.statLabel}>на этапе проекта</div></div>
