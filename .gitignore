@@ -10,3 +10,5 @@ scripts/.cache
 data/listings.json
 public/listings.json
 *.tsbuildinfo
+
+.vercel
