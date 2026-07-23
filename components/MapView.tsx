@@ -101,6 +101,17 @@ export default function MapView({
           'circle-stroke-width': 1.4, 'circle-stroke-color': '#ffffff',
         },
       });
+      // ценник-пилюля прямо на карте (видно цену сразу, без наведения); коллизия прячет наложения
+      try { if (!m.hasImage('price-pill')) m.addImage('price-pill', makePricePill(), { pixelRatio: 2, stretchX: [[16, 112]], stretchY: [[12, 32]], content: [14, 8, 114, 36] }); } catch {}
+      m.addLayer({
+        id: 'apt-price', type: 'symbol', source: 'apt', filter: aptNotCluster, minzoom: 14, layout: {
+          visibility: 'none',
+          'icon-image': 'price-pill', 'icon-text-fit': 'both', 'icon-text-fit-padding': [1, 5, 1, 5],
+          'text-field': ['get', 'priceLabel'], 'text-size': 11, 'text-font': ['Noto Sans Regular'],
+          'text-allow-overlap': false, 'icon-allow-overlap': false, 'symbol-sort-key': ['get', 'price'],
+        },
+        paint: { 'text-color': ['match', ['get', 'market'], 'primary', '#15803d', '#334155'] },
+      });
       // ---- SOLD (недавно продано) ----
       m.addSource('sold', { type: 'geojson', data: emptyFC() as any });
       m.addLayer({ id: 'sold-dot', type: 'circle', source: 'sold', layout: { visibility: 'none' }, paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 11, 4, 16, 9], 'circle-color': '#e74c3c', 'circle-opacity': 0.85, 'circle-stroke-width': 1.4, 'circle-stroke-color': '#ffffff' } });
@@ -157,7 +168,7 @@ export default function MapView({
 
   function setVis(m: maplibregl.Map, layers: string[], v: 'visible' | 'none') { for (const l of layers) if (m.getLayer(l)) m.setLayoutProperty(l, 'visibility', v); }
   const COMPLEX_LAYERS = ['clusters', 'cluster-count', 'zhk-glow', 'zhk-dot', 'zhk-selected', 'zhk-fav'];
-  const APT_LAYERS = ['apt-cluster', 'apt-cluster-count', 'apt-dot'];
+  const APT_LAYERS = ['apt-cluster', 'apt-cluster-count', 'apt-dot', 'apt-price'];
 
   function filteredApts(): Apt[] {
     const all = allApts.current || [];
@@ -219,8 +230,26 @@ function soldHtml(p: any) {
     <div style="font-size:12px;color:#97a0ad">${escapeHtml(p.addr || '')}</div>
   </div>`;
 }
+function priceShort(p: number | null): string {
+  if (!p) return '';
+  if (p >= 1_000_000) return `${Math.round(p / 1_000_000)} млн`;
+  return `${Math.round(p / 1_000)} тыс`;
+}
 function aptFC(apts: Apt[]) {
-  return { type: 'FeatureCollection', features: apts.filter((a) => a.lat && a.lng).map((a) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [a.lng, a.lat] }, properties: { id: a.id, price: a.price ?? 0, rooms: a.rooms ?? 0, square: a.square ?? 0, floor: a.floor ?? '', addr: a.addr ?? '', market: a.market, photo: a.photo ?? '' } })) };
+  return { type: 'FeatureCollection', features: apts.filter((a) => a.lat && a.lng).map((a) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [a.lng, a.lat] }, properties: { id: a.id, price: a.price ?? 0, priceLabel: priceShort(a.price), rooms: a.rooms ?? 0, square: a.square ?? 0, floor: a.floor ?? '', addr: a.addr ?? '', market: a.market, photo: a.photo ?? '' } })) };
+}
+// белая скруглённая «пилюля» под цену (9-slice, углы не растягиваются)
+function roundRectPath(x: CanvasRenderingContext2D, X: number, Y: number, w: number, h: number, r: number) {
+  x.beginPath(); x.moveTo(X + r, Y); x.arcTo(X + w, Y, X + w, Y + h, r); x.arcTo(X + w, Y + h, X, Y + h, r); x.arcTo(X, Y + h, X, Y, r); x.arcTo(X, Y, X + w, Y, r); x.closePath();
+}
+function makePricePill() {
+  const pr = 2, w = 64, h = 22, r = 8;
+  const c = document.createElement('canvas'); c.width = w * pr; c.height = h * pr;
+  const x = c.getContext('2d')!; x.scale(pr, pr);
+  x.fillStyle = '#ffffff'; roundRectPath(x, 0.5, 0.5, w - 1, h - 1, r); x.fill();
+  x.lineWidth = 1; x.strokeStyle = 'rgba(20,24,31,0.16)'; roundRectPath(x, 0.5, 0.5, w - 1, h - 1, r); x.stroke();
+  const d = x.getImageData(0, 0, c.width, c.height);
+  return { data: new Uint8Array(d.data.buffer), width: c.width, height: c.height };
 }
 function toGeoJSON(points: MapPoint[]) {
   return { type: 'FeatureCollection', features: points.filter((p) => p.lat && p.lng).map((p) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [p.lng, p.lat] }, properties: { id: p.id, name: p.name, color: BAND_COLOR[p.band], band: p.band, score: p.score ?? '', slug: p.slug, priceSqm: p.priceSqm ?? 0, priceMin: p.priceMin ?? 0, developer: p.developer ?? '', classRu: p.classRu ?? '', statusRu: p.statusRu ?? '', district: p.district ?? '', seismic: p.seismic ?? 0, image: p.image ?? '', real: !!p.real, deal: !!p.deal } })) };
