@@ -1,0 +1,11 @@
+# Когда .vercelignore есть, Vercel использует ЕГО (не .gitignore) для решения, что грузить.
+# Значит gitignored data-файлы (public/listings.json и т.п.) попадут в деплой — это нужно.
+# А локальный .env.local с плейсхолдер-Supabase НЕ должен попасть (иначе на проде появится
+# нерабочая кнопка входа). Прод без env → кнопка входа скрыта → избранное на localStorage.
+node_modules
+.next
+.git
+.env.local
+.env*.local
+*.log
+scratchpad
