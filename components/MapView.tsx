@@ -107,8 +107,11 @@ export default function MapView({
         id: 'apt-price', type: 'symbol', source: 'apt', filter: aptNotCluster, minzoom: 14, layout: {
           visibility: 'none',
           'icon-image': 'price-pill', 'icon-text-fit': 'both', 'icon-text-fit-padding': [1, 5, 1, 5],
-          'text-field': ['get', 'priceLabel'], 'text-size': 11, 'text-font': ['Noto Sans Regular'],
-          'text-allow-overlap': false, 'icon-allow-overlap': false, 'symbol-sort-key': ['get', 'price'],
+          'text-field': ['get', 'priceLabel'], 'text-size': 10.5, 'text-font': ['Noto Sans Regular'],
+          'text-offset': [0, -1.5], 'text-anchor': 'center',
+          // все ценники всегда видны — коллизию отключаем (юзер не будет наводить/зумить каждую точку)
+          'text-allow-overlap': true, 'icon-allow-overlap': true, 'text-ignore-placement': true, 'icon-ignore-placement': true,
+          'symbol-sort-key': ['-', 200, ['/', ['get', 'price'], 1000000]],
         },
         paint: { 'text-color': ['match', ['get', 'market'], 'primary', '#15803d', '#334155'] },
       });
