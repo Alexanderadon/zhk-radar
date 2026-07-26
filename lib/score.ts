@@ -94,8 +94,18 @@ export function scoreZhk(zhk: ZhkRaw, stats: DeveloperStats | null, guarantee: G
   return { score, band, completeness, indicators };
 }
 
+/** Заливки: точки на карте, полосы индикаторов. Насыщенные — по ним не читают текст. */
 export const BAND_COLOR: Record<Band, string> = {
   green: '#2ecc71', amber: '#f1c40f', red: '#e74c3c', grey: '#8a94a6',
+};
+
+/**
+ * Те же полосы, но для ТЕКСТА на светлом фоне. Заливочный жёлтый #f1c40f
+ * давал контраст ~1.7:1 — вердикт «Средняя защита» физически не читался.
+ * Здесь всё ≥4.9:1 (WCAG AA для обычного текста).
+ */
+export const BAND_TEXT: Record<Band, string> = {
+  green: '#15803d', amber: '#b45309', red: '#c81e1e', grey: '#5b6472',
 };
 
 // Higher = safer, so bands read as protection level.

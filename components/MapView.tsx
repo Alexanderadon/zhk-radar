@@ -2,7 +2,7 @@
 import { useEffect, useRef } from 'react';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import { BAND_COLOR, BAND_LABEL } from '../lib/score';
+import { BAND_COLOR, BAND_TEXT, BAND_LABEL } from '../lib/score';
 
 export interface MapPoint {
   id: number; slug: string; name: string; lat: number; lng: number;
@@ -11,6 +11,13 @@ export interface MapPoint {
   classRu: string | null; statusRu: string | null; district: string | null;
   seismic: number | null; image: string | null; real: boolean; deal: boolean;
 }
+
+/** Что показать в карточке после тапа по карте (на тач-устройствах вместо hover-попапа). */
+export type MapDetail =
+  | { kind: 'zhk'; id: number; slug: string; name: string }
+  | { kind: 'apt'; id: number; price: number | null; rooms: number | null; square: number | null; floor: string | null; addr: string | null; market: 'primary' | 'secondary'; photo: string | null }
+  | { kind: 'landmark'; name: string; kindRu: string | null; rating: number | null; photo: string | null }
+  | { kind: 'sold'; price: number | null; rooms: number | null; square: number | null; addr: string | null };
 
 export interface Apt {
   id: number; lat: number; lng: number; price: number | null; rooms: number | null;
@@ -23,11 +30,13 @@ const ALMATY: [number, number] = [76.905, 43.238];
 
 export default function MapView({
   points, selectedId, onSelect, activeDistrict,
-  mode = 'complexes', aptMarket, aptRooms, showSold, aptPrice, favSet, onToggleFav,
+  mode = 'complexes', aptMarket, aptRooms, showSold, aptPrice, favSet, onToggleFav, touchMode = false, onDetail,
 }: {
   points: MapPoint[]; selectedId: number | null; onSelect: (id: number) => void; activeDistrict?: string | null;
   mode?: 'complexes' | 'apartments'; aptMarket?: Set<string>; aptRooms?: Set<number>; showSold?: boolean; aptPrice?: { min: number; max: number } | null;
   favSet?: Set<number>; onToggleFav?: (id: number) => void;
+  /** На тач-устройствах тап по метке не «телепортирует», а открывает карточку в шторке. */
+  touchMode?: boolean; onDetail?: (d: MapDetail | null) => void;
 }) {
   const container = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
@@ -38,6 +47,10 @@ export default function MapView({
   favSetRef.current = favSet;
   const onToggleFavRef = useRef<((id: number) => void) | undefined>(onToggleFav);
   onToggleFavRef.current = onToggleFav;
+  const touchModeRef = useRef(touchMode);
+  touchModeRef.current = touchMode;
+  const onDetailRef = useRef<((d: MapDetail | null) => void) | undefined>(onDetail);
+  onDetailRef.current = onDetail;
   const allApts = useRef<Apt[] | null>(null);
   const loadingApts = useRef(false);
   const allSold = useRef<any[] | null>(null);
@@ -45,10 +58,17 @@ export default function MapView({
 
   useEffect(() => {
     if (map.current || !container.current) return;
-    const m = new maplibregl.Map({ container: container.current, style: STYLE, center: ALMATY, zoom: 11, attributionControl: { compact: true } });
+    const m = new maplibregl.Map({ container: container.current, style: STYLE, center: ALMATY, zoom: 11, attributionControl: false });
     map.current = m;
     if (typeof window !== 'undefined') (window as any)._map = m;
-    m.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'bottom-right');
+    // На узком экране низ занят шторкой, поэтому зум уезжает вправо-вверх,
+    // а копирайт — влево-вниз (иначе оба оказываются под шторкой).
+    const narrow = typeof window !== 'undefined' && window.matchMedia('(max-width: 900px)').matches;
+    m.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
+    m.addControl(new maplibregl.NavigationControl({ showCompass: false }), narrow ? 'top-right' : 'bottom-right');
+    // компаса нет, поэтому случайный поворот/наклон пальцами было бы нечем вернуть
+    m.touchZoomRotate.disableRotation();
+    m.touchPitch.disable();
     const hover = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 16, maxWidth: '272px', className: 'zhk-hover' });
 
     m.on('load', async () => {
@@ -121,34 +141,87 @@ export default function MapView({
       ready.current = true;
 
       // complex handlers
-      m.on('click', 'clusters', (e) => { const f = m.queryRenderedFeatures(e.point, { layers: ['clusters'] })[0]; if (!f) return; (m.getSource('zhk') as any).getClusterExpansionZoom((f.properties as any).cluster_id).then((z: number) => m.easeTo({ center: (f.geometry as any).coordinates, zoom: Math.min(z + 0.5, 16) })).catch(() => {}); });
+      // на тач кластеры разбирает делегированный обработчик — иначе easeTo сработает дважды
+      m.on('click', 'clusters', (e) => { if (touchModeRef.current) return; const f = m.queryRenderedFeatures(e.point, { layers: ['clusters'] })[0]; if (!f) return; (m.getSource('zhk') as any).getClusterExpansionZoom((f.properties as any).cluster_id).then((z: number) => m.easeTo({ center: (f.geometry as any).coordinates, zoom: Math.min(z + 0.5, 16) })).catch(() => {}); });
       m.on('mouseenter', 'clusters', () => (m.getCanvas().style.cursor = 'pointer'));
       m.on('mouseleave', 'clusters', () => (m.getCanvas().style.cursor = ''));
 
       let hovered: any = null;
-      const hoverZhk = (e: maplibregl.MapLayerMouseEvent) => { const f = e.features?.[0]; if (!f) return; const p = f.properties as any; if (('z' + p.id) === hovered) { hover.setLngLat((f.geometry as any).coordinates); return; } hovered = 'z' + p.id; m.getCanvas().style.cursor = 'pointer'; hover.setLngLat((f.geometry as any).coordinates).setHTML(cardHtml(p, !!favSetRef.current?.has(Number(p.id)))).addTo(m); };
+      const hoverZhk = (e: maplibregl.MapLayerMouseEvent) => { if (touchModeRef.current) return; const f = e.features?.[0]; if (!f) return; const p = f.properties as any; if (('z' + p.id) === hovered) { hover.setLngLat((f.geometry as any).coordinates); return; } hovered = 'z' + p.id; m.getCanvas().style.cursor = 'pointer'; hover.setLngLat((f.geometry as any).coordinates).setHTML(cardHtml(p, !!favSetRef.current?.has(Number(p.id)))).addTo(m); };
       m.on('mouseenter', 'zhk-dot', hoverZhk); m.on('mousemove', 'zhk-dot', hoverZhk);
       m.on('mouseleave', 'zhk-dot', () => { hovered = null; m.getCanvas().style.cursor = ''; hover.remove(); });
-      m.on('click', 'zhk-dot', (e) => { const f = e.features?.[0]; if (!f) return; const p = f.properties as any; onSelectRef.current(Number(p.id)); window.location.href = `/zhk${p.slug}`; });
+      // на тач весь разбор клика делает делегированный обработчик ниже (с увеличенной зоной попадания)
+      m.on('click', 'zhk-dot', (e) => {
+        if (touchModeRef.current) return;
+        const f = e.features?.[0]; if (!f) return; const p = f.properties as any;
+        onSelectRef.current(Number(p.id));
+        window.location.href = `/zhk${p.slug}`;
+      });
 
-      const hoverApt = (e: maplibregl.MapLayerMouseEvent) => { const f = e.features?.[0]; if (!f) return; const p = f.properties as any; if (('a' + p.id) === hovered) { hover.setLngLat((f.geometry as any).coordinates); return; } hovered = 'a' + p.id; m.getCanvas().style.cursor = 'pointer'; hover.setLngLat((f.geometry as any).coordinates).setHTML(aptHtml(p)).addTo(m); };
+      const hoverApt = (e: maplibregl.MapLayerMouseEvent) => { if (touchModeRef.current) return; const f = e.features?.[0]; if (!f) return; const p = f.properties as any; if (('a' + p.id) === hovered) { hover.setLngLat((f.geometry as any).coordinates); return; } hovered = 'a' + p.id; m.getCanvas().style.cursor = 'pointer'; hover.setLngLat((f.geometry as any).coordinates).setHTML(aptHtml(p)).addTo(m); };
       m.on('mouseenter', 'apt-dot', hoverApt); m.on('mousemove', 'apt-dot', hoverApt);
       m.on('mouseleave', 'apt-dot', () => { hovered = null; m.getCanvas().style.cursor = ''; hover.remove(); });
-      m.on('click', 'apt-dot', (e) => { const f = e.features?.[0]; if (!f) return; window.open(`https://krisha.kz/a/show/${(f.properties as any).id}`, '_blank'); });
+      m.on('click', 'apt-dot', (e) => {
+        if (touchModeRef.current) return;
+        const f = e.features?.[0]; if (!f) return;
+        window.open(`https://krisha.kz/a/show/${(f.properties as any).id}`, '_blank');
+      });
 
       // apartment clusters: click to zoom in, cursor feedback
-      m.on('click', 'apt-cluster', (e) => { const f = m.queryRenderedFeatures(e.point, { layers: ['apt-cluster'] })[0]; if (!f) return; (m.getSource('apt') as any).getClusterExpansionZoom((f.properties as any).cluster_id).then((z: number) => m.easeTo({ center: (f.geometry as any).coordinates, zoom: Math.min(z + 0.5, 17) })).catch(() => {}); });
+      m.on('click', 'apt-cluster', (e) => { if (touchModeRef.current) return; const f = m.queryRenderedFeatures(e.point, { layers: ['apt-cluster'] })[0]; if (!f) return; (m.getSource('apt') as any).getClusterExpansionZoom((f.properties as any).cluster_id).then((z: number) => m.easeTo({ center: (f.geometry as any).coordinates, zoom: Math.min(z + 0.5, 17) })).catch(() => {}); });
       m.on('mouseenter', 'apt-cluster', () => (m.getCanvas().style.cursor = 'pointer'));
       m.on('mouseleave', 'apt-cluster', () => (m.getCanvas().style.cursor = ''));
 
-      const hoverSold = (e: maplibregl.MapLayerMouseEvent) => { const f = e.features?.[0]; if (!f) return; const p = f.properties as any; m.getCanvas().style.cursor = 'pointer'; hover.setLngLat((f.geometry as any).coordinates).setHTML(soldHtml(p)).addTo(m); };
+      const hoverSold = (e: maplibregl.MapLayerMouseEvent) => { if (touchModeRef.current) return; const f = e.features?.[0]; if (!f) return; const p = f.properties as any; m.getCanvas().style.cursor = 'pointer'; hover.setLngLat((f.geometry as any).coordinates).setHTML(soldHtml(p)).addTo(m); };
       m.on('mouseenter', 'sold-dot', hoverSold); m.on('mousemove', 'sold-dot', hoverSold);
       m.on('mouseleave', 'sold-dot', () => { m.getCanvas().style.cursor = ''; hover.remove(); });
 
       // landmark (ориентир) — фото + рейтинг + категория места
-      const hoverLandmark = (e: maplibregl.MapLayerMouseEvent) => { const f = e.features?.[0]; if (!f) return; const p = f.properties as any; if (('l' + p.name) === hovered) { hover.setLngLat((f.geometry as any).coordinates); return; } hovered = 'l' + p.name; m.getCanvas().style.cursor = 'pointer'; hover.setLngLat((f.geometry as any).coordinates).setHTML(landmarkHtml(p)).addTo(m); };
+      const hoverLandmark = (e: maplibregl.MapLayerMouseEvent) => { if (touchModeRef.current) return; const f = e.features?.[0]; if (!f) return; const p = f.properties as any; if (('l' + p.name) === hovered) { hover.setLngLat((f.geometry as any).coordinates); return; } hovered = 'l' + p.name; m.getCanvas().style.cursor = 'pointer'; hover.setLngLat((f.geometry as any).coordinates).setHTML(landmarkHtml(p)).addTo(m); };
       m.on('mouseenter', 'landmark-dot', hoverLandmark); m.on('mousemove', 'landmark-dot', hoverLandmark);
       m.on('mouseleave', 'landmark-dot', () => { hovered = null; m.getCanvas().style.cursor = ''; hover.remove(); });
+
+      // ---- ТАЧ: один делегированный клик с увеличенной зоной попадания ----
+      // Палец толще курсора: метка радиусом 6px практически непопадаема, поэтому
+      // ищем объекты в квадрате ±22px вокруг точки касания и берём ближайший по приоритету.
+      // Раньше у ориентиров и «продано» click-обработчика не было вовсе — вся их
+      // информация жила в hover, т.е. с телефона была недоступна в принципе.
+      const TAP = 22;
+      m.on('click', (e) => {
+        if (!touchModeRef.current) return;
+        const box: [maplibregl.PointLike, maplibregl.PointLike] = [
+          [e.point.x - TAP, e.point.y - TAP], [e.point.x + TAP, e.point.y + TAP],
+        ];
+        const pick = (layer: string) => (m.getLayer(layer) ? m.queryRenderedFeatures(box, { layers: [layer] })[0] : undefined);
+
+        const cl = pick('clusters');
+        if (cl) { (m.getSource('zhk') as any).getClusterExpansionZoom((cl.properties as any).cluster_id).then((z: number) => m.easeTo({ center: (cl.geometry as any).coordinates, zoom: Math.min(z + 0.5, 16) })).catch(() => {}); return; }
+        const ac = pick('apt-cluster');
+        if (ac) { (m.getSource('apt') as any).getClusterExpansionZoom((ac.properties as any).cluster_id).then((z: number) => m.easeTo({ center: (ac.geometry as any).coordinates, zoom: Math.min(z + 0.5, 17) })).catch(() => {}); return; }
+
+        const z = pick('zhk-dot');
+        if (z) { const p = z.properties as any; onSelectRef.current(Number(p.id)); onDetailRef.current?.({ kind: 'zhk', id: Number(p.id), slug: p.slug, name: p.name }); return; }
+        // sold-dot добавлен последним и рисуется ПОВЕРХ apt-dot, поэтому и
+        // разбирается раньше: иначе тап по красной метке «продано» открывал бы
+        // карточку лежащей под ней квартиры
+        const sd = pick('sold-dot');
+        if (sd) { const p = sd.properties as any; onDetailRef.current?.({ kind: 'sold', price: p.price ? Number(p.price) : null, rooms: p.rooms ? Number(p.rooms) : null, square: p.square ? Number(p.square) : null, addr: p.addr || null }); return; }
+        const a = pick('apt-dot');
+        if (a) {
+          const p = a.properties as any;
+          onDetailRef.current?.({
+            kind: 'apt', id: Number(p.id), price: p.price ? Number(p.price) : null, rooms: p.rooms ? Number(p.rooms) : null,
+            square: p.square ? Number(p.square) : null, floor: p.floor || null, addr: p.addr || null,
+            market: p.market === 'primary' ? 'primary' : 'secondary', photo: p.photo || null,
+          });
+          return;
+        }
+        const lm = pick('landmark-dot');
+        // в landmarks.geojson русская категория лежит в rubric; поля kindRu нет
+        if (lm) { const p = lm.properties as any; onDetailRef.current?.({ kind: 'landmark', name: p.name, kindRu: p.rubric || p.desc || null, rating: p.rating ? Number(p.rating) : null, photo: p.photo || null }); return; }
+
+        onDetailRef.current?.(null); // тап по пустому месту — закрыть карточку
+      });
 
       // heart-в-попапе ЖК: делегированный клик по кнопке внутри popup-DOM
       m.getContainer().addEventListener('click', (ev) => {
@@ -230,7 +303,7 @@ function soldHtml(p: any) {
     <div style="display:inline-block;font-size:11px;font-weight:700;color:#fff;background:#e0293f;padding:2px 8px;border-radius:6px;margin-bottom:7px">продано${p.soldDate ? ` · ${p.soldDate}` : ''}</div>
     <div style="font-size:16px;font-weight:750;color:#14181f;letter-spacing:-.01em">${price}</div>
     <div style="font-size:12.5px;color:#5b6472;margin:2px 0 3px">${line}</div>
-    <div style="font-size:12px;color:#97a0ad">${escapeHtml(p.addr || '')}</div>
+    <div style="font-size:12px;color:#6b7480">${escapeHtml(p.addr || '')}</div>
   </div>`;
 }
 function priceShort(p: number | null): string {
@@ -255,7 +328,7 @@ function makePricePill() {
   return { data: new Uint8Array(d.data.buffer), width: c.width, height: c.height };
 }
 function toGeoJSON(points: MapPoint[]) {
-  return { type: 'FeatureCollection', features: points.filter((p) => p.lat && p.lng).map((p) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [p.lng, p.lat] }, properties: { id: p.id, name: p.name, color: BAND_COLOR[p.band], band: p.band, score: p.score ?? '', slug: p.slug, priceSqm: p.priceSqm ?? 0, priceMin: p.priceMin ?? 0, developer: p.developer ?? '', classRu: p.classRu ?? '', statusRu: p.statusRu ?? '', district: p.district ?? '', seismic: p.seismic ?? 0, image: p.image ?? '', real: !!p.real, deal: !!p.deal } })) };
+  return { type: 'FeatureCollection', features: points.filter((p) => p.lat && p.lng).map((p) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [p.lng, p.lat] }, properties: { id: p.id, name: p.name, color: BAND_COLOR[p.band], textColor: BAND_TEXT[p.band], band: p.band, score: p.score ?? '', slug: p.slug, priceSqm: p.priceSqm ?? 0, priceMin: p.priceMin ?? 0, developer: p.developer ?? '', classRu: p.classRu ?? '', statusRu: p.statusRu ?? '', district: p.district ?? '', seismic: p.seismic ?? 0, image: p.image ?? '', real: !!p.real, deal: !!p.deal } })) };
 }
 
 function aptHtml(p: any) {
@@ -266,7 +339,7 @@ function aptHtml(p: any) {
   return `<div style="width:242px;font-family:inherit">${img}<div style="padding:11px 13px 12px">
     <div style="font-size:18px;font-weight:770;color:#14181f;letter-spacing:-.01em">${price}</div>
     <div style="font-size:12.5px;color:#5b6472;margin:3px 0 4px">${line}</div>
-    <div style="font-size:12px;color:#97a0ad">${escapeHtml(p.addr || '')}</div>
+    <div style="font-size:12px;color:#6b7480">${escapeHtml(p.addr || '')}</div>
     <div style="font-size:11.5px;margin-top:7px">${mk} <span style="color:#b3bbc6">·</span> <span style="color:#2f6bed;font-weight:600">открыть на krisha ↗</span></div>
   </div></div>`;
 }
@@ -276,29 +349,31 @@ function heartSvg(filled: boolean) {
 function landmarkHtml(p: any) {
   const kindLabel: Record<string, string> = { mall: 'ТРЦ', park: 'парк', water: 'отдых', transport: 'транспорт', poi: 'место' };
   const img = (p.photo && p.photo !== '') ? `<div style="height:130px;background:#eef1f4 center/cover no-repeat url('${escapeAttr(p.photo)}')"></div>` : '';
-  const rating = Number(p.rating) ? `<span style="color:#d68a00;font-weight:700">★ ${p.rating}</span>${Number(p.reviews) ? ` <span style="color:#97a0ad">${Number(p.reviews).toLocaleString('ru-RU')} отзывов</span>` : ''}` : '';
+  const rating = Number(p.rating) ? `<span style="color:#d68a00;font-weight:700">★ ${p.rating}</span>${Number(p.reviews) ? ` <span style="color:#6b7480">${Number(p.reviews).toLocaleString('ru-RU')} отзывов</span>` : ''}` : '';
   return `<div style="width:236px;font-family:inherit">${img}<div style="padding:10px 13px 12px">
     <div style="font-size:15px;font-weight:720;color:#14181f;letter-spacing:-.01em">${escapeHtml(p.name)}</div>
     <div style="font-size:12px;color:#5b6472;margin:2px 0 5px">${escapeHtml(p.rubric || kindLabel[p.kind] || 'место')}</div>
     ${rating ? `<div style="font-size:12.5px;margin-bottom:3px">${rating}</div>` : ''}
-    ${p.address ? `<div style="font-size:11.5px;color:#97a0ad">${escapeHtml(p.address)}</div>` : ''}
+    ${p.address ? `<div style="font-size:11.5px;color:#6b7480">${escapeHtml(p.address)}</div>` : ''}
   </div></div>`;
 }
 function cardHtml(p: any, isFav = false) {
   const priceMin = Number(p.priceMin) ? `от ${(Number(p.priceMin) / 1_000_000).toLocaleString('ru-RU', { maximumFractionDigits: 1 })} млн ₸` : null;
   const priceSqm = Number(p.priceSqm) ? `${Math.round(Number(p.priceSqm) / 1000).toLocaleString('ru-RU')} тыс ₸/м²` : null;
   const scoreTxt = p.score === '' || p.score == null ? 'мало данных' : `${p.score}`;
-  const bandColor = p.color, bandLabel = BAND_LABEL[p.band as keyof typeof BAND_LABEL] || '';
+  // заливочный цвет бэнда нечитаем как текст (жёлтый ~1.7:1) — для подписей берём тёмный вариант
+  const bandColor = p.textColor || BAND_TEXT[p.band as keyof typeof BAND_TEXT] || p.color;
+  const bandLabel = BAND_LABEL[p.band as keyof typeof BAND_LABEL] || '';
   const chips = [p.classRu, p.statusRu, p.district ? p.district + ' р-н' : '', Number(p.seismic) ? `${p.seismic} балл` : ''].filter(Boolean).map((c: string) => `<span style="font-size:11px;padding:2px 8px;border-radius:6px;background:#f1f4f7;color:#5b6472">${escapeHtml(c)}</span>`).join('');
   const img = (p.image && p.image !== '') ? `<div style="height:120px;background:#eef1f4 center/cover no-repeat url('${escapeAttr(p.image)}')"></div>` : `<div style="height:44px"></div>`;
   const flag = p.deal === true || p.deal === 'true';
   const favBtn = `<button class="map-fav-btn" data-fav-zhk="${p.id}" data-fav="${isFav ? 1 : 0}" title="Сохранить в избранное" style="position:absolute;top:9px;right:9px;z-index:3;width:32px;height:32px;border:none;border-radius:50%;background:rgba(255,255,255,.94);box-shadow:0 1px 5px rgba(20,24,31,.2);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0">${heartSvg(isFav)}</button>`;
   return `<div style="width:262px;font-family:inherit;position:relative">${favBtn}${img}<div style="padding:11px 13px 12px">
     ${flag ? '<div style="display:inline-block;font-size:11px;font-weight:700;color:#fff;background:#16a34a;padding:2px 9px;border-radius:6px;margin-bottom:7px">Выгодно</div>' : ''}
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px"><div style="font-weight:680;font-size:14.5px;color:#14181f;line-height:1.25">${escapeHtml(p.name)}</div><div style="text-align:center;flex-shrink:0"><div style="font-size:21px;font-weight:800;line-height:1;color:${bandColor}">${scoreTxt}</div><div style="font-size:9px;text-transform:uppercase;letter-spacing:.04em;color:#97a0ad;margin-top:1px">${p.score === '' ? '' : 'защита'}</div></div></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px"><div style="font-weight:680;font-size:14.5px;color:#14181f;line-height:1.25">${escapeHtml(p.name)}</div><div style="text-align:center;flex-shrink:0"><div style="font-size:21px;font-weight:800;line-height:1;color:${bandColor}">${scoreTxt}</div><div style="font-size:9px;text-transform:uppercase;letter-spacing:.04em;color:#6b7480;margin-top:1px">${p.score === '' ? '' : 'защита'}</div></div></div>
     <div style="color:#5b6472;font-size:12px;margin:3px 0 3px">${escapeHtml(p.developer || '')}</div>
     <div style="color:${bandColor};font-size:12px;font-weight:650;margin-bottom:9px">${bandLabel}</div>
-    ${priceMin || priceSqm ? `<div style="display:flex;gap:9px;align-items:baseline;margin-bottom:9px">${priceMin ? `<span style="font-size:16px;font-weight:770;color:#14181f;letter-spacing:-.01em">${priceMin}</span>` : ''}${priceSqm ? `<span style="font-size:12px;color:#97a0ad">${priceSqm}</span>` : ''}</div>` : ''}
+    ${priceMin || priceSqm ? `<div style="display:flex;gap:9px;align-items:baseline;margin-bottom:9px">${priceMin ? `<span style="font-size:16px;font-weight:770;color:#14181f;letter-spacing:-.01em">${priceMin}</span>` : ''}${priceSqm ? `<span style="font-size:12px;color:#6b7480">${priceSqm}</span>` : ''}</div>` : ''}
     <div style="display:flex;flex-wrap:wrap;gap:5px">${chips}</div>
     <div style="margin-top:9px;font-size:11px;color:#2f6bed;font-weight:600">Подробно →</div>
   </div></div>`;

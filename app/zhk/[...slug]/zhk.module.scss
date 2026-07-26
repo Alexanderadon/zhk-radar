@@ -80,10 +80,36 @@
 .disclaimer { margin-top: 28px; font-size: 12px; color: var(--text-faint); line-height: 1.6; }
 .disclaimer a { color: var(--accent-dim); }
 
+/* объяснение индикатора — видимый текст вместо title= (на тач его не показать) */
+.indDetail {
+  grid-column: 1 / -1; margin: 2px 0 0; font-size: 12.5px; line-height: 1.5;
+  color: var(--text-dim); overflow-wrap: anywhere;
+}
+
 @media (max-width: 860px) {
   .headRow { grid-template-columns: 1fr; }
   .buyPanel { position: static; }
   .indRow { grid-template-columns: 130px 1fr 70px; gap: 10px; }
   .indName { font-size: 13.5px; }
   .title { font-size: 26px; }
+}
+
+/* На узком экране трёхколоночная сетка ужимала среднюю колонку до ~46px:
+   шкала и значение рассыпались по слову в строку, длинное значение выпирало
+   за карточку и давало горизонтальный скролл всей страницы. */
+@media (max-width: 560px) {
+  .page { padding-left: max(14px, var(--sal)); padding-right: max(14px, var(--sar)); }
+  .trust { padding: 16px 14px; }
+  .indRow {
+    grid-template-columns: 1fr auto;
+    grid-template-areas: 'name score' 'bar bar';
+    gap: 6px 10px; align-items: center;
+  }
+  .indRow > div:first-child { grid-area: name; min-width: 0; }
+  .indBarWrap { grid-area: bar; min-width: 0; }
+  .indScore { grid-area: score; }
+  .indName { font-size: 14px; }
+  .indValTxt { overflow-wrap: anywhere; }
+  .seismicNote { align-items: flex-start; }
+  .seismicNote > svg { flex: 0 0 auto; margin-top: 2px; }
 }

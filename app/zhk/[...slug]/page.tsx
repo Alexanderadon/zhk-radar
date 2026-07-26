@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getAllZhk, getZhkBySlug } from '../../../lib/data';
-import { BAND_COLOR, BAND_LABEL, SCORE_NAME } from '../../../lib/score';
+import { BAND_COLOR, BAND_TEXT, BAND_LABEL, SCORE_NAME } from '../../../lib/score';
 import Gallery from '../../../components/Gallery';
 import Layouts from '../../../components/Layouts';
 import MiniMap from '../../../components/MiniMap';
@@ -27,6 +27,7 @@ export default async function ZhkPage({ params }: { params: Promise<{ slug: stri
 
   const { scoreResult: sr } = z;
   const color = BAND_COLOR[sr.band];
+  const textColor = BAND_TEXT[sr.band]; // тот же бэнд, но читаемый как текст
   const renderPhotos = z.photos && z.photos.length ? z.photos : z.image ? [z.image] : [];
   const galleryItems = [
     ...(z.realPhotos || []).map((p) => ({ url: p.url, kind: 'real' as const, author: p.author })),
@@ -96,16 +97,16 @@ export default async function ZhkPage({ params }: { params: Promise<{ slug: stri
             <div className={s.priceTotal}>{z.priceSqm ? `${z.priceSqm.toLocaleString('ru-RU')} ₸/м²` : 'цена не указана'}</div>
           )}
           {priceInd && priceInd.score != null && (
-            <div className={s.marketBadge} style={{ color: BAND_COLOR[priceInd.band], background: `${BAND_COLOR[priceInd.band]}1a` }}>
+            <div className={s.marketBadge} style={{ color: BAND_TEXT[priceInd.band], background: `${BAND_COLOR[priceInd.band]}1a` }}>
               {marketArrow(priceInd.value)} {priceInd.value.replace('медианы', `похожих ${z.classRu || ''}`.trim())}
             </div>
           )}
           {z.deal && <div className={s.dealBadge}><Icon name="flame" size={15} /> выгодная цена — дешевле похожих ЖК</div>}
           <div className={s.priceWarn}>цена с витрины korter — маркетинг, не оценка</div>
           <div className={s.protect}>
-            <div className={s.protectNum} style={{ color }}>{sr.score ?? '—'}</div>
+            <div className={s.protectNum} style={{ color: textColor }}>{sr.score ?? '—'}</div>
             <div className={s.protectMeta}>
-              <div className={s.protectLabel} style={{ color }}>{BAND_LABEL[sr.band]}</div>
+              <div className={s.protectLabel} style={{ color: textColor }}>{BAND_LABEL[sr.band]}</div>
               <div className={s.protectSub}>{SCORE_NAME} · <Link href="/methodology">что это?</Link></div>
             </div>
           </div>
@@ -131,7 +132,7 @@ export default async function ZhkPage({ params }: { params: Promise<{ slug: stri
           {sr.indicators.map((ind) => {
             const c = BAND_COLOR[ind.band];
             return (
-              <div key={ind.key} className={s.indRow} title={ind.detail}>
+              <div key={ind.key} className={s.indRow}>
                 <div>
                   <span className={s.indName}>{ind.name}</span>
                   <span
@@ -150,9 +151,12 @@ export default async function ZhkPage({ params }: { params: Promise<{ slug: stri
                   </div>
                   <div className={s.indValTxt}>{ind.value}</div>
                 </div>
-                <div className={s.indScore} style={{ color: ind.score == null ? 'var(--grey)' : c }}>
+                <div className={s.indScore} style={{ color: ind.score == null ? 'var(--text-faint)' : BAND_TEXT[ind.band] }}>
                   {ind.score == null ? '—' : ind.score}<span>/100</span>
                 </div>
+                {/* объяснение индикатора: раньше жило только в title=, т.е. на телефоне
+                    было недоступно — а это главное содержание страницы */}
+                {ind.detail && <p className={s.indDetail}>{ind.detail}</p>}
               </div>
             );
           })}

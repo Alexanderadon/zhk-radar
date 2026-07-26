@@ -25,14 +25,31 @@ export default function Layouts({ layouts }: { layouts: string[] }) {
       else if (e.key === '-') zoom(0.8);
     };
     window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
+    // фон не должен прокручиваться под лайтбоксом
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { window.removeEventListener('keydown', onKey); document.body.style.overflow = prev; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, n]);
 
   const onWheel = (e: React.WheelEvent) => { e.preventDefault(); zoom(e.deltaY < 0 ? 1.15 : 0.87); };
-  const onDown = (e: React.MouseEvent) => { if (scale > 1) drag.current = { x: e.clientX - off.x, y: e.clientY - off.y }; };
-  const onMove = (e: React.MouseEvent) => { if (drag.current) setOff({ x: e.clientX - drag.current.x, y: e.clientY - drag.current.y }); };
+  // Pointer Events вместо Mouse: иначе на телефоне увеличенный чертёж невозможно сдвинуть
+  const onDown = (e: React.PointerEvent) => {
+    if (scale <= 1) return;
+    (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
+    drag.current = { x: e.clientX - off.x, y: e.clientY - off.y };
+  };
+  const onMove = (e: React.PointerEvent) => { if (drag.current) setOff({ x: e.clientX - drag.current.x, y: e.clientY - drag.current.y }); };
   const onUp = () => { drag.current = null; };
+  // свайп влево/вправо листает планировки, пока не включён зум
+  const swipe = useRef<{ x: number; y: number } | null>(null);
+  const onSwipeStart = (e: React.PointerEvent) => { if (scale === 1) swipe.current = { x: e.clientX, y: e.clientY }; };
+  const onSwipeEnd = (e: React.PointerEvent) => {
+    const sw = swipe.current; swipe.current = null;
+    if (!sw || scale !== 1 || n < 2) return;
+    const dx = e.clientX - sw.x, dy = e.clientY - sw.y;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) step(dx < 0 ? 1 : -1);
+  };
 
   return (
     <>
@@ -46,27 +63,28 @@ export default function Layouts({ layouts }: { layouts: string[] }) {
       </div>
 
       {open != null && (
-        <div className={s.lightbox} onClick={() => setOpen(null)} onMouseMove={onMove} onMouseUp={onUp} onMouseLeave={onUp}>
-          <button className={s.close} onClick={() => setOpen(null)}><Icon name="x" size={22} /></button>
-          {n > 1 && <button className={s.nav} style={{ left: 20 }} onClick={(e) => { e.stopPropagation(); step(-1); }}><Icon name="left" size={26} /></button>}
+        <div className={s.lightbox} onClick={() => setOpen(null)} onPointerMove={onMove} onPointerUp={onUp} onPointerCancel={onUp} onPointerLeave={onUp}>
+          <button className={s.close} onClick={() => setOpen(null)} aria-label="Закрыть"><Icon name="x" size={22} /></button>
+          {n > 1 && <button className={s.nav} style={{ left: 12 }} onClick={(e) => { e.stopPropagation(); step(-1); }} aria-label="Предыдущая планировка"><Icon name="left" size={26} /></button>}
           <img
-            className={s.lightImg}
+            className={`${s.lightImg} ${scale > 1 ? s.lightImgZoomed : ''}`}
             src={layouts[open]}
-            alt="планировка"
+            alt={`Планировка ${open + 1} из ${n}`}
             style={{ transform: `translate(${off.x}px, ${off.y}px) scale(${scale})`, cursor: scale > 1 ? (drag.current ? 'grabbing' : 'grab') : 'zoom-in' }}
             onClick={(e) => { e.stopPropagation(); if (scale === 1) zoom(1.6); }}
             onWheel={onWheel}
-            onMouseDown={onDown}
+            onPointerDown={(e) => { onDown(e); onSwipeStart(e); }}
+            onPointerUp={onSwipeEnd}
             draggable={false}
           />
-          {n > 1 && <button className={s.nav} style={{ right: 20 }} onClick={(e) => { e.stopPropagation(); step(1); }}><Icon name="right" size={26} /></button>}
+          {n > 1 && <button className={s.nav} style={{ right: 12 }} onClick={(e) => { e.stopPropagation(); step(1); }} aria-label="Следующая планировка"><Icon name="right" size={26} /></button>}
           <div className={s.zoomBar} onClick={(e) => e.stopPropagation()}>
-            <button onClick={() => zoom(0.8)}>−</button>
+            <button onClick={() => zoom(0.8)} aria-label="Уменьшить">−</button>
             <span>{Math.round(scale * 100)}%</span>
-            <button onClick={() => zoom(1.25)}>+</button>
+            <button onClick={() => zoom(1.25)} aria-label="Увеличить">+</button>
             {scale !== 1 && <button className={s.resetBtn} onClick={reset}>сброс</button>}
           </div>
-          <div className={s.count}>{open + 1} / {n} · колесо — зум, тянуть — двигать</div>
+          <div className={s.count}>{open + 1} / {n}{n > 1 ? ' · свайп — листать' : ''} · тап — зум</div>
         </div>
       )}
     </>

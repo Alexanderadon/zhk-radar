@@ -1,14 +1,16 @@
 'use client';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import s from '../app/home.module.scss';
-import { BAND_COLOR, BAND_LABEL } from '../lib/score';
+import { BAND_COLOR, BAND_TEXT, BAND_LABEL } from '../lib/score';
 import Icon from './Icon';
 import { useFavorites } from '../lib/useFavorites';
-import type { MapPoint } from './MapView';
+import { useIsMobile, useIsTouch } from '../lib/useMediaQuery';
+import { useSheet } from '../lib/useSheet';
+import type { MapPoint, MapDetail } from './MapView';
 
-const MapView = dynamic(() => import('./MapView'), { ssr: false });
+const MapView = dynamic(() => import('./MapView'), { ssr: false, loading: () => <div className={s.mapSkeleton} /> });
 
 function GoogleG() {
   return (
@@ -75,6 +77,59 @@ const DISTRICTS = [
   { name: 'Алатауский', color: '#e67e22' },
 ];
 
+/** Карточка объекта, выбранного тапом по карте. На тач-устройствах заменяет hover-попап. */
+function MapDetailCard({ detail, onClose }: { detail: MapDetail; onClose: () => void }) {
+  const fmtM = (v: number | null) => (v ? `${(v / 1_000_000).toLocaleString('ru-RU', { maximumFractionDigits: 1 })} млн ₸` : null);
+  return (
+    <div className={s.mapDetail}>
+      <button type="button" className={s.mapDetailClose} onClick={onClose} aria-label="Закрыть карточку"><Icon name="x" size={17} /></button>
+      {detail.kind === 'apt' && (
+        <>
+          <div className={s.mdHead}>
+            {detail.photo ? <img className={s.mdPhoto} src={detail.photo} alt="" loading="lazy" /> : <div className={`${s.mdPhoto} ${s.mdPhotoEmpty}`}>◫</div>}
+            <div className={s.mdInfo}>
+              <div className={s.mdPrice}>{fmtM(detail.price) ?? 'цена не указана'}</div>
+              <div className={s.mdSub}>
+                {[detail.rooms ? `${detail.rooms}-комн.` : null, detail.square ? `${detail.square} м²` : null, detail.floor || null].filter(Boolean).join(' · ')}
+              </div>
+              {detail.addr && <div className={s.mdAddr}>{detail.addr}</div>}
+            </div>
+          </div>
+          <div className={s.mdChips}>
+            <span className={s.miniChip} style={detail.market === 'primary' ? { color: 'var(--green)', background: 'var(--green-soft)' } : undefined}>
+              {detail.market === 'primary' ? 'новостройка' : 'вторичка'}
+            </span>
+            {detail.price && detail.square ? <span className={s.miniChip}>{Math.round(detail.price / detail.square / 1000)} тыс ₸/м²</span> : null}
+          </div>
+          <a className={s.mdAction} href={`https://krisha.kz/a/show/${detail.id}`} target="_blank" rel="noopener noreferrer">
+            Открыть на Krisha <Icon name="external" size={14} />
+          </a>
+        </>
+      )}
+      {detail.kind === 'landmark' && (
+        <>
+          <div className={s.mdHead}>
+            {detail.photo ? <img className={s.mdPhoto} src={detail.photo} alt="" loading="lazy" /> : <div className={`${s.mdPhoto} ${s.mdPhotoEmpty}`}>◫</div>}
+            <div className={s.mdInfo}>
+              <div className={s.mdTitle}>{detail.name}</div>
+              <div className={s.mdSub}>{[detail.kindRu, detail.rating ? `★ ${detail.rating}` : null].filter(Boolean).join(' · ')}</div>
+            </div>
+          </div>
+        </>
+      )}
+      {detail.kind === 'sold' && (
+        <div className={s.mdHead}>
+          <div className={s.mdInfo}>
+            <div className={s.mdTitle}>Недавно продано</div>
+            <div className={s.mdPrice}>{fmtM(detail.price) ?? '—'}</div>
+            <div className={s.mdSub}>{[detail.rooms ? `${detail.rooms}-комн.` : null, detail.square ? `${detail.square} м²` : null, detail.addr].filter(Boolean).join(' · ')}</div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
   const [q, setQ] = useState('');
   const [band, setBand] = useState<Set<string>>(new Set());
@@ -97,6 +152,53 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
   const [aptMeta, setAptMeta] = useState<{ updatedAt: string; total: number; primary: number; secondary: number; addedToday: number; soldToday: number; soldRecent: number } | null>(null);
   const toggleN = (set: Set<number>, v: number, upd: (s: Set<number>) => void) => { const n = new Set(set); n.has(v) ? n.delete(v) : n.add(v); upd(n); };
   useEffect(() => { if (mode === 'apartments' && !aptMeta) fetch('/listings-meta.json').then((r) => r.json()).then(setAptMeta).catch(() => {}); }, [mode, aptMeta]);
+
+  // ---- мобильная оболочка: шторка поверх карты + модалка фильтров ----
+  const isMobile = useIsMobile();
+  const isTouch = useIsTouch();
+  const sheet = useSheet(isMobile);
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [mapDetail, setMapDetail] = useState<MapDetail | null>(null);
+  const cardRefs = useRef<Map<number, HTMLDivElement>>(new Map());
+
+  const activeCount =
+    band.size + cls.size + status.size + extra.size + finishing.size +
+    aptMarket.size + aptRooms.size + (district ? 1 : 0) + (priceRange ? 1 : 0) + (showSold ? 1 : 0);
+
+  const resetFilters = useCallback(() => {
+    setBand(new Set()); setCls(new Set()); setStatus(new Set()); setExtra(new Set()); setFinishing(new Set());
+    setAptMarket(new Set()); setAptRooms(new Set()); setDistrict(null); setPriceRange(null); setShowSold(false);
+  }, []);
+
+  // модалка фильтров — блокируем прокрутку фона и закрываем по Esc
+  useEffect(() => {
+    if (!filtersOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const esc = (e: KeyboardEvent) => { if (e.key === 'Escape') setFiltersOpen(false); };
+    window.addEventListener('keydown', esc);
+    return () => { document.body.style.overflow = prev; window.removeEventListener('keydown', esc); };
+  }, [filtersOpen]);
+
+  // тап по метке на карте (тач): вместо «телепорта» — карточка в шторке
+  const handleMapDetail = useCallback((d: MapDetail | null) => {
+    if (!d) { setMapDetail(null); return; }
+    if (d.kind === 'zhk') {
+      // у ЖК своя карточка уже есть в списке — показываем её, а не пустой блок
+      // (MapDetailCard умеет только apt/landmark/sold)
+      setMapDetail(null);
+      setSelected(d.id);
+      sheet.setIndex(1);
+      requestAnimationFrame(() => cardRefs.current.get(d.id)?.scrollIntoView({ block: 'center', behavior: 'smooth' }));
+      return;
+    }
+    setMapDetail(d);
+    sheet.setIndex(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // карточка объекта не должна «переживать» смену режима карты
+  useEffect(() => { setMapDetail(null); }, [mode]);
 
   const toggle = (set: Set<string>, v: string, upd: (s: Set<string>) => void) => {
     const n = new Set(set); n.has(v) ? n.delete(v) : n.add(v); upd(n);
@@ -152,35 +254,51 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
           </div>
           <div>
             <div className={s.logo}>ЖК<span className={s.radar}>·Радар</span></div>
-            <div className={s.tagline}>Krisha показывает, что продаётся. Мы — стоит ли покупать.</div>
+            {/* на узком экране длинная версия обрезалась на полуслове */}
+            <div className={s.tagline}><span className={s.taglineFull}>Krisha показывает, что продаётся. Мы — стоит ли покупать.</span><span className={s.taglineShort}>Стоит ли это покупать</span></div>
           </div>
         </div>
         <div className={s.headerSpacer} />
         <Link href="/methodology" className={s.navlink}>Методология</Link>
-        <button type="button" className={`${s.favBtn} ${favOnly ? s.favBtnActive : ''}`} onClick={() => { setFavOnly((v) => !v); setMode('complexes'); }} title="Понравившиеся ЖК — ваша подборка">
+        <button type="button" className={`${s.favBtn} ${favOnly ? s.favBtnActive : ''}`} onClick={() => { setFavOnly((v) => !v); setMode('complexes'); }} title="Понравившиеся ЖК — ваша подборка" aria-label={`Избранное${fav.count ? `, сохранено: ${fav.count}` : ''}`} aria-pressed={favOnly}>
           <Icon name="heart" size={15} fill={favOnly ? '#fff' : 'none'} /> Избранное{fav.count ? <span className={s.favBadge}>{fav.count}</span> : null}
         </button>
         {fav.authEnabled && (fav.user ? (
-          <button type="button" className={s.authBtn} onClick={fav.signOut} title={`${fav.user.email || fav.user.name || ''} — выйти`}>
+          <button type="button" className={s.authBtn} onClick={fav.signOut} title={`${fav.user.email || fav.user.name || ''} — выйти`} aria-label="Выйти из аккаунта">
             {fav.user.avatar ? <img src={fav.user.avatar} alt="" className={s.authAvatar} /> : <span className={s.authAvatar}>{(fav.user.name || fav.user.email || '?').slice(0, 1).toUpperCase()}</span>}
             Выйти
           </button>
         ) : (
-          <button type="button" className={s.authBtn} onClick={fav.signInGoogle} title="Войти через Google — синхронизировать избранное между устройствами"><GoogleG /> Войти</button>
+          <button type="button" className={s.authBtn} onClick={fav.signInGoogle} title="Войти через Google — синхронизировать избранное между устройствами" aria-label="Войти через Google"><GoogleG /> Войти</button>
         ))}
       </header>
 
       <div className={s.body}>
-        <aside className={s.sidebar}>
-          <div className={s.filters}>
-            <div className={s.searchRow}>
-              <Icon name="search" size={17} className={s.searchIcon} />
-              <input className={s.search} placeholder="Поиск ЖК, застройщика, района…" value={q} onChange={(e) => setQ(e.target.value)} />
-            </div>
+        <div className={s.controls}>
+          <div className={s.searchRow}>
+            <Icon name="search" size={17} className={s.searchIcon} />
+            <input className={s.search} placeholder="Поиск ЖК, застройщика, района…" value={q} onChange={(e) => setQ(e.target.value)} />
+            {q && <button type="button" className={s.searchClear} aria-label="Очистить поиск" onClick={() => setQ('')}><Icon name="x" size={15} /></button>}
+          </div>
+          <div className={s.controlsRow}>
             <div className={s.modeToggle}>
-              <button className={mode === 'complexes' && !favOnly ? s.modeActive : ''} onClick={() => { setMode('complexes'); setFavOnly(false); }}><Icon name="building" size={16} /> ЖК-комплексы</button>
-              <button className={mode === 'apartments' ? s.modeActive : ''} onClick={() => { setMode('apartments'); setFavOnly(false); }}><Icon name="key" size={16} /> Квартиры</button>
+              <button className={mode === 'complexes' && !favOnly ? s.modeActive : ''} onClick={() => { setMode('complexes'); setFavOnly(false); }}><Icon name="building" size={16} /> <span>ЖК-комплексы</span></button>
+              <button className={mode === 'apartments' ? s.modeActive : ''} onClick={() => { setMode('apartments'); setFavOnly(false); }}><Icon name="key" size={16} /> <span>Квартиры</span></button>
             </div>
+            <button type="button" className={`${s.filterBtn} ${activeCount ? s.filterBtnOn : ''}`} onClick={() => setFiltersOpen(true)} aria-label={`Фильтры${activeCount ? `, активно: ${activeCount}` : ''}`}>
+              <Icon name="sliders" size={16} />
+              <span>Фильтры</span>
+              {activeCount > 0 && <span className={s.filterCount}>{activeCount}</span>}
+            </button>
+          </div>
+        </div>
+
+        <div className={`${s.filterHost} ${filtersOpen ? s.filterHostOpen : ''}`} role={isMobile ? 'dialog' : undefined} aria-modal={isMobile && filtersOpen ? true : undefined} aria-label="Фильтры">
+            <div className={s.filterHostBar}>
+              <b>Фильтры</b>
+              <button type="button" className={s.filterClose} onClick={() => setFiltersOpen(false)} aria-label="Закрыть фильтры"><Icon name="x" size={19} /></button>
+            </div>
+            <div className={s.filterScroll}>
 
             <div className={s.filterGroup}>
               <span className={s.fLabel}>Цена {mode === 'apartments' ? 'квартиры' : 'от'}</span>
@@ -246,7 +364,31 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
                 </div>
               </>
             )}
+            </div>
+            <div className={s.filterFoot}>
+              <button type="button" className={s.filterReset} onClick={resetFilters} disabled={!activeCount}>Сбросить</button>
+              <button type="button" className={s.filterApply} onClick={() => setFiltersOpen(false)}>
+                {mode === 'complexes' ? `Показать ${filtered.length}` : 'Показать на карте'}
+              </button>
+            </div>
           </div>
+        {filtersOpen && <div className={s.filterScrim} onClick={() => setFiltersOpen(false)} aria-hidden />}
+
+        <aside
+          ref={sheet.sheetRef as React.RefObject<HTMLElement>}
+          className={`${s.sidebar} ${sheet.dragging ? s.sidebarDragging : ''}`}
+          style={isMobile ? { transform: `translate3d(0, ${sheet.y}px, 0)` } : undefined}
+        >
+          <div className={s.grip} {...sheet.dragProps}>
+            <button
+              type="button"
+              className={s.gripBar}
+              aria-label={sheet.index === 2 ? 'Свернуть список' : 'Развернуть список'}
+              onClick={() => sheet.setIndex(sheet.index === 2 ? 0 : ((sheet.index + 1) as 0 | 1 | 2))}
+            />
+          </div>
+
+          {mapDetail && <MapDetailCard detail={mapDetail} onClose={() => setMapDetail(null)} />}
 
           {mode === 'complexes' ? (
             <>
@@ -256,18 +398,18 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
                   {fav.count > 0 && <button type="button" onClick={fav.clear}><Icon name="trash" size={13} /> очистить</button>}
                 </div>
               )}
-              <div className={s.resultBar}>
+              <div className={s.resultBar} {...sheet.headerDragProps}>
                 <span>{filtered.length} ЖК{district ? ` · ${district}` : ''}</span>
-                <select className={s.sortSel} value={sort} onChange={(e) => setSort(e.target.value)}>
+                <select className={s.sortSel} value={sort} onChange={(e) => setSort(e.target.value)} aria-label="Сортировка">
                   <option value="score-desc">защита: сначала высокая</option>
                   <option value="score-asc">защита: сначала низкая</option>
                   <option value="price-desc">цена: сначала дорогие</option>
                   <option value="price-asc">цена: сначала дешёвые</option>
                 </select>
               </div>
-              <div className={s.list}>
+              <div className={s.list} ref={sheet.scrollRef as React.RefObject<HTMLDivElement>} {...sheet.contentProps}>
                 {filtered.map((z) => (
-                  <div key={z.id} className={`${s.card} ${selected === z.id ? s.cardActive : ''}`} onClick={() => setSelected(z.id)}>
+                  <div key={z.id} ref={(el) => { if (el) cardRefs.current.set(z.id, el); else cardRefs.current.delete(z.id); }} className={`${s.card} ${selected === z.id ? s.cardActive : ''}`} onClick={() => setSelected(z.id)}>
                     <button type="button" className={`${s.cardFav} ${fav.has(z.id) ? s.cardFavOn : ''}`} title={fav.has(z.id) ? 'Убрать из избранного' : 'Сохранить в избранное'} onClick={(e) => { e.stopPropagation(); fav.toggle(z.id); }}>
                       <Icon name="heart" size={15} fill={fav.has(z.id) ? 'currentColor' : 'none'} />
                     </button>
@@ -279,7 +421,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
                           <div className={s.cardDev}>{z.developer?.name ?? '—'}{z.district ? ` · ${z.district}` : ''}</div>
                         </div>
                         <div className={s.scoreBadge}>
-                          <div className={s.scoreNum} style={{ color: BAND_COLOR[z.band] }}>{z.score ?? '—'}</div>
+                          <div className={s.scoreNum} style={{ color: BAND_TEXT[z.band] }}>{z.score ?? '—'}</div>
                           <div className={s.scoreCap}>{z.score != null ? 'защита' : 'мало'}</div>
                         </div>
                       </div>
@@ -302,7 +444,12 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
               </div>
             </>
           ) : (
-            <div className={s.aptPanel}>
+            <>
+            {/* заголовок шторки: на десктопе дублировал бы счётчик из .aptStat ниже */}
+            <div className={`${s.resultBar} ${s.sheetOnly}`} {...sheet.headerDragProps}>
+              <span>{aptMeta ? `${aptMeta.total.toLocaleString('ru-RU')} квартир` : 'Квартиры на карте'}{district ? ` · ${district}` : ''}</span>
+            </div>
+            <div className={s.aptPanel} ref={sheet.scrollRef as React.RefObject<HTMLDivElement>} {...sheet.contentProps}>
               {aptMeta && (
                 <div className={s.aptStat}>
                   <div className={s.aptStatTotal}><b>{aptMeta.total.toLocaleString('ru-RU')}</b> квартир на карте</div>
@@ -315,11 +462,12 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
               )}
               <ul className={s.aptSteps}>
                 <li><span className={s.stepDot} style={{ background: '#5f95e3' }} /> Кружок с числом — сколько квартир рядом. Нажмите, чтобы приблизить.</li>
-                <li><span className={s.stepDot} style={{ background: '#16a34a' }} /> Зелёные — новостройки, серо-синие — вторичка. Наведите: цена, комнаты, площадь.</li>
+                <li><span className={s.stepDot} style={{ background: '#16a34a' }} /> Зелёные — новостройки, серо-синие — вторичка. Нажмите на метку: цена, комнаты, площадь.</li>
                 <li><span className={s.stepDot} style={{ background: '#111827' }} /> Чёрные метки — ориентиры (ТРЦ, парки, вокзалы) с фото и рейтингом.</li>
               </ul>
               <div className={s.aptSrc}>Объявления — krisha.kz. Риск-скор считается только для ЖК-комплексов.</div>
             </div>
+            </>
           )}
         </aside>
 
@@ -337,7 +485,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
               <div className={s.legendRow} style={{ marginTop: 4, borderTop: '1px solid var(--border-soft)', paddingTop: 8 }}><span className={s.legendDot} style={{ background: '#111827' }} /> ориентиры (ТРЦ, вокзалы)</div>
             </div>
           )}
-          <MapView points={points} selectedId={selected} onSelect={setSelected} activeDistrict={district} mode={mode} aptMarket={aptMarket} aptRooms={aptRooms} showSold={showSold} aptPrice={priceBucket ? { min: priceBucket.min, max: priceBucket.max } : null} favSet={favSet} onToggleFav={fav.toggle} />
+          <MapView points={points} selectedId={selected} onSelect={setSelected} activeDistrict={district} mode={mode} aptMarket={aptMarket} aptRooms={aptRooms} showSold={showSold} aptPrice={priceBucket ? { min: priceBucket.min, max: priceBucket.max } : null} favSet={favSet} onToggleFav={fav.toggle} touchMode={isTouch} onDetail={handleMapDetail} />
         </div>
       </div>
     </div>

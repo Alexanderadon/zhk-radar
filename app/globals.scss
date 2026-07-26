@@ -10,7 +10,14 @@
   /* text */
   --text: #14181f;
   --text-dim: #5b6472;
-  --text-faint: #97a0ad;
+  /* было #97a0ad — 2.4:1, ниже порога WCAG AA; этим цветом набрана почти вся
+     вторичная подпись в приложении, поэтому затемнено до ~4.6:1 */
+  --text-faint: #6b7480;
+  /* только для декоративных глифов, не для текста */
+  --glyph-faint: #97a0ad;
+  /* поверх тёмных подложек (лайтбокс, оверлеи) — --text там нечитаем */
+  --on-dark: #eef1f5;
+  --on-dark-dim: #b9c2cf;
 
   /* brand accent (distinct from risk colours) */
   --accent: #2f6bed;
@@ -30,6 +37,13 @@
 
   --radius: 14px;
   --radius-sm: 10px;
+  /* safe-area (iOS notch / home indicator) — 0 на десктопе */
+  --sat: env(safe-area-inset-top, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+  /* минимальный комфортный тач-таргет */
+  --tap: 44px;
   --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.05), 0 1px 3px rgba(16, 24, 40, 0.08);
   --shadow: 0 2px 6px rgba(16, 24, 40, 0.06), 0 8px 24px rgba(16, 24, 40, 0.08);
   --shadow-lg: 0 12px 40px rgba(16, 24, 40, 0.14);
@@ -46,9 +60,27 @@ html, body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  /* серый флеш при тапе на мобиле — вместо него свои :active-состояния */
+  -webkit-tap-highlight-color: transparent;
+  /* iOS не должен менять кегль при повороте экрана */
+  -webkit-text-size-adjust: 100%;
 }
-body { min-height: 100vh; }
+body { min-height: 100dvh; overflow-x: hidden; }
 a { color: inherit; text-decoration: none; }
+
+/* видимый фокус только с клавиатуры — на тапе рамка не мигает */
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+:focus:not(:focus-visible) { outline: none; }
+
+/* на тач-устройствах hover-состояния «залипают» после тапа — гасим их */
+@media (hover: none) {
+  .btn:hover { border-color: var(--border); background: var(--panel); }
+  .btn-accent:hover { background: var(--accent); border-color: var(--accent); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
 
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-thumb { background: #d3d9e0; border-radius: 6px; border: 2px solid transparent; background-clip: padding-box; }
@@ -91,8 +123,18 @@ svg { display: block; }
   overflow: hidden;
 }
 .maplibregl-popup-tip { border-top-color: #fff !important; border-bottom-color: #fff !important; }
-.maplibregl-popup-close-button { color: var(--text-faint) !important; font-size: 18px !important; padding: 4px 8px !important; }
+.maplibregl-popup-close-button { color: var(--text-faint) !important; font-size: 22px !important; width: 38px !important; height: 38px !important; padding: 0 !important; line-height: 38px !important; text-align: center; }
 .maplibregl-ctrl-group { background: #fff !important; border: 1px solid var(--border) !important; box-shadow: var(--shadow-sm) !important; border-radius: 10px !important; overflow: hidden; }
 .maplibregl-ctrl-group button + button { border-top: 1px solid var(--border-soft) !important; }
 .maplibregl-ctrl-attrib { background: rgba(255, 255, 255, 0.75) !important; }
 .maplibregl-ctrl-attrib a { color: var(--text-faint) !important; }
+
+@media (max-width: 900px) {
+  /* кнопки карты 29px — мимо них промахиваешься */
+  .maplibregl-ctrl-group button { width: 40px !important; height: 40px !important; }
+  /* зум — под панелью поиска справа; копирайт — над свёрнутой шторкой справа,
+     слева там легенда (иначе они накладываются друг на друга) */
+  .maplibregl-ctrl-top-right { top: 128px !important; right: max(6px, env(safe-area-inset-right, 0px)) !important; }
+  .maplibregl-ctrl-bottom-right { bottom: 126px !important; right: max(6px, env(safe-area-inset-right, 0px)) !important; }
+  .maplibregl-popup { max-width: calc(100vw - 28px) !important; }
+}

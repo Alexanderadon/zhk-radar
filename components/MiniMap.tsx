@@ -18,9 +18,14 @@ export default function MiniMap({ lat, lng, color, name }: { lat: number; lng: n
       zoom: 15,
       attributionControl: { compact: true },
       interactive: true,
+      // без этого свайп по карте внутри страницы двигает карту, а не страницу —
+      // пользователь «залипает» и не может доскроллить дальше
+      cooperativeGestures: true,
     });
     map.current = m;
     m.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
+    m.touchZoomRotate.disableRotation();
+    m.touchPitch.disable();
     m.on('load', () => {
       m.addSource('pt', { type: 'geojson', data: { type: 'Feature', geometry: { type: 'Point', coordinates: [lng, lat] }, properties: {} } as any });
       m.addLayer({ id: 'glow', type: 'circle', source: 'pt', paint: { 'circle-radius': 26, 'circle-color': color, 'circle-opacity': 0.18, 'circle-blur': 0.7 } });

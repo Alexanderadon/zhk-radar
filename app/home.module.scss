@@ -10,6 +10,7 @@
 .logo { font-size: 18px; font-weight: 780; letter-spacing: -0.02em; line-height: 1.1; }
 .logo .radar { color: var(--accent); }
 .tagline { font-size: 12.5px; color: var(--text-dim); margin-top: 2px; }
+.taglineShort { display: none; }
 .headerSpacer { flex: 1; }
 .favBtn {
   display: inline-flex; align-items: center; gap: 7px; padding: 7px 13px; border-radius: 9px;
@@ -38,14 +39,33 @@
 .navlink { font-size: 14px; color: var(--text-dim); font-weight: 550; }
 .navlink:hover { color: var(--text); }
 
-.body { flex: 1; display: flex; min-height: 0; }
+/* Сетка: левая колонка — контролы над списком, правая — карта во всю высоту.
+   На мобиле раскладка переопределяется целиком (см. блок @media внизу). */
+.body { flex: 1; display: grid; grid-template-columns: 410px 1fr; grid-template-rows: auto auto minmax(0, 1fr); min-height: 0; }
+
+.controls { grid-column: 1; grid-row: 1; padding: 14px 16px 12px; background: var(--bg); border-right: 1px solid var(--border); }
+.controlsRow { display: flex; align-items: center; gap: 8px; }
+.controlsRow .modeToggle { flex: 1; margin-bottom: 0; }
 
 .sidebar {
-  width: 410px; flex-shrink: 0; display: flex; flex-direction: column;
+  grid-column: 1; grid-row: 3; display: flex; flex-direction: column;
   border-right: 1px solid var(--border); background: var(--bg); min-height: 0;
 }
 
+/* Кнопка «Фильтры» и ручка шторки — только мобильные, на десктопе их нет */
+.filterBtn, .grip { display: none; }
+
 .filters { padding: 14px 16px; border-bottom: 1px solid var(--border-soft); }
+
+/* Хост фильтров: на десктопе — блок между контролами и списком, на мобиле — модалка.
+   Явное место в сетке обязательно: без него блок авто-размещался в неявный 3-й ряд
+   и фильтры уезжали ПОД список. */
+.filterHost {
+  grid-column: 1; grid-row: 2;
+  padding: 0 16px 14px; background: var(--bg);
+  border-right: 1px solid var(--border); border-bottom: 1px solid var(--border-soft);
+}
+.filterHostBar, .filterFoot, .filterScrim { display: none; }
 .modeToggle { display: flex; gap: 4px; padding: 4px; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 12px; }
 .modeToggle button { flex: 1; display: flex; align-items: center; justify-content: center; gap: 7px; padding: 9px 8px; border: none; background: transparent; color: var(--text-dim); font-size: 13.5px; font-weight: 600; font-family: var(--font); border-radius: 8px; cursor: pointer; transition: background .13s, color .13s; }
 .modeToggle button:hover:not(.modeActive) { color: var(--text); background: var(--panel-2); }
@@ -57,12 +77,23 @@
 .aptLegend span { display: inline-flex; align-items: center; gap: 6px; }
 .searchRow { position: relative; margin-bottom: 12px; }
 .searchIcon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: var(--text-faint); pointer-events: none; }
+/* элементы, существующие только как шапка мобильной шторки */
+.sheetOnly { display: none; }
+
 .search {
-  width: 100%; padding: 11px 12px 11px 40px; border-radius: var(--radius-sm);
+  /* справа место под крестик очистки, иначе текст уезжает под него */
+  width: 100%; padding: 11px 42px 11px 40px; border-radius: var(--radius-sm);
   background: var(--panel); border: 1px solid var(--border); color: var(--text);
   font-size: 14px; font-family: var(--font); transition: border-color .15s, box-shadow .15s;
 }
 .search::placeholder { color: var(--text-faint); }
+.searchClear {
+  position: absolute; right: 5px; top: 50%; transform: translateY(-50%);
+  width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+  border: none; background: transparent; color: var(--text-faint); border-radius: 50%; cursor: pointer;
+}
+.searchClear:hover { color: var(--text); }
+.searchClear:active { background: var(--panel-2); }
 .search:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
 .filterGroup { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
 .filterGroup:last-child { margin-bottom: 0; }
@@ -109,7 +140,38 @@
 .cardChips { display: flex; flex-wrap: wrap; gap: 5px; }
 .miniChip { display: inline-flex; align-items: center; gap: 4px; font-size: 11.5px; padding: 3px 8px; border-radius: 6px; background: var(--panel-2); color: var(--text-dim); }
 
-.mapWrap { flex: 1; position: relative; min-width: 0; }
+.mapWrap { grid-column: 2; grid-row: 1 / -1; position: relative; min-width: 0; }
+/* пока грузится карта — вместо белого прямоугольника мягкий плейсхолдер */
+.mapSkeleton { position: absolute; inset: 0; background: var(--panel-2); }
+.mapSkeleton::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(100deg, transparent 20%, rgba(255, 255, 255, .55) 50%, transparent 80%);
+  animation: mapShimmer 1.5s ease-in-out infinite;
+}
+@keyframes mapShimmer { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+
+/* ---- карточка объекта, выбранного тапом по карте (тач вместо hover) ---- */
+.mapDetail { position: relative; margin: 10px; padding: 12px; background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+.mapDetailClose {
+  position: absolute; top: 6px; right: 6px; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center;
+  border: none; background: transparent; color: var(--text-faint); border-radius: 50%; cursor: pointer;
+}
+.mapDetailClose:active { background: var(--panel-2); color: var(--text); }
+.mdHead { display: flex; gap: 12px; }
+.mdPhoto { width: 84px; height: 84px; border-radius: 10px; object-fit: cover; flex-shrink: 0; background: var(--panel-2); }
+.mdPhotoEmpty { display: flex; align-items: center; justify-content: center; color: var(--text-faint); font-size: 24px; }
+.mdInfo { flex: 1; min-width: 0; padding-right: 30px; }
+.mdPrice { font-size: 19px; font-weight: 750; letter-spacing: -0.02em; line-height: 1.15; }
+.mdTitle { font-size: 15px; font-weight: 650; line-height: 1.25; }
+.mdSub { font-size: 13px; color: var(--text-dim); margin-top: 4px; }
+.mdAddr { font-size: 12.5px; color: var(--text-faint); margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mdChips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+.mdAction {
+  display: flex; align-items: center; justify-content: center; gap: 7px; margin-top: 12px;
+  min-height: var(--tap); border-radius: var(--radius-sm); background: var(--accent); color: #fff;
+  font-size: 14.5px; font-weight: 620;
+}
+.mdAction:active { background: var(--accent-hover); }
 .legend {
   position: absolute; left: 14px; top: 14px; z-index: 2;
   background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(10px);
@@ -153,26 +215,177 @@
 .stepDot { width: 10px; height: 10px; border-radius: 50%; margin-top: 4px; }
 .aptSrc { font-size: 11.5px; color: var(--text-faint); line-height: 1.5; padding-top: 12px; border-top: 1px solid var(--border-soft); }
 
+/* ═══════════════════════════════════════════════════════════════════
+   МОБИЛЬНАЯ РАСКЛАДКА: карта во весь экран + «шторка» со списком.
+   Страница целиком не скроллится — скроллится только содержимое шторки,
+   поэтому одним пальцем по карте всегда двигается карта, а не страница.
+   ═══════════════════════════════════════════════════════════════════ */
 @media (max-width: 900px) {
-  .shell { height: auto; min-height: 100dvh; overflow: visible; }
-  .header { padding: 10px 15px; gap: 10px; }
-  .tagline { display: none; }
-  .body { flex-direction: column-reverse; }
-  .sidebar { width: 100%; border-right: none; border-top: 1px solid var(--border); }
-  .mapWrap { height: 62vh; min-height: 380px; position: sticky; top: 0; z-index: 1; }
-  .list { max-height: none; }
-  .filters { padding: 12px 14px 6px; }
-  /* filter groups scroll horizontally instead of wrapping into many rows */
-  .filterGroup { flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden; padding-bottom: 6px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
-  .filterGroup::-webkit-scrollbar { display: none; }
-  .fLabel { position: sticky; left: 0; }
-  .pill { flex: 0 0 auto; padding: 7px 13px; font-size: 13px; }
-  .modeToggle button { padding: 11px 8px; font-size: 14px; }
-  .search { padding: 12px 12px 12px 40px; font-size: 15px; }
-  .legend { padding: 8px 10px; font-size: 11px; gap: 5px; }
-  .card { padding: 11px 8px; }
+  .shell { height: 100dvh; overflow: hidden; }
+
+  .header {
+    padding: calc(8px + var(--sat)) max(13px, var(--sal)) 8px max(13px, var(--sar));
+    gap: 9px; flex-wrap: nowrap; min-height: 0;
+  }
+  .tagline { font-size: 11.5px; margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .taglineFull { display: none; }
+  .taglineShort { display: inline; }
+  .logoMark { width: 33px; height: 33px; border-radius: 9px; }
+  .logo { font-size: 16px; }
+  .headerSpacer { display: none; }
+  .brand { flex: 1; min-width: 0; }
+  .brand > div:last-child { min-width: 0; }
+  .navlink { display: none; }
+  /* иконочные кнопки: подпись прячем, тач-таргет держим 44px */
+  .favBtn, .authBtn {
+    margin-left: auto; min-width: var(--tap); min-height: var(--tap);
+    justify-content: center; padding: 0 10px; font-size: 0; gap: 0; flex-shrink: 0;
+  }
+  .authBtn { margin-left: 0; }
+  .favBadge { font-size: 10.5px; margin-left: 3px; }
+
+  .body { display: block; position: relative; min-height: 0; }
+  .mapWrap { position: absolute; inset: 0; grid-column: auto; grid-row: auto; }
+
+  /* поиск + режим + фильтры — плавают над картой */
+  .controls {
+    position: absolute; top: 0; left: 0; right: 0; z-index: 4;
+    grid-column: auto; grid-row: auto; border-right: none;
+    padding: 9px max(11px, var(--sal)) 9px max(11px, var(--sar));
+    background: linear-gradient(var(--bg-elev) 68%, rgba(255, 255, 255, 0));
+    pointer-events: none;
+  }
+  .controls > * { pointer-events: auto; }
+  .searchRow { margin-bottom: 8px; }
+  /* 16px — иначе iOS зумит страницу при фокусе на поле */
+  .search { padding: 12px 40px 12px 40px; font-size: 16px; min-height: var(--tap); box-shadow: var(--shadow-sm); }
+  .modeToggle { margin-bottom: 0; box-shadow: var(--shadow-sm); }
+  .modeToggle button { min-height: 40px; padding: 8px 6px; font-size: 13.5px; }
+
+  .filterBtn {
+    display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0;
+    min-height: var(--tap); padding: 0 13px; border-radius: 10px;
+    border: 1px solid var(--border); background: var(--panel); color: var(--text-dim);
+    font-size: 13.5px; font-weight: 600; font-family: var(--font); box-shadow: var(--shadow-sm);
+  }
+  .filterBtn span { display: none; }
+  .filterBtn:active { background: var(--panel-2); }
+  .filterBtnOn { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .filterCount {
+    display: inline-flex; align-items: center; justify-content: center; min-width: 19px; height: 19px;
+    padding: 0 5px; border-radius: 10px; background: var(--accent); color: #fff; font-size: 11px; font-weight: 700;
+  }
+
+  /* Легенда — компактной строкой над свёрнутой шторкой (не во всю ширину,
+     иначе налезает на кнопки зума справа). При раскрытой шторке скрыта: там
+     пользователь читает список, а не карту. */
+  .legend {
+    /* на 126px стоит строка копирайта OpenFreeMap — легенда встаёт ярусом выше */
+    top: auto; bottom: 172px; left: max(10px, var(--sal)); right: auto;
+    max-width: calc(100% - 20px);
+    flex-direction: row; flex-wrap: nowrap; overflow-x: auto; gap: 11px;
+    padding: 6px 10px; font-size: 11px;
+    scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  }
+  .legend::-webkit-scrollbar { display: none; }
+  .legendRow { flex: 0 0 auto; white-space: nowrap; border: none !important; margin: 0 !important; padding: 0 !important; }
+
+  /* ---- ШТОРКА ---- */
+  .sidebar {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 6;
+    grid-column: auto; grid-row: auto;
+    height: calc(100% - 104px);
+    border-right: none; background: var(--bg-elev);
+    border-radius: 18px 18px 0 0;
+    box-shadow: 0 -2px 10px rgba(16, 24, 40, .05), 0 -14px 44px rgba(16, 24, 40, .16);
+    transition: transform .32s cubic-bezier(.32, .72, 0, 1);
+    will-change: transform; touch-action: none; overscroll-behavior: contain;
+  }
+  .sidebarDragging { transition: none; }
+
+  .grip { display: flex; justify-content: center; padding: 8px 0 4px; flex-shrink: 0; }
+  .gripBar {
+    position: relative; width: 42px; height: 5px; padding: 0; border: none;
+    border-radius: 3px; background: #cfd6e0; cursor: pointer;
+  }
+  .gripBar::before { content: ''; position: absolute; inset: -19px -30px; } /* тач-таргет 44px */
+  .gripBar:active { background: #a9b3c1; }
+
+  .sheetOnly { display: flex; }
+  .resultBar { padding: 6px 15px 10px; font-size: 13.5px; font-weight: 600; color: var(--text); }
+  .sortSel { min-height: 36px; font-size: 13px; padding: 4px 8px; }
+  /* оба — контейнеры прокрутки внутри шторки, иначе содержимое не долистать */
+  .list, .aptPanel {
+    flex: 1; min-height: 0; overflow-y: auto;
+    -webkit-overflow-scrolling: touch; overscroll-behavior: contain; touch-action: pan-y;
+    padding-bottom: calc(18px + var(--sab));
+  }
+
+  .card { padding: 12px 9px; }
+  .card:active { background: var(--panel-2); }
+  /* ссылка-название — отдельное действие («открыть ЖК»), увеличиваем зону нажатия
+     не меняя вид: padding + отрицательный margin */
+  .cardName { display: inline-block; padding: 7px 0; margin: -7px 0; }
+  /* сердечко на карточке: без hover его не видно — показываем всегда */
+  .cardFav {
+    position: absolute; top: 10px; left: 10px;
+    opacity: 1; width: var(--tap); height: var(--tap); border-radius: 50%;
+    background: transparent; box-shadow: none; color: transparent;
+  }
+  .cardFav::after {
+    content: ''; position: absolute; width: 30px; height: 30px; border-radius: 50%;
+    background: rgba(255, 255, 255, .93); box-shadow: 0 1px 4px rgba(20, 24, 31, .2); z-index: -1;
+  }
+  .cardFav > svg { color: var(--text-dim); }
+  .cardFavOn > svg { color: var(--red); }
+  .cardFav:active { transform: scale(.9); }
+
+  /* ---- ФИЛЬТРЫ: полноэкранная модалка ---- */
+  .filterHost {
+    position: fixed; left: 0; right: 0; bottom: 0; top: auto; z-index: 40;
+    max-height: 88dvh; display: flex; flex-direction: column;
+    padding: 0; border: none; border-radius: 18px 18px 0 0;
+    background: var(--bg-elev); box-shadow: 0 -14px 44px rgba(16, 24, 40, .2);
+    transform: translateY(101%); transition: transform .3s cubic-bezier(.32, .72, 0, 1);
+    visibility: hidden;
+  }
+  .filterHostOpen { transform: none; visibility: visible; }
+  .filterHostBar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px 12px; border-bottom: 1px solid var(--border-soft); flex-shrink: 0;
+  }
+  .filterHostBar b { font-size: 17px; font-weight: 700; }
+  .filterClose {
+    width: var(--tap); height: var(--tap); margin: -6px -8px -6px 0; display: flex; align-items: center; justify-content: center;
+    border: none; background: transparent; color: var(--text-dim); border-radius: 50%; cursor: pointer;
+  }
+  .filterClose:active { background: var(--panel-2); }
+  .filterScroll { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 14px 16px 6px; }
+  .filterFoot {
+    display: flex; gap: 10px; flex-shrink: 0;
+    padding: 12px 16px calc(12px + var(--sab));
+    border-top: 1px solid var(--border-soft); background: var(--bg-elev);
+  }
+  .filterReset, .filterApply {
+    flex: 1; min-height: var(--tap); border-radius: var(--radius-sm);
+    font-size: 15px; font-weight: 620; font-family: var(--font); cursor: pointer;
+  }
+  .filterReset { flex: 0 0 40%; border: 1px solid var(--border); background: var(--panel); color: var(--text-dim); }
+  .filterReset:disabled { opacity: .45; }
+  .filterReset:active:not(:disabled) { background: var(--panel-2); }
+  .filterApply { border: none; background: var(--accent); color: #fff; }
+  .filterApply:active { background: var(--accent-hover); }
+  .filterScrim { display: block; position: fixed; inset: 0; z-index: 39; background: rgba(16, 24, 40, .42); }
+
+  /* в модалке ряды фильтров переносятся, а не скроллятся вбок */
+  .filterGroup { flex-wrap: wrap; gap: 7px; margin-bottom: 15px; }
+  .fLabel { width: 100%; font-size: 11.5px; margin-bottom: 4px; }
+  .pill { min-height: 40px; padding: 9px 15px; font-size: 14px; display: inline-flex; align-items: center; gap: 5px; }
+  .pill:active { transform: scale(.96); }
 }
+
 @media (max-width: 560px) {
-  .thumb { width: 66px; height: 66px; }
-  .legend { max-width: 150px; }
+  .thumb { width: 68px; height: 68px; }
+  .cardName { font-size: 14px; }
+  .mdPhoto { width: 74px; height: 74px; }
 }
