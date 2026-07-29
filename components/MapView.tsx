@@ -206,7 +206,9 @@ export default function MapView({
         // карточку лежащей под ней квартиры
         const sd = pick('sold-dot');
         if (sd) { const p = sd.properties as any; onDetailRef.current?.({ kind: 'sold', price: p.price ? Number(p.price) : null, rooms: p.rooms ? Number(p.rooms) : null, square: p.square ? Number(p.square) : null, addr: p.addr || null }); return; }
-        const a = pick('apt-dot');
+        // ценник-пилюля — самая заметная цель для пальца в режиме «Квартиры»
+        // (крупнее самой точки), поэтому она тоже открывает карточку
+        const a = pick('apt-dot') || pick('apt-price');
         if (a) {
           const p = a.properties as any;
           onDetailRef.current?.({
@@ -216,7 +218,7 @@ export default function MapView({
           });
           return;
         }
-        const lm = pick('landmark-dot');
+        const lm = pick('landmark-dot') || pick('landmark-label');
         // в landmarks.geojson русская категория лежит в rubric; поля kindRu нет
         if (lm) { const p = lm.properties as any; onDetailRef.current?.({ kind: 'landmark', name: p.name, kindRu: p.rubric || p.desc || null, rating: p.rating ? Number(p.rating) : null, photo: p.photo || null }); return; }
 

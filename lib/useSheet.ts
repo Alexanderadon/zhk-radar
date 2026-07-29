@@ -105,13 +105,30 @@ export function useSheet(enabled: boolean, peekPx = 118) {
       }
     : {};
 
-  // список тянет шторку только если он уже наверху — иначе это обычная прокрутка
+  /**
+   * Список тянет шторку только вниз и только когда прокручен в самый верх.
+   * Без этого один свайп вверх делал сразу два действия: раскрывал шторку
+   * на весь экран И прокручивал список.
+   */
+  const pending = useRef<{ y: number; decided: 'drag' | 'scroll' | null } | null>(null);
   const contentProps = enabled
     ? {
-        onPointerDown: (e: React.PointerEvent) => { if ((scrollRef.current?.scrollTop ?? 0) <= 0) begin(e.clientY); },
-        onPointerMove: (e: React.PointerEvent) => move(e.clientY),
-        onPointerUp: end,
-        onPointerCancel: end,
+        onPointerDown: (e: React.PointerEvent) => {
+          pending.current = { y: e.clientY, decided: null };
+        },
+        onPointerMove: (e: React.PointerEvent) => {
+          const q = pending.current;
+          if (q && q.decided === null) {
+            const dy = e.clientY - q.y;
+            if (Math.abs(dy) < 6) return; // ещё не понятно, куда ведут
+            // тянуть шторку можно только вниз и только с самого верха списка
+            q.decided = dy > 0 && (scrollRef.current?.scrollTop ?? 0) <= 0 ? 'drag' : 'scroll';
+            if (q.decided === 'drag') begin(q.y);
+          }
+          if (q?.decided === 'drag') move(e.clientY);
+        },
+        onPointerUp: () => { if (pending.current?.decided === 'drag') end(); pending.current = null; },
+        onPointerCancel: () => { if (pending.current?.decided === 'drag') end(); pending.current = null; },
       }
     : {};
 
