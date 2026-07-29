@@ -79,7 +79,7 @@ export default function Gallery({ items, name }: { items: GalleryItem[]; name: s
               <div className={s.counter}>{active + 1} / {n}</div>
             </>
           )}
-          <div className={s.zoomHint} onClick={() => setOpen(true)}><Icon name="maximize" size={13} /> увеличить</div>
+          <button type="button" className={s.zoomHint} onClick={() => setOpen(true)}><Icon name="maximize" size={13} /> увеличить</button>
         </div>
         {n > 1 && (
           <div className={s.thumbs} ref={thumbsRef}>

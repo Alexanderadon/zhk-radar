@@ -116,6 +116,10 @@
   position: relative;
   display: flex; gap: 12px; padding: 10px; border-radius: var(--radius-sm); margin-bottom: 2px;
   cursor: pointer; border: 1px solid transparent; transition: background .12s, border-color .12s, box-shadow .12s;
+  /* список из 824 карточек: браузер пропускает вёрстку и отрисовку тех,
+     что вне экрана; contain-intrinsic-size держит корректную высоту скролла */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 102px;
 }
 .card:hover { background: var(--panel); box-shadow: var(--shadow-sm); }
 .cardActive { background: var(--panel); border-color: var(--accent-dim); box-shadow: var(--shadow-sm); }
@@ -214,6 +218,16 @@
 .aptSteps li { display: grid; grid-template-columns: 11px 1fr; gap: 10px; align-items: start; font-size: 13px; line-height: 1.45; color: var(--text-dim); }
 .stepDot { width: 10px; height: 10px; border-radius: 50%; margin-top: 4px; }
 .aptSrc { font-size: 11.5px; color: var(--text-faint); line-height: 1.5; padding-top: 12px; border-top: 1px solid var(--border-soft); }
+.aptStatError {
+  padding: 12px 14px; margin-bottom: 14px; border-radius: var(--radius-sm);
+  background: var(--amber-soft); border: 1px solid rgba(214, 138, 0, .28);
+  font-size: 13px; line-height: 1.5; color: #7a4f00;
+}
+.aptStatError button {
+  display: block; margin-top: 8px; min-height: 36px; padding: 0 14px;
+  border: 1px solid rgba(214, 138, 0, .4); border-radius: 8px; background: #fff;
+  color: #7a4f00; font-size: 13px; font-weight: 620; font-family: var(--font); cursor: pointer;
+}
 
 /* ═══════════════════════════════════════════════════════════════════
    МОБИЛЬНАЯ РАСКЛАДКА: карта во весь экран + «шторка» со списком.

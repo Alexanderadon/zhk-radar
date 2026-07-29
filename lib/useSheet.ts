@@ -20,13 +20,29 @@ export function useSheet(enabled: boolean, peekPx = 118) {
   const scrollRef = useRef<HTMLElement | null>(null);
   const [index, setIndex] = useState<SnapIndex>(1);
   const [h, setH] = useState(0);
-  const [drag, setDrag] = useState<number | null>(null);
+  /**
+   * Смещение во время перетаскивания живёт в ref, а не в state, и пишется прямо
+   * в style элемента. Через state каждый кадр драга перерисовывал бы весь
+   * HomeClient вместе со всем списком карточек — на телефоне это заметный рывок.
+   */
+  const dragRef = useRef<number | null>(null);
   const g = useRef<{ startY: number; base: number; lastY: number; lastT: number; v: number; active: boolean } | null>(null);
+  const pending = useRef<{ y: number; decided: 'drag' | 'scroll' | null } | null>(null);
 
   // замер ДО отрисовки: иначе первый кадр считает h = 0, а offsetFor(0) при h = 0
   // даёт 0 — «раскрыта на весь экран», и шторка прыгает при загрузке
   useIsoLayoutEffect(() => {
-    if (!enabled) { setH(0); return; }
+    if (!enabled) {
+      // ушли на десктоп: снимаем всё, что писали мимо React, и роняем
+      // возможный незавершённый жест — иначе шторка останется «подвисшей»
+      setH(0);
+      dragRef.current = null;
+      if (g.current) g.current.active = false;
+      pending.current = null;
+      const el = sheetRef.current;
+      if (el) { el.style.transform = ''; el.style.transition = ''; }
+      return;
+    }
     const measure = () => setH(sheetRef.current?.offsetHeight ?? 0);
     measure();
     const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(measure) : null;
@@ -48,11 +64,19 @@ export function useSheet(enabled: boolean, peekPx = 118) {
     [h, peekPx]
   );
 
-  const y = enabled ? (drag ?? offsetFor(index)) : 0;
+  const y = enabled ? offsetFor(index) : 0;
+
+  /** Пишем трансформацию мимо React — во время жеста рендеров быть не должно. */
+  const paint = (val: number, animate: boolean) => {
+    const el = sheetRef.current;
+    if (!el) return;
+    el.style.transition = animate ? '' : 'none';
+    el.style.transform = `translate3d(0, ${val}px, 0)`;
+  };
 
   const begin = (clientY: number) => {
     if (!enabled) return;
-    g.current = { startY: clientY, base: offsetFor(index), lastY: clientY, lastT: performance.now(), v: 0, active: true };
+    g.current = { startY: clientY, base: dragRef.current ?? offsetFor(index), lastY: clientY, lastT: performance.now(), v: 0, active: true };
   };
   const move = (clientY: number) => {
     const c = g.current;
@@ -63,23 +87,29 @@ export function useSheet(enabled: boolean, peekPx = 118) {
     c.lastY = clientY; c.lastT = now;
     let next = c.base + (clientY - c.startY);
     if (next < 0) next = next / 3; // резиновое сопротивление сверху
-    setDrag(Math.min(next, Math.max(0, h - peekPx)));
+    next = Math.min(next, Math.max(0, h - peekPx));
+    dragRef.current = next;
+    paint(next, false);
   };
   const end = () => {
     const c = g.current;
     if (!enabled || !c?.active) return;
     c.active = false;
-    const cur = drag ?? offsetFor(index);
+    const cur = dragRef.current ?? offsetFor(index);
+    dragRef.current = null;
+
+    let best: SnapIndex;
     if (Math.abs(c.v) > 0.5) {
       // Быстрый флик на соседнее положение. v > 0 — палец идёт ВНИЗ, значит
       // шторку надо закрывать, т.е. уменьшать индекс (2 = раскрыта, 0 = свёрнута).
-      setIndex((i) => Math.min(2, Math.max(0, i + (c.v > 0 ? -1 : 1))) as SnapIndex);
+      best = Math.min(2, Math.max(0, index + (c.v > 0 ? -1 : 1))) as SnapIndex;
     } else {
-      let best: SnapIndex = 0, bestD = Infinity;
+      best = 0; let bestD = Infinity;
       ([0, 1, 2] as SnapIndex[]).forEach((i) => { const d = Math.abs(offsetFor(i) - cur); if (d < bestD) { bestD = d; best = i; } });
-      setIndex(best);
     }
-    setDrag(null);
+    // доводим анимацией сами: если индекс не изменился, ререндера не будет
+    paint(offsetFor(best), true);
+    setIndex(best);
   };
 
   const dragProps = enabled
@@ -110,7 +140,6 @@ export function useSheet(enabled: boolean, peekPx = 118) {
    * Без этого один свайп вверх делал сразу два действия: раскрывал шторку
    * на весь экран И прокручивал список.
    */
-  const pending = useRef<{ y: number; decided: 'drag' | 'scroll' | null } | null>(null);
   const contentProps = enabled
     ? {
         onPointerDown: (e: React.PointerEvent) => {
@@ -135,7 +164,7 @@ export function useSheet(enabled: boolean, peekPx = 118) {
   return {
     sheetRef, scrollRef, index, setIndex, y,
     // пока не измерено — без анимации, чтобы не было въезда шторки на старте
-    dragging: drag !== null || h === 0,
+    dragging: h === 0,
     dragProps, headerDragProps, contentProps,
     expand: () => setIndex(2),
     half: () => setIndex(1),

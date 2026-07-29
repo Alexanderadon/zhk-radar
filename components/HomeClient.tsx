@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import s from '../app/home.module.scss';
@@ -77,16 +77,62 @@ const DISTRICTS = [
   { name: 'Алатауский', color: '#e67e22' },
 ];
 
+/**
+ * Карточка ЖК в списке. Вынесена и обёрнута в memo: список рендерит 824 штуки,
+ * и без этого выбор одного ЖК (тап по карте) перерисовывал бы их все.
+ */
+const ZhkCard = memo(function ZhkCard({
+  z, isSelected, isFav, onSelect, onFav, register,
+}: {
+  z: HomeZhk; isSelected: boolean; isFav: boolean;
+  onSelect: (id: number) => void; onFav: (id: number) => void;
+  register: (id: number, el: HTMLDivElement | null) => void;
+}) {
+  return (
+    <div
+      ref={(el) => register(z.id, el)}
+      className={`${s.card} ${isSelected ? s.cardActive : ''}`}
+      onClick={() => onSelect(z.id)}
+    >
+      <button type="button" className={`${s.cardFav} ${isFav ? s.cardFavOn : ''}`} title={isFav ? 'Убрать из избранного' : 'Сохранить в избранное'} aria-label={isFav ? `Убрать ${z.name} из избранного` : `Сохранить ${z.name} в избранное`} aria-pressed={isFav} onClick={(e) => { e.stopPropagation(); onFav(z.id); }}>
+        <Icon name="heart" size={15} fill={isFav ? 'currentColor' : 'none'} />
+      </button>
+      {z.image ? <img className={s.thumb} src={z.image} alt="" loading="lazy" /> : <div className={`${s.thumb} ${s.thumbEmpty}`} aria-hidden>◫</div>}
+      <div className={s.cardBody}>
+        <div className={s.cardTop}>
+          <div>
+            <Link href={`/zhk${z.slug}`} className={s.cardName} onClick={(e) => e.stopPropagation()}>{z.name}</Link>
+            <div className={s.cardDev}>{z.developer?.name ?? '—'}{z.district ? ` · ${z.district}` : ''}</div>
+          </div>
+          <div className={s.scoreBadge}>
+            <div className={s.scoreNum} style={{ color: BAND_TEXT[z.band] }}>{z.score ?? '—'}</div>
+            <div className={s.scoreCap}>{z.score != null ? 'защита' : 'мало'}</div>
+          </div>
+        </div>
+        <div className={s.cardChips}>
+          {z.deal && <span className={s.miniChip} style={{ background: 'var(--green)', color: '#fff', fontWeight: 650 }}><Icon name="flame" size={11} /> выгодно</span>}
+          {z.real && <span className={s.miniChip} style={{ color: 'var(--green)', background: 'var(--green-soft)' }}><Icon name="camera" size={11} /> реальные фото</span>}
+          {z.classRu && <span className={s.miniChip}>{z.classRu}</span>}
+          {z.constructionStatusRu && <span className={s.miniChip}>{z.constructionStatusRu}</span>}
+          {z.priceMin ? <span className={s.miniChip}>от {(z.priceMin / 1_000_000).toLocaleString('ru-RU', { maximumFractionDigits: 1 })} млн ₸</span> : z.priceSqm ? <span className={s.miniChip}>{Math.round(z.priceSqm / 1000)} тыс ₸/м²</span> : null}
+          {z.seismicResistance && <span className={s.miniChip}><Icon name="mountain" size={11} /> {z.seismicResistance}</span>}
+        </div>
+      </div>
+    </div>
+  );
+});
+
 /** Карточка объекта, выбранного тапом по карте. На тач-устройствах заменяет hover-попап. */
 function MapDetailCard({ detail, onClose }: { detail: MapDetail; onClose: () => void }) {
   const fmtM = (v: number | null) => (v ? `${(v / 1_000_000).toLocaleString('ru-RU', { maximumFractionDigits: 1 })} млн ₸` : null);
   return (
-    <div className={s.mapDetail}>
+    // появляется по тапу по карте — без aria-live скринридер о ней не сообщит
+    <div className={s.mapDetail} role="status" aria-live="polite">
       <button type="button" className={s.mapDetailClose} onClick={onClose} aria-label="Закрыть карточку"><Icon name="x" size={17} /></button>
       {detail.kind === 'apt' && (
         <>
           <div className={s.mdHead}>
-            {detail.photo ? <img className={s.mdPhoto} src={detail.photo} alt="" loading="lazy" /> : <div className={`${s.mdPhoto} ${s.mdPhotoEmpty}`}>◫</div>}
+            {detail.photo ? <img className={s.mdPhoto} src={detail.photo} alt="" loading="lazy" /> : <div className={`${s.mdPhoto} ${s.mdPhotoEmpty}`} aria-hidden>◫</div>}
             <div className={s.mdInfo}>
               <div className={s.mdPrice}>{fmtM(detail.price) ?? 'цена не указана'}</div>
               <div className={s.mdSub}>
@@ -109,7 +155,7 @@ function MapDetailCard({ detail, onClose }: { detail: MapDetail; onClose: () => 
       {detail.kind === 'landmark' && (
         <>
           <div className={s.mdHead}>
-            {detail.photo ? <img className={s.mdPhoto} src={detail.photo} alt="" loading="lazy" /> : <div className={`${s.mdPhoto} ${s.mdPhotoEmpty}`}>◫</div>}
+            {detail.photo ? <img className={s.mdPhoto} src={detail.photo} alt="" loading="lazy" /> : <div className={`${s.mdPhoto} ${s.mdPhotoEmpty}`} aria-hidden>◫</div>}
             <div className={s.mdInfo}>
               <div className={s.mdTitle}>{detail.name}</div>
               <div className={s.mdSub}>{[detail.kindRu, detail.rating ? `★ ${detail.rating}` : null].filter(Boolean).join(' · ')}</div>
@@ -151,7 +197,16 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
   const favSet = useMemo(() => new Set(fav.ids), [fav.ids]);
   const [aptMeta, setAptMeta] = useState<{ updatedAt: string; total: number; primary: number; secondary: number; addedToday: number; soldToday: number; soldRecent: number } | null>(null);
   const toggleN = (set: Set<number>, v: number, upd: (s: Set<number>) => void) => { const n = new Set(set); n.has(v) ? n.delete(v) : n.add(v); upd(n); };
-  useEffect(() => { if (mode === 'apartments' && !aptMeta) fetch('/listings-meta.json').then((r) => r.json()).then(setAptMeta).catch(() => {}); }, [mode, aptMeta]);
+  const [aptMetaError, setAptMetaError] = useState(false);
+  useEffect(() => {
+    if (mode !== 'apartments' || aptMeta) return;
+    setAptMetaError(false);
+    fetch('/listings-meta.json')
+      .then((r) => { if (!r.ok) throw new Error(String(r.status)); return r.json(); })
+      .then(setAptMeta)
+      // раньше ошибка глоталась молча и блок статистики просто не появлялся
+      .catch(() => setAptMetaError(true));
+  }, [mode, aptMeta]);
 
   // ---- мобильная оболочка: шторка поверх карты + модалка фильтров ----
   const isMobile = useIsMobile();
@@ -160,6 +215,16 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [mapDetail, setMapDetail] = useState<MapDetail | null>(null);
   const cardRefs = useRef<Map<number, HTMLDivElement>>(new Map());
+
+  // Колбэки для карточек должны быть стабильными, иначе memo не сработает
+  // и список всё равно перерисовывался бы целиком.
+  const favToggleRef = useRef(fav.toggle);
+  favToggleRef.current = fav.toggle;
+  const onCardSelect = useCallback((id: number) => setSelected(id), []);
+  const onCardFav = useCallback((id: number) => favToggleRef.current(id), []);
+  const registerCard = useCallback((id: number, el: HTMLDivElement | null) => {
+    if (el) cardRefs.current.set(id, el); else cardRefs.current.delete(id);
+  }, []);
 
   const activeCount =
     band.size + cls.size + status.size + extra.size + finishing.size +
@@ -170,14 +235,46 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
     setAptMarket(new Set()); setAptRooms(new Set()); setDistrict(null); setPriceRange(null); setShowSold(false);
   }, []);
 
-  // модалка фильтров — блокируем прокрутку фона и закрываем по Esc
+  // Модалка фильтров: блокируем прокрутку фона, Esc, ловушка фокуса и inert
+  // на остальном — иначе с клавиатуры/скринридера можно уйти за пределы модалки.
+  const filterHostRef = useRef<HTMLDivElement>(null);
+  const restoreFocus = useRef<HTMLElement | null>(null);
   useEffect(() => {
     if (!filtersOpen) return;
+    const host = filterHostRef.current;
+    restoreFocus.current = document.activeElement as HTMLElement | null;
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    const esc = (e: KeyboardEvent) => { if (e.key === 'Escape') setFiltersOpen(false); };
-    window.addEventListener('keydown', esc);
-    return () => { document.body.style.overflow = prev; window.removeEventListener('keydown', esc); };
+
+    // помечаем inert всё, кроме поддерева модалки: идём от неё вверх и
+    // выключаем соседей на каждом уровне (body.children сам по себе бесполезен —
+    // модалка лежит глубоко внутри дерева)
+    const inerted: HTMLElement[] = [];
+    for (let node: HTMLElement | null = host; node && node !== document.body; node = node.parentElement) {
+      for (const sib of Array.from(node.parentElement?.children ?? [])) {
+        if (sib !== node && !(sib as HTMLElement).inert) { (sib as HTMLElement).inert = true; inerted.push(sib as HTMLElement); }
+      }
+    }
+
+    const FOCUSABLE = 'button:not([disabled]), a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+    host?.querySelector<HTMLElement>(FOCUSABLE)?.focus();
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') { setFiltersOpen(false); return; }
+      if (e.key !== 'Tab' || !host) return;
+      const items = Array.from(host.querySelectorAll<HTMLElement>(FOCUSABLE)).filter((el) => el.offsetParent !== null);
+      if (!items.length) return;
+      const first = items[0], last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener('keydown', onKey);
+      inerted.forEach((el) => { el.inert = false; });
+      restoreFocus.current?.focus?.();
+    };
   }, [filtersOpen]);
 
   // тап по метке на карте (тач): вместо «телепорта» — карточка в шторке
@@ -293,7 +390,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
           </div>
         </div>
 
-        <div className={`${s.filterHost} ${filtersOpen ? s.filterHostOpen : ''}`} role={isMobile ? 'dialog' : undefined} aria-modal={isMobile && filtersOpen ? true : undefined} aria-label="Фильтры">
+        <div ref={filterHostRef} className={`${s.filterHost} ${filtersOpen ? s.filterHostOpen : ''}`} role={isMobile ? 'dialog' : undefined} aria-modal={isMobile && filtersOpen ? true : undefined} aria-label="Фильтры">
             <div className={s.filterHostBar}>
               <b>Фильтры</b>
               <button type="button" className={s.filterClose} onClick={() => setFiltersOpen(false)} aria-label="Закрыть фильтры"><Icon name="x" size={19} /></button>
@@ -409,32 +506,15 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
               </div>
               <div className={s.list} ref={sheet.scrollRef as React.RefObject<HTMLDivElement>} {...sheet.contentProps}>
                 {filtered.map((z) => (
-                  <div key={z.id} ref={(el) => { if (el) cardRefs.current.set(z.id, el); else cardRefs.current.delete(z.id); }} className={`${s.card} ${selected === z.id ? s.cardActive : ''}`} onClick={() => setSelected(z.id)}>
-                    <button type="button" className={`${s.cardFav} ${fav.has(z.id) ? s.cardFavOn : ''}`} title={fav.has(z.id) ? 'Убрать из избранного' : 'Сохранить в избранное'} onClick={(e) => { e.stopPropagation(); fav.toggle(z.id); }}>
-                      <Icon name="heart" size={15} fill={fav.has(z.id) ? 'currentColor' : 'none'} />
-                    </button>
-                    {z.image ? <img className={s.thumb} src={z.image} alt="" loading="lazy" /> : <div className={`${s.thumb} ${s.thumbEmpty}`}>◫</div>}
-                    <div className={s.cardBody}>
-                      <div className={s.cardTop}>
-                        <div>
-                          <Link href={`/zhk${z.slug}`} className={s.cardName} onClick={(e) => e.stopPropagation()}>{z.name}</Link>
-                          <div className={s.cardDev}>{z.developer?.name ?? '—'}{z.district ? ` · ${z.district}` : ''}</div>
-                        </div>
-                        <div className={s.scoreBadge}>
-                          <div className={s.scoreNum} style={{ color: BAND_TEXT[z.band] }}>{z.score ?? '—'}</div>
-                          <div className={s.scoreCap}>{z.score != null ? 'защита' : 'мало'}</div>
-                        </div>
-                      </div>
-                      <div className={s.cardChips}>
-                        {z.deal && <span className={s.miniChip} style={{ background: 'var(--green)', color: '#fff', fontWeight: 650 }}><Icon name="flame" size={11} /> выгодно</span>}
-                        {z.real && <span className={s.miniChip} style={{ color: 'var(--green)', background: 'var(--green-soft)' }}><Icon name="camera" size={11} /> реальные фото</span>}
-                        {z.classRu && <span className={s.miniChip}>{z.classRu}</span>}
-                        {z.constructionStatusRu && <span className={s.miniChip}>{z.constructionStatusRu}</span>}
-                        {z.priceMin ? <span className={s.miniChip}>от {(z.priceMin / 1_000_000).toLocaleString('ru-RU', { maximumFractionDigits: 1 })} млн ₸</span> : z.priceSqm ? <span className={s.miniChip}>{Math.round(z.priceSqm / 1000)} тыс ₸/м²</span> : null}
-                        {z.seismicResistance && <span className={s.miniChip}><Icon name="mountain" size={11} /> {z.seismicResistance}</span>}
-                      </div>
-                    </div>
-                  </div>
+                  <ZhkCard
+                    key={z.id}
+                    z={z}
+                    isSelected={selected === z.id}
+                    isFav={favSet.has(z.id)}
+                    onSelect={onCardSelect}
+                    onFav={onCardFav}
+                    register={registerCard}
+                  />
                 ))}
                 {filtered.length === 0 && (
                   favOnly
@@ -458,6 +538,12 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
                     <span className={s.down}>−{aptMeta.soldToday} продано</span>
                   </div>
                   <div className={s.aptStatFoot}><Icon name="refresh" size={11} /> обновляется автоматически · {new Date(aptMeta.updatedAt).toLocaleDateString('ru-RU')}</div>
+                </div>
+              )}
+              {aptMetaError && (
+                <div className={s.aptStatError} role="status">
+                  Не удалось загрузить сводку по квартирам. Метки на карте работают.
+                  <button type="button" onClick={() => setAptMeta(null)}>Повторить</button>
                 </div>
               )}
               <ul className={s.aptSteps}>

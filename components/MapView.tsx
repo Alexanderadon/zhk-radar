@@ -55,6 +55,7 @@ export default function MapView({
   const loadingApts = useRef(false);
   const allSold = useRef<any[] | null>(null);
   const applyModeRef = useRef<() => void>(() => {});
+  const navCleanup = useRef<() => void>(() => {});
 
   useEffect(() => {
     if (map.current || !container.current) return;
@@ -63,9 +64,19 @@ export default function MapView({
     if (typeof window !== 'undefined') (window as any)._map = m;
     // На узком экране низ занят шторкой, поэтому зум уезжает вправо-вверх,
     // а копирайт — влево-вниз (иначе оба оказываются под шторкой).
-    const narrow = typeof window !== 'undefined' && window.matchMedia('(max-width: 900px)').matches;
     m.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
-    m.addControl(new maplibregl.NavigationControl({ showCompass: false }), narrow ? 'top-right' : 'bottom-right');
+    // Угол зависит от ширины, поэтому переезжает при повороте экрана —
+    // иначе после поворота планшета кнопки остаются не на месте.
+    const mq = window.matchMedia('(max-width: 900px)');
+    let nav: maplibregl.NavigationControl | null = null;
+    const placeNav = () => {
+      if (nav) m.removeControl(nav);
+      nav = new maplibregl.NavigationControl({ showCompass: false });
+      m.addControl(nav, mq.matches ? 'top-right' : 'bottom-right');
+    };
+    placeNav();
+    mq.addEventListener('change', placeNav);
+    navCleanup.current = () => { mq.removeEventListener('change', placeNav); nav = null; };
     // компаса нет, поэтому случайный поворот/наклон пальцами было бы нечем вернуть
     m.touchZoomRotate.disableRotation();
     m.touchPitch.disable();
@@ -240,7 +251,7 @@ export default function MapView({
       applyModeRef.current();
     });
 
-    return () => { m.remove(); map.current = null; ready.current = false; };
+    return () => { navCleanup.current(); m.remove(); map.current = null; ready.current = false; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
