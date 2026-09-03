@@ -83,6 +83,16 @@ if (existsSync('data/listings.json')) {
 await mkdir('data', { recursive: true });
 await writeFile('data/listings.json', JSON.stringify(list), 'utf-8');
 await writeFile('data/listings-sold.json', JSON.stringify(soldRecent), 'utf-8');
-const meta = { updatedAt: new Date().toISOString(), total: list.length, primary: prim, secondary: list.length - prim, addedToday: added, soldToday: sold, soldRecent: soldRecent.length, requests: reqs };
+// Сколько прошло с прошлого снимка. Если обновление пропускали, «+N за день»
+// было бы враньём: цифры накоплены за весь пропущенный период.
+let intervalDays = 1;
+try {
+  const prevMeta = JSON.parse(await readFile('data/listings-meta.json', 'utf-8'));
+  if (prevMeta.updatedAt) {
+    const d = (Date.now() - new Date(prevMeta.updatedAt).getTime()) / 86400000;
+    intervalDays = Math.max(1, Math.round(d));
+  }
+} catch {}
+const meta = { updatedAt: new Date().toISOString(), intervalDays, total: list.length, primary: prim, secondary: list.length - prim, addedToday: added, soldToday: sold, soldRecent: soldRecent.length, requests: reqs };
 await writeFile('data/listings-meta.json', JSON.stringify(meta, null, 1), 'utf-8');
 console.log(`\n✓ ${list.length} квартир (первичка ${prim}, вторичка ${list.length - prim}) | +${added} новых, −${sold} продано | ${reqs} запросов`);

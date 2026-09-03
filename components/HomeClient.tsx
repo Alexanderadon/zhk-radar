@@ -82,9 +82,9 @@ const DISTRICTS = [
  * и без этого выбор одного ЖК (тап по карте) перерисовывал бы их все.
  */
 const ZhkCard = memo(function ZhkCard({
-  z, isSelected, isFav, onSelect, onFav, register,
+  z, isSelected, isFav, canFav, onSelect, onFav, register,
 }: {
-  z: HomeZhk; isSelected: boolean; isFav: boolean;
+  z: HomeZhk; isSelected: boolean; isFav: boolean; canFav: boolean;
   onSelect: (id: number) => void; onFav: (id: number) => void;
   register: (id: number, el: HTMLDivElement | null) => void;
 }) {
@@ -94,9 +94,9 @@ const ZhkCard = memo(function ZhkCard({
       className={`${s.card} ${isSelected ? s.cardActive : ''}`}
       onClick={() => onSelect(z.id)}
     >
-      <button type="button" className={`${s.cardFav} ${isFav ? s.cardFavOn : ''}`} title={isFav ? 'Убрать из избранного' : 'Сохранить в избранное'} aria-label={isFav ? `Убрать ${z.name} из избранного` : `Сохранить ${z.name} в избранное`} aria-pressed={isFav} onClick={(e) => { e.stopPropagation(); onFav(z.id); }}>
+      {canFav && <button type="button" className={`${s.cardFav} ${isFav ? s.cardFavOn : ''}`} title={isFav ? 'Убрать из избранного' : 'Сохранить в избранное'} aria-label={isFav ? `Убрать ${z.name} из избранного` : `Сохранить ${z.name} в избранное`} aria-pressed={isFav} onClick={(e) => { e.stopPropagation(); onFav(z.id); }}>
         <Icon name="heart" size={15} fill={isFav ? 'currentColor' : 'none'} />
-      </button>
+      </button>}
       {z.image ? <img className={s.thumb} src={z.image} alt="" loading="lazy" /> : <div className={`${s.thumb} ${s.thumbEmpty}`} aria-hidden>◫</div>}
       <div className={s.cardBody}>
         <div className={s.cardTop}>
@@ -194,8 +194,11 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
   const [finishing, setFinishing] = useState<Set<string>>(new Set());
   const [favOnly, setFavOnly] = useState(false);
   const fav = useFavorites();
+  // избранное показываем только вошедшим: без входа подборку некуда сохранять
+  // между устройствами, а кнопка создавала бы ложное ожидание
+  const canFav = !!fav.user;
   const favSet = useMemo(() => new Set(fav.ids), [fav.ids]);
-  const [aptMeta, setAptMeta] = useState<{ updatedAt: string; total: number; primary: number; secondary: number; addedToday: number; soldToday: number; soldRecent: number } | null>(null);
+  const [aptMeta, setAptMeta] = useState<{ updatedAt: string; intervalDays?: number; total: number; primary: number; secondary: number; addedToday: number; soldToday: number; soldRecent: number } | null>(null);
   const toggleN = (set: Set<number>, v: number, upd: (s: Set<number>) => void) => { const n = new Set(set); n.has(v) ? n.delete(v) : n.add(v); upd(n); };
   const [aptMetaError, setAptMetaError] = useState(false);
   useEffect(() => {
@@ -213,6 +216,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
   const isTouch = useIsTouch();
   const sheet = useSheet(isMobile);
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [showFaults, setShowFaults] = useState(false);
   const [mapDetail, setMapDetail] = useState<MapDetail | null>(null);
   const cardRefs = useRef<Map<number, HTMLDivElement>>(new Map());
 
@@ -357,9 +361,9 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
         </div>
         <div className={s.headerSpacer} />
         <Link href="/methodology" className={s.navlink}>Методология</Link>
-        <button type="button" className={`${s.favBtn} ${favOnly ? s.favBtnActive : ''}`} onClick={() => { setFavOnly((v) => !v); setMode('complexes'); }} title="Понравившиеся ЖК — ваша подборка" aria-label={`Избранное${fav.count ? `, сохранено: ${fav.count}` : ''}`} aria-pressed={favOnly}>
+        {canFav && <button type="button" className={`${s.favBtn} ${favOnly ? s.favBtnActive : ''}`} onClick={() => { setFavOnly((v) => !v); setMode('complexes'); }} title="Понравившиеся ЖК — ваша подборка" aria-label={`Избранное${fav.count ? `, сохранено: ${fav.count}` : ''}`} aria-pressed={favOnly}>
           <Icon name="heart" size={15} fill={favOnly ? '#fff' : 'none'} /> Избранное{fav.count ? <span className={s.favBadge}>{fav.count}</span> : null}
-        </button>
+        </button>}
         {fav.authEnabled && (fav.user ? (
           <button type="button" className={s.authBtn} onClick={fav.signOut} title={`${fav.user.email || fav.user.name || ''} — выйти`} aria-label="Выйти из аккаунта">
             {fav.user.avatar ? <img src={fav.user.avatar} alt="" className={s.authAvatar} /> : <span className={s.authAvatar}>{(fav.user.name || fav.user.email || '?').slice(0, 1).toUpperCase()}</span>}
@@ -511,6 +515,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
                     z={z}
                     isSelected={selected === z.id}
                     isFav={favSet.has(z.id)}
+                    canFav={canFav}
                     onSelect={onCardSelect}
                     onFav={onCardFav}
                     register={registerCard}
@@ -534,7 +539,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
                 <div className={s.aptStat}>
                   <div className={s.aptStatTotal}><b>{aptMeta.total.toLocaleString('ru-RU')}</b> квартир на карте</div>
                   <div className={s.aptStatDeltas}>
-                    <span className={s.up}>+{aptMeta.addedToday} за день</span>
+                    <span className={s.up}>+{aptMeta.addedToday} {(aptMeta.intervalDays ?? 1) > 1 ? `за ${aptMeta.intervalDays} дн.` : 'за день'}</span>
                     <span className={s.down}>−{aptMeta.soldToday} продано</span>
                   </div>
                   <div className={s.aptStatFoot}><Icon name="refresh" size={11} /> обновляется автоматически · {new Date(aptMeta.updatedAt).toLocaleDateString('ru-RU')}</div>
@@ -571,7 +576,25 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
               <div className={s.legendRow} style={{ marginTop: 4, borderTop: '1px solid var(--border-soft)', paddingTop: 8 }}><span className={s.legendDot} style={{ background: '#111827' }} /> ориентиры (ТРЦ, вокзалы)</div>
             </div>
           )}
-          <MapView points={points} selectedId={selected} onSelect={setSelected} activeDistrict={district} mode={mode} aptMarket={aptMarket} aptRooms={aptRooms} showSold={showSold} aptPrice={priceBucket ? { min: priceBucket.min, max: priceBucket.max } : null} favSet={favSet} onToggleFav={fav.toggle} touchMode={isTouch} onDetail={handleMapDetail} />
+          <button
+            type="button"
+            className={`${s.faultsBtn} ${showFaults ? s.faultsBtnOn : ''}`}
+            onClick={() => setShowFaults((v) => !v)}
+            aria-pressed={showFaults}
+            title="Активные разломы по данным GEM — региональный масштаб, не городская карта микрорайонирования"
+          >
+            <span className={s.faultsDash} aria-hidden />
+            Разломы
+          </button>
+          {showFaults && (
+            <div className={s.faultsNote} role="status">
+              <b>Активные разломы, GEM</b> — региональный масштаб.
+              Это <b>не</b> городская карта сейсмомикрорайонирования (27 разломов, зоны 300 м):
+              она у Института сейсмологии и в открытом доступе её нет.
+              Не используйте этот слой, чтобы судить о конкретном доме.
+            </div>
+          )}
+          <MapView points={points} selectedId={selected} onSelect={setSelected} activeDistrict={district} mode={mode} aptMarket={aptMarket} aptRooms={aptRooms} showSold={showSold} aptPrice={priceBucket ? { min: priceBucket.min, max: priceBucket.max } : null} favSet={favSet} onToggleFav={fav.toggle} touchMode={isTouch} onDetail={handleMapDetail} showFaults={showFaults} />
         </div>
       </div>
     </div>

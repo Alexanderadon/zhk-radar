@@ -30,13 +30,15 @@ const ALMATY: [number, number] = [76.905, 43.238];
 
 export default function MapView({
   points, selectedId, onSelect, activeDistrict,
-  mode = 'complexes', aptMarket, aptRooms, showSold, aptPrice, favSet, onToggleFav, touchMode = false, onDetail,
+  mode = 'complexes', aptMarket, aptRooms, showSold, aptPrice, favSet, onToggleFav, touchMode = false, onDetail, showFaults = false,
 }: {
   points: MapPoint[]; selectedId: number | null; onSelect: (id: number) => void; activeDistrict?: string | null;
   mode?: 'complexes' | 'apartments'; aptMarket?: Set<string>; aptRooms?: Set<number>; showSold?: boolean; aptPrice?: { min: number; max: number } | null;
   favSet?: Set<number>; onToggleFav?: (id: number) => void;
   /** На тач-устройствах тап по метке не «телепортирует», а открывает карточку в шторке. */
   touchMode?: boolean; onDetail?: (d: MapDetail | null) => void;
+  /** Слой тектонических разломов поверх карты. */
+  showFaults?: boolean;
 }) {
   const container = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
@@ -98,6 +100,24 @@ export default function MapView({
         const lmColor = ['match', ['get', 'kind'], 'mall', '#111827', 'park', '#15803d', 'water', '#0891b2', 'transport', '#b45309', '#374151'] as any;
         m.addLayer({ id: 'landmark-dot', type: 'circle', source: 'landmarks', paint: { 'circle-radius': ['match', ['get', 'kind'], 'mall', 6, 'park', 5.5, 5], 'circle-color': lmColor, 'circle-stroke-width': 2.5, 'circle-stroke-color': '#ffffff' } });
         m.addLayer({ id: 'landmark-label', type: 'symbol', source: 'landmarks', minzoom: 10.5, layout: { 'text-field': ['get', 'name'], 'text-size': 11.5, 'text-font': ['Noto Sans Regular'], 'text-offset': [0, 1.05], 'text-anchor': 'top', 'text-optional': true }, paint: { 'text-color': lmColor, 'text-halo-color': '#ffffff', 'text-halo-width': 2 } });
+      } catch {}
+
+      // ---- ТЕКТОНИЧЕСКИЕ РАЗЛОМЫ (включаются тумблером) ----
+      // Источник: GEM Global Active Faults (CC BY-SA). Масштаб РЕГИОНАЛЬНЫЙ —
+      // это не городская карта сейсмомикрорайонирования с 27 разломами и зонами 300 м.
+      try {
+        const fl = await (await fetch('/faults.geojson')).json();
+        m.addSource('faults', { type: 'geojson', data: fl });
+        m.addLayer({
+          id: 'faults-halo', type: 'line', source: 'faults',
+          layout: { visibility: 'none', 'line-cap': 'round' },
+          paint: { 'line-color': '#b91c1c', 'line-width': ['interpolate', ['linear'], ['zoom'], 8, 10, 14, 26], 'line-opacity': 0.14, 'line-blur': 4 },
+        });
+        m.addLayer({
+          id: 'faults-line', type: 'line', source: 'faults',
+          layout: { visibility: 'none', 'line-cap': 'round' },
+          paint: { 'line-color': '#b91c1c', 'line-width': ['interpolate', ['linear'], ['zoom'], 8, 1.8, 14, 3.6], 'line-dasharray': [3, 1.6], 'line-opacity': 0.92 },
+        });
       } catch {}
 
       // ---- COMPLEXES (ЖК) ----
@@ -301,6 +321,21 @@ export default function MapView({
   useEffect(() => { const m = map.current; if (!m || !ready.current) return; if (m.getLayer('district-fill')) m.setPaintProperty('district-fill', 'fill-opacity', ['case', ['==', ['get', 'name'], activeDistrict ?? '__none__'], 0.28, 0.1] as any); }, [activeDistrict]);
   useEffect(() => { const m = map.current; if (!m || !ready.current) return; m.setFilter('zhk-selected', ['==', ['get', 'id'], selectedId ?? -1]); if (selectedId != null) { const p = points.find((x) => x.id === selectedId); if (p) m.flyTo({ center: [p.lng, p.lat], zoom: Math.max(m.getZoom(), 13.5), speed: 0.8 }); } }, [selectedId, points]);
   useEffect(() => { const m = map.current; if (!m || !ready.current) return; if (m.getLayer('zhk-fav')) m.setFilter('zhk-fav', ['in', ['get', 'id'], ['literal', favSet ? [...favSet] : []]] as any); }, [favSet]);
+
+  // Разломы включаются/выключаются тумблером. Ждём готовности стиля: слой
+  // добавляется асинхронно после загрузки geojson.
+  useEffect(() => {
+    const m = map.current;
+    if (!m) return;
+    const apply = () => {
+      for (const id of ['faults-halo', 'faults-line']) {
+        if (m.getLayer(id)) m.setLayoutProperty(id, 'visibility', showFaults ? 'visible' : 'none');
+      }
+    };
+    if (m.isStyleLoaded()) apply();
+    m.on('idle', apply);
+    return () => { m.off('idle', apply); };
+  }, [showFaults]);
 
   return <div ref={container} style={{ position: 'absolute', inset: 0 }} />;
 }

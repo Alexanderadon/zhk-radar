@@ -99,10 +99,14 @@
 .filterGroup:last-child { margin-bottom: 0; }
 .fLabel { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-faint); width: 100%; margin-bottom: 2px; }
 .pill {
+  /* inline-flex обязателен: глобальное svg{display:block} внутри обычной кнопки
+     делает иконку блоком, и «выгодные»/«реальные фото» ломались на две строки */
+  display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
   padding: 5px 11px; border-radius: 100px; font-size: 12.5px; font-weight: 550;
   background: var(--panel); border: 1px solid var(--border); color: var(--text-dim); cursor: pointer;
   transition: all .13s;
 }
+.pill > svg { flex-shrink: 0; }
 .pill:hover { color: var(--text); border-color: #cdd5de; background: #fbfcfd; }
 .pillActive { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 1px 2px rgba(47,107,237,.28); }
 .pillActive:hover { color: #fff !important; background: var(--accent-hover) !important; border-color: var(--accent-hover) !important; }
@@ -340,19 +344,22 @@
   /* ссылка-название — отдельное действие («открыть ЖК»), увеличиваем зону нажатия
      не меняя вид: padding + отрицательный margin */
   .cardName { display: inline-block; padding: 7px 0; margin: -7px 0; }
-  /* сердечко на карточке: без hover его не видно — показываем всегда */
+  /* Сердечко: без hover его не видно, поэтому показываем всегда — но кружком
+     44px поверх миниатюры 68px оно закрывало 40% фотографии. Уводим в правый
+     нижний угол миниатюры и уменьшаем до 26px; зона нажатия остаётся 44px
+     за счёт псевдоэлемента. Координаты = отступ карточки (9/12) + размер
+     миниатюры (68) − размер кружка. */
   .cardFav {
-    position: absolute; top: 10px; left: 10px;
-    opacity: 1; width: var(--tap); height: var(--tap); border-radius: 50%;
-    background: transparent; box-shadow: none; color: transparent;
+    position: absolute; left: 51px; top: 54px; right: auto;
+    opacity: 1; width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(255, 255, 255, .94); color: var(--text-dim);
+    box-shadow: 0 1px 4px rgba(20, 24, 31, .28);
   }
-  .cardFav::after {
-    content: ''; position: absolute; width: 30px; height: 30px; border-radius: 50%;
-    background: rgba(255, 255, 255, .93); box-shadow: 0 1px 4px rgba(20, 24, 31, .2); z-index: -1;
-  }
-  .cardFav > svg { color: var(--text-dim); }
-  .cardFavOn > svg { color: var(--red); }
-  .cardFav:active { transform: scale(.9); }
+  .cardFav::before { content: ''; position: absolute; inset: -9px; border-radius: 50%; }
+  .cardFav > svg { width: 14px; height: 14px; }
+  .cardFavOn { color: var(--red); }
+  .cardFav:active { transform: scale(.88); }
 
   /* ---- ФИЛЬТРЫ: полноэкранная модалка ---- */
   .filterHost {
@@ -402,4 +409,45 @@
   .thumb { width: 68px; height: 68px; }
   .cardName { font-size: 14px; }
   .mdPhoto { width: 74px; height: 74px; }
+}
+
+/* ---- тумблер слоя тектонических разломов ---- */
+.faultsBtn {
+  position: absolute; z-index: 3; top: 14px; right: 14px;
+  display: inline-flex; align-items: center; gap: 8px;
+  min-height: 38px; padding: 0 14px; border-radius: 100px;
+  background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(10px);
+  border: 1px solid var(--border); color: var(--text-dim);
+  font-size: 13px; font-weight: 600; font-family: var(--font);
+  cursor: pointer; box-shadow: var(--shadow-sm);
+  transition: color .13s, border-color .13s, background .13s;
+}
+.faultsBtn:hover { color: var(--text); border-color: #cdd5de; }
+.faultsBtn:active { transform: scale(.97); }
+.faultsBtnOn { color: #b91c1c; border-color: rgba(185, 28, 28, .45); background: rgba(254, 242, 242, .96); }
+.faultsDash {
+  width: 18px; height: 0; flex-shrink: 0;
+  border-top: 2.5px dashed currentColor; opacity: .85;
+}
+
+.faultsNote {
+  position: absolute; z-index: 3; top: 60px; right: 14px; max-width: 300px;
+  padding: 11px 13px; border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(10px);
+  border: 1px solid rgba(185, 28, 28, .3); box-shadow: var(--shadow);
+  font-size: 12px; line-height: 1.5; color: var(--text-dim);
+}
+.faultsNote b { color: var(--text); font-weight: 650; }
+
+@media (max-width: 900px) {
+  /* зум на мобиле уезжает вправо-вверх (top: 128px), поэтому тумблер — влево,
+     под панель поиска; легенда внизу слева на 172px, пересечений нет */
+  .faultsBtn {
+    top: 128px; right: auto; left: max(10px, var(--sal));
+    min-height: var(--tap); padding: 0 15px; font-size: 13.5px;
+  }
+  .faultsNote {
+    top: 180px; right: auto; left: max(10px, var(--sal));
+    max-width: min(78%, 320px); font-size: 12px;
+  }
 }
