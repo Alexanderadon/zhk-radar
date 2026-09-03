@@ -113,10 +113,22 @@ export default function MapView({
           layout: { visibility: 'none', 'line-cap': 'round' },
           paint: { 'line-color': '#b91c1c', 'line-width': ['interpolate', ['linear'], ['zoom'], 8, 10, 14, 26], 'line-opacity': 0.14, 'line-blur': 4 },
         });
+        // Региональные активные разломы GEM — тонким пунктиром (фон)
         m.addLayer({
-          id: 'faults-line', type: 'line', source: 'faults',
+          id: 'faults-line', type: 'line', source: 'faults', filter: ['==', ['get', 'src'], 'gem'],
           layout: { visibility: 'none', 'line-cap': 'round' },
-          paint: { 'line-color': '#b91c1c', 'line-width': ['interpolate', ['linear'], ['zoom'], 8, 1.8, 14, 3.6], 'line-dasharray': [3, 1.6], 'line-opacity': 0.92 },
+          paint: { 'line-color': '#9a3412', 'line-width': ['interpolate', ['linear'], ['zoom'], 8, 1.4, 14, 2.6], 'line-dasharray': [3, 2], 'line-opacity': 0.75 },
+        });
+        // Очаги исторических землетрясений (JICA) — сплошным, они важнее
+        m.addLayer({
+          id: 'faults-jica', type: 'line', source: 'faults', filter: ['==', ['get', 'src'], 'jica'],
+          layout: { visibility: 'none', 'line-cap': 'round', 'line-join': 'round' },
+          paint: { 'line-color': '#b91c1c', 'line-width': ['interpolate', ['linear'], ['zoom'], 8, 3, 14, 6], 'line-opacity': 0.95 },
+        });
+        m.addLayer({
+          id: 'faults-label', type: 'symbol', source: 'faults', filter: ['==', ['get', 'src'], 'jica'],
+          layout: { visibility: 'none', 'symbol-placement': 'line-center', 'text-field': ['get', 'name'], 'text-size': 11.5, 'text-font': ['Noto Sans Regular'], 'text-offset': [0, 1.1] },
+          paint: { 'text-color': '#7f1d1d', 'text-halo-color': '#ffffff', 'text-halo-width': 2 },
         });
       } catch {}
 
@@ -328,7 +340,7 @@ export default function MapView({
     const m = map.current;
     if (!m) return;
     const apply = () => {
-      for (const id of ['faults-halo', 'faults-line']) {
+      for (const id of ['faults-halo', 'faults-line', 'faults-jica', 'faults-label']) {
         if (m.getLayer(id)) m.setLayoutProperty(id, 'visibility', showFaults ? 'visible' : 'none');
       }
     };

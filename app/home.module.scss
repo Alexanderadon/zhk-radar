@@ -451,3 +451,14 @@
     max-width: min(78%, 320px); font-size: 12px;
   }
 }
+
+.faultsNoteClose {
+  position: absolute; top: 4px; right: 4px; width: 30px; height: 30px;
+  display: flex; align-items: center; justify-content: center;
+  border: none; background: transparent; color: var(--text-faint); border-radius: 50%; cursor: pointer;
+}
+.faultsNoteClose:active { background: var(--panel-2); }
+@media (max-width: 900px) {
+  /* пояснение не должно съедать экран: ограничиваем высоту */
+  .faultsNote { max-height: 34dvh; overflow-y: auto; padding-right: 34px; }
+}

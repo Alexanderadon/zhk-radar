@@ -588,10 +588,10 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
           </button>
           {showFaults && (
             <div className={s.faultsNote} role="status">
-              <b>Активные разломы, GEM</b> — региональный масштаб.
-              Это <b>не</b> городская карта сейсмомикрорайонирования (27 разломов, зоны 300 м):
-              она у Института сейсмологии и в открытом доступе её нет.
-              Не используйте этот слой, чтобы судить о конкретном доме.
+              <button type="button" className={s.faultsNoteClose} onClick={() => setShowFaults(false)} aria-label="Скрыть разломы"><Icon name="x" size={15} /></button>
+              <b>Сплошные</b> — очаги землетрясений 1887, 1889, 1911, разрушавших Алматы
+              (оцифровано по сетке отчёта JICA/OYO 2009). <b>Пунктир</b> — активные разломы GEM.
+              Это региональные очаги, <b>не</b> городская карта разломов: по конкретному дому ответа не дают.
             </div>
           )}
           <MapView points={points} selectedId={selected} onSelect={setSelected} activeDistrict={district} mode={mode} aptMarket={aptMarket} aptRooms={aptRooms} showSold={showSold} aptPrice={priceBucket ? { min: priceBucket.min, max: priceBucket.max } : null} favSet={favSet} onToggleFav={fav.toggle} touchMode={isTouch} onDetail={handleMapDetail} showFaults={showFaults} />
