@@ -1,0 +1,73 @@
+# ЖК-Радар — ежедневный сбор квартир в облаке (вместо Планировщика на ПК).
+#
+# Почему не Vercel Cron: сбор идёт ~18 минут (6600+ запросов с троттлингом),
+# а лимит функции Vercel Hobby — 300 секунд, поднять его нельзя. Плюс в деплой
+# нельзя писать файлы. Здесь лимит job'а 6 часов, и мы просто повторяем тот же
+# пайплайн, что раньше крутился на ПК: собрать -> положить в public/ -> задеплоить.
+#
+# Данные (13 МБ) намеренно НЕ коммитятся: они в .gitignore, а на прод их грузит
+# Vercel CLI прямо с раннера (.vercelignore это разрешает). Иначе репозиторий
+# распухал бы примерно на полтора гигабайта в год.
+name: Ежедневное обновление квартир
+
+on:
+  schedule:
+    # 19:00 UTC = 00:00 по Алматы (UTC+5).
+    # GitHub не гарантирует точную минуту: при нагрузке запуск сдвигается.
+    - cron: '0 19 * * *'
+  workflow_dispatch: {} # кнопка «запустить сейчас» в интерфейсе
+
+concurrency:
+  group: update-daily
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # Скрапер считает «продано/новых» диффом с прошлым снимком. На чистом
+      # раннере его нет, поэтому берём текущий снимок с прода — он и есть
+      # результат предыдущего запуска.
+      - name: Взять прошлый снимок с прода
+        run: |
+          mkdir -p data
+          curl -sfL https://zhk-radar.vercel.app/listings.json      -o data/listings.json      || echo "снимка нет — первый запуск, дифф будет пустым"
+          curl -sfL https://zhk-radar.vercel.app/listings-sold.json -o data/listings-sold.json || true
+          ls -lh data/ || true
+
+      - name: Собрать свежие квартиры
+        run: node scripts/collect-listings.mjs
+
+      - name: Отдать статикой сайту
+        run: |
+          cp data/listings.json      public/listings.json
+          cp data/listings-meta.json public/listings-meta.json
+          cp data/listings-sold.json public/listings-sold.json
+          echo "--- итог ---"
+          cat public/listings-meta.json
+
+      - name: Деплой на Vercel
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: npx --yes vercel@latest deploy --prod --yes --token=${{ secrets.VERCEL_TOKEN }}
+
+      # Если сбор упал — это должно быть видно, а не тонуть в логах, как
+      # случилось с Планировщиком: он молча не отрабатывал с 27 августа.
+      - name: Пометить провал
+        if: failure()
+        run: echo "::error::Ежедневное обновление квартир не отработало"
