@@ -120,6 +120,12 @@ export default function MapView({
           layout: { visibility: 'none', 'line-cap': 'round' },
           paint: { 'line-color': '#9a3412', 'line-width': ['interpolate', ['linear'], ['zoom'], 8, 1.4, 14, 2.6], 'line-dasharray': [3, 2], 'line-opacity': 0.75 },
         });
+        // Городская сеть разломов (Frontiers 2024, CC BY) — то, что проходит по самому городу
+        m.addLayer({
+          id: 'faults-city', type: 'line', source: 'faults', filter: ['==', ['get', 'src'], 'city'],
+          layout: { visibility: 'none', 'line-cap': 'round' },
+          paint: { 'line-color': '#c2410c', 'line-width': ['interpolate', ['linear'], ['zoom'], 9, 1.2, 15, 3 ], 'line-dasharray': [2.5, 1.5], 'line-opacity': 0.85 },
+        });
         // Очаги исторических землетрясений (JICA) — сплошным, они важнее
         m.addLayer({
           id: 'faults-jica', type: 'line', source: 'faults', filter: ['==', ['get', 'src'], 'jica'],
@@ -284,13 +290,13 @@ export default function MapView({
         // Разломы разбираем последними: линия широкая и иначе перехватывала бы
         // тапы по домам. Без этой ветки тап по разлому проваливался в «пустое
         // место» и закрывал открытую карточку.
-        const fl = pick('faults-jica') || pick('faults-line');
+        const fl = pick('faults-jica') || pick('faults-city') || pick('faults-line');
         if (fl) {
           const q = fl.properties as any;
           onDetailRef.current?.({
             kind: 'fault', name: q.name || 'Активный разлом',
             mw: q.mw ? Number(q.mw) : null, lenKm: q.len_km ? Number(q.len_km) : null,
-            src: q.src === 'jica' ? 'JICA / OYO, 2009' : 'GEM Global Active Faults',
+            src: q.src === 'jica' ? 'JICA / OYO, 2009' : q.src === 'city' ? 'Frontiers in Built Environment, 2024 (CC BY)' : 'GEM Global Active Faults',
             note: q.note || null,
           });
           return;
@@ -371,7 +377,7 @@ export default function MapView({
     const m = map.current;
     if (!m) return;
     const apply = () => {
-      for (const id of ['faults-halo', 'faults-line', 'faults-jica', 'faults-label']) {
+      for (const id of ['faults-halo', 'faults-line', 'faults-city', 'faults-jica', 'faults-label']) {
         if (m.getLayer(id)) m.setLayoutProperty(id, 'visibility', showFaults ? 'visible' : 'none');
       }
     };

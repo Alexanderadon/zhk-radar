@@ -601,9 +601,11 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
           {showFaults && (
             <div className={s.faultsNote} role="status">
               <button type="button" className={s.faultsNoteClose} onClick={() => setShowFaults(false)} aria-label="Скрыть разломы"><Icon name="x" size={15} /></button>
-              <b>Сплошные</b> — очаги землетрясений 1887, 1889, 1911, разрушавших Алматы
-              (оцифровано по сетке отчёта JICA/OYO 2009). <b>Пунктир</b> — активные разломы GEM.
-              Это региональные очаги, <b>не</b> городская карта разломов: по конкретному дому ответа не дают.
+              <b>Оранжевый пунктир</b> — сеть разломов внутри города (оцифровано со статьи
+              Frontiers 2024, CC BY). <b>Сплошные красные</b> — очаги землетрясений 1887, 1889,
+              1911, разрушавших Алматы (отчёт JICA/OYO 2009).
+              Точность привязки измерена: медиана 281 м, у части линий до 900 м — это сопоставимо
+              с зоной отчуждения 300 м, поэтому <b>по конкретному дому судить нельзя</b>.
             </div>
           )}
           <MapView points={points} selectedId={selected} onSelect={setSelected} activeDistrict={district} mode={mode} aptMarket={aptMarket} aptRooms={aptRooms} showSold={showSold} aptPrice={priceBucket ? { min: priceBucket.min, max: priceBucket.max } : null} favSet={favSet} onToggleFav={fav.toggle} touchMode={isTouch} onDetail={handleMapDetail} showFaults={showFaults} />
