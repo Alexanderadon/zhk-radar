@@ -163,6 +163,18 @@ function MapDetailCard({ detail, onClose }: { detail: MapDetail; onClose: () => 
           </div>
         </>
       )}
+      {detail.kind === 'fault' && (
+        <div className={s.mdHead}>
+          <div className={s.mdInfo}>
+            <div className={s.mdTitle}>{detail.name}</div>
+            <div className={s.mdSub}>
+              {[detail.mw ? `магнитуда ${detail.mw}` : null, detail.lenKm ? `длина очага ${detail.lenKm} км` : null].filter(Boolean).join(' · ')}
+            </div>
+            {detail.note && <div className={s.mdAddr} style={{ whiteSpace: 'normal' }}>{detail.note}</div>}
+            <div className={s.mdSub} style={{ marginTop: 6 }}>Источник: {detail.src}</div>
+          </div>
+        </div>
+      )}
       {detail.kind === 'sold' && (
         <div className={s.mdHead}>
           <div className={s.mdInfo}>

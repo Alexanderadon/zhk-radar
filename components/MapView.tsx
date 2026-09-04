@@ -17,7 +17,8 @@ export type MapDetail =
   | { kind: 'zhk'; id: number; slug: string; name: string }
   | { kind: 'apt'; id: number; price: number | null; rooms: number | null; square: number | null; floor: string | null; addr: string | null; market: 'primary' | 'secondary'; photo: string | null }
   | { kind: 'landmark'; name: string; kindRu: string | null; rating: number | null; photo: string | null }
-  | { kind: 'sold'; price: number | null; rooms: number | null; square: number | null; addr: string | null };
+  | { kind: 'sold'; price: number | null; rooms: number | null; square: number | null; addr: string | null }
+  | { kind: 'fault'; name: string; mw: number | null; lenKm: number | null; src: string; note: string | null };
 
 export interface Apt {
   id: number; lat: number; lng: number; price: number | null; rooms: number | null;
@@ -109,7 +110,7 @@ export default function MapView({
         const fl = await (await fetch('/faults.geojson')).json();
         m.addSource('faults', { type: 'geojson', data: fl });
         m.addLayer({
-          id: 'faults-halo', type: 'line', source: 'faults',
+          id: 'faults-halo', type: 'line', source: 'faults', filter: ['==', ['get', 'src'], 'jica'],
           layout: { visibility: 'none', 'line-cap': 'round' },
           paint: { 'line-color': '#b91c1c', 'line-width': ['interpolate', ['linear'], ['zoom'], 8, 10, 14, 26], 'line-opacity': 0.14, 'line-blur': 4 },
         });
@@ -279,6 +280,21 @@ export default function MapView({
         const lm = pick('landmark-dot') || pick('landmark-label');
         // в landmarks.geojson русская категория лежит в rubric; поля kindRu нет
         if (lm) { const p = lm.properties as any; onDetailRef.current?.({ kind: 'landmark', name: p.name, kindRu: p.rubric || p.desc || null, rating: p.rating ? Number(p.rating) : null, photo: p.photo || null }); return; }
+
+        // Разломы разбираем последними: линия широкая и иначе перехватывала бы
+        // тапы по домам. Без этой ветки тап по разлому проваливался в «пустое
+        // место» и закрывал открытую карточку.
+        const fl = pick('faults-jica') || pick('faults-line');
+        if (fl) {
+          const q = fl.properties as any;
+          onDetailRef.current?.({
+            kind: 'fault', name: q.name || 'Активный разлом',
+            mw: q.mw ? Number(q.mw) : null, lenKm: q.len_km ? Number(q.len_km) : null,
+            src: q.src === 'jica' ? 'JICA / OYO, 2009' : 'GEM Global Active Faults',
+            note: q.note || null,
+          });
+          return;
+        }
 
         onDetailRef.current?.(null); // тап по пустому месту — закрыть карточку
       });
