@@ -31,7 +31,7 @@ const ALMATY: [number, number] = [76.905, 43.238];
 
 export default function MapView({
   points, selectedId, onSelect, activeDistrict,
-  mode = 'complexes', aptMarket, aptRooms, showSold, aptPrice, favSet, onToggleFav, touchMode = false, onDetail, showFaults = false,
+  mode = 'complexes', aptMarket, aptRooms, showSold, aptPrice, favSet, onToggleFav, touchMode = false, onDetail, showFaults = false, citySlug = 'almaty', cityCenter, cityZoom,
 }: {
   points: MapPoint[]; selectedId: number | null; onSelect: (id: number) => void; activeDistrict?: string | null;
   mode?: 'complexes' | 'apartments'; aptMarket?: Set<string>; aptRooms?: Set<number>; showSold?: boolean; aptPrice?: { min: number; max: number } | null;
@@ -40,6 +40,10 @@ export default function MapView({
   touchMode?: boolean; onDetail?: (d: MapDetail | null) => void;
   /** Слой тектонических разломов поверх карты. */
   showFaults?: boolean;
+  /** Город: задаёт центр карты и какие файлы квартир грузить. */
+  citySlug?: string;
+  cityCenter?: [number, number];
+  cityZoom?: number;
 }) {
   const container = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
@@ -59,10 +63,13 @@ export default function MapView({
   const allSold = useRef<any[] | null>(null);
   const applyModeRef = useRef<() => void>(() => {});
   const navCleanup = useRef<() => void>(() => {});
+  const citySlugRef = useRef(citySlug);
+  citySlugRef.current = citySlug;
+  const dataSuffix = () => (citySlugRef.current === 'almaty' ? '' : `-${citySlugRef.current}`);
 
   useEffect(() => {
     if (map.current || !container.current) return;
-    const m = new maplibregl.Map({ container: container.current, style: STYLE, center: ALMATY, zoom: 11, attributionControl: false });
+    const m = new maplibregl.Map({ container: container.current, style: STYLE, center: cityCenter ?? ALMATY, zoom: cityZoom ?? 11, attributionControl: false });
     map.current = m;
     if (typeof window !== 'undefined') (window as any)._map = m;
     // На узком экране низ занят шторкой, поэтому зум уезжает вправо-вверх,
@@ -357,7 +364,7 @@ export default function MapView({
       setVis(m, COMPLEX_LAYERS, 'none');
       if (!allApts.current && !loadingApts.current) {
         loadingApts.current = true;
-        try { allApts.current = await (await fetch('/listings.json')).json(); } catch { allApts.current = []; }
+        try { allApts.current = await (await fetch(`/listings${dataSuffix()}.json`)).json(); } catch { allApts.current = []; }
         loadingApts.current = false;
       }
       const src = m.getSource('apt') as maplibregl.GeoJSONSource | undefined;
@@ -365,7 +372,7 @@ export default function MapView({
       setVis(m, APT_LAYERS, 'visible');
       // sold layer
       if (showSold) {
-        if (!allSold.current) { try { allSold.current = await (await fetch('/listings-sold.json')).json(); } catch { allSold.current = []; } }
+        if (!allSold.current) { try { allSold.current = await (await fetch(`/listings-sold${dataSuffix()}.json`)).json(); } catch { allSold.current = []; } }
         const ss = m.getSource('sold') as maplibregl.GeoJSONSource | undefined;
         if (ss) ss.setData(soldFC(allSold.current || []) as any);
         setVis(m, ['sold-dot'], 'visible');
@@ -397,6 +404,22 @@ export default function MapView({
     m.on('idle', apply);
     return () => { m.off('idle', apply); };
   }, [showFaults]);
+
+  // Смена города: сбрасываем закешированные квартиры и перелетаем.
+  const firstCity = useRef(true);
+  useEffect(() => {
+    if (firstCity.current) { firstCity.current = false; return; }
+    allApts.current = null; allSold.current = null; loadingApts.current = false;
+    // границы районов собраны только для Алматы — в других городах их не рисуем
+    const mm = map.current;
+    if (mm) for (const id of ['district-fill', 'district-line', 'district-label']) {
+      if (mm.getLayer(id)) mm.setLayoutProperty(id, 'visibility', citySlug === 'almaty' ? 'visible' : 'none');
+    }
+    const m = map.current;
+    if (m && cityCenter) m.easeTo({ center: cityCenter, zoom: cityZoom ?? 11, duration: 700 });
+    applyModeRef.current();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [citySlug]);
 
   return <div ref={container} style={{ position: 'absolute', inset: 0 }} />;
 }

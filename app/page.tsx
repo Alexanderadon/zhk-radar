@@ -8,6 +8,7 @@ export default function Home() {
   const zhks: HomeZhk[] = all.map((z) => ({
     id: z.id,
     slug: z.slug,
+    citySlug: (z as any).citySlug ?? 'almaty',
     name: z.name,
     district: z.district,
     districtColor: z.districtColor ?? null,

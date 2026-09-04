@@ -462,3 +462,22 @@
   /* пояснение не должно съедать экран: ограничиваем высоту */
   .faultsNote { max-height: 34dvh; overflow-y: auto; padding-right: 34px; }
 }
+
+/* ---- выбор города ---- */
+.citySel {
+  display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0;
+  padding: 0 10px 0 11px; min-height: 38px; border-radius: 10px;
+  border: 1px solid var(--border); background: var(--panel); color: var(--text);
+  font-size: 13.5px; font-weight: 620; cursor: pointer;
+}
+.citySel:hover { border-color: #cdd5de; }
+.citySel > svg { color: var(--accent); flex-shrink: 0; }
+.citySel select {
+  border: none; background: transparent; color: inherit; font: inherit;
+  cursor: pointer; padding: 0 2px; outline: none;
+}
+@media (max-width: 900px) {
+  .citySel { min-height: var(--tap); padding: 0 8px 0 10px; font-size: 13px; }
+  /* на узком экране название города важнее подписи-слогана */
+  .citySel select { max-width: 104px; }
+}

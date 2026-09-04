@@ -8,6 +8,8 @@ export interface Developer {
 
 /** Raw ЖК as scraped from korter + enriched from detail pages. */
 export interface ZhkRaw {
+  /** Город: проставляется загрузчиком по файлу каталога. */
+  citySlug?: string;
   id: number;
   slug: string;
   name: string;

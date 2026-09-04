@@ -8,6 +8,7 @@ import Icon from './Icon';
 import { useFavorites } from '../lib/useFavorites';
 import { useIsMobile, useIsTouch } from '../lib/useMediaQuery';
 import { useSheet } from '../lib/useSheet';
+import { CITIES, cityBySlug } from '../lib/cities';
 import type { MapPoint, MapDetail } from './MapView';
 
 const MapView = dynamic(() => import('./MapView'), { ssr: false, loading: () => <div className={s.mapSkeleton} /> });
@@ -26,6 +27,7 @@ function GoogleG() {
 export interface HomeZhk {
   id: number;
   slug: string;
+  citySlug: string;
   name: string;
   district: string | null;
   districtColor: string | null;
@@ -190,6 +192,11 @@ function MapDetailCard({ detail, onClose }: { detail: MapDetail; onClose: () => 
 
 export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
   const [q, setQ] = useState('');
+  const [citySlug, setCitySlug] = useState('almaty');
+  const city = cityBySlug(citySlug);
+  // запоминаем выбор между заходами
+  useEffect(() => { try { const v = localStorage.getItem('city'); if (v) setCitySlug(v); } catch {} }, []);
+  useEffect(() => { try { localStorage.setItem('city', citySlug); } catch {} }, [citySlug]);
   const [band, setBand] = useState<Set<string>>(new Set());
   const [cls, setCls] = useState<Set<string>>(new Set());
   const [status, setStatus] = useState<Set<string>>(new Set());
@@ -216,12 +223,12 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
   useEffect(() => {
     if (mode !== 'apartments' || aptMeta) return;
     setAptMetaError(false);
-    fetch('/listings-meta.json')
+    fetch(citySlug === 'almaty' ? '/listings-meta.json' : `/listings-meta-${citySlug}.json`)
       .then((r) => { if (!r.ok) throw new Error(String(r.status)); return r.json(); })
       .then(setAptMeta)
       // раньше ошибка глоталась молча и блок статистики просто не появлялся
       .catch(() => setAptMetaError(true));
-  }, [mode, aptMeta]);
+  }, [mode, aptMeta, citySlug]);
 
   // ---- мобильная оболочка: шторка поверх карты + модалка фильтров ----
   const isMobile = useIsMobile();
@@ -312,6 +319,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
 
   // карточка объекта не должна «переживать» смену режима карты
   useEffect(() => { setMapDetail(null); }, [mode]);
+  useEffect(() => { setAptMeta(null); }, [citySlug]);
 
   const toggle = (set: Set<string>, v: string, upd: (s: Set<string>) => void) => {
     const n = new Set(set); n.has(v) ? n.delete(v) : n.add(v); upd(n);
@@ -320,6 +328,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
   const filtered = useMemo(() => {
     const query = q.trim().toLowerCase();
     let list = zhks.filter((z) => {
+      if (z.citySlug !== citySlug) return false;   // показываем только выбранный город
       if (favOnly && !favSet.has(z.id)) return false;
       if (query && !(z.name.toLowerCase().includes(query) || z.developer?.name.toLowerCase().includes(query) || z.district?.toLowerCase().includes(query))) return false;
       if (band.size && !band.has(z.band)) return false;
@@ -343,7 +352,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
       return 0;
     });
     return list;
-  }, [zhks, q, band, cls, status, district, extra, sort, priceBucket, finishing, favOnly, favSet]);
+  }, [zhks, q, band, cls, status, district, extra, sort, priceBucket, finishing, favOnly, favSet, citySlug]);
 
   const points: MapPoint[] = useMemo(
     () => filtered.filter((z) => z.lat && z.lng).map((z) => ({
@@ -371,6 +380,12 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
             <div className={s.tagline}><span className={s.taglineFull}>Krisha показывает, что продаётся. Мы — стоит ли покупать.</span><span className={s.taglineShort}>Стоит ли это покупать</span></div>
           </div>
         </div>
+        <label className={s.citySel}>
+          <Icon name="pin" size={15} />
+          <select value={citySlug} onChange={(e) => { setCitySlug(e.target.value); setSelected(null); setDistrict(null); }} aria-label="Город">
+            {CITIES.map((c) => <option key={c.slug} value={c.slug}>{c.name}</option>)}
+          </select>
+        </label>
         <div className={s.headerSpacer} />
         <Link href="/methodology" className={s.navlink}>Методология</Link>
         {canFav && <button type="button" className={`${s.favBtn} ${favOnly ? s.favBtnActive : ''}`} onClick={() => { setFavOnly((v) => !v); setMode('complexes'); }} title="Понравившиеся ЖК — ваша подборка" aria-label={`Избранное${fav.count ? `, сохранено: ${fav.count}` : ''}`} aria-pressed={favOnly}>
@@ -418,7 +433,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
               {PRICES.map((p) => (<button key={p.key} className={`${s.pill} ${priceRange === p.key ? s.pillActive : ''}`} onClick={() => setPriceRange(priceRange === p.key ? null : p.key)}>{p.label}</button>))}
             </div>
 
-            <div className={s.filterGroup}>
+            {city.hasDistricts && <div className={s.filterGroup}>
               <span className={s.fLabel}>Район</span>
               {DISTRICTS.map((d) => (
                 <button key={d.name} className={`${s.pill} ${district === d.name ? s.pillActive : ''}`} onClick={() => setDistrict(district === d.name ? null : d.name)}
@@ -426,7 +441,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
                   {d.name}
                 </button>
               ))}
-            </div>
+            </div>}
 
             {mode === 'complexes' ? (
               <>
@@ -554,12 +569,18 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
                     <span className={s.up}>+{aptMeta.addedToday} {(aptMeta.intervalDays ?? 1) > 1 ? `за ${aptMeta.intervalDays} дн.` : 'за день'}</span>
                     <span className={s.down}>−{aptMeta.soldToday} продано</span>
                   </div>
-                  <div className={s.aptStatFoot}><Icon name="refresh" size={11} /> обновляется автоматически · {new Date(aptMeta.updatedAt).toLocaleDateString('ru-RU')}</div>
+                  {/* «обновляется автоматически» писать нельзя, пока автообновление
+                      реально не работает: интервал в мете это сразу выдаёт */}
+                  <div className={s.aptStatFoot}>
+                    <Icon name="refresh" size={11} />
+                    {(aptMeta.intervalDays ?? 1) <= 1 ? ' обновляется ежедневно · ' : ' обновлено '}
+                    {new Date(aptMeta.updatedAt).toLocaleDateString('ru-RU')}
+                  </div>
                 </div>
               )}
               {aptMetaError && (
                 <div className={s.aptStatError} role="status">
-                  Не удалось загрузить сводку по квартирам. Метки на карте работают.
+                  По городу {city.name} данные о квартирах ещё не собраны. ЖК-комплексы работают.
                   <button type="button" onClick={() => setAptMeta(null)}>Повторить</button>
                 </div>
               )}
@@ -588,7 +609,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
               <div className={s.legendRow} style={{ marginTop: 4, borderTop: '1px solid var(--border-soft)', paddingTop: 8 }}><span className={s.legendDot} style={{ background: '#111827' }} /> ориентиры (ТРЦ, вокзалы)</div>
             </div>
           )}
-          <button
+          {city.hasCityFaults && <button
             type="button"
             className={`${s.faultsBtn} ${showFaults ? s.faultsBtnOn : ''}`}
             onClick={() => setShowFaults((v) => !v)}
@@ -597,7 +618,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
           >
             <span className={s.faultsDash} aria-hidden />
             Разломы
-          </button>
+          </button>}
           {showFaults && (
             <div className={s.faultsNote} role="status">
               <button type="button" className={s.faultsNoteClose} onClick={() => setShowFaults(false)} aria-label="Скрыть разломы"><Icon name="x" size={15} /></button>
@@ -608,7 +629,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
               с зоной отчуждения 300 м, поэтому <b>по конкретному дому судить нельзя</b>.
             </div>
           )}
-          <MapView points={points} selectedId={selected} onSelect={setSelected} activeDistrict={district} mode={mode} aptMarket={aptMarket} aptRooms={aptRooms} showSold={showSold} aptPrice={priceBucket ? { min: priceBucket.min, max: priceBucket.max } : null} favSet={favSet} onToggleFav={fav.toggle} touchMode={isTouch} onDetail={handleMapDetail} showFaults={showFaults} />
+          <MapView points={points} selectedId={selected} onSelect={setSelected} activeDistrict={district} mode={mode} aptMarket={aptMarket} aptRooms={aptRooms} showSold={showSold} aptPrice={priceBucket ? { min: priceBucket.min, max: priceBucket.max } : null} favSet={favSet} onToggleFav={fav.toggle} touchMode={isTouch} onDetail={handleMapDetail} showFaults={showFaults} citySlug={citySlug} cityCenter={city.center} cityZoom={city.zoom} />
         </div>
       </div>
     </div>

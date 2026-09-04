@@ -18,7 +18,29 @@ function readJSON(file: string): ZhkRaw[] {
   try { return JSON.parse(readFileSync(p, 'utf-8')); } catch { return []; }
 }
 
+/** Города, у которых собран каталог ЖК. Алматы лежит в прежних файлах. */
+const ZHK_CITY_FILES: { slug: string; files: string[] }[] = [
+  { slug: 'almaty', files: ['zhk.json', 'zhk-raw.json'] },
+  { slug: 'astana', files: ['zhk-raw-astana.json'] },
+  { slug: 'shymkent', files: ['zhk-raw-shymkent.json'] },
+  { slug: 'taldykorgan', files: ['zhk-raw-taldykorgan.json'] },
+  { slug: 'kapchagay', files: ['zhk-raw-kapchagay.json'] },
+];
+
 function loadRaw(): ZhkRaw[] {
+  const out = loadAlmaty();
+  // остальные города: берём первый существующий файл каталога
+  for (const c of ZHK_CITY_FILES.slice(1)) {
+    for (const f of c.files) {
+      const rows = readJSON(f);
+      if (rows.length) { rows.forEach((z) => { (z as any).citySlug = c.slug; }); out.push(...rows); break; }
+    }
+  }
+  out.forEach((z) => { if (!(z as any).citySlug) (z as any).citySlug = 'almaty'; });
+  return out;
+}
+
+function loadAlmaty(): ZhkRaw[] {
   // korter is primary (richer: images, parking, seismic, class); krisha adds coverage.
   const korter = existsSync(path.join(DATA_DIR, 'zhk.json')) ? readJSON('zhk.json') : readJSON('zhk-raw.json');
   const krisha = readJSON('zhk-krisha.json');

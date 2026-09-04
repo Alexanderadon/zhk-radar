@@ -5,10 +5,13 @@ import { writeFile, mkdir } from 'node:fs/promises';
 import { extractInitialState, findObjectsWithGeo } from './lib/extract-state.mjs';
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0 Safari/537.36';
-const BASE = 'https://korter.kz/новостройки-алматы';
+// node collect-korter.mjs <слуг-каталога> <суффикс-файла>
+const KORTER_SLUG = process.argv[2] || 'новостройки-алматы';
+const OUT_SUFFIX = process.argv[3] ? `-${process.argv[3]}` : '';
+const BASE = `https://korter.kz/${KORTER_SLUG}`;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-const CLASS_MAP = { economy: 'эконом', comfort: 'комфорт', business: 'бизнес', premium: 'премиум', elite: 'элит' };
+const CLASS_MAP = { economy: 'эконом', basic: 'эконом', comfort: 'комфорт', business: 'бизнес', premium: 'премиум', elite: 'элит' };
 const STATUS_MAP = { project: 'проект', building: 'строится', built: 'сдан', suspended: 'приостановлен' };
 
 function normalize(b, scrapedAt) {
@@ -69,7 +72,7 @@ for (let page = 1; page <= 20; page++) {
 
 const list = [...byId.values()].sort((a, b) => (b.priceSqm || 0) - (a.priceSqm || 0));
 await mkdir('data', { recursive: true });
-await writeFile('data/zhk-raw.json', JSON.stringify(list, null, 2), 'utf-8');
+await writeFile(`data/zhk-raw${OUT_SUFFIX}.json`, JSON.stringify(list, null, 2), 'utf-8');
 
 const withGeo = list.filter((z) => z.lat && z.lng).length;
 const withDev = list.filter((z) => z.developer).length;
