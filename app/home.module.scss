@@ -339,8 +339,11 @@
      освобождает наверху ~57px карты */
   .modeRow { display: none; }
   .sheetMode { display: block; padding: 4px 12px 6px; }
-  .resultBar { padding: 6px 15px 10px; font-size: 13.5px; font-weight: 600; color: var(--text); }
-  .sortSel { min-height: 36px; font-size: 13px; padding: 4px 8px; }
+  /* «15 542 квартиры в этой области» + селект сортировки должны влезать в
+     375px одной строкой: на двух строках шапка съедает высоту peek. */
+  .resultBar { padding: 6px 12px 10px; gap: 8px; font-size: 13.5px; font-weight: 600; color: var(--text); }
+  .resultBar > span { font-size: 13px; min-width: 0; }
+  .sortSel { min-height: 36px; max-width: 134px; font-size: 13px; padding: 4px 6px; }
   /* оба — контейнеры прокрутки внутри шторки, иначе содержимое не долистать */
   .list, .aptPanel {
     flex: 1; min-height: 0; overflow-y: auto;

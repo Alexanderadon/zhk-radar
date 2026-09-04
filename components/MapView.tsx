@@ -79,6 +79,7 @@ export default function MapView({
   const padRef = useRef(mapPadBottom);
   padRef.current = mapPadBottom;
   const emitRef = useRef<() => void>(() => {});
+  const lastEmit = useRef<Apt[] | null>(null);
   /**
    * Отступ снизу под шторку — но не больше 55% карты. Раскрытая на весь экран
    * шторка закрывает её целиком, и без ограничения «видимая область» схлопывалась
@@ -364,8 +365,12 @@ export default function MapView({
       });
 
       applyModeRef.current();
-      // список квартир пересобираем после каждого движения карты
+      // Список квартир пересобираем после движения карты. idle — страховка:
+      // первый emit может прийти раньше, чем карта получит размер и данные,
+      // и без него список остался бы пустым до первого движения пальцем.
       m.on('moveend', () => emitRef.current());
+      m.on('idle', () => emitRef.current());
+      m.on('resize', () => emitRef.current());
       emitRef.current();
     });
 
@@ -400,6 +405,8 @@ export default function MapView({
     if (mode !== 'apartments') { cb([]); return; }
     const el = m.getContainer();
     const wpx = el.clientWidth, hpx = el.clientHeight;
+    // контейнер ещё не разложен — пустой список тут был бы неправдой
+    if (wpx < 20 || hpx < 20) return;
     const bottomY = Math.max(60, hpx - padBottom());
     const c1 = m.unproject([0, bottomY]);
     const c2 = m.unproject([wpx, 0]);
@@ -409,6 +416,11 @@ export default function MapView({
     for (const p of filteredApts()) {
       if (p.lat >= south && p.lat <= north && p.lng >= west && p.lng <= east) out.push(p);
     }
+    // idle прилетает часто; если состав не изменился — не дёргаем React
+    const prev = lastEmit.current;
+    if (prev && prev.length === out.length &&
+        (out.length === 0 || (prev[0] === out[0] && prev[prev.length - 1] === out[out.length - 1]))) return;
+    lastEmit.current = out;
     cb(out);
   }
   emitRef.current = emitInView;
@@ -472,7 +484,7 @@ export default function MapView({
   const firstCity = useRef(true);
   useEffect(() => {
     if (firstCity.current) { firstCity.current = false; return; }
-    allApts.current = null; allSold.current = null; loadingApts.current = false;
+    allApts.current = null; allSold.current = null; loadingApts.current = false; lastEmit.current = null;
     // границы районов собраны только для Алматы — в других городах их не рисуем
     const mm = map.current;
     if (mm) for (const id of ['district-fill', 'district-line', 'district-label']) {

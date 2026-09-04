@@ -632,10 +632,10 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
               <div className={s.resultBar} {...sheet.headerDragProps}>
                 <span>{filtered.length} ЖК{district ? ` · ${district}` : ''}</span>
                 <select className={s.sortSel} value={sort} onChange={(e) => setSort(e.target.value)} aria-label="Сортировка">
-                  <option value="score-desc">защита: сначала высокая</option>
-                  <option value="score-asc">защита: сначала низкая</option>
-                  <option value="price-desc">цена: сначала дорогие</option>
-                  <option value="price-asc">цена: сначала дешёвые</option>
+                  <option value="score-desc">сначала защищённые</option>
+                  <option value="score-asc">сначала рискованные</option>
+                  <option value="price-desc">сначала дорогие</option>
+                  <option value="price-asc">сначала дешёвые</option>
                 </select>
               </div>
               <div className={s.list} ref={sheet.scrollRef as React.RefObject<HTMLDivElement>} {...sheet.contentProps}>
