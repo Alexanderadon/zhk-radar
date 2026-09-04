@@ -143,10 +143,22 @@ export default function MapView({
       try { if (!m.hasImage('price-pill')) m.addImage('price-pill', makePricePill(), { pixelRatio: 2, stretchX: [[16, 112]], stretchY: [[12, 32]], content: [14, 8, 114, 36] }); } catch {}
 
       // ---- COMPLEXES (ЖК) ----
-      m.addSource('zhk', { type: 'geojson', data: toGeoJSON(points) as any, cluster: true, clusterMaxZoom: 13, clusterRadius: 52 });
+      m.addSource('zhk', { type: 'geojson', data: toGeoJSON(points) as any, cluster: true, clusterMaxZoom: 16, clusterRadius: 44 });
       const notCluster = ['!', ['has', 'point_count']] as any;
-      m.addLayer({ id: 'clusters', type: 'circle', source: 'zhk', filter: ['has', 'point_count'], paint: { 'circle-color': ['step', ['get', 'point_count'], '#4a9eff', 30, '#3a86e0', 120, '#2b6cb0'], 'circle-opacity': 0.92, 'circle-radius': ['step', ['get', 'point_count'], 15, 15, 20, 50, 26, 150, 34], 'circle-stroke-width': 4, 'circle-stroke-color': 'rgba(74,158,255,0.25)' } });
-      m.addLayer({ id: 'cluster-count', type: 'symbol', source: 'zhk', filter: ['has', 'point_count'], layout: { 'text-field': ['get', 'point_count_abbreviated'], 'text-size': 13, 'text-font': ['Noto Sans Regular'] }, paint: { 'text-color': '#ffffff' } });
+      m.addLayer({ id: 'clusters', type: 'circle', source: 'zhk', filter: ['has', 'point_count'], maxzoom: 12.5, paint: { 'circle-color': ['step', ['get', 'point_count'], '#4a9eff', 30, '#3a86e0', 120, '#2b6cb0'], 'circle-opacity': 0.92, 'circle-radius': ['step', ['get', 'point_count'], 15, 15, 20, 50, 26, 150, 34], 'circle-stroke-width': 4, 'circle-stroke-color': 'rgba(74,158,255,0.25)' } });
+      // На ближних зумах кластер — это просто «рядом несколько ЖК», поэтому
+      // рисуем его компактно, в одном стиле с ценниками, а не крупным кругом.
+      m.addLayer({
+        id: 'cluster-pill', type: 'symbol', source: 'zhk', filter: ['has', 'point_count'], minzoom: 12.5,
+        layout: {
+          'icon-image': 'price-pill', 'icon-text-fit': 'both', 'icon-text-fit-padding': [1, 5, 1, 5],
+          'text-field': ['concat', ['get', 'point_count_abbreviated'], ' ЖК'],
+          'text-size': 10.5, 'text-font': ['Noto Sans Regular'],
+          'text-allow-overlap': true, 'icon-allow-overlap': true,
+        },
+        paint: { 'text-color': '#14181f' },
+      });
+      m.addLayer({ id: 'cluster-count', type: 'symbol', source: 'zhk', filter: ['has', 'point_count'], maxzoom: 12.5, layout: { 'text-field': ['get', 'point_count_abbreviated'], 'text-size': 13, 'text-font': ['Noto Sans Regular'] }, paint: { 'text-color': '#ffffff' } });
       m.addLayer({ id: 'zhk-glow', type: 'circle', source: 'zhk', filter: notCluster, paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 10, 9, 15, 20], 'circle-color': ['get', 'color'], 'circle-opacity': 0.22, 'circle-blur': 0.6 } });
       m.addLayer({ id: 'zhk-dot', type: 'circle', source: 'zhk', filter: notCluster, paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 10, 6, 15, 10], 'circle-color': ['get', 'color'], 'circle-stroke-width': ['case', ['get', 'deal'], 3, 1.6], 'circle-stroke-color': ['case', ['get', 'deal'], '#16a34a', '#ffffff'] } });
       // Ценники ЖК: при приближении вместо «точка + наведение» видно сами цены.
@@ -325,7 +337,7 @@ export default function MapView({
   }, []);
 
   function setVis(m: maplibregl.Map, layers: string[], v: 'visible' | 'none') { for (const l of layers) if (m.getLayer(l)) m.setLayoutProperty(l, 'visibility', v); }
-  const COMPLEX_LAYERS = ['clusters', 'cluster-count', 'zhk-glow', 'zhk-dot', 'zhk-price', 'zhk-selected', 'zhk-fav'];
+  const COMPLEX_LAYERS = ['clusters', 'cluster-count', 'cluster-pill', 'zhk-glow', 'zhk-dot', 'zhk-price', 'zhk-selected', 'zhk-fav'];
   const APT_LAYERS = ['apt-cluster', 'apt-cluster-count', 'apt-dot', 'apt-price'];
 
   function filteredApts(): Apt[] {
