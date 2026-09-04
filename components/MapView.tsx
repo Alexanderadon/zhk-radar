@@ -32,6 +32,7 @@ const ALMATY: [number, number] = [76.905, 43.238];
 export default function MapView({
   points, selectedId, onSelect, activeDistrict,
   mode = 'complexes', aptMarket, aptRooms, showSold, aptPrice, favSet, onToggleFav, touchMode = false, onDetail, showFaults = false, citySlug = 'almaty', cityCenter, cityZoom,
+  onAptsInView, focusApt, mapPadBottom = 0,
 }: {
   points: MapPoint[]; selectedId: number | null; onSelect: (id: number) => void; activeDistrict?: string | null;
   mode?: 'complexes' | 'apartments'; aptMarket?: Set<string>; aptRooms?: Set<number>; showSold?: boolean; aptPrice?: { min: number; max: number } | null;
@@ -44,6 +45,13 @@ export default function MapView({
   citySlug?: string;
   cityCenter?: [number, number];
   cityZoom?: number;
+  /** Квартиры в видимой части карты — из них строится список в панели. Без него
+      «Квартиры» существовали только как точки: ни пролистать, ни отсортировать. */
+  onAptsInView?: (apts: Apt[]) => void;
+  /** Квартира, выбранная в списке: подсвечиваем её и подлетаем. */
+  focusApt?: Apt | null;
+  /** Сколько пикселей карты снизу закрыто шторкой: иначе flyTo центрирует объект под ней. */
+  mapPadBottom?: number;
 }) {
   const container = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
@@ -66,6 +74,23 @@ export default function MapView({
   const citySlugRef = useRef(citySlug);
   citySlugRef.current = citySlug;
   const dataSuffix = () => (citySlugRef.current === 'almaty' ? '' : `-${citySlugRef.current}`);
+  const onAptsInViewRef = useRef(onAptsInView);
+  onAptsInViewRef.current = onAptsInView;
+  const padRef = useRef(mapPadBottom);
+  padRef.current = mapPadBottom;
+  const emitRef = useRef<() => void>(() => {});
+  /**
+   * Отступ снизу под шторку — но не больше 55% карты. Раскрытая на весь экран
+   * шторка закрывает её целиком, и без ограничения «видимая область» схлопывалась
+   * в полоску: список квартир становился пустым ровно в тот момент, когда его
+   * открывали на весь экран.
+   */
+  const padBottom = () => {
+    const h = map.current?.getContainer().clientHeight ?? 0;
+    return h ? Math.min(padRef.current, Math.round(h * 0.55)) : 0;
+  };
+  /** Центрируем в НЕзакрытой части карты, иначе на телефоне объект уезжает под шторку. */
+  const pad = () => ({ top: 0, left: 0, right: 0, bottom: padBottom() });
 
   useEffect(() => {
     if (map.current || !container.current) return;
@@ -222,6 +247,8 @@ export default function MapView({
       // ---- SOLD (недавно продано) ----
       m.addSource('sold', { type: 'geojson', data: emptyFC() as any });
       m.addLayer({ id: 'sold-dot', type: 'circle', source: 'sold', layout: { visibility: 'none' }, paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 11, 4, 16, 9], 'circle-color': '#e74c3c', 'circle-opacity': 0.85, 'circle-stroke-width': 1.4, 'circle-stroke-color': '#ffffff' } });
+      // обводка квартиры, выбранной в списке
+      m.addLayer({ id: 'apt-focus', type: 'circle', source: 'apt', filter: ['==', ['get', 'id'], -1], layout: { visibility: 'none' }, paint: { 'circle-radius': 13, 'circle-color': 'rgba(47,107,237,0)', 'circle-stroke-width': 3.5, 'circle-stroke-color': '#2f6bed' } });
       ready.current = true;
 
       // complex handlers
@@ -337,6 +364,9 @@ export default function MapView({
       });
 
       applyModeRef.current();
+      // список квартир пересобираем после каждого движения карты
+      m.on('moveend', () => emitRef.current());
+      emitRef.current();
     });
 
     return () => { navCleanup.current(); m.remove(); map.current = null; ready.current = false; };
@@ -345,7 +375,7 @@ export default function MapView({
 
   function setVis(m: maplibregl.Map, layers: string[], v: 'visible' | 'none') { for (const l of layers) if (m.getLayer(l)) m.setLayoutProperty(l, 'visibility', v); }
   const COMPLEX_LAYERS = ['clusters', 'cluster-count', 'cluster-pill', 'zhk-glow', 'zhk-dot', 'zhk-price', 'zhk-selected', 'zhk-fav'];
-  const APT_LAYERS = ['apt-cluster', 'apt-cluster-count', 'apt-dot', 'apt-price'];
+  const APT_LAYERS = ['apt-cluster', 'apt-cluster-count', 'apt-dot', 'apt-price', 'apt-focus'];
 
   function filteredApts(): Apt[] {
     const all = allApts.current || [];
@@ -357,6 +387,31 @@ export default function MapView({
       return true;
     });
   }
+
+  /**
+   * Квартиры, попавшие в видимый прямоугольник. Низ карты на телефоне закрыт
+   * шторкой, поэтому нижнюю границу берём по её краю, а не по краю карты —
+   * иначе в списке оказывались дома, которых пользователь не видит.
+   */
+  function emitInView() {
+    const cb = onAptsInViewRef.current;
+    const m = map.current;
+    if (!cb || !m || !ready.current) return;
+    if (mode !== 'apartments') { cb([]); return; }
+    const el = m.getContainer();
+    const wpx = el.clientWidth, hpx = el.clientHeight;
+    const bottomY = Math.max(60, hpx - padBottom());
+    const c1 = m.unproject([0, bottomY]);
+    const c2 = m.unproject([wpx, 0]);
+    const south = Math.min(c1.lat, c2.lat), north = Math.max(c1.lat, c2.lat);
+    const west = Math.min(c1.lng, c2.lng), east = Math.max(c1.lng, c2.lng);
+    const out: Apt[] = [];
+    for (const p of filteredApts()) {
+      if (p.lat >= south && p.lat <= north && p.lng >= west && p.lng <= east) out.push(p);
+    }
+    cb(out);
+  }
+  emitRef.current = emitInView;
 
   async function applyMode() {
     const m = map.current; if (!m || !ready.current) return;
@@ -381,13 +436,21 @@ export default function MapView({
       setVis(m, [...APT_LAYERS, 'sold-dot'], 'none');
       setVis(m, COMPLEX_LAYERS, 'visible');
     }
+    emitInView();
   }
 
   applyModeRef.current = applyMode;
   useEffect(() => { applyMode(); /* eslint-disable-next-line */ }, [mode, aptMarket, aptRooms, showSold, aptPrice, activeDistrict]);
   useEffect(() => { const m = map.current; if (!m || !ready.current) return; const src = m.getSource('zhk') as maplibregl.GeoJSONSource | undefined; if (src) src.setData(toGeoJSON(points) as any); }, [points]);
   useEffect(() => { const m = map.current; if (!m || !ready.current) return; if (m.getLayer('district-fill')) m.setPaintProperty('district-fill', 'fill-opacity', ['case', ['==', ['get', 'name'], activeDistrict ?? '__none__'], 0.28, 0.1] as any); }, [activeDistrict]);
-  useEffect(() => { const m = map.current; if (!m || !ready.current) return; m.setFilter('zhk-selected', ['==', ['get', 'id'], selectedId ?? -1]); if (selectedId != null) { const p = points.find((x) => x.id === selectedId); if (p) m.flyTo({ center: [p.lng, p.lat], zoom: Math.max(m.getZoom(), 13.5), speed: 0.8 }); } }, [selectedId, points]);
+  useEffect(() => { const m = map.current; if (!m || !ready.current) return; m.setFilter('zhk-selected', ['==', ['get', 'id'], selectedId ?? -1]); if (selectedId != null) { const p = points.find((x) => x.id === selectedId); if (p) m.flyTo({ center: [p.lng, p.lat], zoom: Math.max(m.getZoom(), 13.5), speed: 0.8, padding: pad() }); } }, [selectedId, points]);
+  // выбор квартиры в списке: подлетаем и обводим — иначе список и карта живут порознь
+  useEffect(() => {
+    const m = map.current; if (!m || !ready.current) return;
+    if (m.getLayer('apt-focus')) m.setFilter('apt-focus', ['==', ['get', 'id'], focusApt?.id ?? -1] as any);
+    if (focusApt) m.flyTo({ center: [focusApt.lng, focusApt.lat], zoom: Math.max(m.getZoom(), 16), speed: 0.9, padding: pad() });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [focusApt]);
   useEffect(() => { const m = map.current; if (!m || !ready.current) return; if (m.getLayer('zhk-fav')) m.setFilter('zhk-fav', ['in', ['get', 'id'], ['literal', favSet ? [...favSet] : []]] as any); }, [favSet]);
 
   // Разломы включаются/выключаются тумблером. Ждём готовности стиля: слой

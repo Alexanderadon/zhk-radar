@@ -6,10 +6,10 @@ import s from '../app/home.module.scss';
 import { BAND_COLOR, BAND_TEXT, BAND_LABEL } from '../lib/score';
 import Icon from './Icon';
 import { useFavorites } from '../lib/useFavorites';
-import { useIsMobile, useIsTouch } from '../lib/useMediaQuery';
+import { useIsMobile, useIsTouch, useIsPhoneLandscape } from '../lib/useMediaQuery';
 import { useSheet } from '../lib/useSheet';
 import { CITIES, cityBySlug } from '../lib/cities';
-import type { MapPoint, MapDetail } from './MapView';
+import type { MapPoint, MapDetail, Apt } from './MapView';
 
 const MapView = dynamic(() => import('./MapView'), { ssr: false, loading: () => <div className={s.mapSkeleton} /> });
 
@@ -78,6 +78,78 @@ const DISTRICTS = [
   { name: 'Турксибский', color: '#e84393' },
   { name: 'Алатауский', color: '#e67e22' },
 ];
+
+/**
+ * Переключатель «ЖК ↔ Квартиры». Рендерится дважды: на десктопе он стоит над
+ * фильтрами (порядок важен — он решает, какие фильтры показывать), а на телефоне
+ * переезжает в шапку шторки, освобождая ~57px карты. Лишний экземпляр скрыт
+ * через display:none, поэтому в дерево доступности попадает только один.
+ */
+function ModeToggle({ mode, favOnly, onPick }: {
+  mode: 'complexes' | 'apartments'; favOnly: boolean; onPick: (m: 'complexes' | 'apartments') => void;
+}) {
+  return (
+    <div className={s.modeToggle}>
+      <button type="button" className={mode === 'complexes' && !favOnly ? s.modeActive : ''} onClick={() => onPick('complexes')}><Icon name="building" size={16} /> <span>ЖК-комплексы</span></button>
+      <button type="button" className={mode === 'apartments' ? s.modeActive : ''} onClick={() => onPick('apartments')}><Icon name="key" size={16} /> <span>Квартиры</span></button>
+    </div>
+  );
+}
+
+/**
+ * Легенда цветов. На десктопе висит над картой, на телефоне переезжает в начало
+ * списка: плавающей она стояла внизу и при стартовом положении шторки была
+ * не видна вообще, а сверху отнимала и без того узкую полосу карты.
+ */
+function Legend({ mode }: { mode: 'complexes' | 'apartments' }) {
+  if (mode === 'complexes') {
+    return (
+      <>
+        {BANDS.map((b) => (<div key={b} className={s.legendRow}><span className={s.legendDot} style={{ background: BAND_COLOR[b] }} /> {BAND_LABEL[b]}</div>))}
+        <div className={s.legendRow} style={{ marginTop: 4, borderTop: '1px solid var(--border-soft)', paddingTop: 8, color: 'var(--green)' }}><Icon name="flame" size={13} /> выгодная цена</div>
+      </>
+    );
+  }
+  return (
+    <>
+      <div className={s.legendRow}><span className={s.legendDot} style={{ background: '#5f95e3' }} /> кластер — число предложений</div>
+      <div className={s.legendRow}><span className={s.legendDot} style={{ background: '#16a34a' }} /> первичка (новостройка)</div>
+      <div className={s.legendRow}><span className={s.legendDot} style={{ background: '#6b8bb0' }} /> вторичка</div>
+      <div className={s.legendRow} style={{ marginTop: 4, borderTop: '1px solid var(--border-soft)', paddingTop: 8 }}><span className={s.legendDot} style={{ background: '#111827' }} /> ориентиры (ТРЦ, вокзалы)</div>
+    </>
+  );
+}
+
+/** 1 квартира / 2 квартиры / 5 квартир — иначе счётчик читается как машинный. */
+function plural(n: number, one: string, few: string, many: string) {
+  const m10 = n % 10, m100 = n % 100;
+  if (m10 === 1 && m100 !== 11) return one;
+  if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
+  return many;
+}
+
+const fmtMln = (v: number | null) =>
+  v ? `${(v / 1_000_000).toLocaleString('ru-RU', { maximumFractionDigits: 1 })} млн ₸` : null;
+
+/** Строка квартиры в списке. */
+const AptRow = memo(function AptRow({ a, active, onPick }: { a: Apt; active: boolean; onPick: (a: Apt) => void }) {
+  return (
+    <button type="button" className={`${s.aptRow} ${active ? s.aptRowOn : ''}`} onClick={() => onPick(a)}>
+      {a.photo
+        ? <img className={s.aptThumb} src={a.photo} alt="" loading="lazy" />
+        : <div className={`${s.aptThumb} ${s.aptThumbEmpty}`} aria-hidden>◫</div>}
+      <span className={s.aptRowBody}>
+        <span className={s.aptRowPrice}>{fmtMln(a.price) ?? 'цена не указана'}</span>
+        <span className={s.aptRowSub}>{[a.rooms ? `${a.rooms}-комн.` : null, a.square ? `${a.square} м²` : null, a.floor || null].filter(Boolean).join(' · ')}</span>
+        {a.addr && <span className={s.aptRowAddr}>{a.addr}</span>}
+      </span>
+      <span className={s.aptRowSide}>
+        {a.market === 'primary' && <span className={s.aptRowNew}>новостройка</span>}
+        {a.price && a.square ? <span className={s.aptRowSqm}>{Math.round(a.price / a.square / 1000)} тыс/м²</span> : null}
+      </span>
+    </button>
+  );
+});
 
 /**
  * Карточка ЖК в списке. Вынесена и обёрнута в memo: список рендерит 824 штуки,
@@ -218,6 +290,13 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
   const canFav = !!fav.user;
   const favSet = useMemo(() => new Set(fav.ids), [fav.ids]);
   const [aptMeta, setAptMeta] = useState<{ updatedAt: string; intervalDays?: number; total: number; primary: number; secondary: number; addedToday: number; soldToday: number; soldRecent: number } | null>(null);
+  // Квартиры, попавшие в видимую часть карты. До этого режим «Квартиры» вообще
+  // не имел списка: 44 тысячи объявлений existed только как точки на карте.
+  const [aptsInView, setAptsInView] = useState<Apt[]>([]);
+  const [aptSort, setAptSort] = useState('price-asc');
+  const [aptShown, setAptShown] = useState(30);
+  const [focusApt, setFocusApt] = useState<Apt | null>(null);
+  const onAptsInView = useCallback((list: Apt[]) => setAptsInView(list), []);
   const toggleN = (set: Set<number>, v: number, upd: (s: Set<number>) => void) => { const n = new Set(set); n.has(v) ? n.delete(v) : n.add(v); upd(n); };
   const [aptMetaError, setAptMetaError] = useState(false);
   useEffect(() => {
@@ -230,10 +309,28 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
       .catch(() => setAptMetaError(true));
   }, [mode, aptMeta, citySlug]);
 
+  // Поиск в режиме квартир ищет по адресу: искать «ЖК/застройщика» тут нечего.
+  const aptList = useMemo(() => {
+    const query = q.trim().toLowerCase();
+    const list = query ? aptsInView.filter((a) => a.addr?.toLowerCase().includes(query)) : aptsInView.slice();
+    const sqm = (a: Apt) => (a.price && a.square ? a.price / a.square : Infinity);
+    list.sort((a, b) => {
+      if (aptSort === 'price-asc') return (a.price ?? Infinity) - (b.price ?? Infinity);
+      if (aptSort === 'price-desc') return (b.price ?? 0) - (a.price ?? 0);
+      if (aptSort === 'sqm-asc') return sqm(a) - sqm(b);
+      return (b.square ?? 0) - (a.square ?? 0);
+    });
+    return list;
+  }, [aptsInView, aptSort, q]);
+  // сдвинули карту или пересортировали — начинаем показ заново
+  useEffect(() => { setAptShown(30); }, [aptsInView, aptSort, q]);
+
   // ---- мобильная оболочка: шторка поверх карты + модалка фильтров ----
   const isMobile = useIsMobile();
   const isTouch = useIsTouch();
-  const sheet = useSheet(isMobile);
+  // в альбомной ориентации список — колонка справа, шторка выключается
+  const isPhoneLandscape = useIsPhoneLandscape();
+  const sheet = useSheet(isMobile && !isPhoneLandscape);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [showFaults, setShowFaults] = useState(false);
   const [mapDetail, setMapDetail] = useState<MapDetail | null>(null);
@@ -317,8 +414,15 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const onAptRow = useCallback((a: Apt) => {
+    setFocusApt(a);
+    setMapDetail({ kind: 'apt', id: a.id, price: a.price, rooms: a.rooms, square: a.square, floor: a.floor, addr: a.addr, market: a.market, photo: a.photo });
+  }, []);
+  const pickMode = useCallback((m: 'complexes' | 'apartments') => { setMode(m); setFavOnly(false); }, []);
+
   // карточка объекта не должна «переживать» смену режима карты
-  useEffect(() => { setMapDetail(null); }, [mode]);
+  useEffect(() => { setMapDetail(null); setFocusApt(null); }, [mode]);
+  useEffect(() => { setFocusApt(null); }, [citySlug]);
   useEffect(() => { setAptMeta(null); }, [citySlug]);
 
   const toggle = (set: Set<string>, v: string, upd: (s: Set<string>) => void) => {
@@ -403,15 +507,11 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
 
       <div className={s.body}>
         <div className={s.controls}>
-          <div className={s.searchRow}>
-            <Icon name="search" size={17} className={s.searchIcon} />
-            <input className={s.search} placeholder="Поиск ЖК, застройщика, района…" value={q} onChange={(e) => setQ(e.target.value)} />
-            {q && <button type="button" className={s.searchClear} aria-label="Очистить поиск" onClick={() => setQ('')}><Icon name="x" size={15} /></button>}
-          </div>
           <div className={s.controlsRow}>
-            <div className={s.modeToggle}>
-              <button className={mode === 'complexes' && !favOnly ? s.modeActive : ''} onClick={() => { setMode('complexes'); setFavOnly(false); }}><Icon name="building" size={16} /> <span>ЖК-комплексы</span></button>
-              <button className={mode === 'apartments' ? s.modeActive : ''} onClick={() => { setMode('apartments'); setFavOnly(false); }}><Icon name="key" size={16} /> <span>Квартиры</span></button>
+            <div className={s.searchRow}>
+              <Icon name="search" size={17} className={s.searchIcon} />
+              <input className={s.search} placeholder={mode === 'apartments' ? 'Поиск по адресу…' : 'Поиск ЖК, застройщика, района…'} value={q} onChange={(e) => setQ(e.target.value)} />
+              {q && <button type="button" className={s.searchClear} aria-label="Очистить поиск" onClick={() => setQ('')}><Icon name="x" size={15} /></button>}
             </div>
             <button type="button" className={`${s.filterBtn} ${activeCount ? s.filterBtnOn : ''}`} onClick={() => setFiltersOpen(true)} aria-label={`Фильтры${activeCount ? `, активно: ${activeCount}` : ''}`}>
               <Icon name="sliders" size={16} />
@@ -419,6 +519,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
               {activeCount > 0 && <span className={s.filterCount}>{activeCount}</span>}
             </button>
           </div>
+          <div className={s.modeRow}><ModeToggle mode={mode} favOnly={favOnly} onPick={pickMode} /></div>
         </div>
 
         <div ref={filterHostRef} className={`${s.filterHost} ${filtersOpen ? s.filterHostOpen : ''}`} role={isMobile ? 'dialog' : undefined} aria-modal={isMobile && filtersOpen ? true : undefined} aria-label="Фильтры">
@@ -505,7 +606,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
         <aside
           ref={sheet.sheetRef as React.RefObject<HTMLElement>}
           className={`${s.sidebar} ${sheet.dragging ? s.sidebarDragging : ''}`}
-          style={isMobile ? { transform: `translate3d(0, ${sheet.y}px, 0)` } : undefined}
+          style={isMobile && !isPhoneLandscape ? { transform: `translate3d(0, ${sheet.y}px, 0)` } : undefined}
         >
           <div className={s.grip} {...sheet.dragProps}>
             <button
@@ -515,6 +616,8 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
               onClick={() => sheet.setIndex(sheet.index === 2 ? 0 : ((sheet.index + 1) as 0 | 1 | 2))}
             />
           </div>
+
+          <div className={s.sheetMode} {...sheet.headerDragProps}><ModeToggle mode={mode} favOnly={favOnly} onPick={pickMode} /></div>
 
           {mapDetail && <MapDetailCard detail={mapDetail} onClose={() => setMapDetail(null)} />}
 
@@ -536,6 +639,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
                 </select>
               </div>
               <div className={s.list} ref={sheet.scrollRef as React.RefObject<HTMLDivElement>} {...sheet.contentProps}>
+                <div className={s.listLegend}><Legend mode="complexes" /></div>
                 {filtered.map((z) => (
                   <ZhkCard
                     key={z.id}
@@ -557,14 +661,42 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
             </>
           ) : (
             <>
-            {/* заголовок шторки: на десктопе дублировал бы счётчик из .aptStat ниже */}
-            <div className={`${s.resultBar} ${s.sheetOnly}`} {...sheet.headerDragProps}>
-              <span>{aptMeta ? `${aptMeta.total.toLocaleString('ru-RU')} квартир` : 'Квартиры на карте'}{district ? ` · ${district}` : ''}</span>
+            <div className={s.resultBar} {...sheet.headerDragProps}>
+              <span>{aptList.length.toLocaleString('ru-RU')} {plural(aptList.length, 'квартира', 'квартиры', 'квартир')} в этой области{district ? ` · ${district}` : ''}</span>
+              <select className={s.sortSel} value={aptSort} onChange={(e) => setAptSort(e.target.value)} aria-label="Сортировка квартир">
+                <option value="price-asc">сначала дешёвые</option>
+                <option value="price-desc">сначала дорогие</option>
+                <option value="sqm-asc">дешевле за м²</option>
+                <option value="area-desc">больше площадь</option>
+              </select>
             </div>
             <div className={s.aptPanel} ref={sheet.scrollRef as React.RefObject<HTMLDivElement>} {...sheet.contentProps}>
+              {aptMetaError && (
+                <div className={s.aptStatError} role="status">
+                  По городу {city.name} данные о квартирах ещё не собраны. ЖК-комплексы работают.
+                  <button type="button" onClick={() => setAptMeta(null)}>Повторить</button>
+                </div>
+              )}
+              <div className={s.aptRows}>
+                {aptList.slice(0, aptShown).map((a) => (
+                  <AptRow key={a.id} a={a} active={focusApt?.id === a.id} onPick={onAptRow} />
+                ))}
+              </div>
+              {aptList.length > aptShown && (
+                <button type="button" className={s.aptMore} onClick={() => setAptShown((n) => n + 30)}>
+                  Показать ещё {Math.min(30, aptList.length - aptShown)} · осталось {(aptList.length - aptShown).toLocaleString('ru-RU')}
+                </button>
+              )}
+              {aptList.length === 0 && !aptMetaError && (
+                <div className={s.aptEmpty}>
+                  {q.trim()
+                    ? <>По адресу «{q.trim()}» в этой области ничего нет. Подвиньте карту или очистите поиск.</>
+                    : <>В видимой части карты квартир нет. Подвиньте или отдалите карту — список соберётся сам.</>}
+                </div>
+              )}
               {aptMeta && (
                 <div className={s.aptStat}>
-                  <div className={s.aptStatTotal}><b>{aptMeta.total.toLocaleString('ru-RU')}</b> квартир на карте</div>
+                  <div className={s.aptStatTotal}><b>{aptMeta.total.toLocaleString('ru-RU')}</b> {plural(aptMeta.total, 'квартира', 'квартиры', 'квартир')} по городу</div>
                   {(aptMeta.addedToday > 0 || aptMeta.soldToday > 0) && (
                     <div className={s.aptStatDeltas}>
                       <span className={s.up}>+{aptMeta.addedToday} {(aptMeta.intervalDays ?? 1) > 1 ? `за ${aptMeta.intervalDays} дн.` : 'за день'}</span>
@@ -579,37 +711,22 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
                   </div>
                 </div>
               )}
-              {aptMetaError && (
-                <div className={s.aptStatError} role="status">
-                  По городу {city.name} данные о квартирах ещё не собраны. ЖК-комплексы работают.
-                  <button type="button" onClick={() => setAptMeta(null)}>Повторить</button>
-                </div>
-              )}
-              <ul className={s.aptSteps}>
-                <li><span className={s.stepDot} style={{ background: '#5f95e3' }} /> Кружок с числом — сколько квартир рядом. Нажмите, чтобы приблизить.</li>
-                <li><span className={s.stepDot} style={{ background: '#16a34a' }} /> Зелёные — новостройки, серо-синие — вторичка. Нажмите на метку: цена, комнаты, площадь.</li>
-                <li><span className={s.stepDot} style={{ background: '#111827' }} /> Чёрные метки — ориентиры (ТРЦ, парки, вокзалы) с фото и рейтингом.</li>
-              </ul>
-              <div className={s.aptSrc}>Объявления — krisha.kz. Риск-скор считается только для ЖК-комплексов.</div>
+              <details className={s.aptHow}>
+                <summary>Как читать карту</summary>
+                <ul className={s.aptSteps}>
+                  <li><span className={s.stepDot} style={{ background: '#5f95e3' }} /> Кружок с числом — сколько квартир рядом. Нажмите, чтобы приблизить.</li>
+                  <li><span className={s.stepDot} style={{ background: '#16a34a' }} /> Зелёные — новостройки, серо-синие — вторичка. Нажмите на метку: цена, комнаты, площадь.</li>
+                  <li><span className={s.stepDot} style={{ background: '#111827' }} /> Чёрные метки — ориентиры (ТРЦ, парки, вокзалы) с фото и рейтингом.</li>
+                </ul>
+              </details>
+              <div className={s.aptSrc}>Объявления — krisha.kz. Список собирается по видимой части карты. Риск-скор считается только для ЖК-комплексов.</div>
             </div>
             </>
           )}
         </aside>
 
         <div className={s.mapWrap}>
-          {mode === 'complexes' ? (
-            <div className={s.legend}>
-              {BANDS.map((b) => (<div key={b} className={s.legendRow}><span className={s.legendDot} style={{ background: BAND_COLOR[b] }} /> {BAND_LABEL[b]}</div>))}
-              <div className={s.legendRow} style={{ marginTop: 4, borderTop: '1px solid var(--border-soft)', paddingTop: 8, color: 'var(--green)' }}><Icon name="flame" size={13} /> выгодная цена</div>
-            </div>
-          ) : (
-            <div className={s.legend}>
-              <div className={s.legendRow}><span className={s.legendDot} style={{ background: '#5f95e3' }} /> кластер — число предложений</div>
-              <div className={s.legendRow}><span className={s.legendDot} style={{ background: '#16a34a' }} /> первичка (новостройка)</div>
-              <div className={s.legendRow}><span className={s.legendDot} style={{ background: '#6b8bb0' }} /> вторичка</div>
-              <div className={s.legendRow} style={{ marginTop: 4, borderTop: '1px solid var(--border-soft)', paddingTop: 8 }}><span className={s.legendDot} style={{ background: '#111827' }} /> ориентиры (ТРЦ, вокзалы)</div>
-            </div>
-          )}
+          <div className={s.legend}><Legend mode={mode} /></div>
           {city.hasCityFaults && <button
             type="button"
             className={`${s.faultsBtn} ${showFaults ? s.faultsBtnOn : ''}`}
@@ -630,7 +747,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
               с зоной отчуждения 300 м, поэтому <b>по конкретному дому судить нельзя</b>.
             </div>
           )}
-          <MapView points={points} selectedId={selected} onSelect={setSelected} activeDistrict={district} mode={mode} aptMarket={aptMarket} aptRooms={aptRooms} showSold={showSold} aptPrice={priceBucket ? { min: priceBucket.min, max: priceBucket.max } : null} favSet={favSet} onToggleFav={fav.toggle} touchMode={isTouch} onDetail={handleMapDetail} showFaults={showFaults} citySlug={citySlug} cityCenter={city.center} cityZoom={city.zoom} />
+          <MapView points={points} selectedId={selected} onSelect={setSelected} activeDistrict={district} mode={mode} aptMarket={aptMarket} aptRooms={aptRooms} showSold={showSold} aptPrice={priceBucket ? { min: priceBucket.min, max: priceBucket.max } : null} favSet={favSet} onToggleFav={fav.toggle} touchMode={isTouch} onDetail={handleMapDetail} showFaults={showFaults} citySlug={citySlug} cityCenter={city.center} cityZoom={city.zoom} onAptsInView={onAptsInView} focusApt={focusApt} mapPadBottom={sheet.cover} />
         </div>
       </div>
     </div>

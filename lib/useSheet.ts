@@ -15,7 +15,9 @@ const useIsoLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : use
  * поэтому DOM один и тот же на десктопе и на мобиле — без рассинхрона гидратации.
  * На десктопе (enabled = false) хук не делает ничего.
  */
-export function useSheet(enabled: boolean, peekPx = 118) {
+// peek должен целиком показывать шапку шторки: ручка + переключатель режима +
+// строка счётчика (~111px) и полоску первой карточки как подсказку, что список ниже.
+export function useSheet(enabled: boolean, peekPx = 148) {
   const sheetRef = useRef<HTMLElement | null>(null);
   const scrollRef = useRef<HTMLElement | null>(null);
   const [index, setIndex] = useState<SnapIndex>(1);
@@ -163,6 +165,8 @@ export function useSheet(enabled: boolean, peekPx = 118) {
 
   return {
     sheetRef, scrollRef, index, setIndex, y,
+    /** Сколько пикселей карты закрыто шторкой — карте нужно, чтобы не центрировать под ней. */
+    cover: enabled ? Math.max(0, h - y) : 0,
     // пока не измерено — без анимации, чтобы не было въезда шторки на старте
     dragging: h === 0,
     dragProps, headerDragProps, contentProps,

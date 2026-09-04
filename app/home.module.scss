@@ -45,15 +45,18 @@
 
 .controls { grid-column: 1; grid-row: 1; padding: 14px 16px 12px; background: var(--bg); border-right: 1px solid var(--border); }
 .controlsRow { display: flex; align-items: center; gap: 8px; }
-.controlsRow .modeToggle { flex: 1; margin-bottom: 0; }
+/* поле поиска тянется, «Фильтры» рядом появляются только на телефоне */
+.controlsRow .searchRow { flex: 1; min-width: 0; }
+.modeRow .modeToggle { margin-bottom: 0; }
 
 .sidebar {
   grid-column: 1; grid-row: 3; display: flex; flex-direction: column;
   border-right: 1px solid var(--border); background: var(--bg); min-height: 0;
 }
 
-/* Кнопка «Фильтры» и ручка шторки — только мобильные, на десктопе их нет */
-.filterBtn, .grip { display: none; }
+/* Кнопка «Фильтры», ручка шторки, переключатель и легенда внутри шторки —
+   только мобильные, на десктопе их нет */
+.filterBtn, .grip, .sheetMode, .listLegend { display: none; }
 
 .filters { padding: 14px 16px; border-bottom: 1px solid var(--border-soft); }
 
@@ -209,7 +212,9 @@
 .favEmpty span { font-size: 12.5px; color: var(--text-faint); line-height: 1.5; max-width: 244px; }
 
 /* ---- apartments sidebar panel (grid-aligned, clean) ---- */
-.aptPanel { padding: 14px 16px; display: flex; flex-direction: column; gap: 14px; }
+/* flex + overflow обязательны: теперь внутри живёт список квартир,
+   без них он вылезал бы за пределы колонки вместо прокрутки */
+.aptPanel { flex: 1; min-height: 0; overflow-y: auto; padding: 14px 16px; display: flex; flex-direction: column; gap: 14px; }
 .aptStat { padding: 13px 14px; background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius-sm); }
 .aptStatTotal { font-size: 13.5px; color: var(--text-dim); }
 .aptStatTotal b { font-size: 21px; font-weight: 770; color: var(--text); letter-spacing: -.01em; margin-right: 5px; }
@@ -274,10 +279,11 @@
     pointer-events: none;
   }
   .controls > * { pointer-events: auto; }
-  .searchRow { margin-bottom: 8px; }
+  .searchRow { margin-bottom: 0; }
   /* 16px — иначе iOS зумит страницу при фокусе на поле */
   .search { padding: 12px 40px 12px 40px; font-size: 16px; min-height: var(--tap); box-shadow: var(--shadow-sm); }
-  .modeToggle { margin-bottom: 0; box-shadow: var(--shadow-sm); }
+  /* переключатель переехал в шапку шторки: он на панели, тень не нужна */
+  .modeToggle { margin-bottom: 0; }
   .modeToggle button { min-height: 40px; padding: 8px 6px; font-size: 13.5px; }
 
   .filterBtn {
@@ -294,19 +300,18 @@
     padding: 0 5px; border-radius: 10px; background: var(--accent); color: #fff; font-size: 11px; font-weight: 700;
   }
 
-  /* Легенда — компактной строкой над свёрнутой шторкой (не во всю ширину,
-     иначе налезает на кнопки зума справа). При раскрытой шторке скрыта: там
-     пользователь читает список, а не карту. */
-  .legend {
-    /* на 126px стоит строка копирайта OpenFreeMap — легенда встаёт ярусом выше */
-    top: auto; bottom: 172px; left: max(10px, var(--sal)); right: auto;
-    max-width: calc(100% - 20px);
-    flex-direction: row; flex-wrap: nowrap; overflow-x: auto; gap: 11px;
-    padding: 6px 10px; font-size: 11px;
-    scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  /* Плавающая легенда на телефоне не жила: снизу её закрывала шторка (а она
+     открыта по умолчанию), сверху она отнимала полосу и без того узкой карты.
+     Уводим её в начало списка — см. .listLegend. */
+  .legend { display: none; }
+  .listLegend {
+    display: flex; flex-direction: row; flex-wrap: nowrap; overflow-x: auto;
+    gap: 12px; margin: 2px 2px 8px; padding: 7px 10px;
+    background: var(--panel); border: 1px solid var(--border-soft); border-radius: 10px;
+    font-size: 11px; scrollbar-width: none; -webkit-overflow-scrolling: touch;
   }
-  .legend::-webkit-scrollbar { display: none; }
-  .legendRow { flex: 0 0 auto; white-space: nowrap; border: none !important; margin: 0 !important; padding: 0 !important; }
+  .listLegend::-webkit-scrollbar { display: none; }
+  .listLegend .legendRow { flex: 0 0 auto; white-space: nowrap; border: none !important; margin: 0 !important; padding: 0 !important; }
 
   /* ---- ШТОРКА ---- */
   .sidebar {
@@ -330,6 +335,10 @@
   .gripBar:active { background: #a9b3c1; }
 
   .sheetOnly { display: flex; }
+  /* переключатель режима — в шапке шторки: виден в любом её положении и
+     освобождает наверху ~57px карты */
+  .modeRow { display: none; }
+  .sheetMode { display: block; padding: 4px 12px 6px; }
   .resultBar { padding: 6px 15px 10px; font-size: 13.5px; font-weight: 600; color: var(--text); }
   .sortSel { min-height: 36px; font-size: 13px; padding: 4px 8px; }
   /* оба — контейнеры прокрутки внутри шторки, иначе содержимое не долистать */
@@ -406,6 +415,8 @@
 }
 
 @media (max-width: 560px) {
+  /* на 375px слоган обрезался в «Стоит ли это поку…» — шум вместо смысла */
+  .tagline { display: none; }
   .thumb { width: 68px; height: 68px; }
   .cardName { font-size: 14px; }
   .mdPhoto { width: 74px; height: 74px; }
@@ -440,14 +451,14 @@
 .faultsNote b { color: var(--text); font-weight: 650; }
 
 @media (max-width: 900px) {
-  /* зум на мобиле уезжает вправо-вверх (top: 128px), поэтому тумблер — влево,
-     под панель поиска; легенда внизу слева на 172px, пересечений нет */
+  /* зум на мобиле уезжает вправо-вверх (top: 73px), поэтому тумблер — влево,
+     на ту же строку; легенда с карты убрана, пересечений нет */
   .faultsBtn {
-    top: 128px; right: auto; left: max(10px, var(--sal));
-    min-height: var(--tap); padding: 0 15px; font-size: 13.5px;
+    top: 73px; right: auto; left: max(10px, var(--sal));
+    min-height: 40px; padding: 0 15px; font-size: 13.5px;
   }
   .faultsNote {
-    top: 180px; right: auto; left: max(10px, var(--sal));
+    top: 121px; right: auto; left: max(10px, var(--sal));
     max-width: min(78%, 320px); font-size: 12px;
   }
 }
@@ -480,4 +491,73 @@
   .citySel { min-height: var(--tap); padding: 0 8px 0 10px; font-size: 13px; }
   /* на узком экране название города важнее подписи-слогана */
   .citySel select { max-width: 104px; }
+}
+
+
+/* ---- СПИСОК КВАРТИР (режим «Квартиры») ----
+   Раньше режим показывал только цифру «44 298 квартир» и точки на карте:
+   ни пролистать, ни отсортировать объявления было нельзя. */
+.aptRows { display: flex; flex-direction: column; gap: 2px; margin: 0 -6px; }
+.aptRow {
+  display: flex; align-items: center; gap: 11px; width: 100%; text-align: left;
+  padding: 8px 6px; border: none; background: transparent; border-radius: var(--radius-sm);
+  font-family: var(--font); cursor: pointer; transition: background .12s;
+  /* без JS-виртуализации: браузер не раскладывает строки за пределами экрана */
+  content-visibility: auto; contain-intrinsic-size: auto 78px;
+}
+.aptRow:hover { background: var(--panel-2); }
+.aptRow:active { background: var(--panel-2); }
+.aptRowOn { background: var(--accent-soft); box-shadow: inset 0 0 0 1px var(--accent); }
+.aptThumb { width: 62px; height: 62px; border-radius: 9px; object-fit: cover; flex-shrink: 0; background: var(--panel-2); }
+.aptThumbEmpty { display: flex; align-items: center; justify-content: center; color: var(--text-faint); font-size: 20px; }
+.aptRowBody { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.aptRowPrice { font-size: 15px; font-weight: 700; color: var(--text); letter-spacing: -.01em; }
+.aptRowSub { font-size: 12.5px; color: var(--text-dim); }
+.aptRowAddr { font-size: 12px; color: var(--text-faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.aptRowSide { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+.aptRowNew { font-size: 11px; font-weight: 650; color: var(--green); background: var(--green-soft); padding: 2px 7px; border-radius: 6px; white-space: nowrap; }
+.aptRowSqm { font-size: 11.5px; color: var(--text-faint); white-space: nowrap; }
+.aptMore {
+  align-self: stretch; min-height: 42px; border-radius: var(--radius-sm);
+  border: 1px solid var(--border); background: var(--panel); color: var(--text-dim);
+  font-size: 13.5px; font-weight: 600; font-family: var(--font); cursor: pointer;
+}
+.aptMore:hover { color: var(--text); border-color: #cdd5de; }
+.aptEmpty { padding: 20px 6px; font-size: 13.5px; line-height: 1.55; color: var(--text-dim); text-align: center; }
+.aptHow { font-size: 13px; color: var(--text-dim); }
+.aptHow summary { cursor: pointer; font-weight: 600; color: var(--text-dim); padding: 4px 0; list-style: none; }
+.aptHow summary::-webkit-details-marker { display: none; }
+.aptHow summary::before { content: '▸ '; color: var(--text-faint); }
+.aptHow[open] summary::before { content: '▾ '; }
+.aptHow .aptSteps { margin-top: 10px; }
+
+@media (max-width: 900px) {
+  /* тач-цель строки: 62px миниатюра + отступы = 78px, больше не нужно */
+  .aptRow { padding: 8px 10px; }
+  .aptRows { margin: 0 -4px; }
+  .aptMore { min-height: var(--tap); }
+  /* шторка: список квартир прокручивается как и список ЖК */
+  .aptPanel { padding: 12px 12px calc(18px + var(--sab)); gap: 12px; }
+}
+
+
+/* ---- ТЕЛЕФОН НАБОК ----
+   Шторка снизу тут бессмысленна: экран 375px высотой, и под ней остаётся
+   меньше 40px карты. Разворачиваем список в колонку справа. */
+@media (max-width: 900px) and (max-height: 500px) {
+  .sidebar {
+    top: 0; bottom: 0; left: auto; right: 0;
+    width: min(46%, 360px); height: 100%;
+    border-radius: 0; border-left: 1px solid var(--border);
+    box-shadow: -10px 0 30px rgba(16, 24, 40, .12);
+    transform: none !important; transition: none;
+  }
+  .grip { display: none; }
+  .sheetMode { padding: 10px 10px 6px; }
+  /* поиск занимает только свободную часть экрана слева от колонки */
+  .controls { right: min(46%, 360px); padding-right: 10px; }
+  .legend { display: none; }
+  /* тумблер разломов — под поиском слева, зум карты уводим от колонки */
+  .faultsBtn { top: 73px; }
+  .faultsNote { top: 118px; max-width: min(52%, 300px); max-height: 52dvh; }
 }

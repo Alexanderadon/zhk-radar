@@ -134,7 +134,17 @@ svg { display: block; }
   .maplibregl-ctrl-group button { width: 40px !important; height: 40px !important; }
   /* зум — под панелью поиска справа; копирайт — над свёрнутой шторкой справа,
      слева там легенда (иначе они накладываются друг на друга) */
-  .maplibregl-ctrl-top-right { top: 128px !important; right: max(6px, env(safe-area-inset-right, 0px)) !important; }
-  .maplibregl-ctrl-bottom-right { bottom: 126px !important; right: max(6px, env(safe-area-inset-right, 0px)) !important; }
+  /* панель поиска теперь одна строка (~65px), зум встаёт сразу под ней */
+  .maplibregl-ctrl-top-right { top: 73px !important; right: max(6px, env(safe-area-inset-right, 0px)) !important; }
+  /* копирайт — над свёрнутой шторкой (peek = 148px), иначе он всегда под ней */
+  .maplibregl-ctrl-bottom-right { bottom: 156px !important; right: max(6px, env(safe-area-inset-right, 0px)) !important; }
   .maplibregl-popup { max-width: calc(100vw - 28px) !important; }
+}
+
+
+/* Телефон набок: список — колонка справа, поэтому контролы карты не должны
+   под неё уезжать (снизу шторки уже нет). */
+@media (max-width: 900px) and (max-height: 500px) {
+  .maplibregl-ctrl-top-right { top: 73px !important; right: calc(min(46%, 360px) + 6px) !important; }
+  .maplibregl-ctrl-bottom-right { bottom: 6px !important; right: calc(min(46%, 360px) + 6px) !important; }
 }
