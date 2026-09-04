@@ -132,6 +132,9 @@ export default function MapView({
         });
       } catch {}
 
+      // «пилюля» под ценники — нужна и для ЖК, и для квартир, поэтому создаём до слоёв
+      try { if (!m.hasImage('price-pill')) m.addImage('price-pill', makePricePill(), { pixelRatio: 2, stretchX: [[16, 112]], stretchY: [[12, 32]], content: [14, 8, 114, 36] }); } catch {}
+
       // ---- COMPLEXES (ЖК) ----
       m.addSource('zhk', { type: 'geojson', data: toGeoJSON(points) as any, cluster: true, clusterMaxZoom: 13, clusterRadius: 52 });
       const notCluster = ['!', ['has', 'point_count']] as any;
@@ -139,6 +142,19 @@ export default function MapView({
       m.addLayer({ id: 'cluster-count', type: 'symbol', source: 'zhk', filter: ['has', 'point_count'], layout: { 'text-field': ['get', 'point_count_abbreviated'], 'text-size': 13, 'text-font': ['Noto Sans Regular'] }, paint: { 'text-color': '#ffffff' } });
       m.addLayer({ id: 'zhk-glow', type: 'circle', source: 'zhk', filter: notCluster, paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 10, 9, 15, 20], 'circle-color': ['get', 'color'], 'circle-opacity': 0.22, 'circle-blur': 0.6 } });
       m.addLayer({ id: 'zhk-dot', type: 'circle', source: 'zhk', filter: notCluster, paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 10, 6, 15, 10], 'circle-color': ['get', 'color'], 'circle-stroke-width': ['case', ['get', 'deal'], 3, 1.6], 'circle-stroke-color': ['case', ['get', 'deal'], '#16a34a', '#ffffff'] } });
+      // Ценники ЖК: при приближении вместо «точка + наведение» видно сами цены.
+      // Коллизия выключена — все ценники видны сразу (как у квартир).
+      m.addLayer({
+        id: 'zhk-price', type: 'symbol', source: 'zhk', filter: notCluster, minzoom: 12.5,
+        layout: {
+          'icon-image': 'price-pill', 'icon-text-fit': 'both', 'icon-text-fit-padding': [1, 5, 1, 5],
+          'text-field': ['get', 'priceLabel'], 'text-size': 10.5, 'text-font': ['Noto Sans Regular'],
+          'text-offset': [0, -1.7], 'text-anchor': 'center',
+          'text-allow-overlap': true, 'icon-allow-overlap': true, 'text-ignore-placement': true, 'icon-ignore-placement': true,
+          'symbol-sort-key': ['-', 200, ['/', ['get', 'priceMin'], 1000000]],
+        },
+        paint: { 'text-color': ['get', 'textColor'] },
+      });
       m.addLayer({ id: 'zhk-selected', type: 'circle', source: 'zhk', filter: ['==', ['get', 'id'], -1], paint: { 'circle-radius': 12, 'circle-color': ['get', 'color'], 'circle-stroke-width': 3.5, 'circle-stroke-color': '#2f6bed' } });
       m.addLayer({ id: 'zhk-fav', type: 'circle', source: 'zhk', filter: ['in', ['get', 'id'], ['literal', []]] as any, paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 10, 9, 15, 14], 'circle-color': 'rgba(224,41,63,0)', 'circle-stroke-width': 2.6, 'circle-stroke-color': '#e0293f', 'circle-stroke-opacity': 0.92 } });
 
@@ -165,7 +181,6 @@ export default function MapView({
         },
       });
       // ценник-пилюля прямо на карте (видно цену сразу, без наведения); коллизия прячет наложения
-      try { if (!m.hasImage('price-pill')) m.addImage('price-pill', makePricePill(), { pixelRatio: 2, stretchX: [[16, 112]], stretchY: [[12, 32]], content: [14, 8, 114, 36] }); } catch {}
       m.addLayer({
         id: 'apt-price', type: 'symbol', source: 'apt', filter: aptNotCluster, minzoom: 14, layout: {
           visibility: 'none',
@@ -288,7 +303,7 @@ export default function MapView({
   }, []);
 
   function setVis(m: maplibregl.Map, layers: string[], v: 'visible' | 'none') { for (const l of layers) if (m.getLayer(l)) m.setLayoutProperty(l, 'visibility', v); }
-  const COMPLEX_LAYERS = ['clusters', 'cluster-count', 'zhk-glow', 'zhk-dot', 'zhk-selected', 'zhk-fav'];
+  const COMPLEX_LAYERS = ['clusters', 'cluster-count', 'zhk-glow', 'zhk-dot', 'zhk-price', 'zhk-selected', 'zhk-fav'];
   const APT_LAYERS = ['apt-cluster', 'apt-cluster-count', 'apt-dot', 'apt-price'];
 
   function filteredApts(): Apt[] {
@@ -366,6 +381,12 @@ function soldHtml(p: any) {
     <div style="font-size:12px;color:#6b7480">${escapeHtml(p.addr || '')}</div>
   </div>`;
 }
+/** Ценник ЖК на карте: «от N млн», а если минимальной цены нет — цена за м². */
+function zhkPriceLabel(p: MapPoint): string {
+  if (p.priceMin) return `от ${Math.round(p.priceMin / 1_000_000)} млн`;
+  if (p.priceSqm) return `${Math.round(p.priceSqm / 1000)} тыс/м²`;
+  return '';
+}
 function priceShort(p: number | null): string {
   if (!p) return '';
   if (p >= 1_000_000) return `${Math.round(p / 1_000_000)} млн`;
@@ -388,7 +409,7 @@ function makePricePill() {
   return { data: new Uint8Array(d.data.buffer), width: c.width, height: c.height };
 }
 function toGeoJSON(points: MapPoint[]) {
-  return { type: 'FeatureCollection', features: points.filter((p) => p.lat && p.lng).map((p) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [p.lng, p.lat] }, properties: { id: p.id, name: p.name, color: BAND_COLOR[p.band], textColor: BAND_TEXT[p.band], band: p.band, score: p.score ?? '', slug: p.slug, priceSqm: p.priceSqm ?? 0, priceMin: p.priceMin ?? 0, developer: p.developer ?? '', classRu: p.classRu ?? '', statusRu: p.statusRu ?? '', district: p.district ?? '', seismic: p.seismic ?? 0, image: p.image ?? '', real: !!p.real, deal: !!p.deal } })) };
+  return { type: 'FeatureCollection', features: points.filter((p) => p.lat && p.lng).map((p) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [p.lng, p.lat] }, properties: { id: p.id, name: p.name, color: BAND_COLOR[p.band], textColor: BAND_TEXT[p.band], band: p.band, score: p.score ?? '', slug: p.slug, priceSqm: p.priceSqm ?? 0, priceMin: p.priceMin ?? 0, priceLabel: zhkPriceLabel(p), developer: p.developer ?? '', classRu: p.classRu ?? '', statusRu: p.statusRu ?? '', district: p.district ?? '', seismic: p.seismic ?? 0, image: p.image ?? '', real: !!p.real, deal: !!p.deal } })) };
 }
 
 function aptHtml(p: any) {
