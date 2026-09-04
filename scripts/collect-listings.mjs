@@ -8,7 +8,10 @@ const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/
 // Без аргументов — Алматы, чтобы прежние запуски и планировщик работали как раньше.
 const CITY_SLUG = process.argv[2] || 'almaty';
 const BBOX = process.argv.length >= 7 ? process.argv.slice(3, 7).map(Number) : [43.40, 76.70, 43.05, 77.20];
-const SUFFIX = CITY_SLUG === 'almaty' ? '' : `-${CITY_SLUG}`;
+// Имя файла может отличаться от слуга krisha: у Капчагая слуг «konaev»,
+// а город в приложении называется kapchagay. Седьмым аргументом задаём имя.
+const FILE_KEY = process.argv[7] || CITY_SLUG;
+const SUFFIX = FILE_KEY === 'almaty' ? '' : `-${FILE_KEY}`;
 const H = { 'User-Agent': UA, 'Accept-Language': 'ru', 'X-Requested-With': 'XMLHttpRequest', 'Referer': `https://krisha.kz/map/prodazha/kvartiry/${CITY_SLUG}/` };
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const CAP = 45, MAXDEPTH = 8; // упёрся в CAP полных страниц → дробим; глубина рекурсии

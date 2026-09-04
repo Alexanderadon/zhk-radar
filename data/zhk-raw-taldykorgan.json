@@ -1,0 +1,28 @@
+[
+  {
+    "id": 3429,
+    "slug": "/жк-astoria-талдыкорган",
+    "name": "ЖК Astoria",
+    "address": "ул. Ж. Балапанова, 43",
+    "city": "Талдыкорган",
+    "district": null,
+    "lat": 44.99902089,
+    "lng": 78.34635062,
+    "priceSqm": null,
+    "priceMin": null,
+    "class": "basic",
+    "classRu": "эконом",
+    "salesStatus": "available",
+    "constructionStatus": "ready",
+    "constructionStatusRu": "ready",
+    "developer": {
+      "id": 1257,
+      "name": "Elit Qurylys Group",
+      "slug": "/тоо-elit-qurylys-group"
+    },
+    "phone": null,
+    "image": "https://storage.googleapis.com/bd-kz-01/buildings-v2/420x315/33308.jpg",
+    "source": "korter",
+    "scrapedAt": "2026-09-04T12:00:46.757Z"
+  }
+]

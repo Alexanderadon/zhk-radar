@@ -24,7 +24,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 180
     steps:
       - uses: actions/checkout@v4
 
@@ -42,23 +42,31 @@ jobs:
       # Скрапер считает «продано/новых» диффом с прошлым снимком. На чистом
       # раннере его нет, поэтому берём текущий снимок с прода — он и есть
       # результат предыдущего запуска.
-      - name: Взять прошлый снимок с прода
+      # матрица городов: слуг krisha, рамка и имя файла.
+      # Капчагай на krisha называется konaev — поэтому имя файла задаётся отдельно.
+      - name: Обновить все города
         run: |
+          set -e
           mkdir -p data
-          curl -sfL https://zhk-radar.vercel.app/listings.json      -o data/listings.json      || echo "снимка нет — первый запуск, дифф будет пустым"
-          curl -sfL https://zhk-radar.vercel.app/listings-sold.json -o data/listings-sold.json || true
-          ls -lh data/ || true
-
-      - name: Собрать свежие квартиры
-        run: node scripts/collect-listings.mjs
-
-      - name: Отдать статикой сайту
-        run: |
-          cp data/listings.json      public/listings.json
-          cp data/listings-meta.json public/listings-meta.json
-          cp data/listings-sold.json public/listings-sold.json
-          echo "--- итог ---"
-          cat public/listings-meta.json
+          update () {
+            slug="$1"; n="$2"; w="$3"; s="$4"; e="$5"; key="$6"
+            sfx=""; [ "$key" != "almaty" ] && sfx="-$key"
+            echo "::group::$key"
+            # прошлый снимок с прода — база для диффа «продано / новых»
+            curl -sfL "https://zhk-radar.vercel.app/listings$sfx.json"      -o "data/listings$sfx.json"      || echo "$key: снимка нет, первый запуск"
+            curl -sfL "https://zhk-radar.vercel.app/listings-sold$sfx.json" -o "data/listings-sold$sfx.json" || true
+            node scripts/collect-listings.mjs "$slug" "$n" "$w" "$s" "$e" "$key"
+            cp "data/listings$sfx.json"      "public/listings$sfx.json"
+            cp "data/listings-meta$sfx.json" "public/listings-meta$sfx.json"
+            cp "data/listings-sold$sfx.json" "public/listings-sold$sfx.json"
+            cat "public/listings-meta$sfx.json"
+            echo "::endgroup::"
+          }
+          update almaty      43.40 76.70 43.05 77.20 almaty
+          update astana      51.25 71.20 51.00 71.70 astana
+          update shymkent    42.42 69.48 42.22 69.78 shymkent
+          update taldykorgan 45.07 78.28 44.94 78.47 taldykorgan
+          update konaev      43.93 76.98 43.80 77.15 kapchagay
 
       - name: Деплой на Vercel
         env:

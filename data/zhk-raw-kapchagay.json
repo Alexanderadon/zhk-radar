@@ -1,0 +1,54 @@
+[
+  {
+    "id": 3835,
+    "slug": "/жк-aristocrat-конаев-капшагаи",
+    "name": "ЖК Aristocrat",
+    "address": "просп. Конаева, 17",
+    "city": "Конаев (Капшагай)",
+    "district": null,
+    "lat": 43.84590323,
+    "lng": 77.06026466,
+    "priceSqm": 433000,
+    "priceMin": 18580030,
+    "class": "basic",
+    "classRu": "эконом",
+    "salesStatus": "available",
+    "constructionStatus": "ready",
+    "constructionStatusRu": "ready",
+    "developer": {
+      "id": 1420,
+      "name": "R&M Construction",
+      "slug": "/rm-construction"
+    },
+    "phone": null,
+    "image": "https://storage.googleapis.com/bd-kz-01/buildings-v2/420x315/38982.jpg",
+    "source": "korter",
+    "scrapedAt": "2026-09-04T12:07:42.540Z"
+  },
+  {
+    "id": 3837,
+    "slug": "/жк-комфорт-конаев-капшагаи",
+    "name": "ЖК Комфорт",
+    "address": "ул. Сейфулина",
+    "city": "Конаев (Капшагай)",
+    "district": null,
+    "lat": 43.87501948,
+    "lng": 77.07772222,
+    "priceSqm": 335000,
+    "priceMin": 13708200,
+    "class": "basic",
+    "classRu": "эконом",
+    "salesStatus": "available",
+    "constructionStatus": "ready",
+    "constructionStatusRu": "ready",
+    "developer": {
+      "id": 1422,
+      "name": "GS Qurylys",
+      "slug": "/gs-qurylys"
+    },
+    "phone": null,
+    "image": "https://storage.googleapis.com/bd-kz-01/buildings-v2/420x315/39068.jpg",
+    "source": "korter",
+    "scrapedAt": "2026-09-04T12:07:42.540Z"
+  }
+]
