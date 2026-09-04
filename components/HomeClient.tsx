@@ -565,16 +565,17 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
               {aptMeta && (
                 <div className={s.aptStat}>
                   <div className={s.aptStatTotal}><b>{aptMeta.total.toLocaleString('ru-RU')}</b> квартир на карте</div>
-                  <div className={s.aptStatDeltas}>
-                    <span className={s.up}>+{aptMeta.addedToday} {(aptMeta.intervalDays ?? 1) > 1 ? `за ${aptMeta.intervalDays} дн.` : 'за день'}</span>
-                    <span className={s.down}>−{aptMeta.soldToday} продано</span>
-                  </div>
-                  {/* «обновляется автоматически» писать нельзя, пока автообновление
-                      реально не работает: интервал в мете это сразу выдаёт */}
+                  {(aptMeta.addedToday > 0 || aptMeta.soldToday > 0) && (
+                    <div className={s.aptStatDeltas}>
+                      <span className={s.up}>+{aptMeta.addedToday} {(aptMeta.intervalDays ?? 1) > 1 ? `за ${aptMeta.intervalDays} дн.` : 'за день'}</span>
+                      <span className={s.down}>−{aptMeta.soldToday} продано</span>
+                    </div>
+                  )}
+                  {/* Пишем только проверяемый факт — дату снимка. Обещать
+                      «обновляется ежедневно» приложение не вправе: оно не знает,
+                      работает ли автоматика, и на первом снимке интервал тоже 1. */}
                   <div className={s.aptStatFoot}>
-                    <Icon name="refresh" size={11} />
-                    {(aptMeta.intervalDays ?? 1) <= 1 ? ' обновляется ежедневно · ' : ' обновлено '}
-                    {new Date(aptMeta.updatedAt).toLocaleDateString('ru-RU')}
+                    <Icon name="refresh" size={11} /> данные на {new Date(aptMeta.updatedAt).toLocaleDateString('ru-RU')}
                   </div>
                 </div>
               )}
