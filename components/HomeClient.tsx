@@ -9,6 +9,7 @@ import { useFavorites } from '../lib/useFavorites';
 import { useIsMobile, useIsTouch, useIsPhoneLandscape } from '../lib/useMediaQuery';
 import { useSheet } from '../lib/useSheet';
 import { CITIES, cityBySlug } from '../lib/cities';
+import AptCard, { aptThumb } from './AptCard';
 import type { MapPoint, MapDetail, Apt } from './MapView';
 
 const MapView = dynamic(() => import('./MapView'), { ssr: false, loading: () => <div className={s.mapSkeleton} /> });
@@ -135,9 +136,9 @@ const fmtMln = (v: number | null) =>
 const AptRow = memo(function AptRow({ a, active, onPick }: { a: Apt; active: boolean; onPick: (a: Apt) => void }) {
   return (
     <button type="button" className={`${s.aptRow} ${active ? s.aptRowOn : ''}`} onClick={() => onPick(a)}>
-      {a.photo
-        ? <img className={s.aptThumb} src={a.photo} alt="" loading="lazy" />
-        : <div className={`${s.aptThumb} ${s.aptThumbEmpty}`} aria-hidden>◫</div>}
+      {(() => { const t = aptThumb(a); return t
+        ? <img className={s.aptThumb} src={t} alt="" loading="lazy" />
+        : <div className={`${s.aptThumb} ${s.aptThumbEmpty}`} aria-hidden>◫</div>; })()}
       <span className={s.aptRowBody}>
         <span className={s.aptRowPrice}>{fmtMln(a.price) ?? 'цена не указана'}</span>
         <span className={s.aptRowSub}>{[a.rooms ? `${a.rooms}-комн.` : null, a.square ? `${a.square} м²` : null, a.floor || null].filter(Boolean).join(' · ')}</span>
@@ -203,29 +204,6 @@ function MapDetailCard({ detail, onClose }: { detail: MapDetail; onClose: () => 
     // появляется по тапу по карте — без aria-live скринридер о ней не сообщит
     <div className={s.mapDetail} role="status" aria-live="polite">
       <button type="button" className={s.mapDetailClose} onClick={onClose} aria-label="Закрыть карточку"><Icon name="x" size={17} /></button>
-      {detail.kind === 'apt' && (
-        <>
-          <div className={s.mdHead}>
-            {detail.photo ? <img className={s.mdPhoto} src={detail.photo} alt="" loading="lazy" /> : <div className={`${s.mdPhoto} ${s.mdPhotoEmpty}`} aria-hidden>◫</div>}
-            <div className={s.mdInfo}>
-              <div className={s.mdPrice}>{fmtM(detail.price) ?? 'цена не указана'}</div>
-              <div className={s.mdSub}>
-                {[detail.rooms ? `${detail.rooms}-комн.` : null, detail.square ? `${detail.square} м²` : null, detail.floor || null].filter(Boolean).join(' · ')}
-              </div>
-              {detail.addr && <div className={s.mdAddr}>{detail.addr}</div>}
-            </div>
-          </div>
-          <div className={s.mdChips}>
-            <span className={s.miniChip} style={detail.market === 'primary' ? { color: 'var(--green)', background: 'var(--green-soft)' } : undefined}>
-              {detail.market === 'primary' ? 'новостройка' : 'вторичка'}
-            </span>
-            {detail.price && detail.square ? <span className={s.miniChip}>{Math.round(detail.price / detail.square / 1000)} тыс ₸/м²</span> : null}
-          </div>
-          <a className={s.mdAction} href={`https://krisha.kz/a/show/${detail.id}`} target="_blank" rel="noopener noreferrer">
-            Открыть на Krisha <Icon name="external" size={14} />
-          </a>
-        </>
-      )}
       {detail.kind === 'landmark' && (
         <>
           <div className={s.mdHead}>
@@ -296,6 +274,8 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
   const [aptSort, setAptSort] = useState('price-asc');
   const [aptShown, setAptShown] = useState(30);
   const [focusApt, setFocusApt] = useState<Apt | null>(null);
+  /** Открытая карточка квартиры: галерея и параметры прямо в приложении. */
+  const [openApt, setOpenApt] = useState<Apt | null>(null);
   /** Выбранный дом: в нём продаётся несколько квартир, показываем их отдельным списком. */
   const [building, setBuilding] = useState<{ key: string; addr: string | null; apts: Apt[] } | null>(null);
   const [cityOpen, setCityOpen] = useState(false);
@@ -421,6 +401,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
       requestAnimationFrame(() => cardRefs.current.get(d.id)?.scrollIntoView({ block: 'center', behavior: 'smooth' }));
       return;
     }
+    if (d.kind === 'apt') { setFocusApt(d.apt); setOpenApt(d.apt); sheet.setIndex(2); return; }
     if (d.kind === 'building') {
       // несколько квартир в одной точке: карточкой их не показать — открываем список
       setBuilding({ key: d.key, addr: d.addr, apts: d.apts });
@@ -446,13 +427,16 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
 
   const onAptRow = useCallback((a: Apt) => {
     setFocusApt(a);
-    setMapDetail({ kind: 'apt', id: a.id, price: a.price, rooms: a.rooms, square: a.square, floor: a.floor, addr: a.addr, market: a.market, photo: a.photo });
+    setOpenApt(a);
+    // карточка с галереей во весь экран: в половине шторки от фото видна полоска
+    sheet.setIndex(2);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const pickMode = useCallback((m: 'complexes' | 'apartments') => { setMode(m); setFavOnly(false); }, []);
 
   // карточка объекта не должна «переживать» смену режима карты
-  useEffect(() => { setMapDetail(null); setFocusApt(null); setBuilding(null); if (mode !== 'apartments') setAptsLoading(false); }, [mode]);
-  useEffect(() => { setFocusApt(null); setBuilding(null); setAptsInView([]); }, [citySlug]);
+  useEffect(() => { setMapDetail(null); setFocusApt(null); setBuilding(null); setOpenApt(null); if (mode !== 'apartments') setAptsLoading(false); }, [mode]);
+  useEffect(() => { setFocusApt(null); setBuilding(null); setOpenApt(null); setAptsInView([]); }, [citySlug]);
   useEffect(() => { setAptMeta(null); }, [citySlug]);
 
   const toggle = (set: Set<string>, v: string, upd: (s: Set<string>) => void) => {
@@ -711,7 +695,8 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
             </>
           ) : (
             <>
-            <div className={s.resultBar} {...sheet.headerDragProps}>
+            {openApt && <AptCard apt={openApt} onBack={() => setOpenApt(null)} />}
+            <div className={`${s.resultBar} ${openApt ? s.hide : ''}`} {...sheet.headerDragProps}>
               <span>{aptsLoading && !aptList.length
                 ? 'Загружаем объявления…'
                 : `${aptList.length.toLocaleString('ru-RU')} ${plural(aptList.length, 'квартира', 'квартиры', 'квартир')} ${building ? 'в этом доме' : 'в этой области'}${!building && district ? ` · ${district}` : ''}`}</span>
@@ -722,7 +707,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
                 <option value="area-desc">больше площадь</option>
               </select>
             </div>
-            <div className={s.aptPanel} ref={sheet.scrollRef as React.RefObject<HTMLDivElement>} {...sheet.contentProps}>
+            <div className={`${s.aptPanel} ${openApt ? s.hide : ''}`} ref={sheet.scrollRef as React.RefObject<HTMLDivElement>} {...sheet.contentProps}>
               {building && (
                 <div className={s.houseBar} role="status">
                   {/* в 10-метровую точку иногда попадает пара соседних адресов — тогда

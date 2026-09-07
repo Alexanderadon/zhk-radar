@@ -637,3 +637,71 @@
 }
 @keyframes aptSpin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .aptSpinner { animation-duration: 2.4s; } }
+
+/* ---- КАРТОЧКА КВАРТИРЫ ----
+   Раньше единственным способом посмотреть фото был уход на krisha — то есть
+   выход из приложения на первом же интересном объявлении. */
+.aptCard { flex: 1; min-height: 0; display: flex; flex-direction: column; background: var(--bg-elev); }
+.aptCardBar { flex-shrink: 0; padding: 6px 8px; border-bottom: 1px solid var(--border-soft); }
+.aptCardBack {
+  display: inline-flex; align-items: center; gap: 4px; min-height: 38px; padding: 0 10px;
+  border: none; background: transparent; color: var(--accent);
+  font-size: 14px; font-weight: 620; font-family: var(--font); cursor: pointer; border-radius: 8px;
+}
+.aptCardBack:hover { background: var(--accent-soft); }
+.aptCardScroll { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+
+.aptGal { position: relative; background: #0d1117; }
+.aptGalStrip {
+  display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+  scrollbar-width: none; -webkit-overflow-scrolling: touch; aspect-ratio: 4 / 3;
+}
+.aptGalStrip::-webkit-scrollbar { display: none; }
+.aptGalSlide { flex: 0 0 100%; scroll-snap-align: center; display: flex; align-items: center; justify-content: center; }
+.aptGalSlide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.aptGalDead, .aptGalEmpty {
+  display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;
+  color: var(--on-dark-dim); font-size: 13px;
+}
+.aptGalEmpty { aspect-ratio: 4 / 3; background: var(--panel-2); color: var(--text-faint); }
+.aptGalCount {
+  position: absolute; right: 10px; bottom: 10px; padding: 3px 9px; border-radius: 100px;
+  background: rgba(13, 17, 23, .66); color: var(--on-dark); font-size: 12px; font-weight: 600;
+  backdrop-filter: blur(6px);
+}
+.aptGalNav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 38px; height: 38px; border-radius: 50%; border: none;
+  background: rgba(13, 17, 23, .48); color: var(--on-dark);
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  backdrop-filter: blur(6px); transition: opacity .13s;
+}
+.aptGalNav:disabled { opacity: 0; pointer-events: none; }
+.aptGalPrev { left: 8px; }
+.aptGalNext { right: 8px; }
+/* на тач листают пальцем, стрелки только мешают */
+@media (hover: none) { .aptGalNav { display: none; } }
+
+.aptCardBody { padding: 14px 16px 18px; display: flex; flex-direction: column; gap: 10px; }
+.aptCardPrice { font-size: 25px; font-weight: 780; letter-spacing: -.02em; color: var(--text); }
+.aptCardSqm { margin-top: -8px; font-size: 13px; color: var(--text-dim); }
+.aptCardParams { display: flex; flex-wrap: wrap; gap: 6px; }
+.aptCardRow { display: flex; align-items: flex-start; gap: 9px; font-size: 14px; color: var(--text); line-height: 1.45; }
+.aptCardRow > svg { color: var(--text-faint); flex-shrink: 0; margin-top: 2px; }
+.aptCardNote { margin: 4px 0 0; font-size: 12.5px; line-height: 1.5; color: var(--text-faint); }
+
+.aptCardFoot {
+  flex-shrink: 0; padding: 10px 14px calc(12px + var(--sab));
+  border-top: 1px solid var(--border-soft); background: var(--bg-elev);
+}
+.aptCardGo {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: var(--tap); border-radius: var(--radius-sm);
+  background: var(--accent); color: #fff; font-size: 15px; font-weight: 650;
+}
+.aptCardGo:hover { background: var(--accent-hover); }
+.aptCardGo:active { transform: scale(.99); }
+
+
+/* display:flex у блока сильнее браузерного [hidden]{display:none} */
+.hide { display: none !important; }

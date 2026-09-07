@@ -15,7 +15,7 @@ export interface MapPoint {
 /** Что показать в карточке после тапа по карте (на тач-устройствах вместо hover-попапа). */
 export type MapDetail =
   | { kind: 'zhk'; id: number; slug: string; name: string }
-  | { kind: 'apt'; id: number; price: number | null; rooms: number | null; square: number | null; floor: string | null; addr: string | null; market: 'primary' | 'secondary'; photo: string | null }
+  | { kind: 'apt'; apt: Apt }
   | { kind: 'landmark'; name: string; kindRu: string | null; rating: number | null; photo: string | null }
   | { kind: 'sold'; price: number | null; rooms: number | null; square: number | null; addr: string | null }
   | { kind: 'fault'; name: string; mw: number | null; lenKm: number | null; src: string; note: string | null }
@@ -26,6 +26,11 @@ export interface Apt {
   id: number; lat: number; lng: number; price: number | null; rooms: number | null;
   square: number | null; floor: string | null; addr: string | null;
   complexId: number | null; market: 'primary' | 'secondary'; photo: string | null; district?: string | null;
+  /** Галерея: pd — папка фотографий, pe — расширение, pi — номера через запятую.
+      В старых срезах данных их нет, тогда остаётся одна картинка из photo. */
+  pd?: string | null; pe?: string | null; pi?: string | null;
+  /** Продавец: имя и тип (собственник / агентство). */
+  ow?: string | null; ot?: string | null;
 }
 
 const STYLE = 'https://tiles.openfreemap.org/styles/positron';
@@ -438,7 +443,10 @@ export default function MapView({
     if (Number(p.n) > 1) {
       onDetailRef.current?.({ kind: 'building', key: String(p.key), addr: p.addr || null, apts: houseApts(String(p.key)) });
     } else {
-      onDetailRef.current?.({ kind: 'apt', id: Number(p.id), price: p.price || null, rooms: p.rooms || null, square: p.square || null, floor: p.floor || null, addr: p.addr || null, market: p.market, photo: p.photo || null });
+      // берём само объявление, а не свойства метки: в карточке нужна галерея,
+      // а в geojson её номера не кладём
+      const one = houseApts(String(p.key))[0];
+      if (one) onDetailRef.current?.({ kind: 'apt', apt: one });
     }
   }
   openFeatureRef.current = openAptFeature;

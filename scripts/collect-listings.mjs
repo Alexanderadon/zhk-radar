@@ -16,7 +16,26 @@ const H = { 'User-Agent': UA, 'Accept-Language': 'ru', 'X-Requested-With': 'XMLH
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const CAP = 45, MAXDEPTH = 8; // упёрся в CAP полных страниц → дробим; глубина рекурсии
 const floorOf = (t) => { const m = (t || '').match(/(\d+)\/(\d+)\s*этаж/); return m ? `${m[1]}/${m[2]}` : null; };
-const thumb = (p) => { const s = p && p[0] && p[0].src; return s ? s.replace(/-full\.(jpg|jpeg|webp)/i, '-400x300.$1') : null; };
+/**
+ * Из массива фото храним папку и список номеров: все снимки объявления лежат
+ * в одной папке, но номера у них произвольные (это сквозной счётчик загрузок
+ * продавца — бывают пропуски и своя очерёдность). Полные URL'ы раздули бы файл
+ * впятеро, а один номер занимает 2-3 символа.
+ */
+// хост и папка /webp/ одинаковы у всех, поэтому в файл кладём только хвост:
+// на 45 тысячах объявлений этот префикс весил бы 1,7 МБ
+const PHOTO_ROOT = 'https://krisha-photos.kcdn.online/webp/';
+const photoDir = (p) => {
+  const s = p && p[0] && p[0].src;
+  const m = s && s.match(/^(.*)\/\d+-full\.(jpg|jpeg|webp)$/i);
+  if (!m) return null;
+  const ext = m[2].toLowerCase();
+  return { dir: m[1].startsWith(PHOTO_ROOT) ? m[1].slice(PHOTO_ROOT.length) : m[1], ext };
+};
+const photoIdx = (p) => (p || []).map((x) => {
+  const m = x.src && x.src.match(/\/(\d+)-full\./);
+  return m ? +m[1] : null;
+}).filter((v) => v !== null).join(',');
 
 const byId = new Map();
 let reqs = 0, cells = 0;
@@ -31,7 +50,18 @@ async function page(n, w, s, e, p) {
 function absorb(adv) {
   for (const a of adv) {
     if (!a.map || !a.map.lat || byId.has(a.id)) continue;
-    byId.set(a.id, { id: a.id, lat: +a.map.lat.toFixed(6), lng: +a.map.lon.toFixed(6), price: a.price || null, rooms: a.rooms || null, square: a.square || null, floor: floorOf(a.title), addr: a.addressTitle || null, complexId: a.complexId || null, market: a.complexId ? 'primary' : 'secondary', photo: thumb(a.photos) });
+    const pd = photoDir(a.photos);
+    byId.set(a.id, {
+      id: a.id, lat: +a.map.lat.toFixed(6), lng: +a.map.lon.toFixed(6),
+      price: a.price || null, rooms: a.rooms || null, square: a.square || null,
+      floor: floorOf(a.title), addr: a.addressTitle || null,
+      complexId: a.complexId || null, market: a.complexId ? 'primary' : 'secondary',
+      // pd + pi — галерея прямо в приложении; миниатюра выводится из них,
+      // отдельным полем это лишние 4 МБ. pe пишем, только если это не jpg.
+      pd: pd ? pd.dir : null, pi: photoIdx(a.photos) || null,
+      ...(pd && pd.ext !== 'jpg' ? { pe: pd.ext } : {}),
+      ow: a.ownerName || null, ot: a.userType || null,
+    });
   }
 }
 
