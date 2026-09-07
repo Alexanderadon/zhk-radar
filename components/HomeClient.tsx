@@ -157,16 +157,21 @@ const AptRow = memo(function AptRow({ a, active, onPick }: { a: Apt; active: boo
  * и без этого выбор одного ЖК (тап по карте) перерисовывал бы их все.
  */
 const ZhkCard = memo(function ZhkCard({
-  z, isSelected, isFav, canFav, onSelect, onFav, register,
+  z, isSelected, isFav, canFav, onSelect, onFav, register, openOnTap,
 }: {
   z: HomeZhk; isSelected: boolean; isFav: boolean; canFav: boolean;
   onSelect: (id: number) => void; onFav: (id: number) => void;
-  register: (id: number, el: HTMLDivElement | null) => void;
+  register: (id: number, el: HTMLElement | null) => void;
+  /** На телефоне тап по карточке открывает страницу ЖК: ссылкой было только
+      название — крошечная цель, которую никто не находил. */
+  openOnTap: boolean;
 }) {
+  const Root = (openOnTap ? Link : 'div') as any;
   return (
-    <div
-      ref={(el) => register(z.id, el)}
-      className={`${s.card} ${isSelected ? s.cardActive : ''}`}
+    <Root
+      {...(openOnTap ? { href: `/zhk${z.slug}` } : {})}
+      ref={(el: HTMLElement | null) => register(z.id, el)}
+      className={`${s.card} ${isSelected ? s.cardActive : ''} ${openOnTap ? s.cardTappable : ''}`}
       onClick={() => onSelect(z.id)}
     >
       {canFav && <button type="button" className={`${s.cardFav} ${isFav ? s.cardFavOn : ''}`} title={isFav ? 'Убрать из избранного' : 'Сохранить в избранное'} aria-label={isFav ? `Убрать ${z.name} из избранного` : `Сохранить ${z.name} в избранное`} aria-pressed={isFav} onClick={(e) => { e.stopPropagation(); onFav(z.id); }}>
@@ -176,7 +181,11 @@ const ZhkCard = memo(function ZhkCard({
       <div className={s.cardBody}>
         <div className={s.cardTop}>
           <div>
-            <Link href={`/zhk${z.slug}`} className={s.cardName} onClick={(e) => e.stopPropagation()}>{z.name}</Link>
+            {/* вложенная ссылка внутри ссылки — невалидная разметка, поэтому
+                на телефоне название просто текст: тапается вся карточка */}
+            {openOnTap
+              ? <span className={s.cardName}>{z.name}</span>
+              : <Link href={`/zhk${z.slug}`} className={s.cardName} onClick={(e) => e.stopPropagation()}>{z.name}</Link>}
             <div className={s.cardDev}>{z.developer?.name ?? '—'}{z.district ? ` · ${z.district}` : ''}</div>
           </div>
           <div className={s.scoreBadge}>
@@ -193,7 +202,7 @@ const ZhkCard = memo(function ZhkCard({
           {z.seismicResistance && <span className={s.miniChip}><Icon name="mountain" size={11} /> {z.seismicResistance}</span>}
         </div>
       </div>
-    </div>
+    </Root>
   );
 });
 
@@ -330,7 +339,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
   // оговорку про точность привязки показываем каждый раз, когда слой включают
   const toggleFaults = () => { const next = !showFaults; setShowFaults(next); setFaultsNote(next); };
   const [mapDetail, setMapDetail] = useState<MapDetail | null>(null);
-  const cardRefs = useRef<Map<number, HTMLDivElement>>(new Map());
+  const cardRefs = useRef<Map<number, HTMLElement>>(new Map());
 
   // Колбэки для карточек должны быть стабильными, иначе memo не сработает
   // и список всё равно перерисовывался бы целиком.
@@ -338,7 +347,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
   favToggleRef.current = fav.toggle;
   const onCardSelect = useCallback((id: number) => setSelected(id), []);
   const onCardFav = useCallback((id: number) => favToggleRef.current(id), []);
-  const registerCard = useCallback((id: number, el: HTMLDivElement | null) => {
+  const registerCard = useCallback((id: number, el: HTMLElement | null) => {
     if (el) cardRefs.current.set(id, el); else cardRefs.current.delete(id);
   }, []);
 
@@ -690,6 +699,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
                     onSelect={onCardSelect}
                     onFav={onCardFav}
                     register={registerCard}
+                    openOnTap={isMobile}
                   />
                 ))}
                 {filtered.length === 0 && (

@@ -10,6 +10,10 @@ import s from './zhk.module.scss';
 
 export const dynamic = 'force-static';
 
+/** Куда идут споры по данным. Ящик реальный — hello@zhk-radar.kz не существует,
+    и кнопка молча уходила в никуда. */
+const DISPUTE_MAIL = 'alexanderkurachakov@gmail.com';
+
 function marketArrow(v: string): string {
   if (/дороже/i.test(v)) return '▲';
   if (/дешевле/i.test(v)) return '▼';
@@ -132,8 +136,8 @@ export default async function ZhkPage({ params }: { params: Promise<{ slug: stri
           {sr.indicators.map((ind) => {
             const c = BAND_COLOR[ind.band];
             return (
-              <div key={ind.key} className={s.indRow}>
-                <div>
+              <div key={ind.key} className={s.indRow} style={{ borderLeftColor: ind.score == null ? 'var(--border)' : c }}>
+                <div className={s.indHead}>
                   <span className={s.indName}>{ind.name}</span>
                   <span
                     className={s.indSrc}
@@ -144,15 +148,15 @@ export default async function ZhkPage({ params }: { params: Promise<{ slug: stri
                   >
                     {ind.sourceType}
                   </span>
+                  <div className={s.indScore} style={{ color: ind.score == null ? 'var(--text-faint)' : BAND_TEXT[ind.band] }}>
+                    {ind.score == null ? '—' : ind.score}<span>/100</span>
+                  </div>
                 </div>
                 <div className={s.indBarWrap}>
                   <div className={s.indBar}>
                     {ind.score == null ? <div className={s.indGrey} /> : <div className={s.indFill} style={{ width: `${ind.score}%`, background: c }} />}
                   </div>
-                  <div className={s.indValTxt}>{ind.value}</div>
-                </div>
-                <div className={s.indScore} style={{ color: ind.score == null ? 'var(--text-faint)' : BAND_TEXT[ind.band] }}>
-                  {ind.score == null ? '—' : ind.score}<span>/100</span>
+                  <div className={s.indValTxt} style={{ color: ind.score == null ? 'var(--text-faint)' : BAND_TEXT[ind.band] }}>{ind.value}</div>
                 </div>
                 {/* объяснение индикатора: раньше жило только в title=, т.е. на телефоне
                     было недоступно — а это главное содержание страницы */}
@@ -208,8 +212,18 @@ export default async function ZhkPage({ params }: { params: Promise<{ slug: stri
 
       <section className={s.section}>
         <div className={s.dispute}>
-          <div className={s.disputeText}>Заметили ошибку в данных или считаете оценку несправедливой? ЖК-Радар агрегирует открытые источники и исправит факт с подтверждением.</div>
-          <a className="btn" href={`mailto:hello@zhk-radar.kz?subject=${encodeURIComponent('Оспорить данные: ' + z.name)}`}>Оспорить данные</a>
+          <div className={s.disputeText}>
+            Заметили ошибку в данных или считаете оценку несправедливой? ЖК-Радар агрегирует открытые
+            источники и исправит факт с подтверждением.
+            {/* адрес виден и текстом: на телефоне без настроенной почты mailto молча ничего не делает */}
+            <span className={s.disputeMail}>Почта: <a href={`mailto:${DISPUTE_MAIL}`}>{DISPUTE_MAIL}</a></span>
+          </div>
+          <a
+            className="btn"
+            href={`mailto:${DISPUTE_MAIL}?subject=${encodeURIComponent('Оспорить данные: ' + z.name)}&body=${encodeURIComponent(`ЖК: ${z.name}\nСтраница: https://zhk-radar.vercel.app/zhk${z.slug}\n\nЧто не так:\n\nЧем подтверждается (ссылка, документ):\n`)}`}
+          >
+            Оспорить данные
+          </a>
         </div>
       </section>
 

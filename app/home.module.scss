@@ -705,3 +705,9 @@
 
 /* display:flex у блока сильнее браузерного [hidden]{display:none} */
 .hide { display: none !important; }
+
+
+/* На телефоне карточка ЖК — ссылка целиком; название красим акцентом,
+   чтобы было видно, что отсюда куда-то ведёт. */
+.cardTappable { display: flex; color: inherit; }
+.cardTappable .cardName { color: var(--accent); }
