@@ -325,6 +325,10 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
   const sheet = useSheet(isMobile && !isPhoneLandscape);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [showFaults, setShowFaults] = useState(false);
+  /** Пояснение к разломам живёт отдельно от слоя: крестик на тексте гасил всю карту разломов. */
+  const [faultsNote, setFaultsNote] = useState(false);
+  // оговорку про точность привязки показываем каждый раз, когда слой включают
+  const toggleFaults = () => { const next = !showFaults; setShowFaults(next); setFaultsNote(next); };
   const [mapDetail, setMapDetail] = useState<MapDetail | null>(null);
   const cardRefs = useRef<Map<number, HTMLDivElement>>(new Map());
 
@@ -781,16 +785,16 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
           {city.hasCityFaults && <button
             type="button"
             className={`${s.faultsBtn} ${showFaults ? s.faultsBtnOn : ''}`}
-            onClick={() => setShowFaults((v) => !v)}
+            onClick={toggleFaults}
             aria-pressed={showFaults}
             title="Активные разломы по данным GEM — региональный масштаб, не городская карта микрорайонирования"
           >
             <span className={s.faultsDash} aria-hidden />
             Разломы
           </button>}
-          {showFaults && (
+          {showFaults && faultsNote && (
             <div className={s.faultsNote} role="status">
-              <button type="button" className={s.faultsNoteClose} onClick={() => setShowFaults(false)} aria-label="Скрыть разломы"><Icon name="x" size={15} /></button>
+              <button type="button" className={s.faultsNoteClose} onClick={() => setFaultsNote(false)} aria-label="Закрыть пояснение"><Icon name="x" size={15} /></button>
               <b>Оранжевый пунктир</b> — сеть разломов внутри города (оцифровано со статьи
               Frontiers 2024, CC BY). <b>Сплошные красные</b> — очаги землетрясений 1887, 1889,
               1911, разрушавших Алматы (отчёт JICA/OYO 2009).
