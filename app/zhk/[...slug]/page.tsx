@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { getAllZhk, getZhkBySlug } from '../../../lib/data';
 import { BAND_COLOR, BAND_TEXT, BAND_LABEL, SCORE_NAME } from '../../../lib/score';
 import Gallery from '../../../components/Gallery';
+import DisputeButton from '../../../components/DisputeButton';
 import Layouts from '../../../components/Layouts';
 import MiniMap from '../../../components/MiniMap';
 import Icon from '../../../components/Icon';
@@ -10,9 +11,6 @@ import s from './zhk.module.scss';
 
 export const dynamic = 'force-static';
 
-/** Куда идут споры по данным. Ящик реальный — hello@zhk-radar.kz не существует,
-    и кнопка молча уходила в никуда. */
-const DISPUTE_MAIL = 'alexanderkurachakov@gmail.com';
 
 function marketArrow(v: string): string {
   if (/дороже/i.test(v)) return '▲';
@@ -212,18 +210,8 @@ export default async function ZhkPage({ params }: { params: Promise<{ slug: stri
 
       <section className={s.section}>
         <div className={s.dispute}>
-          <div className={s.disputeText}>
-            Заметили ошибку в данных или считаете оценку несправедливой? ЖК-Радар агрегирует открытые
-            источники и исправит факт с подтверждением.
-            {/* адрес виден и текстом: на телефоне без настроенной почты mailto молча ничего не делает */}
-            <span className={s.disputeMail}>Почта: <a href={`mailto:${DISPUTE_MAIL}`}>{DISPUTE_MAIL}</a></span>
-          </div>
-          <a
-            className="btn"
-            href={`mailto:${DISPUTE_MAIL}?subject=${encodeURIComponent('Оспорить данные: ' + z.name)}&body=${encodeURIComponent(`ЖК: ${z.name}\nСтраница: https://zhk-radar.vercel.app/zhk${z.slug}\n\nЧто не так:\n\nЧем подтверждается (ссылка, документ):\n`)}`}
-          >
-            Оспорить данные
-          </a>
+          <div className={s.disputeText}>Заметили ошибку в данных или считаете оценку несправедливой? ЖК-Радар агрегирует открытые источники и исправит факт с подтверждением.</div>
+          <DisputeButton zhkName={z.name} slug={z.slug} />
         </div>
       </section>
 

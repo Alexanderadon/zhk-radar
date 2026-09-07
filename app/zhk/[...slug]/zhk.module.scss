@@ -115,7 +115,3 @@
   .seismicNote > svg { flex: 0 0 auto; margin-top: 2px; }
 }
 
-
-/* адрес почты видно текстом: mailto на телефоне без почтового клиента молчит */
-.disputeMail { display: block; margin-top: 8px; font-size: 12.5px; color: var(--text-faint); }
-.disputeMail a { color: var(--accent); }
