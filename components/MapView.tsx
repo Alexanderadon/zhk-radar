@@ -91,6 +91,10 @@ export default function MapView({
   const padRef = useRef(mapPadBottom);
   padRef.current = mapPadBottom;
   const emitRef = useRef<() => void>(() => {});
+  /** Границы районов: нужны и чтобы подлететь к выбранному, и чтобы отобрать квартиры. */
+  const distIndex = useRef<Map<string, { bbox: [number, number, number, number]; rings: number[][][] }>>(new Map());
+  /** id квартир по районам — считаем один раз на район, а не на каждый перерисов. */
+  const distApts = useRef<Map<string, Set<number>>>(new Map());
   const openFeatureRef = useRef<(p: any) => void>(() => {});
   const lastEmit = useRef<Apt[] | null>(null);
   /**
@@ -134,6 +138,20 @@ export default function MapView({
     m.on('load', async () => {
       try {
         const districts = await (await fetch('/districts.geojson')).json();
+        // разбираем полигоны сами: у объявлений krisha района нет вообще,
+        // а фильтр «Район» обязан работать и для квартир
+        distIndex.current.clear();
+        for (const f of districts.features || []) {
+          const name = f.properties?.name;
+          const g = f.geometry;
+          if (!name || !g) continue;
+          const polys = g.type === 'Polygon' ? [g.coordinates] : g.type === 'MultiPolygon' ? g.coordinates : [];
+          const rings = polys.map((p: number[][][]) => p[0]).filter(Boolean);
+          if (!rings.length) continue;
+          let w = Infinity, s2 = Infinity, e2 = -Infinity, n2 = -Infinity;
+          for (const r of rings) for (const [x, y] of r) { if (x < w) w = x; if (x > e2) e2 = x; if (y < s2) s2 = y; if (y > n2) n2 = y; }
+          distIndex.current.set(name, { bbox: [w, s2, e2, n2], rings });
+        }
         m.addSource('districts', { type: 'geojson', data: districts });
         m.addLayer({ id: 'district-fill', type: 'fill', source: 'districts', paint: { 'fill-color': ['get', 'color'], 'fill-opacity': ['case', ['==', ['get', 'name'], activeDistrict ?? '__none__'], 0.28, 0.1] } } as any);
         m.addLayer({ id: 'district-line', type: 'line', source: 'districts', paint: { 'line-color': ['get', 'color'], 'line-width': 2, 'line-opacity': 0.7 } });
@@ -226,7 +244,7 @@ export default function MapView({
       // ---- APARTMENTS (квартиры) — кластеры на обзоре, отдельные квартиры при приближении ----
       // n суммируется по кластеру: иначе после группировки по домам кружок
     // показывал бы число домов, а подпись под ним — «квартир»
-    m.addSource('apt', { type: 'geojson', data: emptyFC() as any, cluster: true, clusterMaxZoom: 15, clusterRadius: 50, clusterProperties: { n: ['+', ['get', 'n']] } } as any);
+    m.addSource('apt', { type: 'geojson', data: emptyFC() as any, cluster: true, clusterMaxZoom: 13, clusterRadius: 46, clusterProperties: { n: ['+', ['get', 'n']] } } as any);
       const aptNotCluster = ['!', ['has', 'point_count']] as any;
       m.addLayer({
         id: 'apt-cluster', type: 'circle', source: 'apt', filter: ['has', 'point_count'], layout: { visibility: 'none' },
@@ -249,14 +267,20 @@ export default function MapView({
       });
       // ценник-пилюля прямо на карте (видно цену сразу, без наведения); коллизия прячет наложения
       m.addLayer({
-        id: 'apt-price', type: 'symbol', source: 'apt', filter: aptNotCluster, minzoom: 14, layout: {
+        id: 'apt-price', type: 'symbol', source: 'apt', filter: aptNotCluster, minzoom: 13.2, layout: {
           visibility: 'none',
           'icon-image': 'price-pill', 'icon-text-fit': 'both', 'icon-text-fit-padding': [1, 5, 1, 5],
           'text-field': ['get', 'priceLabel'], 'text-size': 10.5, 'text-font': ['Noto Sans Regular'],
           'text-offset': [0, -1.5], 'text-anchor': 'center',
-          // все ценники всегда видны — коллизию отключаем (юзер не будет наводить/зумить каждую точку)
-          'text-allow-overlap': true, 'icon-allow-overlap': true, 'text-ignore-placement': true, 'icon-ignore-placement': true,
-          'symbol-sort-key': ['-', 200, ['/', ['get', 'price'], 1000000]],
+          // С 15-го зума показываем ВСЕ ценники: наводить и приближать каждую
+          // точку никто не станет. А на 14-м в кадр попадает больше шестисот
+          // домов — там пусть работает коллизия, иначе это нечитаемая каша.
+          'text-allow-overlap': ['step', ['zoom'], false, 15, true] as any,
+          'icon-allow-overlap': ['step', ['zoom'], false, 15, true] as any,
+          'text-ignore-placement': ['step', ['zoom'], false, 15, true] as any,
+          'icon-ignore-placement': ['step', ['zoom'], false, 15, true] as any,
+          // при коллизии остаются те, что дешевле: их и ищут
+          'symbol-sort-key': ['/', ['get', 'price'], 1000000],
         },
         paint: { 'text-color': ['match', ['get', 'market'], 'primary', '#15803d', '#334155'] },
       });
@@ -391,13 +415,33 @@ export default function MapView({
   const COMPLEX_LAYERS = ['clusters', 'cluster-count', 'cluster-pill', 'zhk-glow', 'zhk-dot', 'zhk-price', 'zhk-selected', 'zhk-fav'];
   const APT_LAYERS = ['apt-cluster', 'apt-cluster-count', 'apt-dot', 'apt-price', 'apt-focus'];
 
+  /** Квартиры внутри района. Считаем разбором полигона: bbox отсекает большую часть точек. */
+  function aptsInDistrict(name: string): Set<number> {
+    const hit = distApts.current.get(name);
+    if (hit) return hit;
+    const set = new Set<number>();
+    const d = distIndex.current.get(name);
+    if (d) {
+      const [w, s2, e2, n2] = d.bbox;
+      for (const a of allApts.current || []) {
+        if (a.lng < w || a.lng > e2 || a.lat < s2 || a.lat > n2) continue;
+        if (d.rings.some((r) => pointInRing(r, a.lng, a.lat))) set.add(a.id);
+      }
+    }
+    distApts.current.set(name, set);
+    return set;
+  }
+
   function filteredApts(): Apt[] {
     const all = allApts.current || [];
+    // до этого фильтр сравнивал a.district, которого в данных krisha нет:
+    // выбор любого района очищал карту и список подчистую
+    const inDist = activeDistrict ? aptsInDistrict(activeDistrict) : null;
     return all.filter((a) => {
       if (aptMarket && aptMarket.size && !aptMarket.has(a.market)) return false;
       if (aptRooms && aptRooms.size && !(a.rooms && aptRooms.has(Math.min(a.rooms, 4)))) return false;
       if (aptPrice && !(a.price && a.price >= aptPrice.min && a.price < aptPrice.max)) return false;
-      if (activeDistrict && a.district !== activeDistrict) return false;
+      if (inDist && !inDist.has(a.id)) return false;
       return true;
     });
   }
@@ -487,7 +531,20 @@ export default function MapView({
   applyModeRef.current = applyMode;
   useEffect(() => { applyMode(); /* eslint-disable-next-line */ }, [mode, aptMarket, aptRooms, showSold, aptPrice, activeDistrict]);
   useEffect(() => { const m = map.current; if (!m || !ready.current) return; const src = m.getSource('zhk') as maplibregl.GeoJSONSource | undefined; if (src) src.setData(toGeoJSON(points) as any); }, [points]);
-  useEffect(() => { const m = map.current; if (!m || !ready.current) return; if (m.getLayer('district-fill')) m.setPaintProperty('district-fill', 'fill-opacity', ['case', ['==', ['get', 'name'], activeDistrict ?? '__none__'], 0.28, 0.1] as any); }, [activeDistrict]);
+  useEffect(() => {
+    const m = map.current; if (!m || !ready.current) return;
+    if (m.getLayer('district-fill')) m.setPaintProperty('district-fill', 'fill-opacity', ['case', ['==', ['get', 'name'], activeDistrict ?? '__none__'], 0.28, 0.1] as any);
+    // Показываем то место, которое выбрали: без этого «Район» лишь подкрашивал
+    // полигон, а карта оставалась там, где её оставил пользователь.
+    if (!activeDistrict) return;
+    const d = distIndex.current.get(activeDistrict);
+    if (!d) return;
+    const p = pad();
+    m.fitBounds([[d.bbox[0], d.bbox[1]], [d.bbox[2], d.bbox[3]]], {
+      padding: { top: p.top + 24, left: 24, right: 24, bottom: p.bottom + 24 },
+      duration: 700, maxZoom: 14.5,
+    });
+  }, [activeDistrict]);
   useEffect(() => { const m = map.current; if (!m || !ready.current) return; m.setFilter('zhk-selected', ['==', ['get', 'id'], selectedId ?? -1]); if (selectedId != null) { const p = points.find((x) => x.id === selectedId); if (p) m.flyTo({ center: [p.lng, p.lat], zoom: Math.max(m.getZoom(), 13.5), speed: 0.8, padding: pad() }); } }, [selectedId, points]);
   // выбор квартиры в списке: подлетаем и обводим — иначе список и карта живут порознь
   useEffect(() => {
@@ -517,7 +574,7 @@ export default function MapView({
   const firstCity = useRef(true);
   useEffect(() => {
     if (firstCity.current) { firstCity.current = false; return; }
-    allApts.current = null; allSold.current = null; loadingApts.current = false; lastEmit.current = null;
+    allApts.current = null; allSold.current = null; loadingApts.current = false; lastEmit.current = null; distApts.current.clear();
     // границы районов собраны только для Алматы — в других городах их не рисуем
     const mm = map.current;
     if (mm) for (const id of ['district-fill', 'district-line', 'district-label']) {
@@ -530,6 +587,16 @@ export default function MapView({
   }, [citySlug]);
 
   return <div ref={container} style={{ position: 'absolute', inset: 0 }} />;
+}
+
+/** Точка внутри кольца полигона (ray casting). Дырок у районов нет — внешнего кольца хватает. */
+function pointInRing(ring: number[][], x: number, y: number) {
+  let inside = false;
+  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+    const xi = ring[i][0], yi = ring[i][1], xj = ring[j][0], yj = ring[j][1];
+    if ((yi > y) !== (yj > y) && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) inside = !inside;
+  }
+  return inside;
 }
 
 function emptyFC() { return { type: 'FeatureCollection', features: [] }; }

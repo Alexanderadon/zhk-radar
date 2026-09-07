@@ -339,8 +339,10 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
   }, []);
 
   const activeCount =
-    band.size + cls.size + status.size + extra.size + finishing.size +
-    aptMarket.size + aptRooms.size + (district ? 1 : 0) + (priceRange ? 1 : 0) + (showSold ? 1 : 0);
+    (mode === 'complexes'
+      ? band.size + cls.size + status.size + extra.size + finishing.size
+      : aptMarket.size + aptRooms.size + (showSold ? 1 : 0)) +
+    (district ? 1 : 0) + (priceRange ? 1 : 0);
 
   const resetFilters = useCallback(() => {
     setBand(new Set()); setCls(new Set()); setStatus(new Set()); setExtra(new Set()); setFinishing(new Set());
