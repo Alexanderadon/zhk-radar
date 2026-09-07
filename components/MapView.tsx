@@ -18,7 +18,9 @@ export type MapDetail =
   | { kind: 'apt'; id: number; price: number | null; rooms: number | null; square: number | null; floor: string | null; addr: string | null; market: 'primary' | 'secondary'; photo: string | null }
   | { kind: 'landmark'; name: string; kindRu: string | null; rating: number | null; photo: string | null }
   | { kind: 'sold'; price: number | null; rooms: number | null; square: number | null; addr: string | null }
-  | { kind: 'fault'; name: string; mw: number | null; lenKm: number | null; src: string; note: string | null };
+  | { kind: 'fault'; name: string; mw: number | null; lenKm: number | null; src: string; note: string | null }
+  /** Дом, в котором продаётся несколько квартир: ценники стояли друг на друге. */
+  | { kind: 'building'; key: string; addr: string | null; apts: Apt[] };
 
 export interface Apt {
   id: number; lat: number; lng: number; price: number | null; rooms: number | null;
@@ -79,6 +81,7 @@ export default function MapView({
   const padRef = useRef(mapPadBottom);
   padRef.current = mapPadBottom;
   const emitRef = useRef<() => void>(() => {});
+  const openFeatureRef = useRef<(p: any) => void>(() => {});
   const lastEmit = useRef<Apt[] | null>(null);
   /**
    * Отступ снизу под шторку — но не больше 55% карты. Раскрытая на весь экран
@@ -211,18 +214,20 @@ export default function MapView({
       m.addLayer({ id: 'zhk-fav', type: 'circle', source: 'zhk', filter: ['in', ['get', 'id'], ['literal', []]] as any, paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 10, 9, 15, 14], 'circle-color': 'rgba(224,41,63,0)', 'circle-stroke-width': 2.6, 'circle-stroke-color': '#e0293f', 'circle-stroke-opacity': 0.92 } });
 
       // ---- APARTMENTS (квартиры) — кластеры на обзоре, отдельные квартиры при приближении ----
-      m.addSource('apt', { type: 'geojson', data: emptyFC() as any, cluster: true, clusterMaxZoom: 15, clusterRadius: 50 });
+      // n суммируется по кластеру: иначе после группировки по домам кружок
+    // показывал бы число домов, а подпись под ним — «квартир»
+    m.addSource('apt', { type: 'geojson', data: emptyFC() as any, cluster: true, clusterMaxZoom: 15, clusterRadius: 50, clusterProperties: { n: ['+', ['get', 'n']] } } as any);
       const aptNotCluster = ['!', ['has', 'point_count']] as any;
       m.addLayer({
         id: 'apt-cluster', type: 'circle', source: 'apt', filter: ['has', 'point_count'], layout: { visibility: 'none' },
         paint: {
-          'circle-color': ['step', ['get', 'point_count'], '#8fb8f2', 50, '#5f95e3', 300, '#3d74cc', 1500, '#265aa8'],
+          'circle-color': ['step', ['get', 'n'], '#8fb8f2', 50, '#5f95e3', 300, '#3d74cc', 1500, '#265aa8'],
           'circle-opacity': 0.92,
-          'circle-radius': ['step', ['get', 'point_count'], 15, 50, 19, 300, 25, 1500, 33],
+          'circle-radius': ['step', ['get', 'n'], 15, 50, 19, 300, 25, 1500, 33],
           'circle-stroke-width': 3.5, 'circle-stroke-color': 'rgba(95,149,227,0.22)',
         },
       });
-      m.addLayer({ id: 'apt-cluster-count', type: 'symbol', source: 'apt', filter: ['has', 'point_count'], layout: { visibility: 'none', 'text-field': ['get', 'point_count_abbreviated'], 'text-size': 12.5, 'text-font': ['Noto Sans Regular'] }, paint: { 'text-color': '#ffffff' } });
+      m.addLayer({ id: 'apt-cluster-count', type: 'symbol', source: 'apt', filter: ['has', 'point_count'], layout: { visibility: 'none', 'text-field': ['case', ['>=', ['get', 'n'], 1000], ['concat', ['to-string', ['round', ['/', ['get', 'n'], 1000]]], 'k'], ['to-string', ['get', 'n']]] as any, 'text-size': 12.5, 'text-font': ['Noto Sans Regular'] }, paint: { 'text-color': '#ffffff' } });
       m.addLayer({
         id: 'apt-dot', type: 'circle', source: 'apt', filter: aptNotCluster, layout: { visibility: 'none' },
         paint: {
@@ -249,7 +254,7 @@ export default function MapView({
       m.addSource('sold', { type: 'geojson', data: emptyFC() as any });
       m.addLayer({ id: 'sold-dot', type: 'circle', source: 'sold', layout: { visibility: 'none' }, paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 11, 4, 16, 9], 'circle-color': '#e74c3c', 'circle-opacity': 0.85, 'circle-stroke-width': 1.4, 'circle-stroke-color': '#ffffff' } });
       // обводка квартиры, выбранной в списке
-      m.addLayer({ id: 'apt-focus', type: 'circle', source: 'apt', filter: ['==', ['get', 'id'], -1], layout: { visibility: 'none' }, paint: { 'circle-radius': 13, 'circle-color': 'rgba(47,107,237,0)', 'circle-stroke-width': 3.5, 'circle-stroke-color': '#2f6bed' } });
+      m.addLayer({ id: 'apt-focus', type: 'circle', source: 'apt', filter: ['==', ['get', 'key'], '__none__'], layout: { visibility: 'none' }, paint: { 'circle-radius': 13, 'circle-color': 'rgba(47,107,237,0)', 'circle-stroke-width': 3.5, 'circle-stroke-color': '#2f6bed' } });
       ready.current = true;
 
       // complex handlers
@@ -270,13 +275,15 @@ export default function MapView({
         window.location.href = `/zhk${p.slug}`;
       });
 
-      const hoverApt = (e: maplibregl.MapLayerMouseEvent) => { if (touchModeRef.current) return; const f = e.features?.[0]; if (!f) return; const p = f.properties as any; if (('a' + p.id) === hovered) { hover.setLngLat((f.geometry as any).coordinates); return; } hovered = 'a' + p.id; m.getCanvas().style.cursor = 'pointer'; hover.setLngLat((f.geometry as any).coordinates).setHTML(aptHtml(p)).addTo(m); };
+      const hoverApt = (e: maplibregl.MapLayerMouseEvent) => { if (touchModeRef.current) return; const f = e.features?.[0]; if (!f) return; const p = f.properties as any; if (('a' + p.id) === hovered) { hover.setLngLat((f.geometry as any).coordinates); return; } hovered = 'a' + p.id; m.getCanvas().style.cursor = 'pointer'; hover.setLngLat((f.geometry as any).coordinates).setHTML(Number(p.n) > 1 ? houseHtml(p) : aptHtml(p)).addTo(m); };
       m.on('mouseenter', 'apt-dot', hoverApt); m.on('mousemove', 'apt-dot', hoverApt);
       m.on('mouseleave', 'apt-dot', () => { hovered = null; m.getCanvas().style.cursor = ''; hover.remove(); });
       m.on('click', 'apt-dot', (e) => {
         if (touchModeRef.current) return;
         const f = e.features?.[0]; if (!f) return;
-        window.open(`https://krisha.kz/a/show/${(f.properties as any).id}`, '_blank');
+        const p = f.properties as any;
+        if (Number(p.n) > 1) { openFeatureRef.current(p); return; }
+        window.open(`https://krisha.kz/a/show/${p.id}`, '_blank');
       });
 
       // apartment clusters: click to zoom in, cursor feedback
@@ -321,15 +328,7 @@ export default function MapView({
         // ценник-пилюля — самая заметная цель для пальца в режиме «Квартиры»
         // (крупнее самой точки), поэтому она тоже открывает карточку
         const a = pick('apt-dot') || pick('apt-price');
-        if (a) {
-          const p = a.properties as any;
-          onDetailRef.current?.({
-            kind: 'apt', id: Number(p.id), price: p.price ? Number(p.price) : null, rooms: p.rooms ? Number(p.rooms) : null,
-            square: p.square ? Number(p.square) : null, floor: p.floor || null, addr: p.addr || null,
-            market: p.market === 'primary' ? 'primary' : 'secondary', photo: p.photo || null,
-          });
-          return;
-        }
+        if (a) { openFeatureRef.current(a.properties as any); return; }
         const lm = pick('landmark-dot') || pick('landmark-label');
         // в landmarks.geojson русская категория лежит в rubric; поля kindRu нет
         if (lm) { const p = lm.properties as any; onDetailRef.current?.({ kind: 'landmark', name: p.name, kindRu: p.rubric || p.desc || null, rating: p.rating ? Number(p.rating) : null, photo: p.photo || null }); return; }
@@ -425,6 +424,20 @@ export default function MapView({
   }
   emitRef.current = emitInView;
 
+  /** Квартиры одного дома — с учётом активных фильтров. */
+  function houseApts(k: string): Apt[] {
+    return filteredApts().filter((a) => a.lat && a.lng && houseKey(a) === k);
+  }
+  /** Открыть метку: один лот — карточка, несколько — список дома. */
+  function openAptFeature(p: any) {
+    if (Number(p.n) > 1) {
+      onDetailRef.current?.({ kind: 'building', key: String(p.key), addr: p.addr || null, apts: houseApts(String(p.key)) });
+    } else {
+      onDetailRef.current?.({ kind: 'apt', id: Number(p.id), price: p.price || null, rooms: p.rooms || null, square: p.square || null, floor: p.floor || null, addr: p.addr || null, market: p.market, photo: p.photo || null });
+    }
+  }
+  openFeatureRef.current = openAptFeature;
+
   async function applyMode() {
     const m = map.current; if (!m || !ready.current) return;
     if (mode === 'apartments') {
@@ -459,7 +472,7 @@ export default function MapView({
   // выбор квартиры в списке: подлетаем и обводим — иначе список и карта живут порознь
   useEffect(() => {
     const m = map.current; if (!m || !ready.current) return;
-    if (m.getLayer('apt-focus')) m.setFilter('apt-focus', ['==', ['get', 'id'], focusApt?.id ?? -1] as any);
+    if (m.getLayer('apt-focus')) m.setFilter('apt-focus', ['==', ['get', 'key'], focusApt ? houseKey(focusApt) : '__none__'] as any);
     if (focusApt) m.flyTo({ center: [focusApt.lng, focusApt.lat], zoom: Math.max(m.getZoom(), 16), speed: 0.9, padding: pad() });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [focusApt]);
@@ -524,8 +537,45 @@ function priceShort(p: number | null): string {
   if (p >= 1_000_000) return `${Math.round(p / 1_000_000)} млн`;
   return `${Math.round(p / 1_000)} тыс`;
 }
+/**
+ * Ключ дома. Округляем до 4 знаков — это ~10 метров: у квартир одного дома
+ * координаты либо совпадают, либо расходятся на пару метров (разные подъезды,
+ * разная геокодировка). Различить такие точки на карте всё равно нельзя,
+ * а каждая рисовала свой ценник поверх соседнего.
+ */
+export function houseKey(a: { lat: number; lng: number }) {
+  return `${a.lat.toFixed(4)},${a.lng.toFixed(4)}`;
+}
+/**
+ * Одна метка на дом, а не на объявление. Раньше квартиры одного дома лежали
+ * в одной точке, и их ценники наезжали друг на друга — читать было нельзя,
+ * а разъехаться они не могли ни на каком зуме.
+ */
 function aptFC(apts: Apt[]) {
-  return { type: 'FeatureCollection', features: apts.filter((a) => a.lat && a.lng).map((a) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [a.lng, a.lat] }, properties: { id: a.id, price: a.price ?? 0, priceLabel: priceShort(a.price), rooms: a.rooms ?? 0, square: a.square ?? 0, floor: a.floor ?? '', addr: a.addr ?? '', market: a.market, photo: a.photo ?? '' } })) };
+  const houses = new Map<string, Apt[]>();
+  for (const a of apts) {
+    if (!a.lat || !a.lng) continue;
+    const k = houseKey(a);
+    const g = houses.get(k);
+    if (g) g.push(a); else houses.set(k, [a]);
+  }
+  const features: any[] = [];
+  houses.forEach((list, k) => {
+    let best = list[0];
+    for (const a of list) if ((a.price ?? Infinity) < (best.price ?? Infinity)) best = a;
+    const n = list.length;
+    features.push({
+      type: 'Feature',
+      geometry: { type: 'Point', coordinates: [best.lng, best.lat] },
+      properties: {
+        key: k, n, id: best.id, price: best.price ?? 0,
+        priceLabel: n > 1 ? `от ${priceShort(best.price)} · ${n}` : priceShort(best.price),
+        rooms: best.rooms ?? 0, square: best.square ?? 0, floor: best.floor ?? '',
+        addr: best.addr ?? '', market: best.market, photo: best.photo ?? '',
+      },
+    });
+  });
+  return { type: 'FeatureCollection', features };
 }
 // белая скруглённая «пилюля» под цену (9-slice, углы не растягиваются)
 function roundRectPath(x: CanvasRenderingContext2D, X: number, Y: number, w: number, h: number, r: number) {
@@ -544,6 +594,11 @@ function toGeoJSON(points: MapPoint[]) {
   return { type: 'FeatureCollection', features: points.filter((p) => p.lat && p.lng).map((p) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [p.lng, p.lat] }, properties: { id: p.id, name: p.name, color: BAND_COLOR[p.band], textColor: BAND_TEXT[p.band], band: p.band, score: p.score ?? '', slug: p.slug, priceSqm: p.priceSqm ?? 0, priceMin: p.priceMin ?? 0, priceLabel: zhkPriceLabel(p), developer: p.developer ?? '', classRu: p.classRu ?? '', statusRu: p.statusRu ?? '', district: p.district ?? '', seismic: p.seismic ?? 0, image: p.image ?? '', real: !!p.real, deal: !!p.deal } })) };
 }
 
+function houseHtml(p: any) {
+  return `<div class="zhk-pop"><div class="zp-title">${escapeHtml(p.addr || 'Дом')}</div>
+    <div class="zp-sub">${p.n} квартир в продаже · от ${escapeHtml(p.priceLabel.replace(/^от /, '').replace(/ · .*$/, ''))}</div>
+    <div class="zp-sub" style="margin-top:6px;opacity:.8">Нажмите — покажем список</div></div>`;
+}
 function aptHtml(p: any) {
   const price = Number(p.price) ? `${(Number(p.price) / 1_000_000).toLocaleString('ru-RU', { maximumFractionDigits: 1 })} млн ₸` : 'цена не указана';
   const line = [Number(p.rooms) ? `${p.rooms}-комн.` : '', Number(p.square) ? `${p.square} м²` : '', p.floor ? `${p.floor} эт.` : ''].filter(Boolean).join(' · ');

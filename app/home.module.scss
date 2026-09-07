@@ -80,6 +80,12 @@
 .aptLegend span { display: inline-flex; align-items: center; gap: 6px; }
 .searchRow { position: relative; margin-bottom: 12px; }
 .searchIcon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: var(--text-faint); pointer-events: none; }
+.searchToggle {
+  position: absolute; left: 0; top: 0; width: 42px; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  border: none; background: transparent; color: var(--text-faint);
+  cursor: text; padding: 0; z-index: 1;
+}
 /* элементы, существующие только как шапка мобильной шторки */
 .sheetOnly { display: none; }
 
@@ -275,13 +281,25 @@
     position: absolute; top: 0; left: 0; right: 0; z-index: 4;
     grid-column: auto; grid-row: auto; border-right: none;
     padding: 9px max(11px, var(--sal)) 9px max(11px, var(--sar));
-    background: linear-gradient(var(--bg-elev) 68%, rgba(255, 255, 255, 0));
+    /* фона нет: свёрнутый поиск — кружок, и полоса-градиент только закрывала бы
+       карту. Свои подложки есть у самого поля и у кнопки фильтров. */
+    background: none;
     pointer-events: none;
   }
   .controls > * { pointer-events: auto; }
-  .searchRow { margin-bottom: 0; }
+  /* Поиск свёрнут в кружок 46px и разворачивается по тапу: развёрнутое поле
+     занимало всю ширину и закрывало карту, хотя нужно оно изредка. */
+  .searchRow {
+    margin-bottom: 0; max-width: 46px; overflow: hidden;
+    border-radius: 23px; background: var(--panel); box-shadow: var(--shadow-sm);
+    transition: max-width .26s cubic-bezier(.32, .72, 0, 1);
+  }
+  .searchRowOpen { max-width: 100%; border-radius: var(--radius-sm); }
+  .controlsRow { justify-content: space-between; }
+  .searchToggle { width: 46px; }
   /* 16px — иначе iOS зумит страницу при фокусе на поле */
-  .search { padding: 12px 40px 12px 40px; font-size: 16px; min-height: var(--tap); box-shadow: var(--shadow-sm); }
+  .search { padding: 12px 40px 12px 42px; font-size: 16px; min-height: 46px; box-shadow: none; background: transparent; }
+  .searchRowOpen .search { background: var(--panel); }
   /* переключатель переехал в шапку шторки: он на панели, тень не нужна */
   .modeToggle { margin-bottom: 0; }
   .modeToggle button { min-height: 40px; padding: 8px 6px; font-size: 13.5px; }
@@ -317,7 +335,9 @@
   .sidebar {
     position: absolute; left: 0; right: 0; bottom: 0; z-index: 6;
     grid-column: auto; grid-row: auto;
-    height: calc(100% - 104px);
+    /* Раскрытая шторка закрывает карту целиком — так листать список удобнее,
+       чем в щели над картой (паттерн Яндекс.Карт). */
+    height: 100%;
     border-right: none; background: var(--bg-elev);
     border-radius: 18px 18px 0 0;
     box-shadow: 0 -2px 10px rgba(16, 24, 40, .05), 0 -14px 44px rgba(16, 24, 40, .16);
@@ -325,6 +345,8 @@
     will-change: transform; touch-action: none; overscroll-behavior: contain;
   }
   .sidebarDragging { transition: none; }
+  /* во весь экран скругление сверху выглядит как незакрытое окно */
+  .sidebarFull { border-radius: 0; }
 
   .grip { display: flex; justify-content: center; padding: 8px 0 4px; flex-shrink: 0; }
   .gripBar {
@@ -343,7 +365,7 @@
      375px одной строкой: на двух строках шапка съедает высоту peek. */
   .resultBar { padding: 6px 12px 10px; gap: 8px; font-size: 13.5px; font-weight: 600; color: var(--text); }
   .resultBar > span { font-size: 13px; min-width: 0; }
-  .sortSel { min-height: 36px; max-width: 134px; font-size: 13px; padding: 4px 6px; }
+  .sortSel { min-height: 36px; max-width: 152px; font-size: 13px; padding: 4px 6px; }
   /* оба — контейнеры прокрутки внутри шторки, иначе содержимое не долистать */
   .list, .aptPanel {
     flex: 1; min-height: 0; overflow-y: auto;
@@ -478,22 +500,42 @@
 }
 
 /* ---- выбор города ---- */
+.cityWrap { position: relative; flex-shrink: 0; }
 .citySel {
-  display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0;
-  padding: 0 10px 0 11px; min-height: 38px; border-radius: 10px;
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 0 11px; min-height: 38px; border-radius: 10px;
   border: 1px solid var(--border); background: var(--panel); color: var(--text);
-  font-size: 13.5px; font-weight: 620; cursor: pointer;
+  font-size: 13.5px; font-weight: 620; font-family: var(--font); cursor: pointer;
+  transition: border-color .13s, background .13s;
 }
 .citySel:hover { border-color: #cdd5de; }
-.citySel > svg { color: var(--accent); flex-shrink: 0; }
-.citySel select {
-  border: none; background: transparent; color: inherit; font: inherit;
-  cursor: pointer; padding: 0 2px; outline: none;
+.citySelOpen { border-color: var(--accent); background: var(--accent-soft); }
+.citySel > svg:first-child { color: var(--accent); flex-shrink: 0; }
+.cityName { white-space: nowrap; }
+.cityChev { color: var(--text-faint); flex-shrink: 0; transition: transform .16s; }
+.citySelOpen .cityChev { transform: rotate(180deg); color: var(--accent); }
+.cityMenu {
+  position: absolute; z-index: 30; top: calc(100% + 6px); left: 0; min-width: 190px;
+  padding: 5px; border-radius: 12px; background: var(--bg-elev);
+  border: 1px solid var(--border); box-shadow: 0 14px 38px rgba(16, 24, 40, .17);
+  display: flex; flex-direction: column;
+  animation: cityIn .15s cubic-bezier(.32, .72, 0, 1);
 }
+@keyframes cityIn { from { opacity: 0; transform: translateY(-5px); } }
+.cityItem {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  width: 100%; min-height: 40px; padding: 0 11px; border: none; border-radius: 8px;
+  background: transparent; color: var(--text); font-size: 14px; font-weight: 550;
+  font-family: var(--font); cursor: pointer; text-align: left;
+}
+.cityItem:hover { background: var(--panel-2); }
+.cityItemOn { color: var(--accent); font-weight: 650; }
+.cityItemOn > svg { color: var(--accent); }
 @media (max-width: 900px) {
-  .citySel { min-height: var(--tap); padding: 0 8px 0 10px; font-size: 13px; }
-  /* на узком экране название города важнее подписи-слогана */
-  .citySel select { max-width: 104px; }
+  .citySel { min-height: var(--tap); padding: 0 10px; font-size: 13px; }
+  .cityName { max-width: 104px; overflow: hidden; text-overflow: ellipsis; }
+  .cityMenu { left: auto; right: 0; min-width: 180px; }
+  .cityItem { min-height: var(--tap); font-size: 15px; }
 }
 
 
@@ -564,3 +606,23 @@
   .faultsBtn { top: 73px; }
   .faultsNote { top: 118px; max-width: min(52%, 300px); max-height: 52dvh; }
 }
+
+
+/* ---- ДОМ С НЕСКОЛЬКИМИ КВАРТИРАМИ ----
+   Ценники квартир одного дома стояли в одной точке и наезжали друг на друга.
+   Теперь на карте одна метка «от N млн · K», а по тапу — список этого дома. */
+.houseBar {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 9px 11px; border-radius: var(--radius-sm);
+  background: var(--accent-soft); border: 1px solid rgba(47, 107, 237, .28);
+  font-size: 13px; color: var(--text);
+}
+.houseBar > span { display: inline-flex; align-items: center; gap: 7px; min-width: 0; font-weight: 600; }
+.houseBar > span > svg { color: var(--accent); flex-shrink: 0; }
+.houseBar button {
+  display: inline-flex; align-items: center; gap: 4px; flex-shrink: 0;
+  border: none; background: transparent; color: var(--accent);
+  font-size: 12.5px; font-weight: 620; font-family: var(--font); cursor: pointer;
+  padding: 6px 4px; margin: -6px -4px;
+}
+.houseBar button:hover { text-decoration: underline; }

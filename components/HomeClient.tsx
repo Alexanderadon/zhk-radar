@@ -296,6 +296,13 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
   const [aptSort, setAptSort] = useState('price-asc');
   const [aptShown, setAptShown] = useState(30);
   const [focusApt, setFocusApt] = useState<Apt | null>(null);
+  /** Выбранный дом: в нём продаётся несколько квартир, показываем их отдельным списком. */
+  const [building, setBuilding] = useState<{ key: string; addr: string | null; apts: Apt[] } | null>(null);
+  const [cityOpen, setCityOpen] = useState(false);
+  /** На телефоне поиск свёрнут в кружок: развёрнутое поле закрывало карту. */
+  const [searchOpen, setSearchOpen] = useState(false);
+  const searchInput = useRef<HTMLInputElement>(null);
+  const cityWrap = useRef<HTMLDivElement>(null);
   const onAptsInView = useCallback((list: Apt[]) => setAptsInView(list), []);
   const toggleN = (set: Set<number>, v: number, upd: (s: Set<number>) => void) => { const n = new Set(set); n.has(v) ? n.delete(v) : n.add(v); upd(n); };
   const [aptMetaError, setAptMetaError] = useState(false);
@@ -312,7 +319,8 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
   // Поиск в режиме квартир ищет по адресу: искать «ЖК/застройщика» тут нечего.
   const aptList = useMemo(() => {
     const query = q.trim().toLowerCase();
-    const list = query ? aptsInView.filter((a) => a.addr?.toLowerCase().includes(query)) : aptsInView.slice();
+    const base = building ? building.apts : aptsInView;
+    const list = query ? base.filter((a) => a.addr?.toLowerCase().includes(query)) : base.slice();
     const sqm = (a: Apt) => (a.price && a.square ? a.price / a.square : Infinity);
     list.sort((a, b) => {
       if (aptSort === 'price-asc') return (a.price ?? Infinity) - (b.price ?? Infinity);
@@ -321,9 +329,9 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
       return (b.square ?? 0) - (a.square ?? 0);
     });
     return list;
-  }, [aptsInView, aptSort, q]);
+  }, [aptsInView, aptSort, q, building]);
   // сдвинули карту или пересортировали — начинаем показ заново
-  useEffect(() => { setAptShown(30); }, [aptsInView, aptSort, q]);
+  useEffect(() => { setAptShown(30); }, [aptsInView, aptSort, q, building]);
 
   // ---- мобильная оболочка: шторка поверх карты + модалка фильтров ----
   const isMobile = useIsMobile();
@@ -409,10 +417,28 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
       requestAnimationFrame(() => cardRefs.current.get(d.id)?.scrollIntoView({ block: 'center', behavior: 'smooth' }));
       return;
     }
+    if (d.kind === 'building') {
+      // несколько квартир в одной точке: карточкой их не показать — открываем список
+      setBuilding({ key: d.key, addr: d.addr, apts: d.apts });
+      setMapDetail(null);
+      setFocusApt(null);
+      sheet.setIndex(1);
+      return;
+    }
     setMapDetail(d);
     sheet.setIndex(1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // выпадающий список городов: клик мимо и Esc закрывают
+  useEffect(() => {
+    if (!cityOpen) return;
+    const onDown = (e: PointerEvent) => { if (!cityWrap.current?.contains(e.target as Node)) setCityOpen(false); };
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setCityOpen(false); };
+    window.addEventListener('pointerdown', onDown);
+    window.addEventListener('keydown', onKey);
+    return () => { window.removeEventListener('pointerdown', onDown); window.removeEventListener('keydown', onKey); };
+  }, [cityOpen]);
 
   const onAptRow = useCallback((a: Apt) => {
     setFocusApt(a);
@@ -421,8 +447,8 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
   const pickMode = useCallback((m: 'complexes' | 'apartments') => { setMode(m); setFavOnly(false); }, []);
 
   // карточка объекта не должна «переживать» смену режима карты
-  useEffect(() => { setMapDetail(null); setFocusApt(null); }, [mode]);
-  useEffect(() => { setFocusApt(null); }, [citySlug]);
+  useEffect(() => { setMapDetail(null); setFocusApt(null); setBuilding(null); }, [mode]);
+  useEffect(() => { setFocusApt(null); setBuilding(null); }, [citySlug]);
   useEffect(() => { setAptMeta(null); }, [citySlug]);
 
   const toggle = (set: Set<string>, v: string, upd: (s: Set<string>) => void) => {
@@ -484,12 +510,27 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
             <div className={s.tagline}><span className={s.taglineFull}>Krisha показывает, что продаётся. Мы — стоит ли покупать.</span><span className={s.taglineShort}>Стоит ли это покупать</span></div>
           </div>
         </div>
-        <label className={s.citySel}>
-          <Icon name="pin" size={15} />
-          <select value={citySlug} onChange={(e) => { setCitySlug(e.target.value); setSelected(null); setDistrict(null); }} aria-label="Город">
-            {CITIES.map((c) => <option key={c.slug} value={c.slug}>{c.name}</option>)}
-          </select>
-        </label>
+        {/* Системный select рисуется оболочкой ОС и в интерфейс не вписывался
+            совсем — на телефоне это серая простыня во весь экран. */}
+        <div className={s.cityWrap} ref={cityWrap}>
+          <button type="button" className={`${s.citySel} ${cityOpen ? s.citySelOpen : ''}`} onClick={() => setCityOpen((v) => !v)} aria-haspopup="listbox" aria-expanded={cityOpen} aria-label={`Город: ${city.name}`}>
+            <Icon name="pin" size={15} />
+            <span className={s.cityName}>{city.name}</span>
+            <svg className={s.cityChev} width="11" height="7" viewBox="0 0 11 7" fill="none" aria-hidden><path d="M1 1l4.5 4.5L10 1" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></svg>
+          </button>
+          {cityOpen && (
+            <div className={s.cityMenu} role="listbox" aria-label="Город">
+              {CITIES.map((c) => (
+                <button key={c.slug} type="button" role="option" aria-selected={c.slug === citySlug}
+                  className={`${s.cityItem} ${c.slug === citySlug ? s.cityItemOn : ''}`}
+                  onClick={() => { setCitySlug(c.slug); setSelected(null); setDistrict(null); setCityOpen(false); }}>
+                  {c.name}
+                  {c.slug === citySlug && <Icon name="check" size={15} />}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
         <div className={s.headerSpacer} />
         <Link href="/methodology" className={s.navlink}>Методология</Link>
         {canFav && <button type="button" className={`${s.favBtn} ${favOnly ? s.favBtnActive : ''}`} onClick={() => { setFavOnly((v) => !v); setMode('complexes'); }} title="Понравившиеся ЖК — ваша подборка" aria-label={`Избранное${fav.count ? `, сохранено: ${fav.count}` : ''}`} aria-pressed={favOnly}>
@@ -508,10 +549,15 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
       <div className={s.body}>
         <div className={s.controls}>
           <div className={s.controlsRow}>
-            <div className={s.searchRow}>
-              <Icon name="search" size={17} className={s.searchIcon} />
-              <input className={s.search} placeholder={mode === 'apartments' ? 'Поиск по адресу…' : 'Поиск ЖК, застройщика, района…'} value={q} onChange={(e) => setQ(e.target.value)} />
-              {q && <button type="button" className={s.searchClear} aria-label="Очистить поиск" onClick={() => setQ('')}><Icon name="x" size={15} /></button>}
+            <div
+              className={`${s.searchRow} ${searchOpen || q ? s.searchRowOpen : ''}`}
+              onClick={() => { if (!searchOpen) { setSearchOpen(true); searchInput.current?.focus(); } }}
+            >
+              <button type="button" className={s.searchToggle} aria-label="Поиск" aria-expanded={searchOpen || !!q} tabIndex={searchOpen || q ? -1 : 0}>
+                <Icon name="search" size={17} />
+              </button>
+              <input ref={searchInput} className={s.search} placeholder={mode === 'apartments' ? 'Поиск по адресу…' : 'Поиск ЖК, застройщика, района…'} value={q} onChange={(e) => setQ(e.target.value)} onBlur={() => { if (!q.trim()) setSearchOpen(false); }} />
+              {q && <button type="button" className={s.searchClear} aria-label="Очистить поиск" onClick={(e) => { e.stopPropagation(); setQ(''); setSearchOpen(false); }}><Icon name="x" size={15} /></button>}
             </div>
             <button type="button" className={`${s.filterBtn} ${activeCount ? s.filterBtnOn : ''}`} onClick={() => setFiltersOpen(true)} aria-label={`Фильтры${activeCount ? `, активно: ${activeCount}` : ''}`}>
               <Icon name="sliders" size={16} />
@@ -605,7 +651,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
 
         <aside
           ref={sheet.sheetRef as React.RefObject<HTMLElement>}
-          className={`${s.sidebar} ${sheet.dragging ? s.sidebarDragging : ''}`}
+          className={`${s.sidebar} ${sheet.dragging ? s.sidebarDragging : ''} ${isMobile && sheet.index === 2 ? s.sidebarFull : ''}`}
           style={isMobile && !isPhoneLandscape ? { transform: `translate3d(0, ${sheet.y}px, 0)` } : undefined}
         >
           <div className={s.grip} {...sheet.dragProps}>
@@ -662,7 +708,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
           ) : (
             <>
             <div className={s.resultBar} {...sheet.headerDragProps}>
-              <span>{aptList.length.toLocaleString('ru-RU')} {plural(aptList.length, 'квартира', 'квартиры', 'квартир')} в этой области{district ? ` · ${district}` : ''}</span>
+              <span>{aptList.length.toLocaleString('ru-RU')} {plural(aptList.length, 'квартира', 'квартиры', 'квартир')} {building ? 'в этом доме' : 'в этой области'}{!building && district ? ` · ${district}` : ''}</span>
               <select className={s.sortSel} value={aptSort} onChange={(e) => setAptSort(e.target.value)} aria-label="Сортировка квартир">
                 <option value="price-asc">сначала дешёвые</option>
                 <option value="price-desc">сначала дорогие</option>
@@ -671,6 +717,16 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
               </select>
             </div>
             <div className={s.aptPanel} ref={sheet.scrollRef as React.RefObject<HTMLDivElement>} {...sheet.contentProps}>
+              {building && (
+                <div className={s.houseBar} role="status">
+                  {/* в 10-метровую точку иногда попадает пара соседних адресов — тогда
+                      честнее сказать «в этой точке», чем выдать один адрес за все */}
+                  <span><Icon name="home" size={13} /> {new Set(building.apts.map((a) => a.addr).filter(Boolean)).size > 1
+                    ? `${building.apts.length} ${plural(building.apts.length, 'квартира', 'квартиры', 'квартир')} в этой точке`
+                    : building.addr || 'Дом без адреса'}</span>
+                  <button type="button" onClick={() => setBuilding(null)}><Icon name="x" size={13} /> все квартиры</button>
+                </div>
+              )}
               {aptMetaError && (
                 <div className={s.aptStatError} role="status">
                   По городу {city.name} данные о квартирах ещё не собраны. ЖК-комплексы работают.
