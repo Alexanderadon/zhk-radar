@@ -81,6 +81,7 @@ export default function MapView({
   const allSold = useRef<any[] | null>(null);
   const applyModeRef = useRef<() => void>(() => {});
   const navCleanup = useRef<() => void>(() => {});
+  const labelCleanup = useRef<() => void>(() => {});
   const citySlugRef = useRef(citySlug);
   citySlugRef.current = citySlug;
   const dataSuffix = () => (citySlugRef.current === 'almaty' ? '' : `-${citySlugRef.current}`);
@@ -122,14 +123,31 @@ export default function MapView({
     // иначе после поворота планшета кнопки остаются не на месте.
     const mq = window.matchMedia('(max-width: 900px)');
     let nav: maplibregl.NavigationControl | null = null;
+    let geo: maplibregl.GeolocateControl | null = null;
     const placeNav = () => {
       if (nav) m.removeControl(nav);
+      if (geo) m.removeControl(geo);
       nav = new maplibregl.NavigationControl({ showCompass: false });
-      m.addControl(nav, mq.matches ? 'top-right' : 'bottom-right');
+      // «Где я» — по нему сразу видно цены вокруг себя, а не вокруг центра города
+      geo = new maplibregl.GeolocateControl({
+        positionOptions: { enableHighAccuracy: true },
+        trackUserLocation: true,
+        showUserLocation: true,
+      });
+      const corner = mq.matches ? 'top-right' : 'bottom-right';
+      m.addControl(nav, corner);
+      m.addControl(geo, corner);
+      // maplibre подписывает кнопки по-английски и опций для этого не даёт,
+      // а весь остальной интерфейс русский. Подписи переставляем и позже:
+      // кнопку геолокации библиотека доподписывает после проверки разрешений,
+      // то есть уже после первой отрисовки.
+      translateControls(m);
+      const stop = watchControlLabels(m);
+      labelCleanup.current(); labelCleanup.current = stop;
     };
     placeNav();
     mq.addEventListener('change', placeNav);
-    navCleanup.current = () => { mq.removeEventListener('change', placeNav); nav = null; };
+    navCleanup.current = () => { mq.removeEventListener('change', placeNav); labelCleanup.current(); nav = null; geo = null; };
     // компаса нет, поэтому случайный поворот/наклон пальцами было бы нечем вернуть
     m.touchZoomRotate.disableRotation();
     m.touchPitch.disable();
@@ -421,6 +439,9 @@ export default function MapView({
     if (hit) return hit;
     const set = new Set<number>();
     const d = distIndex.current.get(name);
+    // район выбрали раньше, чем догрузились квартиры: пустой ответ не кэшируем,
+    // иначе он остался бы навсегда и список так и писал бы «0»
+    if (!allApts.current || !allApts.current.length) return set;
     if (d) {
       const [w, s2, e2, n2] = d.bbox;
       for (const a of allApts.current || []) {
@@ -503,6 +524,7 @@ export default function MapView({
         loadingApts.current = true;
         onAptsLoadingRef.current?.(true);
         try { allApts.current = await (await fetch(`/listings${dataSuffix()}.json`)).json(); } catch { allApts.current = []; }
+        distApts.current.clear();
         loadingApts.current = false;
         onAptsLoadingRef.current?.(false);
       } else if (!allApts.current) {
@@ -587,6 +609,26 @@ export default function MapView({
   }, [citySlug]);
 
   return <div ref={container} style={{ position: 'absolute', inset: 0 }} />;
+}
+
+const CTRL_RU: Record<string, string> = {
+  'Zoom in': 'Приблизить',
+  'Zoom out': 'Отдалить',
+  'Find my location': 'Показать, где я',
+  'Location not available': 'Геолокация недоступна',
+  'You are here': 'Вы здесь',
+};
+function translateControls(m: maplibregl.Map) {
+  for (const b of Array.from(m.getContainer().querySelectorAll<HTMLButtonElement>('.maplibregl-ctrl button'))) {
+    const ru = CTRL_RU[b.title];
+    if (ru) { b.title = ru; b.setAttribute('aria-label', ru); }
+  }
+}
+/** Наблюдаем за подписями: maplibre меняет их при смене состояния геолокации. */
+function watchControlLabels(m: maplibregl.Map) {
+  const obs = new MutationObserver(() => translateControls(m));
+  obs.observe(m.getContainer(), { subtree: true, attributes: true, attributeFilter: ['title'] });
+  return () => obs.disconnect();
 }
 
 /** Точка внутри кольца полигона (ray casting). Дырок у районов нет — внешнего кольца хватает. */
