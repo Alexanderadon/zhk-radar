@@ -34,7 +34,7 @@ const ALMATY: [number, number] = [76.905, 43.238];
 export default function MapView({
   points, selectedId, onSelect, activeDistrict,
   mode = 'complexes', aptMarket, aptRooms, showSold, aptPrice, favSet, onToggleFav, touchMode = false, onDetail, showFaults = false, citySlug = 'almaty', cityCenter, cityZoom,
-  onAptsInView, focusApt, mapPadBottom = 0,
+  onAptsInView, onAptsLoading, focusApt, mapPadBottom = 0,
 }: {
   points: MapPoint[]; selectedId: number | null; onSelect: (id: number) => void; activeDistrict?: string | null;
   mode?: 'complexes' | 'apartments'; aptMarket?: Set<string>; aptRooms?: Set<number>; showSold?: boolean; aptPrice?: { min: number; max: number } | null;
@@ -50,6 +50,9 @@ export default function MapView({
   /** Квартиры в видимой части карты — из них строится список в панели. Без него
       «Квартиры» существовали только как точки: ни пролистать, ни отсортировать. */
   onAptsInView?: (apts: Apt[]) => void;
+  /** Идёт ли загрузка файла объявлений: 12 МБ качаются не мгновенно, и всё это
+      время панель уверяла, что квартир в этой области нет. */
+  onAptsLoading?: (loading: boolean) => void;
   /** Квартира, выбранная в списке: подсвечиваем её и подлетаем. */
   focusApt?: Apt | null;
   /** Сколько пикселей карты снизу закрыто шторкой: иначе flyTo центрирует объект под ней. */
@@ -78,6 +81,8 @@ export default function MapView({
   const dataSuffix = () => (citySlugRef.current === 'almaty' ? '' : `-${citySlugRef.current}`);
   const onAptsInViewRef = useRef(onAptsInView);
   onAptsInViewRef.current = onAptsInView;
+  const onAptsLoadingRef = useRef(onAptsLoading);
+  onAptsLoadingRef.current = onAptsLoading;
   const padRef = useRef(mapPadBottom);
   padRef.current = mapPadBottom;
   const emitRef = useRef<() => void>(() => {});
@@ -401,7 +406,7 @@ export default function MapView({
     const cb = onAptsInViewRef.current;
     const m = map.current;
     if (!cb || !m || !ready.current) return;
-    if (mode !== 'apartments') { cb([]); return; }
+    if (mode !== 'apartments') { lastEmit.current = null; cb([]); return; }
     const el = m.getContainer();
     const wpx = el.clientWidth, hpx = el.clientHeight;
     // контейнер ещё не разложен — пустой список тут был бы неправдой
@@ -444,8 +449,15 @@ export default function MapView({
       setVis(m, COMPLEX_LAYERS, 'none');
       if (!allApts.current && !loadingApts.current) {
         loadingApts.current = true;
+        onAptsLoadingRef.current?.(true);
         try { allApts.current = await (await fetch(`/listings${dataSuffix()}.json`)).json(); } catch { allApts.current = []; }
         loadingApts.current = false;
+        onAptsLoadingRef.current?.(false);
+      } else if (!allApts.current) {
+        // параллельный вызов уже качает файл — дожидаться нечего, но и врать,
+        // что квартир нет, нельзя
+        onAptsLoadingRef.current?.(true);
+        return;
       }
       const src = m.getSource('apt') as maplibregl.GeoJSONSource | undefined;
       if (src) src.setData(aptFC(filteredApts()) as any);

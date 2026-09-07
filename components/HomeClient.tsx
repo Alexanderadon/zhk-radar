@@ -303,7 +303,11 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const searchInput = useRef<HTMLInputElement>(null);
   const cityWrap = useRef<HTMLDivElement>(null);
+  // снимать флаг загрузки здесь нельзя: пока качается файл, карта успевает
+  // прислать пустой список после перелёта — и «грузим» сменялось бы на «нет квартир»
   const onAptsInView = useCallback((list: Apt[]) => setAptsInView(list), []);
+  const [aptsLoading, setAptsLoading] = useState(false);
+  const onAptsLoading = useCallback((v: boolean) => setAptsLoading(v), []);
   const toggleN = (set: Set<number>, v: number, upd: (s: Set<number>) => void) => { const n = new Set(set); n.has(v) ? n.delete(v) : n.add(v); upd(n); };
   const [aptMetaError, setAptMetaError] = useState(false);
   useEffect(() => {
@@ -447,8 +451,8 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
   const pickMode = useCallback((m: 'complexes' | 'apartments') => { setMode(m); setFavOnly(false); }, []);
 
   // карточка объекта не должна «переживать» смену режима карты
-  useEffect(() => { setMapDetail(null); setFocusApt(null); setBuilding(null); }, [mode]);
-  useEffect(() => { setFocusApt(null); setBuilding(null); }, [citySlug]);
+  useEffect(() => { setMapDetail(null); setFocusApt(null); setBuilding(null); if (mode !== 'apartments') setAptsLoading(false); }, [mode]);
+  useEffect(() => { setFocusApt(null); setBuilding(null); setAptsInView([]); }, [citySlug]);
   useEffect(() => { setAptMeta(null); }, [citySlug]);
 
   const toggle = (set: Set<string>, v: string, upd: (s: Set<string>) => void) => {
@@ -708,7 +712,9 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
           ) : (
             <>
             <div className={s.resultBar} {...sheet.headerDragProps}>
-              <span>{aptList.length.toLocaleString('ru-RU')} {plural(aptList.length, 'квартира', 'квартиры', 'квартир')} {building ? 'в этом доме' : 'в этой области'}{!building && district ? ` · ${district}` : ''}</span>
+              <span>{aptsLoading && !aptList.length
+                ? 'Загружаем объявления…'
+                : `${aptList.length.toLocaleString('ru-RU')} ${plural(aptList.length, 'квартира', 'квартиры', 'квартир')} ${building ? 'в этом доме' : 'в этой области'}${!building && district ? ` · ${district}` : ''}`}</span>
               <select className={s.sortSel} value={aptSort} onChange={(e) => setAptSort(e.target.value)} aria-label="Сортировка квартир">
                 <option value="price-asc">сначала дешёвые</option>
                 <option value="price-desc">сначала дорогие</option>
@@ -745,9 +751,11 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
               )}
               {aptList.length === 0 && !aptMetaError && (
                 <div className={s.aptEmpty}>
-                  {q.trim()
-                    ? <>По адресу «{q.trim()}» в этой области ничего нет. Подвиньте карту или очистите поиск.</>
-                    : <>В видимой части карты квартир нет. Подвиньте или отдалите карту — список соберётся сам.</>}
+                  {aptsLoading
+                    ? <><span className={s.aptSpinner} aria-hidden /> Загружаем объявления по городу — файл большой, это пара секунд.</>
+                    : q.trim()
+                      ? <>По адресу «{q.trim()}» в этой области ничего нет. Подвиньте карту или очистите поиск.</>
+                      : <>В видимой части карты квартир нет. Подвиньте или отдалите карту — список соберётся сам.</>}
                 </div>
               )}
               {aptMeta && (
@@ -803,7 +811,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
               с зоной отчуждения 300 м, поэтому <b>по конкретному дому судить нельзя</b>.
             </div>
           )}
-          <MapView points={points} selectedId={selected} onSelect={setSelected} activeDistrict={district} mode={mode} aptMarket={aptMarket} aptRooms={aptRooms} showSold={showSold} aptPrice={priceBucket ? { min: priceBucket.min, max: priceBucket.max } : null} favSet={favSet} onToggleFav={fav.toggle} touchMode={isTouch} onDetail={handleMapDetail} showFaults={showFaults} citySlug={citySlug} cityCenter={city.center} cityZoom={city.zoom} onAptsInView={onAptsInView} focusApt={focusApt} mapPadBottom={sheet.cover} />
+          <MapView points={points} selectedId={selected} onSelect={setSelected} activeDistrict={district} mode={mode} aptMarket={aptMarket} aptRooms={aptRooms} showSold={showSold} aptPrice={priceBucket ? { min: priceBucket.min, max: priceBucket.max } : null} favSet={favSet} onToggleFav={fav.toggle} touchMode={isTouch} onDetail={handleMapDetail} showFaults={showFaults} onAptsLoading={onAptsLoading} citySlug={citySlug} cityCenter={city.center} cityZoom={city.zoom} onAptsInView={onAptsInView} focusApt={focusApt} mapPadBottom={sheet.cover} />
         </div>
       </div>
     </div>
