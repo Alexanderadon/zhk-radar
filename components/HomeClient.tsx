@@ -500,13 +500,23 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
     <div className={s.shell}>
       <header className={s.header}>
         <div className={s.brand}>
-          <div className={s.logoMark} aria-hidden>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z" fill="#fff" stroke="none" opacity="0.15" />
-              <path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z" />
-              <circle cx="12" cy="10" r="2.2" fill="#fff" stroke="none" />
-            </svg>
-          </div>
+          <svg className={s.logoMark} viewBox="0 0 64 64" role="img" aria-label="ЖК-Радар">
+            {/* Алматы: снежные пики Алатау и новостройки перед ними.
+            Глубину даёт не обводка, а тон: хребет полупрозрачный, дома сплошные.
+            Обводка цветом фона прорезала гору грубым синим каналом и оставляла
+            обрезки в углах — здесь ни одного штриха, все фигуры стоят на одной линии. */}
+            <rect width="64" height="64" rx="15" fill="#2f6bed" />
+            {/* хребет */}
+            <path d="M6 52 L20 30 L28 38 L40 16 L54 38 L58 52 Z" fill="#ffffff" opacity=".45" />
+            {/* снег на вершинах */}
+            <path d="M40 16 L45.7 25 L35.1 25 Z" fill="#ffffff" />
+            <path d="M20 30 L25 35 L16.8 35 Z" fill="#ffffff" />
+            {/* дома: сплошной белый поверх приглушённой горы */}
+            <g fill="#ffffff">
+            <rect x="26" y="27" width="14" height="25" rx="1.5" />
+            <rect x="42" y="35" width="12" height="17" rx="1.5" />
+            </g>
+          </svg>
           <div>
             <div className={s.logo}>ЖК<span className={s.radar}>·Радар</span></div>
             {/* на узком экране длинная версия обрезалась на полуслове */}
