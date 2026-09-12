@@ -46,6 +46,9 @@ export interface HomeZhk {
   seismicResistance: number | null;
   finishing: string | null;
   image: string | null;
+  /** первые снимки для листания в списке и общее число */
+  photos: string[];
+  photoCount: number;
   band: 'green' | 'amber' | 'red' | 'grey';
   score: number | null;
   deal: boolean;
@@ -140,17 +143,17 @@ const AptRow = memo(function AptRow({ a, active, onPick, zhk }: { a: Apt; active
   const strip = photos.slice(0, STRIP_PHOTOS);
   return (
     <button type="button" className={`${s.aptRow} ${active ? s.aptRowOn : ''}`} onClick={() => onPick(a)}>
-      <span className={s.aptMedia}>
+      <span className={s.media}>
         {strip.length ? (
-          <span className={s.aptStrip}>
+          <span className={s.strip}>
             {strip.map((u) => (
               // все lazy: 30 карточек × 31 КБ разом — лишний мегабайт на списке
               <img key={u} src={u} alt="" loading="lazy" decoding="async" draggable={false}
                 onError={(e) => { const t = e.currentTarget; if (!t.dataset.fb) { t.dataset.fb = '1'; t.src = u.replace('-750x470.', '-400x300.'); } }} />
             ))}
           </span>
-        ) : <span className={s.aptStripEmpty} aria-hidden>◫</span>}
-        {photos.length > 1 && <span className={s.aptStripCount}>{photos.length} фото</span>}
+        ) : <span className={s.stripEmpty} aria-hidden>◫</span>}
+        {photos.length > 1 && <span className={s.stripCount}>{photos.length} фото</span>}
       </span>
       <span className={s.aptRowBody}>
         <span className={s.aptRowTop}>
@@ -193,10 +196,18 @@ const ZhkCard = memo(function ZhkCard({
       className={`${s.card} ${isSelected ? s.cardActive : ''} ${openOnTap ? s.cardTappable : ''}`}
       onClick={() => onSelect(z.id)}
     >
-      {canFav && <button type="button" className={`${s.cardFav} ${isFav ? s.cardFavOn : ''}`} title={isFav ? 'Убрать из избранного' : 'Сохранить в избранное'} aria-label={isFav ? `Убрать ${z.name} из избранного` : `Сохранить ${z.name} в избранное`} aria-pressed={isFav} onClick={(e) => { e.preventDefault(); e.stopPropagation(); onFav(z.id); }}>
-        <Icon name="heart" size={15} fill={isFav ? 'currentColor' : 'none'} />
-      </button>}
-      {z.image ? <img className={s.thumb} src={z.image} alt="" loading="lazy" /> : <div className={`${s.thumb} ${s.thumbEmpty}`} aria-hidden>◫</div>}
+      <span className={s.media}>
+        {z.photos.length ? (
+          <span className={s.strip}>
+            {z.photos.map((u) => <img key={u} src={u} alt="" loading="lazy" decoding="async" draggable={false} />)}
+          </span>
+        ) : <span className={s.stripEmpty} aria-hidden>◫</span>}
+        {z.photoCount > 1 && <span className={s.stripCount}>{z.photoCount} фото</span>}
+        {z.real && <span className={s.stripReal}><Icon name="camera" size={11} /> реальные фото</span>}
+        {canFav && <button type="button" className={`${s.cardFav} ${isFav ? s.cardFavOn : ''}`} title={isFav ? 'Убрать из избранного' : 'Сохранить в избранное'} aria-label={isFav ? `Убрать ${z.name} из избранного` : `Сохранить ${z.name} в избранное`} aria-pressed={isFav} onClick={(e) => { e.preventDefault(); e.stopPropagation(); onFav(z.id); }}>
+          <Icon name="heart" size={15} fill={isFav ? 'currentColor' : 'none'} />
+        </button>}
+      </span>
       <div className={s.cardBody}>
         <div className={s.cardTop}>
           <div>
@@ -214,7 +225,6 @@ const ZhkCard = memo(function ZhkCard({
         </div>
         <div className={s.cardChips}>
           {z.deal && <span className={s.miniChip} style={{ background: 'var(--green)', color: '#fff', fontWeight: 650 }}><Icon name="flame" size={11} /> выгодно</span>}
-          {z.real && <span className={s.miniChip} style={{ color: 'var(--green)', background: 'var(--green-soft)' }}><Icon name="camera" size={11} /> реальные фото</span>}
           {z.classRu && <span className={s.miniChip}>{z.classRu}</span>}
           {z.constructionStatusRu && <span className={s.miniChip}>{z.constructionStatusRu}</span>}
           {z.priceMin ? <span className={s.miniChip}>от {(z.priceMin / 1_000_000).toLocaleString('ru-RU', { maximumFractionDigits: 1 })} млн ₸</span> : z.priceSqm ? <span className={s.miniChip}>{Math.round(z.priceSqm / 1000)} тыс ₸/м²</span> : null}

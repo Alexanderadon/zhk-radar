@@ -125,29 +125,46 @@
 
 .list { overflow-y: auto; flex: 1; padding: 8px; }
 
+/* Карточка ЖК: фото во всю ширину и листается, как у квартир — ЖК тоже
+   выбирают глазами, а миниатюра 78px показывала только силуэт дома. */
 .card {
   position: relative;
-  display: flex; gap: 12px; padding: 10px; border-radius: var(--radius-sm); margin-bottom: 2px;
-  cursor: pointer; border: 1px solid transparent; transition: background .12s, border-color .12s, box-shadow .12s;
+  display: flex; flex-direction: column; border-radius: 14px; margin-bottom: 12px; overflow: hidden;
+  cursor: pointer; border: 1px solid var(--border-soft); background: var(--bg-elev);
+  transition: border-color .12s, box-shadow .12s;
   /* список из 824 карточек: браузер пропускает вёрстку и отрисовку тех,
      что вне экрана; contain-intrinsic-size держит корректную высоту скролла */
   content-visibility: auto;
-  contain-intrinsic-size: auto 102px;
+  contain-intrinsic-size: auto 336px;
 }
-.card:hover { background: var(--panel); box-shadow: var(--shadow-sm); }
-.cardActive { background: var(--panel); border-color: var(--accent-dim); box-shadow: var(--shadow-sm); }
+.card:hover { box-shadow: var(--shadow-sm); }
+.cardActive { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
 .cardFav {
-  position: absolute; top: 16px; left: 16px; z-index: 2;
-  width: 29px; height: 29px; display: flex; align-items: center; justify-content: center;
-  border: none; border-radius: 50%; background: rgba(255, 255, 255, .92); color: var(--text-faint);
-  cursor: pointer; opacity: 0; transition: opacity .12s, color .12s; box-shadow: 0 1px 4px rgba(20, 24, 31, .18);
+  position: absolute; top: 10px; right: 10px; z-index: 2;
+  width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+  border: none; border-radius: 50%; background: rgba(255, 255, 255, .92); color: var(--text-dim);
+  cursor: pointer; transition: color .12s, transform .12s; box-shadow: 0 1px 4px rgba(20, 24, 31, .18);
 }
-.card:hover .cardFav { opacity: 1; }
 .cardFav:hover { color: var(--red); }
-.cardFavOn { opacity: 1; color: var(--red); }
-.thumb { width: 78px; height: 78px; border-radius: 8px; object-fit: cover; flex-shrink: 0; background: var(--panel-2); }
-.thumbEmpty { display: flex; align-items: center; justify-content: center; color: var(--text-faint); font-size: 22px; }
-.cardBody { flex: 1; min-width: 0; }
+.cardFavOn { color: var(--red); }
+.cardFav:active { transform: scale(.9); }
+.cardBody { padding: 10px 12px 12px; min-width: 0; }
+
+/* ---- полоса фото: общая для карточек ЖК и квартир ---- */
+.media { position: relative; display: block; background: var(--panel-2); }
+.strip {
+  display: flex; overflow-x: auto; scroll-snap-type: x mandatory; aspect-ratio: 16 / 10;
+  scrollbar-width: none; -webkit-overflow-scrolling: touch;
+}
+.strip::-webkit-scrollbar { display: none; }
+.strip img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; scroll-snap-align: start; display: block; }
+.stripEmpty { display: flex; align-items: center; justify-content: center; aspect-ratio: 16 / 10; color: var(--text-faint); font-size: 26px; }
+.stripCount, .stripReal {
+  position: absolute; bottom: 8px; padding: 3px 8px; border-radius: 100px;
+  font-size: 11px; font-weight: 600; pointer-events: none; display: inline-flex; align-items: center; gap: 4px;
+}
+.stripCount { right: 8px; background: rgba(13, 17, 23, .6); color: var(--on-dark); }
+.stripReal { left: 8px; background: rgba(255, 255, 255, .92); color: var(--green); }
 .cardTop { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
 .cardName { font-size: 14.5px; font-weight: 620; line-height: 1.25; }
 .cardDev { font-size: 12.5px; color: var(--text-dim); margin: 2px 0 7px; }
@@ -377,27 +394,12 @@
     padding-bottom: calc(18px + var(--sab));
   }
 
-  .card { padding: 12px 9px; }
-  .card:active { background: var(--panel-2); }
+  .card { border-radius: 12px; }
   /* ссылка-название — отдельное действие («открыть ЖК»), увеличиваем зону нажатия
      не меняя вид: padding + отрицательный margin */
   .cardName { display: inline-block; padding: 7px 0; margin: -7px 0; }
-  /* Сердечко: без hover его не видно, поэтому показываем всегда — но кружком
-     44px поверх миниатюры 68px оно закрывало 40% фотографии. Уводим в правый
-     нижний угол миниатюры и уменьшаем до 26px; зона нажатия остаётся 44px
-     за счёт псевдоэлемента. Координаты = отступ карточки (9/12) + размер
-     миниатюры (68) − размер кружка. */
-  .cardFav {
-    position: absolute; left: 51px; top: 54px; right: auto;
-    opacity: 1; width: 26px; height: 26px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    background: rgba(255, 255, 255, .94); color: var(--text-dim);
-    box-shadow: 0 1px 4px rgba(20, 24, 31, .28);
-  }
-  .cardFav::before { content: ''; position: absolute; inset: -9px; border-radius: 50%; }
-  .cardFav > svg { width: 14px; height: 14px; }
-  .cardFavOn { color: var(--red); }
-  .cardFav:active { transform: scale(.88); }
+  /* сердечко на фото: зона нажатия 44px за счёт псевдоэлемента */
+  .cardFav::before { content: ''; position: absolute; inset: -6px; border-radius: 50%; }
 
   /* ---- ФИЛЬТРЫ: полноэкранная модалка ---- */
   .filterHost {
@@ -446,7 +448,6 @@
 @media (max-width: 560px) {
   /* на 375px слоган обрезался в «Стоит ли это поку…» — шум вместо смысла */
   .tagline { display: none; }
-  .thumb { width: 68px; height: 68px; }
   .cardName { font-size: 14px; }
   .mdPhoto { width: 74px; height: 74px; }
 }
@@ -566,18 +567,6 @@
 }
 .aptRow:hover { box-shadow: var(--shadow-sm); }
 .aptRowOn { box-shadow: inset 0 0 0 2px var(--accent); }
-.aptMedia { position: relative; display: block; background: var(--panel-2); }
-.aptStrip {
-  display: flex; overflow-x: auto; scroll-snap-type: x mandatory; aspect-ratio: 16 / 10;
-  scrollbar-width: none; -webkit-overflow-scrolling: touch;
-}
-.aptStrip::-webkit-scrollbar { display: none; }
-.aptStrip img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; scroll-snap-align: start; display: block; }
-.aptStripEmpty { display: flex; align-items: center; justify-content: center; aspect-ratio: 16 / 10; color: var(--text-faint); font-size: 26px; }
-.aptStripCount {
-  position: absolute; right: 8px; bottom: 8px; padding: 3px 8px; border-radius: 100px;
-  background: rgba(13, 17, 23, .6); color: var(--on-dark); font-size: 11px; font-weight: 600; pointer-events: none;
-}
 .aptRowBody { display: flex; flex-direction: column; gap: 3px; padding: 10px 12px 12px; min-width: 0; }
 .aptRowTop { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .aptRowPrice { font-size: 17px; font-weight: 750; color: var(--text); letter-spacing: -.01em; }

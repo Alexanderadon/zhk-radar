@@ -26,6 +26,11 @@ export default function Home() {
     seismicResistance: z.seismicResistance ?? null,
     finishing: z.finishing ?? null,
     image: z.image,
+    // до пяти снимков на карточку в списке: реальные фото (2GIS) вперёд, потом
+    // рендеры застройщика. Пять — компромисс: 841 ЖК × 5 ссылок ≈ 330 КБ до
+    // сжатия, полный набор весил бы втрое больше и лежал бы в HTML каждой загрузки.
+    photos: Array.from(new Set([...(z.realPhotos ?? []).map((p) => p.url), ...(z.photos ?? []), ...(z.image ? [z.image] : [])])).slice(0, 5),
+    photoCount: new Set([...(z.realPhotos ?? []).map((p) => p.url), ...(z.photos ?? []), ...(z.image ? [z.image] : [])]).size,
     band: z.scoreResult.band,
     score: z.scoreResult.score,
     deal: z.deal,
