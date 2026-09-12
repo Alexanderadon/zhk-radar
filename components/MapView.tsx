@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { BAND_COLOR, BAND_TEXT, BAND_LABEL } from '../lib/score';
+import { plural } from '../lib/plural';
 
 export interface MapPoint {
   id: number; slug: string; name: string; lat: number; lng: number;
@@ -758,7 +759,7 @@ function toGeoJSON(points: MapPoint[]) {
 
 function houseHtml(p: any) {
   return `<div class="zhk-pop"><div class="zp-title">${escapeHtml(p.addr || 'Дом')}</div>
-    <div class="zp-sub">${p.n} квартир в продаже · от ${escapeHtml(p.priceLabel.replace(/^от /, '').replace(/ · .*$/, ''))}</div>
+    <div class="zp-sub">${p.n} ${plural(Number(p.n), 'квартира', 'квартиры', 'квартир')} в продаже · от ${escapeHtml(p.priceLabel.replace(/^от /, '').replace(/ · .*$/, ''))}</div>
     <div class="zp-sub" style="margin-top:6px;opacity:.8">Нажмите — покажем список</div></div>`;
 }
 function aptHtml(p: any) {

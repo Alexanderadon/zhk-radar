@@ -9,6 +9,7 @@ import { useFavorites } from '../lib/useFavorites';
 import { useIsMobile, useIsTouch, useIsPhoneLandscape } from '../lib/useMediaQuery';
 import { useSheet } from '../lib/useSheet';
 import { CITIES, cityBySlug } from '../lib/cities';
+import { plural } from '../lib/plural';
 import AptCard, { aptThumb } from './AptCard';
 import type { MapPoint, MapDetail, Apt } from './MapView';
 
@@ -121,13 +122,6 @@ function Legend({ mode }: { mode: 'complexes' | 'apartments' }) {
   );
 }
 
-/** 1 квартира / 2 квартиры / 5 квартир — иначе счётчик читается как машинный. */
-function plural(n: number, one: string, few: string, many: string) {
-  const m10 = n % 10, m100 = n % 100;
-  if (m10 === 1 && m100 !== 11) return one;
-  if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
-  return many;
-}
 
 const fmtMln = (v: number | null) =>
   v ? `${(v / 1_000_000).toLocaleString('ru-RU', { maximumFractionDigits: 1 })} млн ₸` : null;
@@ -829,11 +823,20 @@ export default function HomeClient({ zhks, complexMap = {} }: { zhks: HomeZhk[];
           {showFaults && faultsNote && (
             <div className={s.faultsNote} role="status">
               <button type="button" className={s.faultsNoteClose} onClick={() => setFaultsNote(false)} aria-label="Закрыть пояснение"><Icon name="x" size={15} /></button>
-              <b>Оранжевый пунктир</b> — сеть разломов внутри города (оцифровано со статьи
-              Frontiers 2024, CC BY). <b>Сплошные красные</b> — очаги землетрясений 1887, 1889,
-              1911, разрушавших Алматы (отчёт JICA/OYO 2009).
-              Точность привязки измерена: медиана 281 м, у части линий до 900 м — это сопоставимо
-              с зоной отчуждения 300 м, поэтому <b>по конкретному дому судить нельзя</b>.
+              <div className={s.faultsRow}>
+                <span className={`${s.faultsSwatch} ${s.faultsSwatchCity}`} aria-hidden />
+                <span><b>Разломы внутри города.</b> Их 134, часть проходит под жилыми кварталами.</span>
+              </div>
+              <div className={s.faultsRow}>
+                <span className={`${s.faultsSwatch} ${s.faultsSwatchJica}`} aria-hidden />
+                <span><b>Очаги землетрясений</b> 1887, 1889 и 1911 годов — тех, что разрушали Алматы.</span>
+              </div>
+              <p className={s.faultsWarn}>
+                Линии нанесены с погрешностью: в среднем 281 м, местами до 900 м. Это больше зоны
+                отчуждения у разлома (300 м), так что <b>карта показывает, где опасный район, а не
+                стоит ли на разломе конкретный дом</b>.
+              </p>
+              <p className={s.faultsSrc}>Источники: Frontiers 2024 (CC BY), отчёт JICA/OYO 2009.</p>
             </div>
           )}
           <MapView points={points} selectedId={selected} onSelect={setSelected} activeDistrict={district} mode={mode} aptMarket={aptMarket} aptRooms={aptRooms} showSold={showSold} aptPrice={priceBucket ? { min: priceBucket.min, max: priceBucket.max } : null} favSet={favSet} onToggleFav={fav.toggle} touchMode={isTouch} onDetail={handleMapDetail} showFaults={showFaults} onAptsLoading={onAptsLoading} citySlug={citySlug} cityCenter={city.center} cityZoom={city.zoom} onAptsInView={onAptsInView} focusApt={focusApt} mapPadBottom={sheet.cover} />

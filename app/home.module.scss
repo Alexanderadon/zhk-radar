@@ -471,13 +471,22 @@
 }
 
 .faultsNote {
-  position: absolute; z-index: 3; top: 60px; right: 14px; max-width: 300px;
-  padding: 11px 13px; border-radius: var(--radius-sm);
+  position: absolute; z-index: 3; top: 60px; right: 14px; max-width: 320px;
+  /* справа место под крестик — иначе он ложится на первую строку */
+  padding: 12px 40px 11px 13px; border-radius: var(--radius-sm);
   background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(10px);
   border: 1px solid rgba(185, 28, 28, .3); box-shadow: var(--shadow);
-  font-size: 12px; line-height: 1.5; color: var(--text-dim);
+  font-size: 12.5px; line-height: 1.5; color: var(--text-dim);
+  display: flex; flex-direction: column; gap: 7px;
 }
 .faultsNote b { color: var(--text); font-weight: 650; }
+.faultsNote p { margin: 0; }
+.faultsRow { display: flex; align-items: flex-start; gap: 9px; }
+.faultsSwatch { flex: 0 0 22px; height: 0; margin-top: 8px; border-top: 3px solid currentColor; }
+.faultsSwatchCity { color: #c2410c; border-top-style: dashed; }
+.faultsSwatchJica { color: #b91c1c; }
+.faultsWarn { padding-top: 7px; border-top: 1px solid var(--border-soft); }
+.faultsSrc { font-size: 11px; color: var(--text-faint); }
 
 @media (max-width: 900px) {
   /* зум на мобиле уезжает вправо-вверх (top: 73px), поэтому тумблер — влево,
@@ -500,7 +509,7 @@
 .faultsNoteClose:active { background: var(--panel-2); }
 @media (max-width: 900px) {
   /* пояснение не должно съедать экран: ограничиваем высоту */
-  .faultsNote { max-height: 34dvh; overflow-y: auto; padding-right: 34px; }
+  .faultsNote { max-height: 40dvh; overflow-y: auto; }
 }
 
 /* ---- выбор города ---- */
