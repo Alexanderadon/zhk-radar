@@ -334,13 +334,22 @@ export default function MapView({
       const hoverApt = (e: maplibregl.MapLayerMouseEvent) => { if (touchModeRef.current) return; const f = e.features?.[0]; if (!f) return; const p = f.properties as any; if (('a' + p.id) === hovered) { hover.setLngLat((f.geometry as any).coordinates); return; } hovered = 'a' + p.id; m.getCanvas().style.cursor = 'pointer'; hover.setLngLat((f.geometry as any).coordinates).setHTML(Number(p.n) > 1 ? houseHtml(p) : aptHtml(p)).addTo(m); };
       m.on('mouseenter', 'apt-dot', hoverApt); m.on('mousemove', 'apt-dot', hoverApt);
       m.on('mouseleave', 'apt-dot', () => { hovered = null; m.getCanvas().style.cursor = ''; hover.remove(); });
+      // Клик по метке открывает карточку в приложении — и на десктопе тоже.
+      // Раньше здесь оставался window.open на krisha с тех времён, когда своей
+      // карточки не было: человек кликал по цене и улетал на чужой сайт.
       m.on('click', 'apt-dot', (e) => {
         if (touchModeRef.current) return;
         const f = e.features?.[0]; if (!f) return;
-        const p = f.properties as any;
-        if (Number(p.n) > 1) { openFeatureRef.current(p); return; }
-        window.open(`https://krisha.kz/a/show/${p.id}`, '_blank');
+        openFeatureRef.current(f.properties as any);
       });
+      // ценник крупнее точки — по нему тоже кликают
+      m.on('click', 'apt-price', (e) => {
+        if (touchModeRef.current) return;
+        const f = e.features?.[0]; if (!f) return;
+        openFeatureRef.current(f.properties as any);
+      });
+      m.on('mouseenter', 'apt-price', () => (m.getCanvas().style.cursor = 'pointer'));
+      m.on('mouseleave', 'apt-price', () => (m.getCanvas().style.cursor = ''));
 
       // apartment clusters: click to zoom in, cursor feedback
       m.on('click', 'apt-cluster', (e) => { if (touchModeRef.current) return; const f = m.queryRenderedFeatures(e.point, { layers: ['apt-cluster'] })[0]; if (!f) return; (m.getSource('apt') as any).getClusterExpansionZoom((f.properties as any).cluster_id).then((z: number) => m.easeTo({ center: (f.geometry as any).coordinates, zoom: Math.min(z + 0.5, 17) })).catch(() => {}); });

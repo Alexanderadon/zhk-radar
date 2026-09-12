@@ -147,7 +147,7 @@ const AptRow = memo(function AptRow({ a, active, onPick, zhk }: { a: Apt; active
       <span className={s.aptRowSide}>
         {zhk && zhk.score != null
           ? <span className={s.aptRowScore} style={{ color: BAND_TEXT[zhk.band] }} title={`${zhk.name}: защита покупателя ${zhk.score}/100`}>
-              <Icon name="shield" size={11} /> {zhk.score}
+              <Icon name="shieldSolid" size={12} /> {zhk.score}
             </span>
           : a.market === 'primary' && <span className={s.aptRowNew}>новостройка</span>}
         {a.price && a.square ? <span className={s.aptRowSqm}>{Math.round(a.price / a.square / 1000)} тыс/м²</span> : null}

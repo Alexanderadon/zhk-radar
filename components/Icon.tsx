@@ -8,6 +8,8 @@ const P: Record<string, string[]> = {
   camera: ['M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z', 'M12 17a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z'],
   mountain: ['m3 20 6.5-11 4 6 2.5-4L21 20z'],
   shield: ['M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z', 'm9 12 2 2 4-4'],
+  // сплошной щит для размеров ≤ 14px: контурный там нечитаем
+  shieldSolid: ['M12 1.8 3.5 5v6.6c0 5.7 3.6 10.7 8.5 12.4 4.9-1.7 8.5-6.7 8.5-12.4V5z'],
   search: ['M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z', 'm21 21-4.3-4.3'],
   pin: ['M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z', 'M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z'],
   left: ['m15 18-6-6 6-6'],
@@ -35,10 +37,14 @@ const P: Record<string, string[]> = {
   cart: ['M2 3h2l2.4 12.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6', 'M9 22a1 1 0 1 0 0-2 1 1 0 0 0 0 2z', 'M20 22a1 1 0 1 0 0-2 1 1 0 0 0 0 2z'],
 };
 
+/** Иконки-силуэты: заливка вместо штриха. */
+const SOLID = new Set<string>(['shieldSolid']);
+
 export default function Icon({ name, size = 18, stroke = 2, className, style, fill = 'none' }: { name: keyof typeof P | string; size?: number; stroke?: number; className?: string; style?: CSSProperties; fill?: string }) {
   const paths = P[name] || [];
+  const solid = SOLID.has(name);
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill={fill} stroke="currentColor" strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round" className={className} style={style} aria-hidden>
+    <svg width={size} height={size} viewBox="0 0 24 24" fill={solid ? 'currentColor' : fill} stroke={solid ? 'none' : 'currentColor'} strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round" className={className} style={style} aria-hidden>
       {paths.map((d, i) => <path key={i} d={d} />)}
     </svg>
   );
