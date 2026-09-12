@@ -715,3 +715,25 @@
    чтобы было видно, что отсюда куда-то ведёт. */
 .cardTappable { display: flex; color: inherit; }
 .cardTappable .cardName { color: var(--accent); }
+
+
+/* ---- ЖК В КАРТОЧКЕ КВАРТИРЫ ----
+   Ради этого блока сайт и существует: цена и метры есть у krisha, а
+   «защищены ли деньги и кто застройщик» — только здесь. */
+.aptZhk {
+  display: flex; flex-direction: column; gap: 4px;
+  margin-top: 4px; padding: 11px 13px 11px 14px; border-radius: var(--radius-sm);
+  background: var(--panel); border: 1px solid var(--border-soft); border-left: 3px solid var(--border);
+  color: var(--text); text-decoration: none; transition: background .12s;
+}
+.aptZhk:hover { background: var(--panel-2); }
+.aptZhkHead { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.aptZhkLabel { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--text-faint); }
+.aptZhkScore { font-size: 22px; font-weight: 780; line-height: 1; font-variant-numeric: tabular-nums; }
+.aptZhkScore small { font-size: 12px; font-weight: 500; color: var(--text-faint); }
+.aptZhkName { font-size: 15px; font-weight: 650; }
+.aptZhkSub { font-size: 12.5px; color: var(--text-dim); }
+.aptZhkGo { display: inline-flex; align-items: center; gap: 3px; margin-top: 4px; font-size: 13px; font-weight: 620; color: var(--accent); }
+
+/* бейдж защиты в строке списка — вместо чипа «новостройка», он и так очевиден по ЖК */
+.aptRowScore { display: inline-flex; align-items: center; gap: 3px; font-size: 12.5px; font-weight: 750; font-variant-numeric: tabular-nums; }

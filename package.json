@@ -12,7 +12,9 @@
     "lint": "eslint .",
     "collect": "node scripts/collect-korter.mjs && node scripts/enrich-korter.mjs",
     "collect:kzhk": "node scripts/collect-kzhk.mjs",
-    "collect:reviews": "node scripts/collect-reviews.mjs"
+    "collect:reviews": "node scripts/collect-reviews.mjs",
+    "test": "node --test lib/*.test.ts",
+    "link:complexes": "node scripts/fetch-complex-ids.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.110.8",

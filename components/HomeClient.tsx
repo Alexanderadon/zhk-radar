@@ -133,7 +133,7 @@ const fmtMln = (v: number | null) =>
   v ? `${(v / 1_000_000).toLocaleString('ru-RU', { maximumFractionDigits: 1 })} млн ₸` : null;
 
 /** Строка квартиры в списке. */
-const AptRow = memo(function AptRow({ a, active, onPick }: { a: Apt; active: boolean; onPick: (a: Apt) => void }) {
+const AptRow = memo(function AptRow({ a, active, onPick, zhk }: { a: Apt; active: boolean; onPick: (a: Apt) => void; zhk?: HomeZhk | null }) {
   return (
     <button type="button" className={`${s.aptRow} ${active ? s.aptRowOn : ''}`} onClick={() => onPick(a)}>
       {(() => { const t = aptThumb(a); return t
@@ -145,7 +145,11 @@ const AptRow = memo(function AptRow({ a, active, onPick }: { a: Apt; active: boo
         {a.addr && <span className={s.aptRowAddr}>{a.addr}</span>}
       </span>
       <span className={s.aptRowSide}>
-        {a.market === 'primary' && <span className={s.aptRowNew}>новостройка</span>}
+        {zhk && zhk.score != null
+          ? <span className={s.aptRowScore} style={{ color: BAND_TEXT[zhk.band] }} title={`${zhk.name}: защита покупателя ${zhk.score}/100`}>
+              <Icon name="shield" size={11} /> {zhk.score}
+            </span>
+          : a.market === 'primary' && <span className={s.aptRowNew}>новостройка</span>}
         {a.price && a.square ? <span className={s.aptRowSqm}>{Math.round(a.price / a.square / 1000)} тыс/м²</span> : null}
       </span>
     </button>
@@ -249,7 +253,17 @@ function MapDetailCard({ detail, onClose }: { detail: MapDetail; onClose: () => 
   );
 }
 
-export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
+export type ComplexLinkLite = { zhk: number; how: 'page' | 'centroid' };
+
+export default function HomeClient({ zhks, complexMap = {} }: { zhks: HomeZhk[]; complexMap?: Record<number, ComplexLinkLite> }) {
+  // ЖК по id — для карточек квартир в новостройках
+  const zhkById = useMemo(() => new Map(zhks.map((z) => [z.id, z])), [zhks]);
+  const zhkForApt = useCallback((a: Apt): { zhk: HomeZhk; how: 'page' | 'centroid' } | null => {
+    if (!a.complexId) return null;
+    const link = complexMap[a.complexId];
+    const z = link ? zhkById.get(link.zhk) : undefined;
+    return z ? { zhk: z, how: link.how } : null;
+  }, [complexMap, zhkById]);
   const [q, setQ] = useState('');
   const [citySlug, setCitySlug] = useState('almaty');
   const city = cityBySlug(citySlug);
@@ -721,7 +735,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
             </>
           ) : (
             <>
-            {openApt && <AptCard key={openApt.id} apt={openApt} onBack={() => setOpenApt(null)} />}
+            {openApt && <AptCard key={openApt.id} apt={openApt} onBack={() => setOpenApt(null)} link={zhkForApt(openApt)} />}
             <div className={`${s.resultBar} ${openApt ? s.hide : ''}`} {...sheet.headerDragProps}>
               <span>{aptsLoading && !aptList.length
                 ? 'Загружаем объявления…'
@@ -752,7 +766,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
               )}
               <div className={s.aptRows}>
                 {aptList.slice(0, aptShown).map((a) => (
-                  <AptRow key={a.id} a={a} active={focusApt?.id === a.id} onPick={onAptRow} />
+                  <AptRow key={a.id} a={a} active={focusApt?.id === a.id} onPick={onAptRow} zhk={zhkForApt(a)?.zhk ?? null} />
                 ))}
               </div>
               {aptList.length > aptShown && (

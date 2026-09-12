@@ -1,8 +1,11 @@
 'use client';
 import { useCallback, useRef, useState } from 'react';
+import Link from 'next/link';
 import Icon from './Icon';
 import s from '../app/home.module.scss';
+import { BAND_LABEL, BAND_TEXT } from '../lib/score';
 import type { Apt } from './MapView';
+import type { HomeZhk } from './HomeClient';
 
 /** Хост фотографий krisha одинаков у всех объявлений — в данных его не держим. */
 const PHOTO_ROOT = 'https://krisha-photos.kcdn.online/webp/';
@@ -41,7 +44,11 @@ const fmtM = (v: number | null) =>
  * фотографии был уход на krisha — то есть выход из приложения на первом же
  * интересном объявлении. Ссылка осталась, но уже как последний шаг.
  */
-export default function AptCard({ apt, onBack }: { apt: Apt; onBack: () => void }) {
+export default function AptCard({ apt, onBack, link }: {
+  apt: Apt; onBack: () => void;
+  /** ЖК, в котором продаётся квартира, и как мы это установили. */
+  link?: { zhk: HomeZhk; how: 'page' | 'centroid' } | null;
+}) {
   const photos = aptPhotos(apt);
   const [idx, setIdx] = useState(0);
   const strip = useRef<HTMLDivElement>(null);
@@ -130,6 +137,24 @@ export default function AptCard({ apt, onBack }: { apt: Apt; onBack: () => void 
               <Icon name="info" size={15} />
               <span>{[apt.ow, ownerType].filter(Boolean).join(' · ')}</span>
             </div>
+          )}
+
+          {link && (
+            <Link href={`/zhk${link.zhk.slug}`} className={s.aptZhk} style={{ borderLeftColor: BAND_TEXT[link.zhk.band] }}>
+              <span className={s.aptZhkHead}>
+                <span className={s.aptZhkLabel}><Icon name="shield" size={13} /> Защита покупателя в этом ЖК</span>
+                <span className={s.aptZhkScore} style={{ color: BAND_TEXT[link.zhk.band] }}>
+                  {link.zhk.score ?? '—'}<small>/100</small>
+                </span>
+              </span>
+              <span className={s.aptZhkName}>{link.zhk.name}</span>
+              <span className={s.aptZhkSub}>
+                {link.zhk.score != null ? BAND_LABEL[link.zhk.band] : 'мало данных'}
+                {link.zhk.developer ? ` · ${link.zhk.developer.name}` : ''}
+                {link.how === 'centroid' ? ' · привязка по координатам' : ''}
+              </span>
+              <span className={s.aptZhkGo}>Разбор ЖК <Icon name="right" size={13} /></span>
+            </Link>
           )}
 
           <p className={s.aptCardNote}>
