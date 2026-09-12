@@ -39,8 +39,8 @@ async function main() {
   const cards = [];
   for (let page = 1; page <= 61; page++) {
     let html; try { const r = await g(`https://krisha.kz/complex/search/almaty/?page=${page}`); if (r.status !== 200) break; html = await r.text(); } catch { break; }
-    const c = parseListing(html); let fresh = 0;
-    for (const x of c) if (!cards.find(y => y.alias === x.alias)) { cards.push(x); fresh++; }
+    const c = parseListing(html);
+    for (const x of c) if (!cards.find(y => y.alias === x.alias)) cards.push(x);
     if (page % 10 === 0) console.log(`  listing ${page}: total ${cards.length}`);
     if (c.length === 0) break;
     await sleep(300);

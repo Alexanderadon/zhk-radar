@@ -91,6 +91,8 @@ export default function MapView({
   onAptsLoadingRef.current = onAptsLoading;
   const padRef = useRef(mapPadBottom);
   padRef.current = mapPadBottom;
+  // положение шторки меняет видимую область — пересобираем список, не дожидаясь движения карты
+  useEffect(() => { emitRef.current(); }, [mapPadBottom]);
   const emitRef = useRef<() => void>(() => {});
   /** Границы районов: нужны и чтобы подлететь к выбранному, и чтобы отобрать квартиры. */
   const distIndex = useRef<Map<string, { bbox: [number, number, number, number]; rings: number[][][] }>>(new Map());
@@ -98,6 +100,8 @@ export default function MapView({
   const distApts = useRef<Map<string, Set<number>>>(new Map());
   const openFeatureRef = useRef<(p: any) => void>(() => {});
   const lastEmit = useRef<Apt[] | null>(null);
+  /** Номер загрузки объявлений: смена города посреди fetch делает старый ответ мусором. */
+  const loadGen = useRef(0);
   /**
    * Отступ снизу под шторку — но не больше 55% карты. Раскрытая на весь экран
    * шторка закрывает её целиком, и без ограничения «видимая область» схлопывалась
@@ -298,7 +302,7 @@ export default function MapView({
           'text-ignore-placement': ['step', ['zoom'], false, 15, true] as any,
           'icon-ignore-placement': ['step', ['zoom'], false, 15, true] as any,
           // при коллизии остаются те, что дешевле: их и ищут
-          'symbol-sort-key': ['/', ['get', 'price'], 1000000],
+          'symbol-sort-key': ['case', ['>', ['get', 'price'], 0], ['/', ['get', 'price'], 1000000], 9999],
         },
         paint: { 'text-color': ['match', ['get', 'market'], 'primary', '#15803d', '#334155'] },
       });
@@ -476,7 +480,11 @@ export default function MapView({
     const cb = onAptsInViewRef.current;
     const m = map.current;
     if (!cb || !m || !ready.current) return;
-    if (mode !== 'apartments') { lastEmit.current = null; cb([]); return; }
+    if (mode !== 'apartments') {
+      // один и тот же пустой массив: иначе каждый idle карты перерисовывал HomeClient
+      if (lastEmit.current !== EMPTY_APTS) { lastEmit.current = EMPTY_APTS; cb(EMPTY_APTS); }
+      return;
+    }
     const el = m.getContainer();
     const wpx = el.clientWidth, hpx = el.clientHeight;
     // контейнер ещё не разложен — пустой список тут был бы неправдой
@@ -492,8 +500,7 @@ export default function MapView({
     }
     // idle прилетает часто; если состав не изменился — не дёргаем React
     const prev = lastEmit.current;
-    if (prev && prev.length === out.length &&
-        (out.length === 0 || (prev[0] === out[0] && prev[prev.length - 1] === out[out.length - 1]))) return;
+    if (prev && prev.length === out.length && idSum(prev) === idSum(out)) return;
     lastEmit.current = out;
     cb(out);
   }
@@ -523,10 +530,18 @@ export default function MapView({
       if (!allApts.current && !loadingApts.current) {
         loadingApts.current = true;
         onAptsLoadingRef.current?.(true);
-        try { allApts.current = await (await fetch(`/listings${dataSuffix()}.json`)).json(); } catch { allApts.current = []; }
+        const gen = ++loadGen.current;
+        let data: Apt[] = [];
+        try { data = await (await fetch(`/listings${dataSuffix()}.json`)).json(); } catch { data = []; }
+        // за время загрузки сменили город — этот ответ уже никому не нужен
+        if (gen !== loadGen.current) return;
+        allApts.current = data;
         distApts.current.clear();
         loadingApts.current = false;
         onAptsLoadingRef.current?.(false);
+        // дальше — свежим замыканием: фильтры и режим могли поменяться, пока качали
+        applyModeRef.current();
+        return;
       } else if (!allApts.current) {
         // параллельный вызов уже качает файл — дожидаться нечего, но и врать,
         // что квартир нет, нельзя
@@ -551,7 +566,9 @@ export default function MapView({
   }
 
   applyModeRef.current = applyMode;
-  useEffect(() => { applyMode(); /* eslint-disable-next-line */ }, [mode, aptMarket, aptRooms, showSold, aptPrice, activeDistrict]);
+  // applyMode пересоздаётся каждый рендер: в зависимости его не кладём, иначе эффект крутится по кругу
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { applyMode(); }, [mode, aptMarket, aptRooms, showSold, aptPrice, activeDistrict]);
   useEffect(() => { const m = map.current; if (!m || !ready.current) return; const src = m.getSource('zhk') as maplibregl.GeoJSONSource | undefined; if (src) src.setData(toGeoJSON(points) as any); }, [points]);
   useEffect(() => {
     const m = map.current; if (!m || !ready.current) return;
@@ -566,7 +583,10 @@ export default function MapView({
       padding: { top: p.top + 24, left: 24, right: 24, bottom: p.bottom + 24 },
       duration: 700, maxZoom: 14.5,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeDistrict]);
+  // pad() читает ref, зависимостью быть не может — иначе эффект дёргался бы на каждом рендере
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { const m = map.current; if (!m || !ready.current) return; m.setFilter('zhk-selected', ['==', ['get', 'id'], selectedId ?? -1]); if (selectedId != null) { const p = points.find((x) => x.id === selectedId); if (p) m.flyTo({ center: [p.lng, p.lat], zoom: Math.max(m.getZoom(), 13.5), speed: 0.8, padding: pad() }); } }, [selectedId, points]);
   // выбор квартиры в списке: подлетаем и обводим — иначе список и карта живут порознь
   useEffect(() => {
@@ -597,6 +617,7 @@ export default function MapView({
   useEffect(() => {
     if (firstCity.current) { firstCity.current = false; return; }
     allApts.current = null; allSold.current = null; loadingApts.current = false; lastEmit.current = null; distApts.current.clear();
+    loadGen.current++; // ответ прежнего города, если он ещё летит, будет отброшен
     // границы районов собраны только для Алматы — в других городах их не рисуем
     const mm = map.current;
     if (mm) for (const id of ['district-fill', 'district-line', 'district-label']) {
@@ -640,6 +661,9 @@ function pointInRing(ring: number[][], x: number, y: number) {
   }
   return inside;
 }
+
+const EMPTY_APTS: Apt[] = [];
+function idSum(list: Apt[]) { let s = 0; for (const a of list) s += a.id; return s; }
 
 function emptyFC() { return { type: 'FeatureCollection', features: [] }; }
 function soldFC(sold: any[]) {

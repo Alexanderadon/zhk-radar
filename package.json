@@ -9,7 +9,7 @@
     "dev:clean": "node -e \"require('fs').rmSync('.next',{recursive:true,force:true})\" && next dev -p 3300",
     "build": "next build",
     "start": "next start -p 3300",
-    "lint": "next lint",
+    "lint": "eslint .",
     "collect": "node scripts/collect-korter.mjs && node scripts/enrich-korter.mjs",
     "collect:kzhk": "node scripts/collect-kzhk.mjs",
     "collect:reviews": "node scripts/collect-reviews.mjs"
@@ -22,9 +22,12 @@
     "react-dom": "19.0.0"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.7",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "15.5.21",
     "pdfjs-dist": "^4.10.38",
     "puppeteer-core": "^25.3.0",
     "sass": "^1.83.4",

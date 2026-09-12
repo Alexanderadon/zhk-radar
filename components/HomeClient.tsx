@@ -174,7 +174,7 @@ const ZhkCard = memo(function ZhkCard({
       className={`${s.card} ${isSelected ? s.cardActive : ''} ${openOnTap ? s.cardTappable : ''}`}
       onClick={() => onSelect(z.id)}
     >
-      {canFav && <button type="button" className={`${s.cardFav} ${isFav ? s.cardFavOn : ''}`} title={isFav ? 'Убрать из избранного' : 'Сохранить в избранное'} aria-label={isFav ? `Убрать ${z.name} из избранного` : `Сохранить ${z.name} в избранное`} aria-pressed={isFav} onClick={(e) => { e.stopPropagation(); onFav(z.id); }}>
+      {canFav && <button type="button" className={`${s.cardFav} ${isFav ? s.cardFavOn : ''}`} title={isFav ? 'Убрать из избранного' : 'Сохранить в избранное'} aria-label={isFav ? `Убрать ${z.name} из избранного` : `Сохранить ${z.name} в избранное`} aria-pressed={isFav} onClick={(e) => { e.preventDefault(); e.stopPropagation(); onFav(z.id); }}>
         <Icon name="heart" size={15} fill={isFav ? 'currentColor' : 'none'} />
       </button>}
       {z.image ? <img className={s.thumb} src={z.image} alt="" loading="lazy" /> : <div className={`${s.thumb} ${s.thumbEmpty}`} aria-hidden>◫</div>}
@@ -297,7 +297,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
   const onAptsInView = useCallback((list: Apt[]) => setAptsInView(list), []);
   const [aptsLoading, setAptsLoading] = useState(false);
   const onAptsLoading = useCallback((v: boolean) => setAptsLoading(v), []);
-  const toggleN = (set: Set<number>, v: number, upd: (s: Set<number>) => void) => { const n = new Set(set); n.has(v) ? n.delete(v) : n.add(v); upd(n); };
+  const toggleN = (set: Set<number>, v: number, upd: (s: Set<number>) => void) => { const n = new Set(set); if (n.has(v)) n.delete(v); else n.add(v); upd(n); };
   const [aptMetaError, setAptMetaError] = useState(false);
   useEffect(() => {
     if (mode !== 'apartments' || aptMeta) return;
@@ -416,7 +416,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
       requestAnimationFrame(() => cardRefs.current.get(d.id)?.scrollIntoView({ block: 'center', behavior: 'smooth' }));
       return;
     }
-    if (d.kind === 'apt') { setFocusApt(d.apt); setOpenApt(d.apt); sheet.setIndex(2); return; }
+    if (d.kind === 'apt') { setMapDetail(null); setFocusApt(d.apt); setOpenApt(d.apt); sheet.setIndex(2); return; }
     if (d.kind === 'building') {
       // несколько квартир в одной точке: карточкой их не показать — открываем список
       setBuilding({ key: d.key, addr: d.addr, apts: d.apts });
@@ -455,7 +455,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
   useEffect(() => { setAptMeta(null); }, [citySlug]);
 
   const toggle = (set: Set<string>, v: string, upd: (s: Set<string>) => void) => {
-    const n = new Set(set); n.has(v) ? n.delete(v) : n.add(v); upd(n);
+    const n = new Set(set); if (n.has(v)) n.delete(v); else n.add(v); upd(n);
   };
 
   const filtered = useMemo(() => {
@@ -721,7 +721,7 @@ export default function HomeClient({ zhks }: { zhks: HomeZhk[] }) {
             </>
           ) : (
             <>
-            {openApt && <AptCard apt={openApt} onBack={() => setOpenApt(null)} />}
+            {openApt && <AptCard key={openApt.id} apt={openApt} onBack={() => setOpenApt(null)} />}
             <div className={`${s.resultBar} ${openApt ? s.hide : ''}`} {...sheet.headerDragProps}>
               <span>{aptsLoading && !aptList.length
                 ? 'Загружаем объявления…'
