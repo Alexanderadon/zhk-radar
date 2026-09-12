@@ -555,26 +555,35 @@
 /* ---- СПИСОК КВАРТИР (режим «Квартиры») ----
    Раньше режим показывал только цифру «44 298 квартир» и точки на карте:
    ни пролистать, ни отсортировать объявления было нельзя. */
-.aptRows { display: flex; flex-direction: column; gap: 2px; margin: 0 -6px; }
+.aptRows { display: flex; flex-direction: column; gap: 12px; }
+/* Карточка: фото во всю ширину, листается, снизу цена и параметры. */
 .aptRow {
-  display: flex; align-items: center; gap: 11px; width: 100%; text-align: left;
-  padding: 8px 6px; border: none; background: transparent; border-radius: var(--radius-sm);
-  font-family: var(--font); cursor: pointer; transition: background .12s;
-  /* без JS-виртуализации: браузер не раскладывает строки за пределами экрана */
-  content-visibility: auto; contain-intrinsic-size: auto 78px;
+  display: flex; flex-direction: column; align-items: stretch; width: 100%; text-align: left;
+  padding: 0; border: 1px solid var(--border-soft); background: var(--bg-elev); border-radius: 14px;
+  overflow: hidden; font-family: var(--font); cursor: pointer; transition: box-shadow .12s;
+  /* без JS-виртуализации: браузер не раскладывает карточки за пределами экрана */
+  content-visibility: auto; contain-intrinsic-size: auto 312px;
 }
-.aptRow:hover { background: var(--panel-2); }
-.aptRow:active { background: var(--panel-2); }
-.aptRowOn { background: var(--accent-soft); box-shadow: inset 0 0 0 1px var(--accent); }
-.aptThumb { width: 62px; height: 62px; border-radius: 9px; object-fit: cover; flex-shrink: 0; background: var(--panel-2); }
-.aptThumbEmpty { display: flex; align-items: center; justify-content: center; color: var(--text-faint); font-size: 20px; }
-.aptRowBody { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
-.aptRowPrice { font-size: 15px; font-weight: 700; color: var(--text); letter-spacing: -.01em; }
-.aptRowSub { font-size: 12.5px; color: var(--text-dim); }
-.aptRowAddr { font-size: 12px; color: var(--text-faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.aptRowSide { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+.aptRow:hover { box-shadow: var(--shadow-sm); }
+.aptRowOn { box-shadow: inset 0 0 0 2px var(--accent); }
+.aptMedia { position: relative; display: block; background: var(--panel-2); }
+.aptStrip {
+  display: flex; overflow-x: auto; scroll-snap-type: x mandatory; aspect-ratio: 16 / 10;
+  scrollbar-width: none; -webkit-overflow-scrolling: touch;
+}
+.aptStrip::-webkit-scrollbar { display: none; }
+.aptStrip img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; scroll-snap-align: start; display: block; }
+.aptStripEmpty { display: flex; align-items: center; justify-content: center; aspect-ratio: 16 / 10; color: var(--text-faint); font-size: 26px; }
+.aptStripCount {
+  position: absolute; right: 8px; bottom: 8px; padding: 3px 8px; border-radius: 100px;
+  background: rgba(13, 17, 23, .6); color: var(--on-dark); font-size: 11px; font-weight: 600; pointer-events: none;
+}
+.aptRowBody { display: flex; flex-direction: column; gap: 3px; padding: 10px 12px 12px; min-width: 0; }
+.aptRowTop { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.aptRowPrice { font-size: 17px; font-weight: 750; color: var(--text); letter-spacing: -.01em; }
+.aptRowSub { font-size: 13px; color: var(--text-dim); }
+.aptRowAddr { font-size: 12.5px; color: var(--text-faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .aptRowNew { font-size: 11px; font-weight: 650; color: var(--green); background: var(--green-soft); padding: 2px 7px; border-radius: 6px; white-space: nowrap; }
-.aptRowSqm { font-size: 11.5px; color: var(--text-faint); white-space: nowrap; }
 .aptMore {
   align-self: stretch; min-height: 42px; border-radius: var(--radius-sm);
   border: 1px solid var(--border); background: var(--panel); color: var(--text-dim);
@@ -590,9 +599,7 @@
 .aptHow .aptSteps { margin-top: 10px; }
 
 @media (max-width: 900px) {
-  /* тач-цель строки: 62px миниатюра + отступы = 78px, больше не нужно */
-  .aptRow { padding: 8px 10px; }
-  .aptRows { margin: 0 -4px; }
+  .aptRow { border-radius: 12px; }
   .aptMore { min-height: var(--tap); }
   /* шторка: список квартир прокручивается как и список ЖК */
   .aptPanel { padding: 12px 12px calc(18px + var(--sab)); gap: 12px; }

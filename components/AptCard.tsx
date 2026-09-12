@@ -10,9 +10,12 @@ import type { HomeZhk } from './HomeClient';
 /** Хост фотографий krisha одинаков у всех объявлений — в данных его не держим. */
 const PHOTO_ROOT = 'https://krisha-photos.kcdn.online/webp/';
 
+/** Варианты, которые отдаёт CDN krisha (проверено HEAD-запросами): 800x600 и 1200x900 — 404. */
+const PHOTO_SIZE = { full: 'full', card: '750x470', thumb: '400x300' } as const;
+
 /** Все снимки объявления: папка одна, номера лежат отдельным списком. */
-export function aptPhotos(a: Apt, size: 'full' | 'thumb' = 'full'): string[] {
-  const suffix = size === 'full' ? 'full' : '400x300';
+export function aptPhotos(a: Apt, size: keyof typeof PHOTO_SIZE = 'full'): string[] {
+  const suffix = PHOTO_SIZE[size];
   if (a.pd && a.pi) {
     const ext = a.pe || 'jpg';
     const dir = a.pd.startsWith('http') ? a.pd : PHOTO_ROOT + a.pd;
@@ -20,11 +23,6 @@ export function aptPhotos(a: Apt, size: 'full' | 'thumb' = 'full'): string[] {
   }
   // старый срез данных: галереи нет, но одну картинку показать можем
   return a.photo ? [a.photo] : [];
-}
-
-/** Миниатюра для строки списка. */
-export function aptThumb(a: Apt): string | null {
-  return aptPhotos(a, 'thumb')[0] ?? null;
 }
 
 // значения krisha: specialist 22133, owner 21277, company 1263, complex 311

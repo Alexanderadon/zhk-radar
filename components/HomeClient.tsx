@@ -10,7 +10,7 @@ import { useIsMobile, useIsTouch, useIsPhoneLandscape } from '../lib/useMediaQue
 import { useSheet } from '../lib/useSheet';
 import { CITIES, cityBySlug } from '../lib/cities';
 import { plural } from '../lib/plural';
-import AptCard, { aptThumb } from './AptCard';
+import AptCard, { aptPhotos } from './AptCard';
 import type { MapPoint, MapDetail, Apt } from './MapView';
 
 const MapView = dynamic(() => import('./MapView'), { ssr: false, loading: () => <div className={s.mapSkeleton} /> });
@@ -127,24 +127,45 @@ const fmtMln = (v: number | null) =>
   v ? `${(v / 1_000_000).toLocaleString('ru-RU', { maximumFractionDigits: 1 })} млн ₸` : null;
 
 /** Строка квартиры в списке. */
+/** Сколько снимков листается прямо в списке; остальные — в карточке. */
+const STRIP_PHOTOS = 6;
+
+/**
+ * Карточка квартиры в списке: фото на всю ширину и листается пальцем, не выходя
+ * из списка. Квартиру выбирают глазами, по фото — миниатюра 62px для этого
+ * не годилась, по ней было видно только цвет обоев.
+ */
 const AptRow = memo(function AptRow({ a, active, onPick, zhk }: { a: Apt; active: boolean; onPick: (a: Apt) => void; zhk?: HomeZhk | null }) {
+  const photos = aptPhotos(a, 'card');
+  const strip = photos.slice(0, STRIP_PHOTOS);
   return (
     <button type="button" className={`${s.aptRow} ${active ? s.aptRowOn : ''}`} onClick={() => onPick(a)}>
-      {(() => { const t = aptThumb(a); return t
-        ? <img className={s.aptThumb} src={t} alt="" loading="lazy" />
-        : <div className={`${s.aptThumb} ${s.aptThumbEmpty}`} aria-hidden>◫</div>; })()}
-      <span className={s.aptRowBody}>
-        <span className={s.aptRowPrice}>{fmtMln(a.price) ?? 'цена не указана'}</span>
-        <span className={s.aptRowSub}>{[a.rooms ? `${a.rooms}-комн.` : null, a.square ? `${a.square} м²` : null, a.floor || null].filter(Boolean).join(' · ')}</span>
-        {a.addr && <span className={s.aptRowAddr}>{a.addr}</span>}
+      <span className={s.aptMedia}>
+        {strip.length ? (
+          <span className={s.aptStrip}>
+            {strip.map((u) => (
+              // все lazy: 30 карточек × 31 КБ разом — лишний мегабайт на списке
+              <img key={u} src={u} alt="" loading="lazy" decoding="async" draggable={false}
+                onError={(e) => { const t = e.currentTarget; if (!t.dataset.fb) { t.dataset.fb = '1'; t.src = u.replace('-750x470.', '-400x300.'); } }} />
+            ))}
+          </span>
+        ) : <span className={s.aptStripEmpty} aria-hidden>◫</span>}
+        {photos.length > 1 && <span className={s.aptStripCount}>{photos.length} фото</span>}
       </span>
-      <span className={s.aptRowSide}>
-        {zhk && zhk.score != null
-          ? <span className={s.aptRowScore} style={{ color: BAND_TEXT[zhk.band] }} title={`${zhk.name}: защита покупателя ${zhk.score}/100`}>
-              <Icon name="shieldSolid" size={12} /> {zhk.score}
-            </span>
-          : a.market === 'primary' && <span className={s.aptRowNew}>новостройка</span>}
-        {a.price && a.square ? <span className={s.aptRowSqm}>{Math.round(a.price / a.square / 1000)} тыс/м²</span> : null}
+      <span className={s.aptRowBody}>
+        <span className={s.aptRowTop}>
+          <span className={s.aptRowPrice}>{fmtMln(a.price) ?? 'цена не указана'}</span>
+          {zhk && zhk.score != null
+            ? <span className={s.aptRowScore} style={{ color: BAND_TEXT[zhk.band] }} title={`${zhk.name}: защита покупателя ${zhk.score}/100`}>
+                <Icon name="shieldSolid" size={12} /> {zhk.score}
+              </span>
+            : a.market === 'primary' && <span className={s.aptRowNew}>новостройка</span>}
+        </span>
+        <span className={s.aptRowSub}>
+          {[a.rooms ? `${a.rooms}-комн.` : null, a.square ? `${a.square} м²` : null, a.floor ? `${a.floor} эт.` : null,
+            a.price && a.square ? `${Math.round(a.price / a.square / 1000)} тыс/м²` : null].filter(Boolean).join(' · ')}
+        </span>
+        {a.addr && <span className={s.aptRowAddr}>{a.addr}</span>}
       </span>
     </button>
   );
