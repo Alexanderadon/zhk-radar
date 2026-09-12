@@ -151,18 +151,20 @@ test('linkComplexes: имя krisha сопоставляется с запись�
   assert.equal(map[77]?.zhk, 555);
 });
 
-test('linkComplexes: точная привязка отвергается, если квартиры далеко от ЖК', () => {
-  // data-id со страницы указал не на тот комплекс: квартиры за 3 км
+test('linkComplexes: точная привязка отвергается, если квартиры далеко от ЖК — и не уходит соседу', () => {
+  // Страница krisha говорит «Каспий», а квартиры лежат за 3 км — рядом с «Другой».
+  // Мы знаем, чьи это квартиры (Каспий), просто у кого-то левая точка.
+  // Привязать их к «Другому» по центроиду — показать чужой балл на чужих квартирах.
   const zhks = [Z(1, 43.29486, 76.83043, 'Каспий'), Z(2, 43.3230, 76.8600, 'Другой')];
   const apartments = [apt(13619455, 43.3229, 76.8601)];
-  const { map } = linkComplexes({
+  const { map, stats } = linkComplexes({
     apartments, zhks,
     krishaZhks: [{ slug: '/complex/show/almaty/kaspii', name: 'Каспий' }],
     slugToComplexId: { '/complex/show/almaty/kaspii': 13619455 },
   });
-  // не «Каспий» по имени, а «Другой» по центроиду
-  assert.equal(map[13619455]?.zhk, 2);
-  assert.equal(map[13619455]?.how, 'centroid');
+  assert.equal(map[13619455], undefined);
+  assert.equal(stats.pageRejected, 1);
+  assert.equal(stats.unmatched, 1);
 });
 
 test('linkComplexes: complexId без страницы — запасной путь по центроиду', () => {

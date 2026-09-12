@@ -4,10 +4,11 @@
  * У квартиры krisha есть числовой complexId, у нашей карточки ЖК — слаг
  * страницы krisha (и только у тех, что пришли из krisha). Общего ключа нет.
  * Склеиваем в два прохода:
- *  1. «page» — точно: со страницы ЖК на krisha читаем data-id (это и есть
- *     complexId), имя ЖК krisha сводим к нашей записи через matchKey. Результат
- *     проверяем геометрией — если квартиры комплекса лежат далеко от точки
- *     ЖК, страница указала не туда, и такую пару не берём.
+ *  1. «page» — точно: со страницы ЖК на krisha читаем complexId, имя ЖК krisha
+ *     сводим к нашей записи через matchKey. Результат проверяем геометрией —
+ *     если квартиры комплекса лежат далеко от точки ЖК, пару не берём и в
+ *     запасной путь такой комплекс не отдаём: чьи это квартиры, мы уже знаем,
+ *     сосед в 250 м будет чужим.
  *  2. «centroid» — запасной: медианная точка квартир комплекса и ближайший ЖК
  *     того же города. Только если он в радиусе и второй кандидат заметно
  *     дальше — соседние корпуса разных ЖК угадывать нельзя.
@@ -129,6 +130,7 @@ export function linkComplexes(args: {
   const groups = groupByComplex(apartments);
   const map: ComplexMap = {};
   const stats = { complexes: groups.size, page: 0, centroid: 0, unmatched: 0, pageRejected: 0 };
+  const rejected = new Set<number>();
 
   // имя → наши ЖК (одно имя может встретиться в нескольких городах)
   const byKey = new Map<string, ZhkLite[]>();
@@ -151,7 +153,14 @@ export function linkComplexes(args: {
     const ranked = candidates
       .map((z) => ({ zhk: z, dist: haversineM(c, { lat: z.lat as number, lng: z.lng as number }) }))
       .sort((a, b) => a.dist - b.dist);
-    if (ranked[0].dist > PAGE_SANITY_M) { stats.pageRejected++; continue; }
+    if (ranked[0].dist > PAGE_SANITY_M) {
+      // Имя сошлось, а геометрия — нет: либо у ЖК левая точка, либо страница
+      // krisha ведёт не туда. В обоих случаях «ближайший сосед» будет чужим ЖК
+      // с чужим баллом — лучше оставить без привязки, чем привязать не туда.
+      stats.pageRejected++;
+      rejected.add(id);
+      continue;
+    }
     map[id] = { zhk: ranked[0].zhk.id, how: 'page', dist: Math.round(ranked[0].dist) };
     stats.page++;
   }
@@ -159,6 +168,7 @@ export function linkComplexes(args: {
   // 2. запасной путь для остального
   for (const [id, g] of groups) {
     if (map[id]) continue;
+    if (rejected.has(id)) { stats.unmatched++; continue; }
     const m = matchByCentroid(centroid(g.pts), zhks, g.city);
     if (m) { map[id] = { zhk: m.zhk.id, how: 'centroid', dist: Math.round(m.dist) }; stats.centroid++; }
     else stats.unmatched++;

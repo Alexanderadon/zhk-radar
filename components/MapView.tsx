@@ -132,9 +132,11 @@ export default function MapView({
     // бесполезно, ловим момент наблюдателем. После первого тапа по ⓘ
     // отходим в сторону: дальше человек управляет сам.
     const attribEl = m.getContainer().querySelector('.maplibregl-ctrl-attrib');
-    if (attribEl && window.matchMedia('(max-width: 900px)').matches) {
+    if (attribEl) {
+      const narrow = window.matchMedia('(max-width: 900px)');
       const collapse = () => {
-        if (attribEl.classList.contains('maplibregl-compact-show')) {
+        // ширину проверяем при каждом срабатывании: планшет могут повернуть
+        if (narrow.matches && attribEl.classList.contains('maplibregl-compact-show')) {
           attribEl.classList.remove('maplibregl-compact-show');
           attribEl.removeAttribute('open');
         }
@@ -792,7 +794,7 @@ function aptHtml(p: any) {
     <div style="font-size:18px;font-weight:770;color:#14181f;letter-spacing:-.01em">${price}</div>
     <div style="font-size:12.5px;color:#5b6472;margin:3px 0 4px">${line}</div>
     <div style="font-size:12px;color:#6b7480">${escapeHtml(p.addr || '')}</div>
-    <div style="font-size:11.5px;margin-top:7px">${mk} <span style="color:#b3bbc6">·</span> <span style="color:#2f6bed;font-weight:600">открыть на krisha ↗</span></div>
+    <div style="font-size:11.5px;margin-top:7px">${mk} <span style="color:#b3bbc6">·</span> <span style="color:#2f6bed;font-weight:600">нажмите — откроем карточку</span></div>
   </div></div>`;
 }
 function heartSvg(filled: boolean) {

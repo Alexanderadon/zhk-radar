@@ -29,11 +29,13 @@ let done = 0, ok = 0, miss = 0, fail = 0;
 for (const z of todo) {
   const url = `https://krisha.kz${z.slug}`;
   let id = null;
+  let fetched = false; // страницу получили — даже если id на ней не нашлось
   for (let attempt = 0; attempt < 2 && id === null; attempt++) {
     try {
       const r = await fetch(url, { headers: { 'User-Agent': UA, 'Accept-Language': 'ru' } });
-      if (r.status === 404) { id = null; break; }
+      if (r.status === 404) { fetched = true; break; }
       if (!r.ok) { await sleep(1500); continue; }
+      fetched = true;
       id = parseComplexId(await r.text());
       break;
     } catch {
@@ -41,11 +43,14 @@ for (const z of todo) {
     }
   }
   known[z.slug] = id;
-  if (id) ok++; else miss++;
+  // null хранится в обоих случаях (следующий запуск переспросит), но в отчёте
+  // «страница без id» и «страницу не отдали» — разные вещи: второе значит,
+  // что нас режут, и повторять тем же способом бессмысленно
+  if (id) ok++; else if (fetched) miss++; else fail++;
   done++;
   if (done % 25 === 0) {
     fs.writeFileSync(OUT, JSON.stringify(known, null, 1));
-    console.log(`  ${done}/${todo.length} · найдено ${ok} · без id ${miss}`);
+    console.log(`  ${done}/${todo.length} · найдено ${ok} · без id ${miss} · не отдали ${fail}`);
   }
   await sleep(450);
 }
