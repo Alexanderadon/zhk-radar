@@ -732,7 +732,7 @@
 .aptZhk {
   display: flex; flex-direction: column; gap: 4px;
   margin-top: 4px; padding: 11px 13px 11px 14px; border-radius: var(--radius-sm);
-  background: var(--panel); border: 1px solid var(--border-soft); border-left: 3px solid var(--border);
+  background: var(--panel); border: 1px solid var(--border-soft);
   color: var(--text); text-decoration: none; transition: background .12s;
 }
 .aptZhk:hover { background: var(--panel-2); }

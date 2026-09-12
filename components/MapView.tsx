@@ -83,6 +83,7 @@ export default function MapView({
   const applyModeRef = useRef<() => void>(() => {});
   const navCleanup = useRef<() => void>(() => {});
   const labelCleanup = useRef<() => void>(() => {});
+  const attribCleanup = useRef<() => void>(() => {});
   const citySlugRef = useRef(citySlug);
   citySlugRef.current = citySlug;
   const dataSuffix = () => (citySlugRef.current === 'almaty' ? '' : `-${citySlugRef.current}`);
@@ -124,6 +125,26 @@ export default function MapView({
     // На узком экране низ занят шторкой, поэтому зум уезжает вправо-вверх,
     // а копирайт — влево-вниз (иначе оба оказываются под шторкой).
     m.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
+    // compact у maplibre стартует РАСКРЫТЫМ (класс maplibregl-compact-show) и
+    // так и висит, пока не тапнут ⓘ: на телефоне это белая полоса во весь экран.
+    // Причём класс появляется не при добавлении контрола, а когда догрузится
+    // стиль и у источников найдётся копирайт — поэтому сворачивать «сразу»
+    // бесполезно, ловим момент наблюдателем. После первого тапа по ⓘ
+    // отходим в сторону: дальше человек управляет сам.
+    const attribEl = m.getContainer().querySelector('.maplibregl-ctrl-attrib');
+    if (attribEl && window.matchMedia('(max-width: 900px)').matches) {
+      const collapse = () => {
+        if (attribEl.classList.contains('maplibregl-compact-show')) {
+          attribEl.classList.remove('maplibregl-compact-show');
+          attribEl.removeAttribute('open');
+        }
+      };
+      const obs = new MutationObserver(collapse);
+      obs.observe(attribEl, { attributes: true, attributeFilter: ['class'] });
+      attribEl.addEventListener('pointerdown', () => obs.disconnect(), { once: true });
+      attribCleanup.current = () => obs.disconnect();
+      collapse();
+    }
     // Угол зависит от ширины, поэтому переезжает при повороте экрана —
     // иначе после поворота планшета кнопки остаются не на месте.
     const mq = window.matchMedia('(max-width: 900px)');
@@ -152,7 +173,7 @@ export default function MapView({
     };
     placeNav();
     mq.addEventListener('change', placeNav);
-    navCleanup.current = () => { mq.removeEventListener('change', placeNav); labelCleanup.current(); nav = null; geo = null; };
+    navCleanup.current = () => { mq.removeEventListener('change', placeNav); labelCleanup.current(); attribCleanup.current(); nav = null; geo = null; };
     // компаса нет, поэтому случайный поворот/наклон пальцами было бы нечем вернуть
     m.touchZoomRotate.disableRotation();
     m.touchPitch.disable();

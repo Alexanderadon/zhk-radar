@@ -140,7 +140,7 @@ export default function AptCard({ apt, onBack, link }: {
           )}
 
           {link && (
-            <Link href={`/zhk${link.zhk.slug}`} className={s.aptZhk} style={{ borderLeftColor: BAND_TEXT[link.zhk.band] }}>
+            <Link href={`/zhk${link.zhk.slug}`} className={s.aptZhk}>
               <span className={s.aptZhkHead}>
                 <span className={s.aptZhkLabel}><Icon name="shieldSolid" size={13} /> Защита покупателя в этом ЖК</span>
                 <span className={s.aptZhkScore} style={{ color: BAND_TEXT[link.zhk.band] }}>

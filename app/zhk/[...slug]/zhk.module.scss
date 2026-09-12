@@ -52,12 +52,12 @@
   padding: 14px; display: flex; flex-direction: column; gap: 10px;
 }
 /* Карточка на индикатор: название и балл рядом, шкала со своей подписью в одну
-   строку, объяснение — отдельным ярусом и явно вторичным весом. Цветная полоса
-   слева даёт понять зону, не заставляя читать. */
+   строку, объяснение — отдельным ярусом и явно вторичным весом. Зону несёт цвет балла
+   и шкалы — других цветовых акцентов не нужно. */
 .indRow {
   display: flex; flex-direction: column; gap: 9px;
   padding: 13px 15px; border-radius: 10px; background: var(--bg-elev);
-  border: 1px solid var(--border-soft); border-left: 3px solid var(--border);
+  border: 1px solid var(--border-soft);
 }
 .indHead { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .indName { font-size: 14.5px; font-weight: 650; }

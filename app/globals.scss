@@ -128,6 +128,11 @@ svg { display: block; }
 .maplibregl-ctrl-group button + button { border-top: 1px solid var(--border-soft) !important; }
 .maplibregl-ctrl-attrib { background: rgba(255, 255, 255, 0.75) !important; }
 .maplibregl-ctrl-attrib a { color: var(--text-faint) !important; }
+/* раскрытый копирайт на телефоне — компактный пузырь, а не полоса во всю ширину */
+@media (max-width: 900px) {
+  .maplibregl-ctrl-attrib.maplibregl-compact-show { max-width: min(78vw, 320px); font-size: 11px !important; line-height: 1.35; padding: 4px 30px 4px 8px !important; }
+  .maplibregl-ctrl-attrib.maplibregl-compact:not(.maplibregl-compact-show) { background: rgba(255, 255, 255, .9) !important; }
+}
 
 @media (max-width: 900px) {
   /* кнопки карты 29px — мимо них промахиваешься */

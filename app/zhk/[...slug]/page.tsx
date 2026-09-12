@@ -134,7 +134,7 @@ export default async function ZhkPage({ params }: { params: Promise<{ slug: stri
           {sr.indicators.map((ind) => {
             const c = BAND_COLOR[ind.band];
             return (
-              <div key={ind.key} className={s.indRow} style={{ borderLeftColor: ind.score == null ? 'var(--border)' : c }}>
+              <div key={ind.key} className={s.indRow}>
                 <div className={s.indHead}>
                   <span className={s.indName}>{ind.name}</span>
                   <span
