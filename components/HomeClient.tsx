@@ -90,13 +90,15 @@ const DISTRICTS = [
  * переезжает в шапку шторки, освобождая ~57px карты. Лишний экземпляр скрыт
  * через display:none, поэтому в дерево доступности попадает только один.
  */
-function ModeToggle({ mode, favOnly, onPick }: {
+function ModeToggle({ mode, favOnly, onPick, compact = false }: {
   mode: 'complexes' | 'apartments'; favOnly: boolean; onPick: (m: 'complexes' | 'apartments') => void;
+  /** в шапке шторки рядом стоят ещё две кнопки — длинная подпись переносилась на две строки */
+  compact?: boolean;
 }) {
   return (
     <div className={s.modeToggle}>
-      <button type="button" className={mode === 'complexes' && !favOnly ? s.modeActive : ''} onClick={() => onPick('complexes')}><Icon name="building" size={16} /> <span>ЖК-комплексы</span></button>
-      <button type="button" className={mode === 'apartments' ? s.modeActive : ''} onClick={() => onPick('apartments')}><Icon name="key" size={16} /> <span>Квартиры</span></button>
+      <button type="button" className={mode === 'complexes' && !favOnly ? s.modeActive : ''} onClick={() => onPick('complexes')}>{!compact && <Icon name="building" size={16} />} <span>{compact ? 'ЖК' : 'ЖК-комплексы'}</span></button>
+      <button type="button" className={mode === 'apartments' ? s.modeActive : ''} onClick={() => onPick('apartments')}>{!compact && <Icon name="key" size={16} />} <span>Квартиры</span></button>
     </div>
   );
 }
@@ -329,6 +331,8 @@ export default function HomeClient({ zhks, complexMap = {} }: { zhks: HomeZhk[];
   const [cityOpen, setCityOpen] = useState(false);
   /** На телефоне поиск свёрнут в кружок: развёрнутое поле закрывало карту. */
   const [searchOpen, setSearchOpen] = useState(false);
+  /** Поиск внутри шторки: когда она раскрыта на весь экран, плавающее поле над картой недоступно. */
+  const [sheetSearch, setSheetSearch] = useState(false);
   const searchInput = useRef<HTMLInputElement>(null);
   const cityWrap = useRef<HTMLDivElement>(null);
   // снимать флаг загрузки здесь нельзя: пока качается файл, карта успевает
@@ -715,7 +719,33 @@ export default function HomeClient({ zhks, complexMap = {} }: { zhks: HomeZhk[];
             />
           </div>
 
-          <div className={s.sheetMode} {...sheet.headerDragProps}><ModeToggle mode={mode} favOnly={favOnly} onPick={pickMode} /></div>
+          {/* Шапка шторки. Раньше тут был только переключатель режима, а поиск и
+              фильтры жили над картой — и при раскрытой на весь экран шторке
+              оказывались под ней: листаешь список, а отфильтровать нечем. */}
+          <div className={s.sheetHead} {...sheet.headerDragProps}>
+            {sheetSearch || q ? (
+              <div className={s.sheetSearch}>
+                <Icon name="search" size={16} />
+                <input
+                  className={s.sheetSearchInput}
+                  placeholder={mode === 'apartments' ? 'Поиск по адресу…' : 'ЖК, застройщик, район…'}
+                  value={q}
+                  onChange={(e) => setQ(e.target.value)}
+                  autoFocus
+                />
+                <button type="button" className={s.sheetIconBtn} onClick={() => { setQ(''); setSheetSearch(false); }} aria-label="Закрыть поиск"><Icon name="x" size={16} /></button>
+              </div>
+            ) : (
+              <>
+                <ModeToggle mode={mode} favOnly={favOnly} onPick={pickMode} compact />
+                <button type="button" className={s.sheetIconBtn} onClick={() => setSheetSearch(true)} aria-label="Поиск"><Icon name="search" size={17} /></button>
+              </>
+            )}
+            <button type="button" className={`${s.sheetIconBtn} ${activeCount ? s.sheetIconBtnOn : ''}`} onClick={() => setFiltersOpen(true)} aria-label={`Фильтры${activeCount ? `, активно: ${activeCount}` : ''}`}>
+              <Icon name="sliders" size={17} />
+              {activeCount > 0 && <span className={s.filterCount}>{activeCount}</span>}
+            </button>
+          </div>
 
           {mapDetail && <MapDetailCard detail={mapDetail} onClose={() => setMapDetail(null)} />}
 

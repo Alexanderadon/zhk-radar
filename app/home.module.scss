@@ -56,7 +56,7 @@
 
 /* Кнопка «Фильтры», ручка шторки, переключатель и легенда внутри шторки —
    только мобильные, на десктопе их нет */
-.filterBtn, .grip, .sheetMode, .listLegend { display: none; }
+.filterBtn, .grip, .sheetHead, .listLegend { display: none; }
 
 .filters { padding: 14px 16px; border-bottom: 1px solid var(--border-soft); }
 
@@ -345,7 +345,7 @@
   .legend { display: none; }
   .listLegend {
     display: flex; flex-direction: row; flex-wrap: nowrap; overflow-x: auto;
-    gap: 12px; margin: 2px 2px 8px; padding: 7px 10px;
+    gap: 12px; margin: 0 2px 8px; padding: 5px 10px;
     background: var(--panel); border: 1px solid var(--border-soft); border-radius: 10px;
     font-size: 11px; scrollbar-width: none; -webkit-overflow-scrolling: touch;
   }
@@ -369,24 +369,45 @@
   /* во весь экран скругление сверху выглядит как незакрытое окно */
   .sidebarFull { border-radius: 0; }
 
-  .grip { display: flex; justify-content: center; padding: 8px 0 4px; flex-shrink: 0; }
+  .grip { display: flex; justify-content: center; padding: 6px 0 2px; flex-shrink: 0; }
   .gripBar {
-    position: relative; width: 42px; height: 5px; padding: 0; border: none;
-    border-radius: 3px; background: #cfd6e0; cursor: pointer;
+    position: relative; width: 36px; height: 4px; padding: 0; border: none;
+    border-radius: 2px; background: #cfd6e0; cursor: pointer;
   }
-  .gripBar::before { content: ''; position: absolute; inset: -19px -30px; } /* тач-таргет 44px */
+  .gripBar::before { content: ''; position: absolute; inset: -18px -30px; } /* тач-таргет 44px */
   .gripBar:active { background: #a9b3c1; }
 
   .sheetOnly { display: flex; }
   /* переключатель режима — в шапке шторки: виден в любом её положении и
      освобождает наверху ~57px карты */
   .modeRow { display: none; }
-  .sheetMode { display: block; padding: 4px 12px 6px; }
+  /* Шапка шторки: режим, поиск и фильтры в одну строку 40px. Прежний
+     переключатель на 50px с отступами и отдельной ручкой съедал ~130px
+     сверху, а фильтры при раскрытой шторке были недоступны вовсе. */
+  .sheetHead { display: flex; align-items: center; gap: 8px; padding: 2px 12px 8px; }
+  .sheetHead .modeToggle { flex: 1; min-width: 0; margin: 0; padding: 3px; }
+  .sheetHead .modeToggle button { min-height: 34px; padding: 6px 4px; font-size: 13px; gap: 5px; }
+  .sheetIconBtn {
+    position: relative; flex: 0 0 40px; width: 40px; height: 40px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border: 1px solid var(--border); border-radius: 10px; background: var(--panel); color: var(--text-dim);
+    cursor: pointer;
+  }
+  .sheetIconBtn:active { background: var(--panel-2); }
+  .sheetIconBtnOn { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .sheetIconBtn .filterCount { position: absolute; top: -6px; right: -6px; }
+  .sheetSearch {
+    flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px;
+    height: 40px; padding: 0 6px 0 12px; border-radius: 10px;
+    border: 1px solid var(--accent); background: var(--panel); color: var(--text-faint);
+  }
+  .sheetSearchInput { flex: 1; min-width: 0; border: none; background: transparent; font: inherit; font-size: 16px; color: var(--text); outline: none; }
+  .sheetSearch .sheetIconBtn { flex: 0 0 32px; width: 32px; height: 32px; border: none; background: transparent; }
   /* «15 542 квартиры в этой области» + селект сортировки должны влезать в
      375px одной строкой: на двух строках шапка съедает высоту peek. */
-  .resultBar { padding: 6px 12px 10px; gap: 8px; font-size: 13.5px; font-weight: 600; color: var(--text); }
+  .resultBar { padding: 2px 12px 8px; gap: 8px; font-size: 13.5px; font-weight: 600; color: var(--text); }
   .resultBar > span { font-size: 13px; min-width: 0; }
-  .sortSel { min-height: 36px; max-width: 152px; font-size: 13px; padding: 4px 6px; }
+  .sortSel { min-height: 32px; max-width: 152px; font-size: 13px; padding: 3px 6px; }
   /* оба — контейнеры прокрутки внутри шторки, иначе содержимое не долистать */
   .list, .aptPanel {
     flex: 1; min-height: 0; overflow-y: auto;
@@ -607,7 +628,7 @@
     transform: none !important; transition: none;
   }
   .grip { display: none; }
-  .sheetMode { padding: 10px 10px 6px; }
+  .sheetHead { padding: 10px 10px 6px; }
   /* поиск занимает только свободную часть экрана слева от колонки */
   .controls { right: min(46%, 360px); padding-right: 10px; }
   .legend { display: none; }

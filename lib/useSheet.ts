@@ -15,9 +15,9 @@ const useIsoLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : use
  * поэтому DOM один и тот же на десктопе и на мобиле — без рассинхрона гидратации.
  * На десктопе (enabled = false) хук не делает ничего.
  */
-// В свёрнутом виде оставляем только ручку и переключатель режима (~77px):
+// В свёрнутом виде видны ручка и строка «режим + поиск + фильтры» (~62px):
 // свёрнутая шторка нужна, чтобы смотреть карту, а не список.
-export function useSheet(enabled: boolean, peekPx = 96) {
+export function useSheet(enabled: boolean, peekPx = 74) {
   const sheetRef = useRef<HTMLElement | null>(null);
   const scrollRef = useRef<HTMLElement | null>(null);
   const [index, setIndex] = useState<SnapIndex>(1);
