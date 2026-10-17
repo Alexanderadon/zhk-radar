@@ -1,11 +1,11 @@
 {
- "updatedAt": "2026-09-07T15:00:25.618Z",
- "intervalDays": 3,
- "total": 794,
- "primary": 96,
- "secondary": 698,
- "addedToday": 68,
- "soldToday": 80,
- "soldRecent": 80,
- "requests": 199
+ "updatedAt": "2026-10-14T05:00:21.459Z",
+ "intervalDays": 37,
+ "total": 796,
+ "primary": 99,
+ "secondary": 697,
+ "addedToday": 329,
+ "soldToday": 327,
+ "soldRecent": 407,
+ "requests": 215
 }
