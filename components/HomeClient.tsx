@@ -1,6 +1,7 @@
 'use client';
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import s from '../app/home.module.scss';
 import { BAND_COLOR, BAND_TEXT, BAND_LABEL } from '../lib/score';
@@ -11,6 +12,8 @@ import { useSheet } from '../lib/useSheet';
 import { CITIES, cityBySlug } from '../lib/cities';
 import { plural } from '../lib/plural';
 import AptCard, { aptPhotos } from './AptCard';
+import Logo from './Logo';
+import Landing, { type IntroData } from './Landing';
 import type { MapPoint, MapDetail, Apt } from './MapView';
 
 const MapView = dynamic(() => import('./MapView'), { ssr: false, loading: () => <div className={s.mapSkeleton} /> });
@@ -108,21 +111,30 @@ function ModeToggle({ mode, favOnly, onPick, compact = false }: {
  * списка: плавающей она стояла внизу и при стартовом положении шторки была
  * не видна вообще, а сверху отнимала и без того узкую полосу карты.
  */
-function Legend({ mode }: { mode: 'complexes' | 'apartments' }) {
+function Legend({ mode, band, onBand }: { mode: 'complexes' | 'apartments'; band?: Set<string>; onBand?: (b: string) => void }) {
   if (mode === 'complexes') {
+    // легенда заодно и быстрый фильтр: «Высокая защита» — одно нажатие, без панели фильтров
     return (
       <>
-        {BANDS.map((b) => (<div key={b} className={s.legendRow}><span className={s.legendDot} style={{ background: BAND_COLOR[b] }} /> {BAND_LABEL[b]}</div>))}
-        <div className={s.legendRow} style={{ marginTop: 4, borderTop: '1px solid var(--border-soft)', paddingTop: 8, color: 'var(--green)' }}><Icon name="flame" size={13} /> выгодная цена</div>
+        {BANDS.map((b) => {
+          const on = !!band?.has(b);
+          return (
+            <button key={b} type="button" className={`${s.legendRow} ${s.legendBtn} ${on ? s.legendOn : ''}`} aria-pressed={on}
+              onClick={() => onBand?.(b)} style={on ? { color: BAND_TEXT[b], borderColor: BAND_COLOR[b], background: `${BAND_COLOR[b]}1f` } : undefined}
+              title={on ? 'Показать все уровни' : `Показать только: ${BAND_LABEL[b].toLowerCase()}`}>
+              <span className={s.legendDot} style={{ background: BAND_COLOR[b] }} /> {BAND_LABEL[b]}
+            </button>
+          );
+        })}
       </>
     );
   }
   return (
     <>
-      <div className={s.legendRow}><span className={s.legendDot} style={{ background: '#5f95e3' }} /> кластер — число предложений</div>
+      <div className={s.legendRow}><span className={s.legendDot} style={{ background: '#4d5cb8' }} /> кластер — число предложений</div>
       <div className={s.legendRow}><span className={s.legendDot} style={{ background: '#16a34a' }} /> первичка (новостройка)</div>
       <div className={s.legendRow}><span className={s.legendDot} style={{ background: '#6b8bb0' }} /> вторичка</div>
-      <div className={s.legendRow} style={{ marginTop: 4, borderTop: '1px solid var(--border-soft)', paddingTop: 8 }}><span className={s.legendDot} style={{ background: '#111827' }} /> ориентиры (ТРЦ, вокзалы)</div>
+      <div className={s.legendRow} style={{ marginTop: 4, borderTop: '1px solid var(--border-soft)', paddingTop: 8 }}><span className={s.legendDot} style={{ background: '#fff', boxShadow: 'inset 0 0 0 2px #6b7591' }} /> ориентиры (ТРЦ, вокзалы)</div>
     </>
   );
 }
@@ -150,7 +162,7 @@ const AptRow = memo(function AptRow({ a, active, onPick, zhk }: { a: Apt; active
           <span className={s.strip}>
             {strip.map((u) => (
               // все lazy: 30 карточек × 31 КБ разом — лишний мегабайт на списке
-              <img key={u} src={u} alt="" loading="lazy" decoding="async" draggable={false}
+              <img key={u} src={u} alt="" loading="lazy" decoding="async" fetchPriority="low" draggable={false}
                 onError={(e) => { const t = e.currentTarget; if (!t.dataset.fb) { t.dataset.fb = '1'; t.src = u.replace('-750x470.', '-400x300.'); } }} />
             ))}
           </span>
@@ -201,7 +213,7 @@ const ZhkCard = memo(function ZhkCard({
       <span className={s.media}>
         {z.photos.length ? (
           <span className={s.strip}>
-            {z.photos.map((u) => <img key={u} src={u} alt="" loading="lazy" decoding="async" draggable={false} />)}
+            {z.photos.map((u) => <img key={u} src={u} alt="" loading="lazy" decoding="async" fetchPriority="low" draggable={false} />)}
           </span>
         ) : <span className={s.stripEmpty} aria-hidden>◫</span>}
         {z.photoCount > 1 && <span className={s.stripCount}>{z.photoCount} фото</span>}
@@ -282,7 +294,13 @@ function MapDetailCard({ detail, onClose }: { detail: MapDetail; onClose: () => 
 
 export type ComplexLinkLite = { zhk: number; how: 'page' | 'centroid' };
 
-export default function HomeClient({ zhks, complexMap = {} }: { zhks: HomeZhk[]; complexMap?: Record<number, ComplexLinkLite> }) {
+/** Родительный падеж для заголовка вкладки: «Новостройки Астаны». Берём из слуга korter. */
+const cityGen = (korter: string | null, name: string) => {
+  const g = korter?.replace(/^новостройки-/, '') || name;
+  return g.charAt(0).toUpperCase() + g.slice(1);
+};
+
+export default function HomeClient({ zhks, complexMap = {}, intro }: { zhks: HomeZhk[]; complexMap?: Record<number, ComplexLinkLite>; intro?: IntroData }) {
   // ЖК по id — для карточек квартир в новостройках
   const zhkById = useMemo(() => new Map(zhks.map((z) => [z.id, z])), [zhks]);
   const zhkForApt = useCallback((a: Apt): { zhk: HomeZhk; how: 'page' | 'centroid' } | null => {
@@ -297,6 +315,34 @@ export default function HomeClient({ zhks, complexMap = {} }: { zhks: HomeZhk[];
   // запоминаем выбор между заходами
   useEffect(() => { try { const v = localStorage.getItem('city'); if (v) setCitySlug(v); } catch {} }, []);
   useEffect(() => { try { localStorage.setItem('city', citySlug); } catch {} }, [citySlug]);
+
+  // ---- первый экран (лендинг) поверх карты ----
+  const [introOpen, setIntroOpen] = useState(!!intro);
+  const [introClosing, setIntroClosing] = useState(false);
+  // скрипт в <head> уже спрятал лендинг тем, кто карту открывал, — убираем его и из дерева
+  useEffect(() => { if (document.documentElement.classList.contains('skip-intro')) setIntroOpen(false); }, []);
+  const openMap = useCallback((c?: string) => {
+    try { localStorage.setItem('tirek:map', '1'); } catch {}
+    if (c) { setCitySlug(c); setSelected(null); setDistrict(null); }
+    setIntroClosing(true);
+    history.replaceState(null, '', '/#map');
+    window.setTimeout(() => {
+      document.documentElement.classList.add('skip-intro');
+      setIntroOpen(false); setIntroClosing(false);
+    }, 430);
+  }, []);
+  const showIntro = useCallback((e?: React.MouseEvent) => {
+    if (!intro) return;
+    e?.preventDefault();
+    document.documentElement.classList.remove('skip-intro');
+    history.replaceState(null, '', '/');
+    setIntroOpen(true);
+  }, [intro]);
+  // заголовок вкладки — по городу: «Новостройки Астаны на карте»
+  useEffect(() => {
+    if (introOpen) { document.title = 'Tirek — новостройки Казахстана с индексом защиты покупателя'; return; }
+    document.title = `Новостройки ${cityGen(city.korter, city.name)} на карте · Tirek`;
+  }, [introOpen, city]);
   const [band, setBand] = useState<Set<string>>(new Set());
   const [cls, setCls] = useState<Set<string>>(new Set());
   const [status, setStatus] = useState<Set<string>>(new Set());
@@ -312,6 +358,8 @@ export default function HomeClient({ zhks, complexMap = {} }: { zhks: HomeZhk[];
   const priceBucket = PRICES.find((p) => p.key === priceRange) || null;
   const [finishing, setFinishing] = useState<Set<string>>(new Set());
   const [favOnly, setFavOnly] = useState(false);
+  /** «Ещё фильтры»: второстепенные группы свёрнуты, пока их не попросят. */
+  const [moreOpen, setMoreOpen] = useState(false);
   const fav = useFavorites();
   // избранное показываем только вошедшим: без входа подборку некуда сохранять
   // между устройствами, а кнопка создавала бы ложное ожидание
@@ -382,6 +430,14 @@ export default function HomeClient({ zhks, complexMap = {} }: { zhks: HomeZhk[];
   // оговорку про точность привязки показываем каждый раз, когда слой включают
   const toggleFaults = () => { const next = !showFaults; setShowFaults(next); setFaultsNote(next); };
   const [mapDetail, setMapDetail] = useState<MapDetail | null>(null);
+  const router = useRouter();
+  /** Клик по ЖК на карте: сначала короткий перелёт к точке, потом страница ЖК — без перезагрузки. */
+  const openZhk = useCallback((id: number, slug: string) => {
+    setSelected(id);
+    router.prefetch(`/zhk${slug}`);
+    window.setTimeout(() => router.push(`/zhk${slug}`), 520);
+  }, [router]);
+  const toggleBand = useCallback((b: string) => setBand((prev) => { const n = new Set(prev); if (n.has(b)) n.delete(b); else n.add(b); return n; }), []);
   const cardRefs = useRef<Map<number, HTMLElement>>(new Map());
 
   // Колбэки для карточек должны быть стабильными, иначе memo не сработает
@@ -399,6 +455,8 @@ export default function HomeClient({ zhks, complexMap = {} }: { zhks: HomeZhk[];
       ? band.size + cls.size + status.size + extra.size + finishing.size
       : aptMarket.size + aptRooms.size + (showSold ? 1 : 0)) +
     (district ? 1 : 0) + (priceRange ? 1 : 0);
+
+  const moreCount = mode === 'complexes' ? extra.size + cls.size + finishing.size + status.size : aptMarket.size;
 
   const resetFilters = useCallback(() => {
     setBand(new Set()); setCls(new Set()); setStatus(new Set()); setExtra(new Set()); setFinishing(new Set());
@@ -540,31 +598,13 @@ export default function HomeClient({ zhks, complexMap = {} }: { zhks: HomeZhk[];
   );
 
   return (
-    <div className={s.shell}>
+    <>
+    {intro && introOpen && <Landing intro={intro} onOpen={openMap} closing={introClosing} />}
+    <div className={s.shell} inert={introOpen && !introClosing ? true : undefined}>
       <header className={s.header}>
         <div className={s.brand}>
-          <svg className={s.logoMark} viewBox="0 0 64 64" role="img" aria-label="ЖК-Радар">
-            {/* Алматы: снежные пики Алатау и новостройки перед ними.
-            Глубину даёт не обводка, а тон: хребет полупрозрачный, дома сплошные.
-            Обводка цветом фона прорезала гору грубым синим каналом и оставляла
-            обрезки в углах — здесь ни одного штриха, все фигуры стоят на одной линии. */}
-            <rect width="64" height="64" rx="15" fill="#2f6bed" />
-            {/* хребет */}
-            <path d="M6 52 L20 30 L28 38 L40 16 L54 38 L58 52 Z" fill="#ffffff" opacity=".45" />
-            {/* снег на вершинах */}
-            <path d="M40 16 L45.7 25 L35.1 25 Z" fill="#ffffff" />
-            <path d="M20 30 L25 35 L16.8 35 Z" fill="#ffffff" />
-            {/* дома: сплошной белый поверх приглушённой горы */}
-            <g fill="#ffffff">
-            <rect x="26" y="27" width="14" height="25" rx="1.5" />
-            <rect x="42" y="35" width="12" height="17" rx="1.5" />
-            </g>
-          </svg>
-          <div>
-            <div className={s.logo}>ЖК<span className={s.radar}>·Радар</span></div>
-            {/* на узком экране длинная версия обрезалась на полуслове */}
-            <div className={s.tagline}><span className={s.taglineFull}>Krisha показывает, что продаётся. Мы — стоит ли покупать.</span><span className={s.taglineShort}>Стоит ли это покупать</span></div>
-          </div>
+          <Logo size={34} onClick={intro ? showIntro : undefined} />
+          <div className={s.tagline}>Сначала проверь — потом покупай</div>
         </div>
         {/* Системный select рисуется оболочкой ОС и в интерфейс не вписывался
             совсем — на телефоне это серая простыня во весь экран. */}
@@ -631,70 +671,84 @@ export default function HomeClient({ zhks, complexMap = {} }: { zhks: HomeZhk[];
             </div>
             <div className={s.filterScroll}>
 
+            {/* Наверху — три главных вопроса: насколько защищено, сколько стоит, где.
+                Остальное — под «Ещё фильтры»: девять групп таблеток разом пугали. */}
+            {mode === 'complexes' ? (
+              <div className={s.filterGroup}>
+                <span className={s.fLabel}>Защита покупателя</span>
+                {BANDS.map((b) => {
+                  const on = band.has(b);
+                  return (
+                    <button key={b} type="button" className={`${s.pill} ${s.bandPill} ${on ? s.bandPillOn : ''}`} aria-pressed={on} onClick={() => toggle(band, b, setBand)}
+                      style={on ? { color: BAND_TEXT[b], borderColor: BAND_COLOR[b], background: `${BAND_COLOR[b]}1c` } : undefined}>
+                      <span className={s.pillDot} style={{ background: BAND_COLOR[b] }} />{BAND_LABEL[b]}
+                    </button>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className={s.filterGroup}>
+                <span className={s.fLabel}>Комнат</span>
+                {[1, 2, 3, 4].map((r) => (<button key={r} type="button" aria-pressed={aptRooms.has(r)} className={`${s.pill} ${aptRooms.has(r) ? s.pillActive : ''}`} onClick={() => toggleN(aptRooms, r, setAptRooms)}>{r}{r === 4 ? '+' : ''}</button>))}
+                <button type="button" aria-pressed={showSold} className={`${s.pill} ${showSold ? s.pillSold : ''}`} onClick={() => setShowSold(!showSold)}><span className={s.pillDot} style={{ background: 'var(--red)' }} />недавно продано</button>
+              </div>
+            )}
+
             <div className={s.filterGroup}>
               <span className={s.fLabel}>Цена {mode === 'apartments' ? 'квартиры' : 'от'}</span>
-              {PRICES.map((p) => (<button key={p.key} className={`${s.pill} ${priceRange === p.key ? s.pillActive : ''}`} onClick={() => setPriceRange(priceRange === p.key ? null : p.key)}>{p.label}</button>))}
+              {PRICES.map((p) => (<button key={p.key} type="button" aria-pressed={priceRange === p.key} className={`${s.pill} ${priceRange === p.key ? s.pillActive : ''}`} onClick={() => setPriceRange(priceRange === p.key ? null : p.key)}>{p.label}</button>))}
             </div>
 
-            {city.hasDistricts && <div className={s.filterGroup}>
-              <span className={s.fLabel}>Район</span>
-              {DISTRICTS.map((d) => (
-                <button key={d.name} className={`${s.pill} ${district === d.name ? s.pillActive : ''}`} onClick={() => setDistrict(district === d.name ? null : d.name)}
-                  style={district === d.name ? { background: d.color, borderColor: d.color, color: '#fff' } : { borderColor: d.color + '66' }}>
-                  {d.name}
-                </button>
-              ))}
-            </div>}
+            <div className={s.filterRow}>
+              {city.hasDistricts && (
+                <label className={`${s.selectWrap} ${district ? s.selectOn : ''}`}>
+                  <Icon name="pin" size={14} />
+                  <select value={district ?? ''} onChange={(e) => setDistrict(e.target.value || null)} aria-label="Район">
+                    <option value="">Все районы</option>
+                    {DISTRICTS.map((d) => <option key={d.name} value={d.name}>{d.name}</option>)}
+                  </select>
+                </label>
+              )}
+              <button type="button" className={`${s.moreBtn} ${moreOpen ? s.moreBtnOpen : ''}`} onClick={() => setMoreOpen((v) => !v)} aria-expanded={moreOpen}>
+                Ещё фильтры{moreCount > 0 && <span className={s.filterCount}>{moreCount}</span>}
+                <svg width="11" height="7" viewBox="0 0 11 7" fill="none" aria-hidden><path d="M1 1l4.5 4.5L10 1" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </button>
+            </div>
 
+            <div className={`${s.more} ${moreOpen ? s.moreOpen : ''}`}>
+              <div className={s.moreInner}>
             {mode === 'complexes' ? (
               <>
                 <div className={s.filterGroup}>
                   <span className={s.fLabel}>Выгода и готовность</span>
-                  <button className={`${s.pill} ${extra.has('deal') ? s.pillActive : ''}`} onClick={() => toggle(extra, 'deal', setExtra)}><Icon name="flame" size={14} /> выгодные</button>
-                  <button className={`${s.pill} ${extra.has('newbuilt') ? s.pillActive : ''}`} onClick={() => toggle(extra, 'newbuilt', setExtra)}>сдан и в продаже</button>
-                  <button className={`${s.pill} ${extra.has('real') ? s.pillActive : ''}`} onClick={() => toggle(extra, 'real', setExtra)}><Icon name="camera" size={14} /> реальные фото</button>
-                </div>
-                <div className={s.filterGroup}>
-                  <span className={s.fLabel}>Защита покупателя</span>
-                  {BANDS.map((b) => (
-                    <button key={b} className={`${s.pill} ${band.has(b) ? s.pillActive : ''}`} onClick={() => toggle(band, b, setBand)}
-                      style={band.has(b) ? undefined : { borderColor: BAND_COLOR[b] + '66' }}>
-                      {BAND_LABEL[b]}
-                    </button>
-                  ))}
+                  <button type="button" className={`${s.pill} ${extra.has('deal') ? s.pillActive : ''}`} onClick={() => toggle(extra, 'deal', setExtra)}><Icon name="flame" size={14} /> выгодные</button>
+                  <button type="button" className={`${s.pill} ${extra.has('newbuilt') ? s.pillActive : ''}`} onClick={() => toggle(extra, 'newbuilt', setExtra)}>сдан и в продаже</button>
+                  <button type="button" className={`${s.pill} ${extra.has('real') ? s.pillActive : ''}`} onClick={() => toggle(extra, 'real', setExtra)}><Icon name="camera" size={14} /> реальные фото</button>
                 </div>
                 <div className={s.filterGroup}>
                   <span className={s.fLabel}>Класс</span>
-                  {CLASSES.map((c) => (<button key={c} className={`${s.pill} ${cls.has(c) ? s.pillActive : ''}`} onClick={() => toggle(cls, c, setCls)}>{c}</button>))}
+                  {CLASSES.map((c) => (<button key={c} type="button" className={`${s.pill} ${cls.has(c) ? s.pillActive : ''}`} onClick={() => toggle(cls, c, setCls)}>{c}</button>))}
                 </div>
                 <div className={s.filterGroup}>
                   <span className={s.fLabel}>Отделка</span>
-                  {FINISHINGS.map((f) => (<button key={f.key} className={`${s.pill} ${finishing.has(f.key) ? s.pillActive : ''}`} onClick={() => toggle(finishing, f.key, setFinishing)}>{f.label}</button>))}
+                  {FINISHINGS.map((f) => (<button key={f.key} type="button" className={`${s.pill} ${finishing.has(f.key) ? s.pillActive : ''}`} onClick={() => toggle(finishing, f.key, setFinishing)}>{f.label}</button>))}
                 </div>
                 <div className={s.filterGroup}>
                   <span className={s.fLabel}>Статус · паркинг · сейсмо</span>
-                  {STATUSES.map((st) => (<button key={st.key} className={`${s.pill} ${status.has(st.key) ? s.pillActive : ''}`} onClick={() => toggle(status, st.key, setStatus)}>{st.label}</button>))}
-                  <button className={`${s.pill} ${extra.has('parking') ? s.pillActive : ''}`} onClick={() => toggle(extra, 'parking', setExtra)}>подземный паркинг</button>
-                  <button className={`${s.pill} ${extra.has('seismic') ? s.pillActive : ''}`} onClick={() => toggle(extra, 'seismic', setExtra)}>сейсмобалл</button>
+                  {STATUSES.map((st) => (<button key={st.key} type="button" className={`${s.pill} ${status.has(st.key) ? s.pillActive : ''}`} onClick={() => toggle(status, st.key, setStatus)}>{st.label}</button>))}
+                  <button type="button" className={`${s.pill} ${extra.has('parking') ? s.pillActive : ''}`} onClick={() => toggle(extra, 'parking', setExtra)}>подземный паркинг</button>
+                  <button type="button" className={`${s.pill} ${extra.has('seismic') ? s.pillActive : ''}`} onClick={() => toggle(extra, 'seismic', setExtra)}>сейсмобалл</button>
                 </div>
               </>
             ) : (
-              <>
-                <div className={s.filterGroup}>
-                  <span className={s.fLabel}>Рынок</span>
-                  <button className={`${s.pill} ${aptMarket.has('primary') ? s.pillActive : ''}`} onClick={() => toggle(aptMarket, 'primary', setAptMarket)} style={aptMarket.has('primary') ? undefined : { borderColor: '#16a34a66' }}>первичка (новостройки)</button>
-                  <button className={`${s.pill} ${aptMarket.has('secondary') ? s.pillActive : ''}`} onClick={() => toggle(aptMarket, 'secondary', setAptMarket)} style={aptMarket.has('secondary') ? undefined : { borderColor: '#6b8bb066' }}>вторичка</button>
-                </div>
-                <div className={s.filterGroup}>
-                  <span className={s.fLabel}>Комнат</span>
-                  {[1, 2, 3, 4].map((r) => (<button key={r} className={`${s.pill} ${aptRooms.has(r) ? s.pillActive : ''}`} onClick={() => toggleN(aptRooms, r, setAptRooms)}>{r}{r === 4 ? '+' : ''}</button>))}
-                </div>
-                <div className={s.filterGroup}>
-                  <span className={s.fLabel}>Статус продажи</span>
-                  <button className={`${s.pill} ${showSold ? s.pillActive : ''}`} onClick={() => setShowSold(!showSold)} style={showSold ? undefined : { borderColor: '#e0293f66' }}>недавно продано</button>
-                </div>
-              </>
+              <div className={s.filterGroup}>
+                <span className={s.fLabel}>Рынок</span>
+                <button type="button" className={`${s.pill} ${aptMarket.has('primary') ? s.pillActive : ''}`} onClick={() => toggle(aptMarket, 'primary', setAptMarket)}>первичка (новостройки)</button>
+                <button type="button" className={`${s.pill} ${aptMarket.has('secondary') ? s.pillActive : ''}`} onClick={() => toggle(aptMarket, 'secondary', setAptMarket)}>вторичка</button>
+              </div>
             )}
+              </div>
+            </div>
             </div>
             <div className={s.filterFoot}>
               <button type="button" className={s.filterReset} onClick={resetFilters} disabled={!activeCount}>Сбросить</button>
@@ -767,7 +821,7 @@ export default function HomeClient({ zhks, complexMap = {} }: { zhks: HomeZhk[];
                 </select>
               </div>
               <div className={s.list} ref={sheet.scrollRef as React.RefObject<HTMLDivElement>} {...sheet.contentProps}>
-                <div className={s.listLegend}><Legend mode="complexes" /></div>
+                <div className={s.listLegend}><Legend mode="complexes" band={band} onBand={toggleBand} /></div>
                 {filtered.map((z) => (
                   <ZhkCard
                     key={z.id}
@@ -829,11 +883,24 @@ export default function HomeClient({ zhks, complexMap = {} }: { zhks: HomeZhk[];
                   Показать ещё {Math.min(30, aptList.length - aptShown)} · осталось {(aptList.length - aptShown).toLocaleString('ru-RU')}
                 </button>
               )}
-              {aptList.length === 0 && !aptMetaError && (
+              {aptList.length === 0 && !aptMetaError && aptsLoading && (
+                // скелетоны в форме карточек: список не «прыгает», когда объявления приходят
+                <div className={s.aptRows} aria-busy="true" aria-label="Загружаем объявления">
+                  {[0, 1, 2].map((i) => (
+                    <div key={i} className={s.aptSkel}>
+                      <div className="skel" style={{ aspectRatio: '16 / 10', borderRadius: 0 }} />
+                      <div className={s.aptSkelBody}>
+                        <div className="skel" style={{ height: 18, width: '44%' }} />
+                        <div className="skel" style={{ height: 12, width: '70%' }} />
+                        <div className="skel" style={{ height: 12, width: '52%' }} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {aptList.length === 0 && !aptMetaError && !aptsLoading && (
                 <div className={s.aptEmpty}>
-                  {aptsLoading
-                    ? <><span className={s.aptSpinner} aria-hidden /> Загружаем объявления по городу — файл большой, это пара секунд.</>
-                    : q.trim()
+                  {q.trim()
                       ? <>По адресу «{q.trim()}» в этой области ничего нет. Подвиньте карту или очистите поиск.</>
                       : <>В видимой части карты квартир нет. Подвиньте или отдалите карту — список соберётся сам.</>}
                 </div>
@@ -858,9 +925,9 @@ export default function HomeClient({ zhks, complexMap = {} }: { zhks: HomeZhk[];
               <details className={s.aptHow}>
                 <summary>Как читать карту</summary>
                 <ul className={s.aptSteps}>
-                  <li><span className={s.stepDot} style={{ background: '#5f95e3' }} /> Кружок с числом — сколько квартир рядом. Нажмите, чтобы приблизить.</li>
+                  <li><span className={s.stepDot} style={{ background: '#4d5cb8' }} /> Кружок с числом — сколько квартир рядом. Нажмите, чтобы приблизить.</li>
                   <li><span className={s.stepDot} style={{ background: '#16a34a' }} /> Зелёные — новостройки, серо-синие — вторичка. Нажмите на метку: цена, комнаты, площадь.</li>
-                  <li><span className={s.stepDot} style={{ background: '#111827' }} /> Чёрные метки — ориентиры (ТРЦ, парки, вокзалы) с фото и рейтингом.</li>
+                  <li><span className={s.stepDot} style={{ background: '#fff', boxShadow: 'inset 0 0 0 2px #6b7591' }} /> Полые кружки — ориентиры (ТРЦ, парки, вокзалы) с фото и рейтингом.</li>
                 </ul>
               </details>
               <div className={s.aptSrc}>Объявления — krisha.kz. Список собирается по видимой части карты. Риск-скор считается только для ЖК-комплексов.</div>
@@ -870,7 +937,7 @@ export default function HomeClient({ zhks, complexMap = {} }: { zhks: HomeZhk[];
         </aside>
 
         <div className={s.mapWrap}>
-          <div className={s.legend}><Legend mode={mode} /></div>
+          <div className={s.legend}><Legend mode={mode} band={band} onBand={toggleBand} /></div>
           {city.hasCityFaults && <button
             type="button"
             className={`${s.faultsBtn} ${showFaults ? s.faultsBtnOn : ''}`}
@@ -900,9 +967,10 @@ export default function HomeClient({ zhks, complexMap = {} }: { zhks: HomeZhk[];
               <p className={s.faultsSrc}>Источники: Frontiers 2024 (CC BY), отчёт JICA/OYO 2009.</p>
             </div>
           )}
-          <MapView points={points} selectedId={selected} onSelect={setSelected} activeDistrict={district} mode={mode} aptMarket={aptMarket} aptRooms={aptRooms} showSold={showSold} aptPrice={priceBucket ? { min: priceBucket.min, max: priceBucket.max } : null} favSet={favSet} onToggleFav={fav.toggle} touchMode={isTouch} onDetail={handleMapDetail} showFaults={showFaults} onAptsLoading={onAptsLoading} citySlug={citySlug} cityCenter={city.center} cityZoom={city.zoom} onAptsInView={onAptsInView} focusApt={focusApt} mapPadBottom={sheet.cover} />
+          <MapView points={points} selectedId={selected} onSelect={setSelected} onOpenZhk={openZhk} activeDistrict={district} mode={mode} aptMarket={aptMarket} aptRooms={aptRooms} showSold={showSold} aptPrice={priceBucket ? { min: priceBucket.min, max: priceBucket.max } : null} favSet={favSet} onToggleFav={fav.toggle} touchMode={isTouch} onDetail={handleMapDetail} showFaults={showFaults} onAptsLoading={onAptsLoading} citySlug={citySlug} cityCenter={city.center} cityZoom={city.zoom} onAptsInView={onAptsInView} focusApt={focusApt} mapPadBottom={sheet.cover} />
         </div>
       </div>
     </div>
+    </>
   );
 }

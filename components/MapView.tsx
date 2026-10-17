@@ -35,14 +35,47 @@ export interface Apt {
 }
 
 const STYLE = 'https://tiles.openfreemap.org/styles/positron';
+const BRAND = '#1f2e7a';
+/** Радиус точки ЖК по зуму; k — доля от полного размера (для анимации появления). */
+const DOT: [number, number] = [5, 11];
+const GLOW: [number, number] = [8, 20];
+const pinRadius = ([a, b]: [number, number], k: number) => ['interpolate', ['linear'], ['zoom'], 10, a * k, 15, b * k] as any;
+const districtFill = (active: string | null | undefined) => ['case', ['==', ['get', 'name'], active ?? '__none__'], 0.07, 0] as any;
+const districtLine = (active: string | null | undefined) => ['case', ['==', ['get', 'name'], active ?? '__none__'], 2, 1] as any;
+
+/**
+ * Точки «выпрыгивают» с лёгким перелётом размера — при загрузке и при смене
+ * фильтра. Радиус анимируем через setPaintProperty, без библиотек и только
+ * пока идёт анимация (~0.5 с). При «уменьшить движение» сразу ставим итог.
+ */
+const popFrames = new WeakMap<maplibregl.Map, number>();
+function popPins(m: maplibregl.Map) {
+  const set = (k: number) => {
+    if (m.getLayer('zhk-dot')) m.setPaintProperty('zhk-dot', 'circle-radius', pinRadius(DOT, k));
+    if (m.getLayer('zhk-glow')) m.setPaintProperty('zhk-glow', 'circle-radius', pinRadius(GLOW, k));
+  };
+  cancelAnimationFrame(popFrames.get(m) ?? 0);
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { set(1); return; }
+  const t0 = performance.now(), D = 520;
+  // easeOutBack: чуть больше итога и обратно — «пружинка»
+  const ease = (t: number) => 1 + 2.2 * Math.pow(t - 1, 3) + 1.2 * Math.pow(t - 1, 2);
+  const step = (t: number) => {
+    const p = Math.min(1, (t - t0) / D);
+    set(Math.max(0.01, ease(p)));
+    if (p < 1) popFrames.set(m, requestAnimationFrame(step));
+  };
+  popFrames.set(m, requestAnimationFrame(step));
+}
 const ALMATY: [number, number] = [76.905, 43.238];
 
 export default function MapView({
-  points, selectedId, onSelect, activeDistrict,
+  points, selectedId, onSelect, onOpenZhk, activeDistrict,
   mode = 'complexes', aptMarket, aptRooms, showSold, aptPrice, favSet, onToggleFav, touchMode = false, onDetail, showFaults = false, citySlug = 'almaty', cityCenter, cityZoom,
   onAptsInView, onAptsLoading, focusApt, mapPadBottom = 0,
 }: {
   points: MapPoint[]; selectedId: number | null; onSelect: (id: number) => void; activeDistrict?: string | null;
+  /** Открыть страницу ЖК (клик по точке на десктопе): родитель сначала подлетает, потом переходит. */
+  onOpenZhk?: (id: number, slug: string) => void;
   mode?: 'complexes' | 'apartments'; aptMarket?: Set<string>; aptRooms?: Set<number>; showSold?: boolean; aptPrice?: { min: number; max: number } | null;
   favSet?: Set<number>; onToggleFav?: (id: number) => void;
   /** На тач-устройствах тап по метке не «телепортирует», а открывает карточку в шторке. */
@@ -69,6 +102,8 @@ export default function MapView({
   const ready = useRef(false);
   const onSelectRef = useRef(onSelect);
   onSelectRef.current = onSelect;
+  const onOpenZhkRef = useRef(onOpenZhk);
+  onOpenZhkRef.current = onOpenZhk;
   const favSetRef = useRef<Set<number> | undefined>(favSet);
   favSetRef.current = favSet;
   const onToggleFavRef = useRef<((id: number) => void) | undefined>(onToggleFav);
@@ -199,18 +234,22 @@ export default function MapView({
           distIndex.current.set(name, { bbox: [w, s2, e2, n2], rings });
         }
         m.addSource('districts', { type: 'geojson', data: districts });
-        m.addLayer({ id: 'district-fill', type: 'fill', source: 'districts', paint: { 'fill-color': ['get', 'color'], 'fill-opacity': ['case', ['==', ['get', 'name'], activeDistrict ?? '__none__'], 0.28, 0.1] } } as any);
-        m.addLayer({ id: 'district-line', type: 'line', source: 'districts', paint: { 'line-color': ['get', 'color'], 'line-width': 2, 'line-opacity': 0.7 } });
-        m.addLayer({ id: 'district-label', type: 'symbol', source: 'districts', layout: { 'text-field': ['get', 'name'], 'text-size': 15, 'text-font': ['Noto Sans Regular'], 'text-allow-overlap': true, 'text-ignore-placement': true }, paint: { 'text-color': ['get', 'color'], 'text-halo-color': '#ffffff', 'text-halo-width': 2, 'text-opacity': 0.95 } });
+        // Районы — тонкой линией без заливки: цветные пастельные поля спорили с
+        // точками ЖК, а главное на карте — уровень защиты. Заливка остаётся
+        // только у выбранного района, лёгким тоном бренда.
+        m.addLayer({ id: 'district-fill', type: 'fill', source: 'districts', paint: { 'fill-color': BRAND, 'fill-opacity': districtFill(activeDistrict) } } as any);
+        m.addLayer({ id: 'district-line', type: 'line', source: 'districts', paint: { 'line-color': BRAND, 'line-width': districtLine(activeDistrict), 'line-opacity': 0.32, 'line-dasharray': [3, 2] } } as any);
+        m.addLayer({ id: 'district-label', type: 'symbol', source: 'districts', maxzoom: 13, layout: { 'text-field': ['upcase', ['get', 'name']], 'text-size': 11, 'text-letter-spacing': 0.12, 'text-font': ['Noto Sans Regular'], 'text-allow-overlap': true, 'text-ignore-placement': true }, paint: { 'text-color': '#7c86a8', 'text-halo-color': 'rgba(255,255,255,0.9)', 'text-halo-width': 1.6 } } as any);
       } catch {}
 
       // ---- LANDMARKS (ориентиры: ТРЦ, вокзалы, площади) ----
       try {
         const lm = await (await fetch('/landmarks.geojson')).json();
         m.addSource('landmarks', { type: 'geojson', data: lm });
-        const lmColor = ['match', ['get', 'kind'], 'mall', '#111827', 'park', '#15803d', 'water', '#0891b2', 'transport', '#b45309', '#374151'] as any;
-        m.addLayer({ id: 'landmark-dot', type: 'circle', source: 'landmarks', paint: { 'circle-radius': ['match', ['get', 'kind'], 'mall', 6, 'park', 5.5, 5], 'circle-color': lmColor, 'circle-stroke-width': 2.5, 'circle-stroke-color': '#ffffff' } });
-        m.addLayer({ id: 'landmark-label', type: 'symbol', source: 'landmarks', minzoom: 10.5, layout: { 'text-field': ['get', 'name'], 'text-size': 11.5, 'text-font': ['Noto Sans Regular'], 'text-offset': [0, 1.05], 'text-anchor': 'top', 'text-optional': true }, paint: { 'text-color': lmColor, 'text-halo-color': '#ffffff', 'text-halo-width': 2 } });
+        // ориентиры — фон, а не акцент: полые кружки (не спутать с серыми «мало данных»), подписи ближе
+        const lmColor = '#6b7591';
+        m.addLayer({ id: 'landmark-dot', type: 'circle', source: 'landmarks', paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 10, 2.2, 15, 4], 'circle-color': '#ffffff', 'circle-stroke-width': 1.6, 'circle-stroke-color': lmColor } });
+        m.addLayer({ id: 'landmark-label', type: 'symbol', source: 'landmarks', minzoom: 12.5, layout: { 'text-field': ['get', 'name'], 'text-size': 11.5, 'text-font': ['Noto Sans Regular'], 'text-offset': [0, 1.05], 'text-anchor': 'top', 'text-optional': true }, paint: { 'text-color': lmColor, 'text-halo-color': '#ffffff', 'text-halo-width': 2, 'text-opacity': 0.9 } });
       } catch {}
 
       // ---- ТЕКТОНИЧЕСКИЕ РАЗЛОМЫ (включаются тумблером) ----
@@ -253,9 +292,30 @@ export default function MapView({
       try { if (!m.hasImage('price-pill')) m.addImage('price-pill', makePricePill(), { pixelRatio: 2, stretchX: [[16, 112]], stretchY: [[12, 32]], content: [14, 8, 114, 36] }); } catch {}
 
       // ---- COMPLEXES (ЖК) ----
-      m.addSource('zhk', { type: 'geojson', data: toGeoJSON(points) as any, cluster: true, clusterMaxZoom: 16, clusterRadius: 44 });
+      // в кластере считаем уровни защиты: кольцо показывает, какой преобладает
+      m.addSource('zhk', {
+        type: 'geojson', data: toGeoJSON(points) as any, cluster: true, clusterMaxZoom: 10, clusterRadius: 34,
+        clusterProperties: {
+          g: ['+', ['case', ['==', ['get', 'band'], 'green'], 1, 0]],
+          a: ['+', ['case', ['==', ['get', 'band'], 'amber'], 1, 0]],
+          r: ['+', ['case', ['==', ['get', 'band'], 'red'], 1, 0]],
+        },
+      } as any);
       const notCluster = ['!', ['has', 'point_count']] as any;
-      m.addLayer({ id: 'clusters', type: 'circle', source: 'zhk', filter: ['has', 'point_count'], maxzoom: 12.5, paint: { 'circle-color': ['step', ['get', 'point_count'], '#4a9eff', 30, '#3a86e0', 120, '#2b6cb0'], 'circle-opacity': 0.92, 'circle-radius': ['step', ['get', 'point_count'], 15, 15, 20, 50, 26, 150, 34], 'circle-stroke-width': 4, 'circle-stroke-color': 'rgba(74,158,255,0.25)' } });
+      // Кластеры — в лазурите бренда, кольцо — цвет преобладающего уровня защиты
+      // (если ни один не набрал больше трети — серое): видно, где «зелёные» места.
+      m.addLayer({ id: 'clusters', type: 'circle', source: 'zhk', filter: ['has', 'point_count'], maxzoom: 12.5, paint: {
+        'circle-color': ['step', ['get', 'point_count'], '#2f3f9e', 30, '#26358c', 120, BRAND],
+        'circle-opacity': 0.94,
+        'circle-radius': ['step', ['get', 'point_count'], 14, 15, 18, 50, 23, 150, 29],
+        'circle-stroke-width': 3,
+        'circle-stroke-color': ['case',
+          ['all', ['>=', ['get', 'g'], ['get', 'a']], ['>=', ['get', 'g'], ['get', 'r']], ['>', ['*', 3, ['get', 'g']], ['get', 'point_count']]], BAND_COLOR.green,
+          ['all', ['>=', ['get', 'a'], ['get', 'r']], ['>', ['*', 3, ['get', 'a']], ['get', 'point_count']]], BAND_COLOR.amber,
+          ['>', ['*', 3, ['get', 'r']], ['get', 'point_count']], BAND_COLOR.red,
+          '#c3c9d6'],
+        'circle-stroke-opacity': 0.95,
+      } } as any);
       // На ближних зумах кластер — это просто «рядом несколько ЖК», поэтому
       // рисуем его компактно, в одном стиле с ценниками, а не крупным кругом.
       m.addLayer({
@@ -268,9 +328,10 @@ export default function MapView({
         },
         paint: { 'text-color': '#14181f' },
       });
-      m.addLayer({ id: 'cluster-count', type: 'symbol', source: 'zhk', filter: ['has', 'point_count'], maxzoom: 12.5, layout: { 'text-field': ['get', 'point_count_abbreviated'], 'text-size': 13, 'text-font': ['Noto Sans Regular'] }, paint: { 'text-color': '#ffffff' } });
-      m.addLayer({ id: 'zhk-glow', type: 'circle', source: 'zhk', filter: notCluster, paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 10, 9, 15, 20], 'circle-color': ['get', 'color'], 'circle-opacity': 0.22, 'circle-blur': 0.6 } });
-      m.addLayer({ id: 'zhk-dot', type: 'circle', source: 'zhk', filter: notCluster, paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 10, 6, 15, 10], 'circle-color': ['get', 'color'], 'circle-stroke-width': ['case', ['get', 'deal'], 3, 1.6], 'circle-stroke-color': ['case', ['get', 'deal'], '#16a34a', '#ffffff'] } });
+      m.addLayer({ id: 'cluster-count', type: 'symbol', source: 'zhk', filter: ['has', 'point_count'], maxzoom: 12.5, layout: { 'text-field': ['get', 'point_count_abbreviated'], 'text-size': 12.5, 'text-font': ['Noto Sans Bold'] }, paint: { 'text-color': '#ffffff' } });
+      // Точки ЖК — главный акцент карты: цвет уровня защиты, белая обводка, мягкий ореол.
+      m.addLayer({ id: 'zhk-glow', type: 'circle', source: 'zhk', filter: notCluster, paint: { 'circle-radius': pinRadius(GLOW, 0), 'circle-color': ['get', 'color'], 'circle-opacity': 0.2, 'circle-blur': 0.7 } });
+      m.addLayer({ id: 'zhk-dot', type: 'circle', source: 'zhk', filter: notCluster, paint: { 'circle-radius': pinRadius(DOT, 0), 'circle-color': ['get', 'color'], 'circle-stroke-width': 2, 'circle-stroke-color': '#ffffff' } });
       // Ценники ЖК: при приближении вместо «точка + наведение» видно сами цены.
       // Коллизия выключена — все ценники видны сразу (как у квартир).
       m.addLayer({
@@ -284,7 +345,7 @@ export default function MapView({
         },
         paint: { 'text-color': ['get', 'textColor'] },
       });
-      m.addLayer({ id: 'zhk-selected', type: 'circle', source: 'zhk', filter: ['==', ['get', 'id'], -1], paint: { 'circle-radius': 12, 'circle-color': ['get', 'color'], 'circle-stroke-width': 3.5, 'circle-stroke-color': '#2f6bed' } });
+      m.addLayer({ id: 'zhk-selected', type: 'circle', source: 'zhk', filter: ['==', ['get', 'id'], -1], paint: { 'circle-radius': 12, 'circle-color': ['get', 'color'], 'circle-stroke-width': 3.5, 'circle-stroke-color': '#2a3ba0' } });
       m.addLayer({ id: 'zhk-fav', type: 'circle', source: 'zhk', filter: ['in', ['get', 'id'], ['literal', []]] as any, paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 10, 9, 15, 14], 'circle-color': 'rgba(224,41,63,0)', 'circle-stroke-width': 2.6, 'circle-stroke-color': '#e0293f', 'circle-stroke-opacity': 0.92 } });
 
       // ---- APARTMENTS (квартиры) — кластеры на обзоре, отдельные квартиры при приближении ----
@@ -295,10 +356,10 @@ export default function MapView({
       m.addLayer({
         id: 'apt-cluster', type: 'circle', source: 'apt', filter: ['has', 'point_count'], layout: { visibility: 'none' },
         paint: {
-          'circle-color': ['step', ['get', 'n'], '#8fb8f2', 50, '#5f95e3', 300, '#3d74cc', 1500, '#265aa8'],
+          'circle-color': ['step', ['get', 'n'], '#7f8ccf', 50, '#4d5cb8', 300, '#2f3f9e', 1500, BRAND],
           'circle-opacity': 0.92,
           'circle-radius': ['step', ['get', 'n'], 15, 50, 19, 300, 25, 1500, 33],
-          'circle-stroke-width': 3.5, 'circle-stroke-color': 'rgba(95,149,227,0.22)',
+          'circle-stroke-width': 3.5, 'circle-stroke-color': 'rgba(42,59,160,0.18)',
         },
       });
       m.addLayer({ id: 'apt-cluster-count', type: 'symbol', source: 'apt', filter: ['has', 'point_count'], layout: { visibility: 'none', 'text-field': ['case', ['>=', ['get', 'n'], 1000], ['concat', ['to-string', ['round', ['/', ['get', 'n'], 1000]]], 'k'], ['to-string', ['get', 'n']]] as any, 'text-size': 12.5, 'text-font': ['Noto Sans Regular'] }, paint: { 'text-color': '#ffffff' } });
@@ -334,7 +395,7 @@ export default function MapView({
       m.addSource('sold', { type: 'geojson', data: emptyFC() as any });
       m.addLayer({ id: 'sold-dot', type: 'circle', source: 'sold', layout: { visibility: 'none' }, paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 11, 4, 16, 9], 'circle-color': '#e74c3c', 'circle-opacity': 0.85, 'circle-stroke-width': 1.4, 'circle-stroke-color': '#ffffff' } });
       // обводка квартиры, выбранной в списке
-      m.addLayer({ id: 'apt-focus', type: 'circle', source: 'apt', filter: ['==', ['get', 'key'], '__none__'], layout: { visibility: 'none' }, paint: { 'circle-radius': 13, 'circle-color': 'rgba(47,107,237,0)', 'circle-stroke-width': 3.5, 'circle-stroke-color': '#2f6bed' } });
+      m.addLayer({ id: 'apt-focus', type: 'circle', source: 'apt', filter: ['==', ['get', 'key'], '__none__'], layout: { visibility: 'none' }, paint: { 'circle-radius': 13, 'circle-color': 'rgba(31,46,122,0)', 'circle-stroke-width': 3.5, 'circle-stroke-color': '#2a3ba0' } });
       ready.current = true;
 
       // complex handlers
@@ -351,8 +412,8 @@ export default function MapView({
       m.on('click', 'zhk-dot', (e) => {
         if (touchModeRef.current) return;
         const f = e.features?.[0]; if (!f) return; const p = f.properties as any;
-        onSelectRef.current(Number(p.id));
-        window.location.href = `/zhk${p.slug}`;
+        if (onOpenZhkRef.current) onOpenZhkRef.current(Number(p.id), p.slug);
+        else window.location.href = `/zhk${p.slug}`;
       });
 
       const hoverApt = (e: maplibregl.MapLayerMouseEvent) => { if (touchModeRef.current) return; const f = e.features?.[0]; if (!f) return; const p = f.properties as any; if (('a' + p.id) === hovered) { hover.setLngLat((f.geometry as any).coordinates); return; } hovered = 'a' + p.id; m.getCanvas().style.cursor = 'pointer'; hover.setLngLat((f.geometry as any).coordinates).setHTML(Number(p.n) > 1 ? houseHtml(p) : aptHtml(p)).addTo(m); };
@@ -453,6 +514,7 @@ export default function MapView({
       });
 
       applyModeRef.current();
+      popPins(m);
       // Список квартир пересобираем после движения карты. idle — страховка:
       // первый emit может прийти раньше, чем карта получит размер и данные,
       // и без него список остался бы пустым до первого движения пальцем.
@@ -602,10 +664,11 @@ export default function MapView({
   // applyMode пересоздаётся каждый рендер: в зависимости его не кладём, иначе эффект крутится по кругу
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { applyMode(); }, [mode, aptMarket, aptRooms, showSold, aptPrice, activeDistrict]);
-  useEffect(() => { const m = map.current; if (!m || !ready.current) return; const src = m.getSource('zhk') as maplibregl.GeoJSONSource | undefined; if (src) src.setData(toGeoJSON(points) as any); }, [points]);
+  useEffect(() => { const m = map.current; if (!m || !ready.current) return; const src = m.getSource('zhk') as maplibregl.GeoJSONSource | undefined; if (src) { src.setData(toGeoJSON(points) as any); popPins(m); } }, [points]);
   useEffect(() => {
     const m = map.current; if (!m || !ready.current) return;
-    if (m.getLayer('district-fill')) m.setPaintProperty('district-fill', 'fill-opacity', ['case', ['==', ['get', 'name'], activeDistrict ?? '__none__'], 0.28, 0.1] as any);
+    if (m.getLayer('district-fill')) m.setPaintProperty('district-fill', 'fill-opacity', districtFill(activeDistrict));
+    if (m.getLayer('district-line')) m.setPaintProperty('district-line', 'line-width', districtLine(activeDistrict));
     // Показываем то место, которое выбрали: без этого «Район» лишь подкрашивал
     // полигон, а карта оставалась там, где её оставил пользователь.
     if (!activeDistrict) return;
@@ -794,7 +857,7 @@ function aptHtml(p: any) {
     <div style="font-size:18px;font-weight:770;color:#14181f;letter-spacing:-.01em">${price}</div>
     <div style="font-size:12.5px;color:#5b6472;margin:3px 0 4px">${line}</div>
     <div style="font-size:12px;color:#6b7480">${escapeHtml(p.addr || '')}</div>
-    <div style="font-size:11.5px;margin-top:7px">${mk} <span style="color:#b3bbc6">·</span> <span style="color:#2f6bed;font-weight:600">нажмите — откроем карточку</span></div>
+    <div style="font-size:11.5px;margin-top:7px">${mk} <span style="color:#b3bbc6">·</span> <span style="color:#2a3ba0;font-weight:600">нажмите — откроем карточку</span></div>
   </div></div>`;
 }
 function heartSvg(filled: boolean) {
@@ -824,13 +887,20 @@ function cardHtml(p: any, isFav = false) {
   const favBtn = `<button class="map-fav-btn" data-fav-zhk="${p.id}" data-fav="${isFav ? 1 : 0}" title="Сохранить в избранное" style="position:absolute;top:9px;right:9px;z-index:3;width:32px;height:32px;border:none;border-radius:50%;background:rgba(255,255,255,.94);box-shadow:0 1px 5px rgba(20,24,31,.2);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0">${heartSvg(isFav)}</button>`;
   return `<div style="width:262px;font-family:inherit;position:relative">${favBtn}${img}<div style="padding:11px 13px 12px">
     ${flag ? '<div style="display:inline-block;font-size:11px;font-weight:700;color:#fff;background:#16a34a;padding:2px 9px;border-radius:6px;margin-bottom:7px">Выгодно</div>' : ''}
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px"><div style="font-weight:680;font-size:14.5px;color:#14181f;line-height:1.25">${escapeHtml(p.name)}</div><div style="text-align:center;flex-shrink:0"><div style="font-size:21px;font-weight:800;line-height:1;color:${bandColor}">${scoreTxt}</div><div style="font-size:9px;text-transform:uppercase;letter-spacing:.04em;color:#6b7480;margin-top:1px">${p.score === '' ? '' : 'защита'}</div></div></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px"><div style="font-weight:680;font-size:14.5px;color:#14181f;line-height:1.25">${escapeHtml(p.name)}</div>${scoreRing(p, bandColor, scoreTxt)}</div>
     <div style="color:#5b6472;font-size:12px;margin:3px 0 3px">${escapeHtml(p.developer || '')}</div>
     <div style="color:${bandColor};font-size:12px;font-weight:650;margin-bottom:9px">${bandLabel}</div>
     ${priceMin || priceSqm ? `<div style="display:flex;gap:9px;align-items:baseline;margin-bottom:9px">${priceMin ? `<span style="font-size:16px;font-weight:770;color:#14181f;letter-spacing:-.01em">${priceMin}</span>` : ''}${priceSqm ? `<span style="font-size:12px;color:#6b7480">${priceSqm}</span>` : ''}</div>` : ''}
     <div style="display:flex;flex-wrap:wrap;gap:5px">${chips}</div>
-    <div style="margin-top:9px;font-size:11px;color:#2f6bed;font-weight:600">Подробно →</div>
+    <div style="margin-top:10px;font-size:12px;color:#2a3ba0;font-weight:650">Открыть карточку →</div>
   </div></div>`;
+}
+/** Кольцо индекса во всплывающей карточке — тот же рисунок, что на странице ЖК. */
+function scoreRing(p: any, textColor: string, txt: string) {
+  if (p.score === '' || p.score == null) return `<div style="flex-shrink:0;font-size:11px;color:#6b7480;text-align:right;line-height:1.3">мало<br>данных</div>`;
+  const r = 18, C = 2 * Math.PI * r, arc = C * 0.75, v = Math.max(0, Math.min(100, Number(p.score))) / 100;
+  const ring = (len: number, stroke: string) => `<circle cx="24" cy="24" r="${r}" fill="none" stroke="${stroke}" stroke-width="5" stroke-linecap="round" stroke-dasharray="${len} ${C}" transform="rotate(135 24 24)"/>`;
+  return `<svg width="48" height="48" viewBox="0 0 48 48" style="flex-shrink:0;display:block;margin:-4px -4px 0 0" role="img" aria-label="Индекс защиты ${txt} из 100">${ring(arc, '#e9ecf2')}${ring(arc * v, p.color)}<text x="24" y="28.5" text-anchor="middle" font-size="14" font-weight="800" fill="${textColor}" font-family="inherit">${txt}</text></svg>`;
 }
 function escapeHtml(s: string) { return String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c] as string)); }
 function escapeAttr(s: string) { return String(s).replace(/'/g, '%27').replace(/"/g, '%22'); }

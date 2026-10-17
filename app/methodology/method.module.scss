@@ -3,7 +3,7 @@
 .back { color: var(--text-dim); font-size: 14px; font-weight: 550; }
 .back:hover { color: var(--text); }
 
-.h1 { font-size: 34px; font-weight: 800; letter-spacing: -0.025em; margin: 36px 0 10px; line-height: 1.1; }
+.h1 { font-family: var(--font-display); font-size: 34px; font-weight: 600; letter-spacing: -0.03em; margin: 40px 0 14px; line-height: 1.12; color: var(--brand-deep); }
 .lead { font-size: 17px; color: var(--text-dim); line-height: 1.6; margin-bottom: 8px; }
 
 .h2 { font-size: 20px; font-weight: 700; margin: 40px 0 14px; }
@@ -25,7 +25,7 @@
 .principleText { font-size: 15px; color: var(--text); line-height: 1.6; }
 .principleText b { font-weight: 650; }
 
-.callout { padding: 16px 18px; border-radius: var(--radius); background: rgba(74, 158, 255, 0.07); border: 1px solid var(--accent-dim); font-size: 14.5px; line-height: 1.65; color: var(--text); margin: 18px 0; }
+.callout { padding: 16px 18px; border-radius: var(--radius); background: var(--accent-soft); border: 1px solid rgba(42, 59, 160, .16); font-size: 14.5px; line-height: 1.65; color: var(--text); margin: 18px 0; }
 .code { font-family: ui-monospace, monospace; background: var(--panel-2); padding: 2px 6px; border-radius: 5px; font-size: 13px; }
 
 /* таблица шире экрана: body{overflow-x:hidden} её обрезал, и колонка

@@ -1,0 +1,25 @@
+.foot { background: var(--brand-deep); color: #c9cfe6; font-size: 14px; line-height: 1.55; }
+.inner {
+  max-width: 1160px; margin: 0 auto; padding: 48px 24px 28px;
+  display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 40px;
+}
+.about { display: flex; flex-direction: column; gap: 12px; }
+.slogan { margin: 4px 0 0; color: #fff; font-weight: 600; font-size: 15px; }
+.disc { margin: 0; max-width: 420px; color: #9aa3c7; font-size: 13px; }
+.disc a { color: #fff; text-decoration: underline; text-underline-offset: 2px; }
+.col { display: flex; flex-direction: column; gap: 9px; align-items: flex-start; }
+.col a, .linkBtn { color: #c9cfe6; transition: color .15s; }
+.col a:hover, .linkBtn:hover { color: #fff; }
+.h { color: #fff; font-weight: 650; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
+.linkBtn { padding: 0; border: none; background: none; font: inherit; cursor: pointer; text-align: left; }
+.muted { color: #8089ad; font-size: 12.5px; max-width: 240px; }
+.bottom {
+  max-width: 1160px; margin: 0 auto; padding: 16px 24px calc(22px + var(--sab));
+  display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  border-top: 1px solid rgba(255, 255, 255, .08); color: #8089ad; font-size: 12.5px;
+}
+@media (max-width: 760px) {
+  .inner { grid-template-columns: 1fr 1fr; gap: 28px 20px; padding: 36px 16px 22px; }
+  .about { grid-column: 1 / -1; }
+  .bottom { padding-left: 16px; padding-right: 16px; }
+}

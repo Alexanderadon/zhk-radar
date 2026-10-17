@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getAllZhk, getDeveloper } from '../../../lib/data';
-import { BAND_COLOR, BAND_LABEL } from '../../../lib/score';
+import { BAND_TEXT, BAND_LABEL } from '../../../lib/score';
+import PageBar from '../../../components/PageBar';
+import SiteFooter from '../../../components/SiteFooter';
 import s from './dev.module.scss';
 
 export const dynamic = 'force-static';
@@ -28,18 +30,17 @@ export default async function DeveloperPage({ params }: { params: Promise<{ slug
   const sorted = [...zhks].sort((a, b) => (b.scoreResult.score ?? -1) - (a.scoreResult.score ?? -1));
 
   return (
+    <>
+    <PageBar />
     <div className={s.page}>
-      <div className={s.topbar}>
-        <Link href="/" className={s.back}>← карта</Link>
-      </div>
 
       <div className={s.head}>
         <h1 className={s.name}>{stats.name}</h1>
-        <div className={s.sub}>Застройщик · {stats.total} {plural(stats.total, 'жилой комплекс', 'жилых комплекса', 'жилых комплексов')} в Алматы</div>
+        <div className={s.sub}>Застройщик · {stats.total} {plural(stats.total, 'жилой комплекс', 'жилых комплекса', 'жилых комплексов')} в каталоге</div>
       </div>
 
       <div className={s.statgrid}>
-        <div className={s.stat}><div className={s.statNum} style={{ color: avg != null ? BAND_COLOR[band(avg)] : 'var(--grey)' }}>{avg ?? '—'}</div><div className={s.statLabel}>средний индекс защиты</div></div>
+        <div className={s.stat}><div className={s.statNum} style={{ color: avg != null ? BAND_TEXT[band(avg)] : 'var(--text-faint)' }}>{avg ?? '—'}</div><div className={s.statLabel}>средний индекс защиты</div></div>
         <div className={s.stat}><div className={s.statNum} style={{ color: 'var(--green)' }}>{stats.ready}</div><div className={s.statLabel}>сдано</div></div>
         <div className={s.stat}><div className={s.statNum} style={{ color: 'var(--amber)' }}>{stats.construction}</div><div className={s.statLabel}>строится</div></div>
         <div className={s.stat}><div className={s.statNum}>{stats.project}</div><div className={s.statLabel}>на этапе проекта</div></div>
@@ -59,15 +60,17 @@ export default async function DeveloperPage({ params }: { params: Promise<{ slug
               </div>
             </div>
             <span className={`chip band-${z.scoreResult.band}`}>{BAND_LABEL[z.scoreResult.band]}</span>
-            <div className={s.rowScore} style={{ color: BAND_COLOR[z.scoreResult.band] }}>{z.scoreResult.score ?? '—'}</div>
+            <div className={s.rowScore} style={{ color: BAND_TEXT[z.scoreResult.band] }}>{z.scoreResult.score ?? '—'}</div>
           </Link>
         ))}
       </div>
 
       <div className={s.note}>
-        Совокупные показатели застройщика рассчитаны по его портфелю в каталоге новостроек Алматы (korter.kz). «Доля сданных» — сильный, но не исчерпывающий сигнал: молодой застройщик с одним строящимся ЖК не обязательно хуже — у него просто короткий трек. Балл каждого ЖК считается по <Link href="/methodology" style={{ color: 'var(--accent-dim)' }}>публичной методике</Link>.
+        Совокупные показатели застройщика рассчитаны по его портфелю в каталоге новостроек (korter.kz). «Доля сданных» — сильный, но не исчерпывающий сигнал: молодой застройщик с одним строящимся ЖК не обязательно хуже — у него просто короткий трек. Балл каждого ЖК считается по <Link href="/methodology" style={{ color: 'var(--accent)' }}>публичной методике</Link>.
       </div>
     </div>
+    <SiteFooter />
+    </>
   );
 }
 

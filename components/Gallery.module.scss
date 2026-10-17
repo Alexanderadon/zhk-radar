@@ -1,15 +1,15 @@
 .wrap { display: flex; flex-direction: column; gap: 10px; }
 
 .mainWrap { position: relative; cursor: zoom-in; border-radius: var(--radius); overflow: hidden; }
-.main { width: 100%; height: 420px; object-fit: cover; display: block; background: var(--panel); transition: transform .3s; }
+.main { width: 100%; height: 360px; object-fit: cover; display: block; background: var(--panel); transition: transform .3s; }
 .mainWrap:hover .main { transform: scale(1.02); }
-.main.empty { display: flex; align-items: center; justify-content: center; color: var(--text-faint); font-size: 70px; height: 420px; }
+.main.empty { display: flex; align-items: center; justify-content: center; color: var(--text-faint); font-size: 70px; height: 360px; }
 .empty { border-radius: var(--radius); }
 
 .counter { position: absolute; right: 12px; bottom: 12px; background: rgba(11,15,23,.72); backdrop-filter: blur(6px); color: #fff; font-size: 12.5px; padding: 4px 11px; border-radius: 100px; pointer-events: none; }
 .badge { display: inline-flex; align-items: center; gap: 5px; position: absolute; left: 12px; top: 12px; background: rgba(11,15,23,.72); backdrop-filter: blur(6px); color: #f0c260; font-size: 12px; font-weight: 600; padding: 5px 11px; border-radius: 100px; pointer-events: none; max-width: calc(100% - 24px); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
-.badgeReal { color: #2ecc71; border-color: rgba(46,204,113,.3); }
-.thumbDot { position: absolute; right: 5px; top: 5px; width: 8px; height: 8px; border-radius: 50%; background: #2ecc71; border: 1.5px solid #0b0f17; }
+.badgeReal { color: #4ade80; border-color: rgba(46,204,113,.3); }
+.thumbDot { position: absolute; right: 5px; top: 5px; width: 8px; height: 8px; border-radius: 50%; background: #22a45d; border: 1.5px solid #0b0f17; }
 .thumb { position: relative; }
 .zoomHint {
   display: inline-flex; align-items: center; gap: 5px; position: absolute; left: 12px; bottom: 12px;
@@ -40,7 +40,7 @@
   padding-bottom: 4px; scrollbar-width: thin;
 }
 .thumbs::-webkit-scrollbar { height: 6px; }
-.thumb { flex: 0 0 auto; width: 96px; height: 72px; padding: 0; border: 2px solid transparent; border-radius: 8px; overflow: hidden; cursor: pointer; background: var(--panel); }
+.thumb { flex: 0 0 auto; width: 84px; height: 60px; padding: 0; border: 2px solid transparent; border-radius: 8px; overflow: hidden; cursor: pointer; background: var(--panel); }
 .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: .6; transition: opacity .15s; }
 .thumb:hover img { opacity: 1; }
 .thumbActive { border-color: var(--accent); }

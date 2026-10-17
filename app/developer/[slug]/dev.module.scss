@@ -4,12 +4,12 @@
 .back:hover { color: var(--text); }
 
 .head { margin: 32px 0 26px; }
-.name { font-size: 32px; font-weight: 780; letter-spacing: -0.02em; }
+.name { font-family: var(--font-display); font-size: 32px; font-weight: 600; letter-spacing: -0.03em; color: var(--brand-deep); line-height: 1.15; }
 .sub { margin-top: 8px; color: var(--text-dim); font-size: 15px; }
 
 .statgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; margin: 24px 0 40px; }
-.stat { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; }
-.statNum { font-size: 30px; font-weight: 780; line-height: 1; }
+.stat { background: var(--panel); border: 1px solid var(--border-soft); border-radius: 16px; padding: 18px; box-shadow: var(--shadow-sm); }
+.statNum { font-family: var(--font-display); font-size: 28px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
 .statLabel { margin-top: 8px; font-size: 13px; color: var(--text-dim); }
 
 .sectionTitle { font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-faint); margin-bottom: 14px; }

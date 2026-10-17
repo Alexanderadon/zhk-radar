@@ -146,7 +146,9 @@ export function getAllZhk(): Zhk[] {
     const constructionStatusRu = (z.constructionStatus && STATUS_RU[z.constructionStatus]) || z.constructionStatusRu;
     const priceInd = scoreResult.indicators.find((i) => i.key === 'price');
     const deal = !!(priceInd && priceInd.score != null && priceInd.score >= 68 && scoreResult.band !== 'red');
-    return { ...z, constructionStatusRu, parkingType: parkingType(z.parking), developerStats, guarantee: g, scoreResult, deal };
+    // медиана класса — та же, с которой сравнивает индикатор цены; нужна странице ЖК для графика
+    const priceMedian = Math.round((z.classRu && ctx.classMedian[z.classRu]) || ctx.overallMedian) || null;
+    return { ...z, constructionStatusRu, parkingType: parkingType(z.parking), developerStats, guarantee: g, scoreResult, deal, priceMedian };
   });
   return _cache;
 }

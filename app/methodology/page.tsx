@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { INDICATOR_WEIGHTS } from '../../lib/score';
 import { getStats } from '../../lib/data';
+import PageBar from '../../components/PageBar';
+import SiteFooter from '../../components/SiteFooter';
 import s from './method.module.scss';
 
 export const dynamic = 'force-static';
@@ -12,15 +14,21 @@ const ROWS = [
   { key: 'price', label: 'Цена vs рынок', src: 'Медиана каталога по классу (korter)', type: 'витрина', desc: 'Цена/м² против медианы своего класса. Дешевле медианы — балл выше: меньше переплата. Позже перейдём на медиану stat.gov, это первоисточник.' },
 ];
 
+export const metadata = {
+  title: 'Как считается индекс защиты покупателя',
+  description: 'Методика Tirek: четыре показателя по открытым данным — госгарантия КФГЖС, надёжность застройщика, сейсмостойкость, цена против рынка. Веса, источники, цветовые зоны.',
+};
+
 export default function Methodology() {
   const stats = getStats();
   return (
+    <>
+    <PageBar methodology={false} />
     <div className={s.page}>
-      <div className={s.topbar}><Link href="/" className={s.back}>← карта</Link></div>
 
       <h1 className={s.h1}>Как считается «Индекс защиты покупателя»</h1>
       <p className={s.lead}>
-        ЖК-Радар никого не называет мошенником. Он берёт открытые данные, которые вы можете перепроверить сами, и считает по одной и той же формуле балл от 0 до 100: <b>выше — безопаснее купить</b>. Рядом с баллом всегда лежит разбор — какой фактор сколько дал и откуда взята цифра.
+        Tirek никого не называет мошенником. Он берёт открытые данные, которые вы можете перепроверить сами, и считает по одной и той же формуле балл от 0 до 100: <b>выше — безопаснее купить</b>. Рядом с баллом всегда лежит разбор — какой фактор сколько дал и откуда взята цифра.
       </p>
       <div className={s.callout} style={{ marginTop: 18 }}>
         <b>Что это за число.</b> «Индекс защиты покупателя» отвечает на один вопрос: <b>насколько безопасно здесь покупать</b>. Защищены ли деньги госгарантией КФГЖС. Что за застройщик. Что с самим домом. 100 — максимум защиты, 0 — максимум риска. У каждого фактора стоит метка: <span style={{ color: 'var(--green)' }}>первоисточник</span> (госреестр) или <span style={{ color: 'var(--amber)' }}>витрина</span> (данные агрегатора-каталога).
@@ -37,7 +45,7 @@ export default function Methodology() {
               <td className={s.w}>{INDICATOR_WEIGHTS[r.key as keyof typeof INDICATOR_WEIGHTS]}</td>
               <td><b>{r.label}</b><br /><span style={{ color: 'var(--text-dim)', fontSize: 13 }}>{r.desc}</span></td>
               <td style={{ color: 'var(--text-dim)', fontSize: 13 }}>
-                <span style={{ display: 'inline-block', fontSize: 11, fontWeight: 600, padding: '1px 7px', borderRadius: 5, marginBottom: 5, color: r.type === 'первоисточник' ? 'var(--green)' : 'var(--amber)', background: r.type === 'первоисточник' ? 'rgba(46,204,113,0.1)' : 'rgba(241,196,15,0.1)' }}>{r.type}</span>
+                <span style={{ display: 'inline-block', fontSize: 11, fontWeight: 600, padding: '1px 7px', borderRadius: 5, marginBottom: 5, color: r.type === 'первоисточник' ? 'var(--green)' : '#8a5a00', background: r.type === 'первоисточник' ? 'var(--green-soft)' : 'var(--amber-soft)' }}>{r.type}</span>
                 <br />{r.src}
               </td>
             </tr>
@@ -53,9 +61,9 @@ export default function Methodology() {
       <h2 className={s.h2}>Цветовые зоны</h2>
       <div className={s.bands}>
         <div className={s.bandCard}><div className={s.bandName} style={{ color: 'var(--green)' }}>Высокая защита</div><div className={s.bandRange}>70–100 баллов</div></div>
-        <div className={s.bandCard}><div className={s.bandName} style={{ color: 'var(--amber)' }}>Средняя защита</div><div className={s.bandRange}>40–69 баллов</div></div>
+        <div className={s.bandCard}><div className={s.bandName} style={{ color: '#b45309' }}>Средняя защита</div><div className={s.bandRange}>40–69 баллов</div></div>
         <div className={s.bandCard}><div className={s.bandName} style={{ color: 'var(--red)' }}>Низкая защита</div><div className={s.bandRange}>0–39 баллов</div></div>
-        <div className={s.bandCard}><div className={s.bandName} style={{ color: 'var(--grey)' }}>Мало данных</div><div className={s.bandRange}>полнота &lt; 15%</div></div>
+        <div className={s.bandCard}><div className={s.bandName} style={{ color: '#5b6472' }}>Мало данных</div><div className={s.bandRange}>полнота &lt; 15%</div></div>
       </div>
 
       <h2 className={s.h2}>Принципы</h2>
@@ -66,19 +74,21 @@ export default function Methodology() {
 
       <h2 className={s.h2}>Охват данных сейчас</h2>
       <p className={s.p}>
-        В каталоге <b>{stats.total} ЖК</b> Алматы от <b>{stats.developers} застройщиков</b>. Сейсмостойкость раскрыта у {stats.withSeismic}. Распределение по риску:
-        {' '}<span style={{ color: 'var(--green)' }}>{stats.bands.green} низкий</span>,
-        {' '}<span style={{ color: 'var(--amber)' }}>{stats.bands.amber} средний</span>,
-        {' '}<span style={{ color: 'var(--red)' }}>{stats.bands.red} высокий</span>,
-        {' '}<span style={{ color: 'var(--grey)' }}>{stats.bands.grey} мало данных</span>.
+        В каталоге <b>{stats.total.toLocaleString('ru-RU')} ЖК</b> пяти городов — Алматы, Астаны, Шымкента, Талдыкоргана и Капчагая — от <b>{stats.developers} застройщиков</b>. Сейсмостойкость раскрыта у {stats.withSeismic}. Распределение по уровню защиты:
+        {' '}<span style={{ color: 'var(--green)' }}>{stats.bands.green} высокая</span>,
+        {' '}<span style={{ color: 'var(--amber)' }}>{stats.bands.amber} средняя</span>,
+        {' '}<span style={{ color: 'var(--red)' }}>{stats.bands.red} низкая</span>,
+        {' '}<span style={{ color: '#5b6472' }}>{stats.bands.grey} мало данных</span>.
       </p>
       <p className={`${s.p} ${s.dim}`}>
         Часть факторов — суды, возраст компании, отзывы — подключается по мере готовности коллекторов. Отсюда и пометка «мало данных» у многих ЖК. Пусть лучше будет видно, где у нас дырка, чем нарисованная точность.
       </p>
 
       <p className={`${s.p} ${s.dim}`} style={{ marginTop: 30, fontSize: 13 }}>
-        ЖК-Радар — независимый агрегатор открытых данных. Не является инвестиционной рекомендацией. Экосистема: воздух Алматы и зарплаты по КЗ — отдельные проекты, интеграция в разработке.
+        Tirek — независимый агрегатор открытых данных. Не является инвестиционной рекомендацией.
       </p>
     </div>
+    <SiteFooter />
+    </>
   );
 }

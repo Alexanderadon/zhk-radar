@@ -12,6 +12,15 @@ import { useState } from 'react';
 const BOX = ['YWxleGFuZGVya3VyYWNoYWtvdg==', 'Z21haWwuY29t'];
 const mail = () => `${atob(BOX[0])}@${atob(BOX[1])}`;
 
+/** «Написать нам» для подвала: тот же адрес, собирается только по нажатию. */
+export function ContactButton({ className }: { className?: string }) {
+  return (
+    <button type="button" className={className} onClick={() => { window.location.href = `mailto:${mail()}?subject=${encodeURIComponent('Tirek: вопрос')}`; }}>
+      Написать нам
+    </button>
+  );
+}
+
 export default function DisputeButton({ zhkName, slug }: { zhkName: string; slug: string }) {
   const [copied, setCopied] = useState(false);
 

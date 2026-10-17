@@ -114,6 +114,8 @@ export interface Zhk extends ZhkRaw {
   developerStats: DeveloperStats | null;
   guarantee: GuaranteeMatch | null;
   scoreResult: ScoreResult;
+  /** Медиана цены м² по классу ЖК — база сравнения «цена против рынка». */
+  priceMedian?: number | null;
   /** good-value flag: cheaper than its class median AND not high-risk. */
   deal: boolean;
 }

@@ -1,0 +1,5 @@
+.logo { display: inline-flex; align-items: center; gap: 10px; color: var(--brand); text-decoration: none; flex-shrink: 0; }
+.mark { display: block; flex-shrink: 0; border-radius: 26%; box-shadow: 0 3px 10px rgba(31, 46, 122, .22); }
+.word { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.01em; line-height: 1; padding-bottom: .06em; }
+.onDark { color: #fff; }
+.onDark .mark { box-shadow: none; }

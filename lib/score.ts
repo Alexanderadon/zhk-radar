@@ -96,7 +96,7 @@ export function scoreZhk(zhk: ZhkRaw, stats: DeveloperStats | null, guarantee: G
 
 /** Заливки: точки на карте, полосы индикаторов. Насыщенные — по ним не читают текст. */
 export const BAND_COLOR: Record<Band, string> = {
-  green: '#2ecc71', amber: '#f1c40f', red: '#e74c3c', grey: '#8a94a6',
+  green: '#22a45d', amber: '#f2b230', red: '#e5484d', grey: '#9aa3b2',
 };
 
 /**
