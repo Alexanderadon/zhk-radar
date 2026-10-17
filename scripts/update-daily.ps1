@@ -96,7 +96,9 @@ if ($LASTEXITCODE -ne 0) { Say 'сборка упала — деплой отм�
 
 # vercel@latest (59.16+) отвечает Not authorized на сохранённой сессии,
 # работающей в 59.11.7 — версия закреплена намеренно.
-& npx --yes vercel@59.11.7 deploy --prod --yes *>> $log
+# именно npx.cmd: обёртка npx.ps1 в Windows PowerShell 5.1 теряет имя команды
+# («npm exec px …» → «could not determine executable to run») — так упал деплой 17.10.
+& npx.cmd --yes vercel@59.11.7 deploy --prod --yes *>> $log
 if ($LASTEXITCODE -ne 0) { Say 'деплой упал'; exit 1 }
 
 Say 'готово: данные на проде'
