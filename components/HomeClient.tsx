@@ -319,11 +319,18 @@ export default function HomeClient({ zhks, complexMap = {}, intro }: { zhks: Hom
   // ---- первый экран (лендинг) поверх карты ----
   const [introOpen, setIntroOpen] = useState(!!intro);
   const [introClosing, setIntroClosing] = useState(false);
-  // скрипт в <head> уже спрятал лендинг тем, кто карту открывал, — убираем его и из дерева
-  useEffect(() => { if (document.documentElement.classList.contains('skip-intro')) setIntroOpen(false); }, []);
-  const openMap = useCallback((c?: string) => {
+  // скрипт в <head> уже спрятал лендинг тем, кто карту открывал, — убираем его и из дерева.
+  // «/?q=…» — поиск с лендинга без JS: сразу карта с заполненным поиском.
+  useEffect(() => {
+    const qq = new URLSearchParams(location.search).get('q');
+    if (qq) { setQ(qq); setSearchOpen(true); const hit = zhks.find((z) => z.name.toLowerCase().includes(qq.toLowerCase())); if (hit) setCitySlug(hit.citySlug); }
+    if (document.documentElement.classList.contains('skip-intro')) setIntroOpen(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const openMap = useCallback((c?: string, query?: string) => {
     try { localStorage.setItem('tirek:map', '1'); } catch {}
     if (c) { setCitySlug(c); setSelected(null); setDistrict(null); }
+    if (query) { setQ(query); setSearchOpen(true); }
     setIntroClosing(true);
     history.replaceState(null, '', '/#map');
     window.setTimeout(() => {
@@ -599,7 +606,7 @@ export default function HomeClient({ zhks, complexMap = {}, intro }: { zhks: Hom
 
   return (
     <>
-    {intro && introOpen && <Landing intro={intro} onOpen={openMap} closing={introClosing} />}
+    {intro && introOpen && <Landing intro={intro} zhks={zhks} onOpen={openMap} closing={introClosing} />}
     <div className={s.shell} inert={introOpen && !introClosing ? true : undefined}>
       <header className={s.header}>
         <div className={s.brand}>

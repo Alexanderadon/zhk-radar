@@ -23,3 +23,6 @@
   .about { grid-column: 1 / -1; }
   .bottom { padding-left: 16px; padding-right: 16px; }
 }
+
+/* на тёмном фоне акцентная обводка фокуса не видна */
+.foot :focus-visible { outline-color: #fff; }

@@ -5,6 +5,7 @@ import type { IntroData } from '../components/Landing';
 import { getAllZhk } from '../lib/data';
 import { buildComplexMap } from '../lib/complexMap';
 import { CITIES } from '../lib/cities';
+import { buildHeroMap } from '../lib/heroMap';
 
 export const dynamic = 'force-static';
 
@@ -51,8 +52,8 @@ export default function Home() {
 }
 
 /**
- * Цифры и пример карточки для первого экрана. Всё считается из тех же файлов,
- * что и карта, — на лендинге не может оказаться число, которого нет в данных.
+ * Данные первого экрана. Всё считается из тех же файлов, что и карта, — на
+ * лендинге не может оказаться число, которого нет в данных.
  */
 function introData(all: ReturnType<typeof getAllZhk>): IntroData {
   let apartments = 0;
@@ -67,25 +68,22 @@ function introData(all: ReturnType<typeof getAllZhk>): IntroData {
     } catch {}
   }
   const cities = CITIES.map((c) => ({ slug: c.slug, name: c.name, count: all.filter((z) => ((z as any).citySlug ?? 'almaty') === c.slug).length }));
-
-  // Пример — зелёный ЖК Алматы с фото, ценой и всеми четырьмя показателями:
-  // на первом экране должна стоять полная карточка, а не «мало данных».
-  const full = (z: (typeof all)[number]) => z.scoreResult.indicators.filter((i) => i.score != null).length;
-  const pick = all
-    .filter((z) => ((z as any).citySlug ?? 'almaty') === 'almaty' && z.scoreResult.band === 'green' && z.image && z.priceMin && full(z) >= 3)
-    .sort((a, b) => full(b) - full(a) || (b.realPhotos?.length ? 1 : 0) - (a.realPhotos?.length ? 1 : 0) || (b.scoreResult.score ?? 0) - (a.scoreResult.score ?? 0))[0];
+  const { map, example } = buildHeroMap(all);
+  // иллюстрации и скрины лежат в public/landing; блок рисуется, только если файл есть
+  const has = (f: string) => existsSync(path.join(process.cwd(), 'public', 'landing', f));
 
   return {
     zhkTotal: all.length,
-    developers: new Set(all.map((z) => z.developer?.id).filter(Boolean)).size,
     apartments,
     updatedAt,
     cities,
-    showcase: pick ? {
-      slug: pick.slug, name: pick.name, developer: pick.developer?.name ?? null, district: pick.district,
-      image: pick.realPhotos?.[0]?.url ?? pick.image!, priceMin: pick.priceMin, priceSqm: pick.priceSqm,
-      score: pick.scoreResult.score, band: pick.scoreResult.band,
-      indicators: pick.scoreResult.indicators.map((i) => ({ key: i.key, name: i.name, score: i.score, band: i.band, value: i.value })),
-    } : null,
+    heroMap: map,
+    example,
+    assets: {
+      promise: has('promise-1200.webp'),
+      stalled: has('stalled-1200.webp'),
+      shotDesk: has('zhk-desktop.webp'),
+      shotMob: has('zhk-mobile.webp'),
+    },
   };
 }

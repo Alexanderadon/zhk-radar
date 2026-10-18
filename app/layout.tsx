@@ -39,7 +39,7 @@ export const metadata: Metadata = {
  * ссылке «/#map»), видит карту сразу: класс ставится до первой отрисовки,
  * поэтому лендинг не мигает. «?intro» показывает его принудительно — для записи видео.
  */
-const SKIP_INTRO = `try{var d=document.documentElement,l=location;d.classList.add('js');if(l.pathname==='/'&&l.search.indexOf('intro')<0&&(l.hash==='#map'||localStorage.getItem('tirek:map')==='1'))d.classList.add('skip-intro')}catch(e){}`;
+const SKIP_INTRO = `try{var d=document.documentElement,l=location;d.classList.add('js');if(l.pathname==='/'&&l.search.indexOf('intro')<0&&(l.hash==='#map'||l.search.indexOf('q=')>=0||localStorage.getItem('tirek:map')==='1'))d.classList.add('skip-intro')}catch(e){}`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

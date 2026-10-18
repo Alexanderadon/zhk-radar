@@ -11,6 +11,7 @@ export default function SiteFooter({ updatedAt }: { updatedAt?: string | null })
         <div className={s.about}>
           <Logo size={32} onDark href="/" />
           <p className={s.slogan}>Сначала проверь — потом покупай.</p>
+          <p className={s.disc}>Tirek — от казахского «тірек», опора.</p>
           <p className={s.disc}>
             Не инвестиционная рекомендация. Tirek собирает открытые данные и считает индекс по
             {' '}<Link href="/methodology">публичной методике</Link>. Цены, сроки и фото — из каталогов
