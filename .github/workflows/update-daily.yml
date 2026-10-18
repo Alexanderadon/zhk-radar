@@ -53,8 +53,8 @@ jobs:
             sfx=""; [ "$key" != "almaty" ] && sfx="-$key"
             echo "::group::$key"
             # прошлый снимок с прода — база для диффа «продано / новых»
-            curl -sfL "https://zhk-radar.vercel.app/listings$sfx.json"      -o "data/listings$sfx.json"      || echo "$key: снимка нет, первый запуск"
-            curl -sfL "https://zhk-radar.vercel.app/listings-sold$sfx.json" -o "data/listings-sold$sfx.json" || true
+            curl -sfL "https://tirek-kz.vercel.app/listings$sfx.json"      -o "data/listings$sfx.json"      || echo "$key: снимка нет, первый запуск"
+            curl -sfL "https://tirek-kz.vercel.app/listings-sold$sfx.json" -o "data/listings-sold$sfx.json" || true
             node scripts/collect-listings.mjs "$slug" "$n" "$w" "$s" "$e" "$key"
             cp "data/listings$sfx.json"      "public/listings$sfx.json"
             cp "data/listings-meta$sfx.json" "public/listings-meta$sfx.json"

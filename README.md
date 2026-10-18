@@ -12,7 +12,7 @@ The project is an aggregator of open data, not investment advice. Each developme
 
 ## Live
 
-https://zhk-radar.vercel.app
+https://tirek-kz.vercel.app
 
 ## Features
 

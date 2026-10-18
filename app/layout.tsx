@@ -21,7 +21,7 @@ const DESCRIPTION =
   'Индекс защиты покупателя для каждой новостройки: госгарантия для дольщиков, надёжность застройщика, сейсмостойкость и цена против рынка — по открытым данным. Алматы, Астана, Шымкент, Талдыкорган, Капчагай.';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://zhk-radar.vercel.app'),
+  metadataBase: new URL('https://tirek-kz.vercel.app'),
   title: { default: 'Tirek — новостройки Казахстана с индексом защиты покупателя', template: '%s · Tirek' },
   description: DESCRIPTION,
   applicationName: 'Tirek',

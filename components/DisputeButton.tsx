@@ -27,7 +27,7 @@ export default function DisputeButton({ zhkName, slug }: { zhkName: string; slug
   const compose = () => {
     const subject = encodeURIComponent(`Оспорить данные: ${zhkName}`);
     const body = encodeURIComponent(
-      `ЖК: ${zhkName}\nСтраница: https://zhk-radar.vercel.app/zhk${slug}\n\n` +
+      `ЖК: ${zhkName}\nСтраница: https://tirek-kz.vercel.app/zhk${slug}\n\n` +
         `Что не так:\n\n\nЧем подтверждается (ссылка, документ):\n`
     );
     window.location.href = `mailto:${mail()}?subject=${subject}&body=${body}`;
