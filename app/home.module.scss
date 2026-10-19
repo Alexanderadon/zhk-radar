@@ -361,9 +361,10 @@
   .modeToggle { margin-bottom: 0; }
   .modeToggle button { min-height: 40px; padding: 8px 6px; font-size: 13.5px; }
 
+  /* квадрат 44×44, как кнопки карты под ним (globals.scss): одна ширина, один край */
   .filterBtn {
-    display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0;
-    min-height: var(--tap); padding: 0 13px; border-radius: 10px;
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px; flex-shrink: 0;
+    min-height: var(--tap); min-width: var(--tap); padding: 0 10px; border-radius: 10px;
     border: 1px solid var(--border); background: var(--panel); color: var(--text-dim);
     font-size: 13.5px; font-weight: 600; font-family: var(--font); box-shadow: var(--shadow-sm);
   }
@@ -443,7 +444,8 @@
      375px одной строкой: на двух строках шапка съедает высоту peek. */
   .resultBar { padding: 2px 12px 8px; gap: 8px; font-size: 13.5px; font-weight: 600; color: var(--text); }
   .resultBar > span { font-size: 13px; min-width: 0; }
-  .sortSel { min-height: 32px; max-width: 152px; font-size: 13px; padding: 3px 6px; }
+  /* max-width был 152px и резал «сначала защищённые»; места в строке хватает */
+  .sortSel { min-height: 32px; font-size: 13px; padding: 3px 6px; }
   /* оба — контейнеры прокрутки внутри шторки, иначе содержимое не долистать */
   .list, .aptPanel {
     flex: 1; min-height: 0; overflow-y: auto;

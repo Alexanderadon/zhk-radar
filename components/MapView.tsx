@@ -335,7 +335,8 @@ export default function MapView({
       // Ценники ЖК: при приближении вместо «точка + наведение» видно сами цены.
       // Коллизия выключена — все ценники видны сразу (как у квартир).
       m.addLayer({
-        id: 'zhk-price', type: 'symbol', source: 'zhk', filter: notCluster, minzoom: 12.5,
+        // без цены — без ценника: пустая белая «пилюля» закрывала саму точку дома
+        id: 'zhk-price', type: 'symbol', source: 'zhk', filter: ['all', notCluster, ['!=', ['get', 'priceLabel'], '']] as any, minzoom: 12.5,
         layout: {
           'icon-image': 'price-pill', 'icon-text-fit': 'both', 'icon-text-fit-padding': [1, 5, 1, 5],
           'text-field': ['get', 'priceLabel'], 'text-size': 10.5, 'text-font': ['Noto Sans Regular'],

@@ -188,11 +188,14 @@ svg { display: block; }
 
 @media (max-width: 900px) {
   /* кнопки карты 29px — мимо них промахиваешься */
-  .maplibregl-ctrl-group button { width: 40px !important; height: 40px !important; }
+  /* 42 + рамки по 1px = 44, как кнопка фильтров над ними */
+  .maplibregl-ctrl-group button { width: 42px !important; height: 42px !important; }
   /* зум — под панелью поиска справа; копирайт — над свёрнутой шторкой справа,
      слева там легенда (иначе они накладываются друг на друга) */
   /* панель поиска теперь одна строка (~65px), зум встаёт сразу под ней */
-  .maplibregl-ctrl-top-right { top: 73px !important; right: max(6px, env(safe-area-inset-right, 0px)) !important; }
+  /* правый край — как у кнопки фильтров (отступ панели поиска 11px); свой margin-right у контролов убираем */
+  .maplibregl-ctrl-top-right { top: 73px !important; right: max(11px, env(safe-area-inset-right, 0px)) !important; }
+  .maplibregl-ctrl-top-right .maplibregl-ctrl { margin-right: 0 !important; }
   /* копирайт — над свёрнутой шторкой (peek = 148px), иначе он всегда под ней */
   .maplibregl-ctrl-bottom-right { bottom: 156px !important; right: max(6px, env(safe-area-inset-right, 0px)) !important; }
   .maplibregl-popup { max-width: calc(100vw - 28px) !important; }

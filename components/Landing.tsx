@@ -304,11 +304,14 @@ export default function Landing({ intro, zhks, onOpen, closing }: {
             <SearchBox zhks={zhks} onOpen={onOpen} />
             <div className={s.cities}>
               <span className={s.citiesCap}>Карта:</span>
-              {intro.cities.map((c) => (
-                <span key={c.slug} className={s.cityItem}>
-                  <button type="button" onClick={() => onOpen(c.slug)}>{c.name}</button>
-                </span>
-              ))}
+              {/* города — отдельным блоком: при переносе вторая строка встаёт под первым городом, а не под «Карта:» */}
+              <span className={s.cityList}>
+                {intro.cities.map((c) => (
+                  <span key={c.slug} className={s.cityItem}>
+                    <button type="button" onClick={() => onOpen(c.slug)}>{c.name}</button>
+                  </span>
+                ))}
+              </span>
             </div>
           </div>
         </div>

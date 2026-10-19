@@ -79,8 +79,9 @@
 .optEmpty { padding: 10px 10px 8px; font-size: 14px; line-height: 1.5; color: var(--text-dim); }
 .optEmpty button { display: block; margin-top: 6px; padding: 4px 0; border: 0; background: none; font: inherit; font-weight: 600; color: var(--accent); cursor: pointer; }
 
-.cities { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 16px; margin: 18px 0 0; font-size: 15px; color: var(--text-dim); }
-.citiesCap { color: var(--text-dim); }
+.cities { display: flex; align-items: baseline; gap: 0 16px; margin: 18px 0 0; font-size: 15px; color: var(--text-dim); }
+.citiesCap { flex: none; color: var(--text-dim); }
+.cityList { display: flex; flex-wrap: wrap; gap: 0 16px; }
 .cityItem { white-space: nowrap; }
 .cityItem button {
   padding: 6px 0; line-height: 1.35; border: 0; background: none; font: inherit; font-weight: 550; color: var(--text); cursor: pointer;
@@ -294,9 +295,12 @@
   .searchInput { font-size: 16px; padding-left: 46px; }
   .searchIcon { left: 15px; }
   .searchBtn { height: 40px; padding: 0 14px; margin-right: 5px; }
-  .cities { font-size: 15px; gap: 0 14px; }
+  .cities { font-size: 15px; gap: 0 12px; }
+  .cityList { gap: 0 14px; }
 
-  .sec { padding: 64px 0; }
+  /* панель героя + отступ секции давали под городами пустую полосу ~100px */
+  .panel { padding-bottom: 20px; }
+  .sec { padding: 48px 0; }
   .wrap { padding: 0 16px; }
   .h2 { font-size: 26px; line-height: 1.2; }
   .sub { font-size: 16px; }
