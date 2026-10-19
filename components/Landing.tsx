@@ -16,7 +16,6 @@ type Band = 'green' | 'amber' | 'red' | 'grey';
 export interface IntroData {
   zhkTotal: number;
   apartments: number;
-  updatedAt: string | null;
   cities: { slug: string; name: string; count: number }[];
   heroMap: HeroMap | null;
   example: HeroExample | null;
@@ -369,7 +368,7 @@ export default function Landing({ intro, zhks, onOpen, closing }: {
         </div>
       </section>
 
-      <SiteFooter updatedAt={intro.updatedAt} />
+      <SiteFooter />
     </div>
   );
 }

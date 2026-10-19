@@ -57,14 +57,12 @@ export default function Home() {
  */
 function introData(all: ReturnType<typeof getAllZhk>): IntroData {
   let apartments = 0;
-  let updatedAt: string | null = null;
   for (const c of CITIES) {
     const f = path.join(process.cwd(), 'data', c.slug === 'almaty' ? 'listings-meta.json' : `listings-meta-${c.slug}.json`);
     if (!existsSync(f)) continue;
     try {
       const m = JSON.parse(readFileSync(f, 'utf-8'));
       apartments += Number(m.total) || 0;
-      if (m.updatedAt && (!updatedAt || m.updatedAt > updatedAt)) updatedAt = m.updatedAt;
     } catch {}
   }
   const cities = CITIES.map((c) => ({ slug: c.slug, name: c.name, count: all.filter((z) => ((z as any).citySlug ?? 'almaty') === c.slug).length }));
@@ -75,7 +73,6 @@ function introData(all: ReturnType<typeof getAllZhk>): IntroData {
   return {
     zhkTotal: all.length,
     apartments,
-    updatedAt,
     cities,
     heroMap: map,
     example,

@@ -285,7 +285,7 @@ export default async function ZhkPage({ params }: { params: Promise<{ slug: stri
         </aside>
       </div>
     </div>
-    <SiteFooter updatedAt={z.scrapedAt} />
+    <SiteFooter />
     </>
   );
 }

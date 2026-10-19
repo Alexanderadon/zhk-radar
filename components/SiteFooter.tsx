@@ -4,14 +4,13 @@ import { ContactButton } from './DisputeButton';
 import s from './SiteFooter.module.scss';
 
 /** Подвал: дисклеймер, откуда данные, как связаться. Один на лендинге и страницах ЖК. */
-export default function SiteFooter({ updatedAt }: { updatedAt?: string | null }) {
+export default function SiteFooter() {
   return (
     <footer className={s.foot}>
       <div className={s.inner}>
         <div className={s.about}>
           <Logo size={32} onDark href="/" />
           <p className={s.slogan}>Сначала проверь — потом покупай.</p>
-          <p className={s.disc}>Tirek — от казахского «тірек», опора.</p>
           <p className={s.disc}>
             Не инвестиционная рекомендация. Tirek собирает открытые данные и считает индекс по
             {' '}<Link href="/methodology">публичной методике</Link>. Цены, сроки и фото — из каталогов
@@ -36,7 +35,6 @@ export default function SiteFooter({ updatedAt }: { updatedAt?: string | null })
       </div>
       <div className={s.bottom}>
         <span>© 2026 Tirek</span>
-        {updatedAt && <span>Данные на {new Date(updatedAt).toLocaleDateString('ru-RU')}</span>}
       </div>
     </footer>
   );
